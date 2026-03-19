@@ -1,0 +1,1061 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Thu Mar 19 18:47:10 2026
+# Process ID: 42628
+# Current directory: C:/Users/ashlee/Downloads/FDP/FDP.runs/synth_1
+# Command line: vivado.exe -log top_with_astar.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top_with_astar.tcl
+# Log file: C:/Users/ashlee/Downloads/FDP/FDP.runs/synth_1/top_with_astar.vds
+# Journal file: C:/Users/ashlee/Downloads/FDP/FDP.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source top_with_astar.tcl -notrace
+Command: synth_design -top top_with_astar -part xc7a35tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 33664 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 387.445 ; gain = 101.402
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'top_with_astar' [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:624]
+INFO: [Synth 8-6157] synthesizing module 'a_star' [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:3]
+	Parameter CLOCK_SPEED bound to: 100000000 - type: integer 
+	Parameter EMPTY_COST bound to: 1 - type: integer 
+	Parameter BLOCK_COST bound to: 3 - type: integer 
+	Parameter MAX_F bound to: 265 - type: integer 
+	Parameter CHECK_OPEN bound to: 5'b00000 
+	Parameter FIND_BEST_INIT bound to: 5'b00001 
+	Parameter FIND_BEST_SCAN bound to: 5'b00010 
+	Parameter FIND_BEST_DONE bound to: 5'b00011 
+	Parameter POP_OPEN_INIT bound to: 5'b00100 
+	Parameter POP_OPEN_SHIFT bound to: 5'b00101 
+	Parameter POP_OPEN_DONE bound to: 5'b00110 
+	Parameter NB_INIT bound to: 5'b00111 
+	Parameter NB_GEN bound to: 5'b01000 
+	Parameter NB_CHECK_VALID bound to: 5'b01001 
+	Parameter NB_CHECK_GOAL bound to: 5'b01010 
+	Parameter NB_NEXT bound to: 5'b01011 
+	Parameter NB_CHECK_CLOSED_INIT bound to: 5'b01100 
+	Parameter NB_CHECK_CLOSED_SCAN bound to: 5'b01101 
+	Parameter NB_CHECK_OPEN_INIT bound to: 5'b01110 
+	Parameter NB_CHECK_OPEN_SCAN bound to: 5'b01111 
+	Parameter NB_CHECK_OPEN_DONE bound to: 5'b10000 
+	Parameter PATH_INIT bound to: 5'b10001 
+	Parameter PATH_TRACE bound to: 5'b10010 
+	Parameter DONE bound to: 5'b10011 
+	Parameter RESET_2D bound to: 5'b10100 
+	Parameter RESET_1D bound to: 5'b10101 
+	Parameter SET_START bound to: 5'b10110 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:75]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:186]
+WARNING: [Synth 8-6014] Unused sequential element best_index_reg was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:242]
+INFO: [Synth 8-6155] done synthesizing module 'a_star' (1#1) [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:3]
+WARNING: [Synth 8-6090] variable 'path_index' is written by both blocking and non-blocking assignments, entire logic could be removed [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:722]
+WARNING: [Synth 8-6014] Unused sequential element path_cost_loc_reg was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:691]
+WARNING: [Synth 8-6014] Unused sequential element path_flat_y_loc_reg was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:693]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[1] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[2] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[3] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[4] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[5] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[6] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[7] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[8] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[9] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[10] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[11] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[12] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[13] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[14] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[15] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[16] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[17] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[18] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[19] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[20] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[21] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[22] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[23] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[24] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[25] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[26] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[27] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[28] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[29] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[30] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[31] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[32] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[33] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[34] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[35] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[36] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[37] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[38] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[39] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[40] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[41] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[42] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[43] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[44] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[45] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[46] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[47] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[48] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[49] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[50] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[51] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[52] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[53] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[54] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[55] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[56] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[57] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[58] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[59] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[60] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[61] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[62] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[63] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[64] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[65] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[66] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[67] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[68] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[69] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[70] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[71] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[72] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[73] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[74] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[75] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[76] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[77] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[78] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[79] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[80] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_x_reg[81] was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:712]
+WARNING: [Synth 8-6014] Unused sequential element path_y_reg was removed. 
+INFO: [Synth 8-6155] done synthesizing module 'top_with_astar' (2#1) [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/Top_Student.v:624]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 705.711 ; gain = 419.668
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 705.711 ; gain = 419.668
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 705.711 ; gain = 419.668
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/ashlee/Downloads/FDP/FDP.srcs/constrs_1/new/Basys3_Master.xdc]
+Finished Parsing XDC File [C:/Users/ashlee/Downloads/FDP/FDP.srcs/constrs_1/new/Basys3_Master.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/ashlee/Downloads/FDP/FDP.srcs/constrs_1/new/Basys3_Master.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_with_astar_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/top_with_astar_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [C:/Users/ashlee/Downloads/FDP/FDP.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [C:/Users/ashlee/Downloads/FDP/FDP.runs/synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.017 . Memory (MB): peak = 992.590 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 992.848 ; gain = 706.805
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 992.848 ; gain = 706.805
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 992.848 ; gain = 706.805
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:186]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:280]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:380]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:380]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:280]
+INFO: [Synth 8-5546] ROM "tile_map_reg[0][0]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tile_map_reg[0][1]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tile_map_reg[0][2]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tile_map_reg[0][3]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tile_map_reg[0][4]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tile_map_reg[0][5]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tile_map_reg[0][6]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tile_map_reg[0][7]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tile_map_reg[0][8]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5544] ROM "p_0_in" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][1]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][1]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][2]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][2]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][3]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][3]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][4]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][4]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][5]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][5]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][6]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][6]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][7]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][7]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][8]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cost_array_reg[0][8]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5546] ROM "open_x_reg[0]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[0]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[0]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[0]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[1]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[1]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[1]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[1]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[2]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[2]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[2]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[2]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[3]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[3]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[3]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[3]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[4]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[4]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[4]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[4]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[5]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[5]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[5]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[5]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[6]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[6]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[6]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[6]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[7]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[7]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[7]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[7]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[8]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[8]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[8]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[8]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[9]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[9]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[9]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[9]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[10]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[10]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[10]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[10]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[11]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[11]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[11]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[11]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[12]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[12]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[12]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[12]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[13]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[13]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[13]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[13]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[14]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[14]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[14]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[14]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[15]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[15]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[15]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[15]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[16]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[16]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[16]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[16]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[17]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[17]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[17]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[17]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[18]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[18]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[18]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[18]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[19]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[19]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[19]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[19]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[20]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[20]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[20]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[20]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[21]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[21]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[21]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[21]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[22]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[22]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[22]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[22]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[23]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[23]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[23]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[23]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[24]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[24]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[24]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[24]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[25]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[25]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[25]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[25]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[26]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[26]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[26]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[26]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[27]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[27]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[27]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[27]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[28]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[28]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[28]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[28]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[29]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[29]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "open_x_reg[29]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "open_x_reg[29]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "open_x_reg[30]" won't be mapped to RAM because it is too sparse
+INFO: [Common 17-14] Message 'Synth 8-5546' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-5545] ROM "open_x_reg[30]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[31]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[32]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[33]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[34]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[35]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[36]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[37]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[38]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[39]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[40]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[41]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[42]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[43]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[44]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[45]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[46]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[47]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[48]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[49]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[50]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[51]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[52]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[53]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[54]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[55]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[56]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[57]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[58]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[59]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[60]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[61]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[62]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[63]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[64]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[65]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[66]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[67]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[68]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[69]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[70]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[71]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[72]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[73]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[74]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[75]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[76]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[77]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[78]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[79]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[80]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[81]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[82]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[83]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[84]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[85]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[86]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[87]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[88]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[89]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[90]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[91]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[92]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[93]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[94]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[95]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[96]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[97]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[98]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "open_x_reg[99]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Common 17-14] Message 'Synth 8-5545' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-5544] ROM "next_state" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+WARNING: [Synth 8-6014] Unused sequential element init_index_i_reg_rep was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:182]
+WARNING: [Synth 8-6014] Unused sequential element scan_index_reg_rep was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:241]
+WARNING: [Synth 8-6014] Unused sequential element init_index_i_reg_rep was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:182]
+WARNING: [Synth 8-6014] Unused sequential element scan_index_reg_rep was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:241]
+WARNING: [Synth 8-6014] Unused sequential element init_index_i_reg_rep was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:182]
+WARNING: [Synth 8-327] inferring latch for variable 'next_state_reg' [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:73]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:36 ; elapsed = 00:00:40 . Memory (MB): peak = 992.848 ; gain = 706.805
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
+	   2 Input      9 Bit       Adders := 3     
+	   2 Input      8 Bit       Adders := 10    
+	   2 Input      7 Bit       Adders := 1     
+	   5 Input      5 Bit       Adders := 1     
+	   2 Input      4 Bit       Adders := 2     
+	   2 Input      2 Bit       Adders := 1     
++---Registers : 
+	              324 Bit    Registers := 2     
+	               11 Bit    Registers := 1     
+	               10 Bit    Registers := 1     
+	                9 Bit    Registers := 1     
+	                8 Bit    Registers := 277   
+	                7 Bit    Registers := 4     
+	                5 Bit    Registers := 1     
+	                4 Bit    Registers := 496   
+	                3 Bit    Registers := 135   
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 4     
++---RAMs : 
+	              428 Bit         RAMs := 2     
++---Muxes : 
+	  22 Input    324 Bit        Muxes := 3     
+	  22 Input     11 Bit        Muxes := 1     
+	  22 Input     10 Bit        Muxes := 1     
+	  22 Input      8 Bit        Muxes := 6     
+	   2 Input      8 Bit        Muxes := 4     
+	  22 Input      7 Bit        Muxes := 2     
+	   2 Input      5 Bit        Muxes := 4     
+	  22 Input      4 Bit        Muxes := 8     
+	   2 Input      4 Bit        Muxes := 7     
+	   4 Input      4 Bit        Muxes := 2     
+	   3 Input      4 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 2     
+	  22 Input      2 Bit        Muxes := 2     
+	   4 Input      2 Bit        Muxes := 2     
+	  22 Input      1 Bit        Muxes := 289   
+	   2 Input      1 Bit        Muxes := 1009  
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module top_with_astar 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      8 Bit       Adders := 1     
++---Registers : 
+	                8 Bit    Registers := 1     
+	                7 Bit    Registers := 1     
+	                4 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 3     
+	   2 Input      4 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 9     
+Module a_star 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
+	   2 Input      9 Bit       Adders := 3     
+	   2 Input      8 Bit       Adders := 9     
+	   2 Input      7 Bit       Adders := 1     
+	   5 Input      5 Bit       Adders := 1     
+	   2 Input      4 Bit       Adders := 2     
+	   2 Input      2 Bit       Adders := 1     
++---Registers : 
+	              324 Bit    Registers := 2     
+	               11 Bit    Registers := 1     
+	               10 Bit    Registers := 1     
+	                9 Bit    Registers := 1     
+	                8 Bit    Registers := 276   
+	                7 Bit    Registers := 3     
+	                5 Bit    Registers := 1     
+	                4 Bit    Registers := 495   
+	                3 Bit    Registers := 135   
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---RAMs : 
+	              428 Bit         RAMs := 2     
++---Muxes : 
+	  22 Input    324 Bit        Muxes := 3     
+	  22 Input     11 Bit        Muxes := 1     
+	  22 Input     10 Bit        Muxes := 1     
+	  22 Input      8 Bit        Muxes := 6     
+	   2 Input      8 Bit        Muxes := 1     
+	  22 Input      7 Bit        Muxes := 2     
+	   2 Input      5 Bit        Muxes := 4     
+	  22 Input      4 Bit        Muxes := 8     
+	   2 Input      4 Bit        Muxes := 6     
+	   4 Input      4 Bit        Muxes := 2     
+	   3 Input      4 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 2     
+	  22 Input      2 Bit        Muxes := 2     
+	   4 Input      2 Bit        Muxes := 2     
+	  22 Input      1 Bit        Muxes := 289   
+	   2 Input      1 Bit        Muxes := 1000  
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+INFO: [Synth 8-4471] merging register 'path_index_reg[7:0]' into 'path_index_reg[7:0]' [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:345]
+INFO: [Synth 8-4471] merging register 'init_index_y_reg[7:0]' into 'init_index_y_reg[7:0]' [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:181]
+WARNING: [Synth 8-6014] Unused sequential element init_index_y_reg was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:181]
+WARNING: [Synth 8-6014] Unused sequential element path_index_reg was removed.  [C:/Users/ashlee/Downloads/FDP/FDP.srcs/sources_1/new/a_star.v:345]
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (a_star_inst/\best_f_reg[9] )
+INFO: [Synth 8-3886] merging instance 'a_star_inst/init_index_x_reg[0]__0' (FDRE) to 'a_star_inst/init_index_x_reg[0]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/init_index_x_reg[1]__0' (FDRE) to 'a_star_inst/init_index_x_reg[1]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/init_index_x_reg[2]__0' (FDRE) to 'a_star_inst/init_index_x_reg[2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/init_index_x_reg[3]__0' (FDRE) to 'a_star_inst/init_index_x_reg[3]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/init_index_x_reg[4]__0' (FDRE) to 'a_star_inst/init_index_x_reg[4]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/init_index_x_reg[5]__0' (FDRE) to 'a_star_inst/init_index_x_reg[5]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/init_index_x_reg[6]__0' (FDRE) to 'a_star_inst/init_index_x_reg[6]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/init_index_x_reg[7]__0' (FDRE) to 'a_star_inst/init_index_x_reg[7]'
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[11][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[10][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[9][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[8][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[14][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[13][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[12][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[7][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[6][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[5][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[4][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[3][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[2][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[1][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[0][8][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[11][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[10][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[9][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[8][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[14][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[13][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[12][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[7][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[6][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[5][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[4][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[3][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[2][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[1][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[0][7][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[11][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[10][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[9][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[8][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[14][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[13][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[12][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[7][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[6][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[5][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[4][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[3][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[2][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[1][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[0][6][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[11][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[10][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[9][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[8][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[14][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[13][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[12][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[7][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[6][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[5][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[4][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[3][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[2][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[1][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[0][5][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[11][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[10][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[9][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[8][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[14][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[13][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[12][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[7][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[6][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[5][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[4][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[3][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[2][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[1][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[0][4][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[11][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[10][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[9][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[8][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[14][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[13][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[12][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[7][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[6][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[5][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[4][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[3][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[2][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[1][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[0][3][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[11][2][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[10][2][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[9][2][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[8][2][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[14][2][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[13][2][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[12][2][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[7][2][0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (a_star_inst/\base_cost_reg[6][2][0] )
+INFO: [Common 17-14] Message 'Synth 8-3333' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[11][8][1]' (FDE) to 'a_star_inst/base_cost_reg[11][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[10][8][1]' (FDE) to 'a_star_inst/base_cost_reg[10][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[9][8][1]' (FDE) to 'a_star_inst/base_cost_reg[9][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[8][8][1]' (FDE) to 'a_star_inst/base_cost_reg[8][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[14][8][1]' (FDE) to 'a_star_inst/base_cost_reg[14][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[13][8][1]' (FDE) to 'a_star_inst/base_cost_reg[13][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[12][8][1]' (FDE) to 'a_star_inst/base_cost_reg[12][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[7][8][1]' (FDE) to 'a_star_inst/base_cost_reg[7][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[6][8][1]' (FDE) to 'a_star_inst/base_cost_reg[6][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[5][8][1]' (FDE) to 'a_star_inst/base_cost_reg[5][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[4][8][1]' (FDE) to 'a_star_inst/base_cost_reg[4][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[3][8][1]' (FDE) to 'a_star_inst/base_cost_reg[3][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[2][8][1]' (FDE) to 'a_star_inst/base_cost_reg[2][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[1][8][1]' (FDE) to 'a_star_inst/base_cost_reg[1][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[0][8][1]' (FDE) to 'a_star_inst/base_cost_reg[0][8][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[11][7][1]' (FDE) to 'a_star_inst/base_cost_reg[11][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[10][7][1]' (FDE) to 'a_star_inst/base_cost_reg[10][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[9][7][1]' (FDE) to 'a_star_inst/base_cost_reg[9][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[8][7][1]' (FDE) to 'a_star_inst/base_cost_reg[8][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[14][7][1]' (FDE) to 'a_star_inst/base_cost_reg[14][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[13][7][1]' (FDE) to 'a_star_inst/base_cost_reg[13][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[12][7][1]' (FDE) to 'a_star_inst/base_cost_reg[12][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[7][7][1]' (FDE) to 'a_star_inst/base_cost_reg[7][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[6][7][1]' (FDE) to 'a_star_inst/base_cost_reg[6][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[5][7][1]' (FDE) to 'a_star_inst/base_cost_reg[5][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[4][7][1]' (FDE) to 'a_star_inst/base_cost_reg[4][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[3][7][1]' (FDE) to 'a_star_inst/base_cost_reg[3][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[2][7][1]' (FDE) to 'a_star_inst/base_cost_reg[2][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[1][7][1]' (FDE) to 'a_star_inst/base_cost_reg[1][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[0][7][1]' (FDE) to 'a_star_inst/base_cost_reg[0][7][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[11][6][1]' (FDE) to 'a_star_inst/base_cost_reg[11][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[10][6][1]' (FDE) to 'a_star_inst/base_cost_reg[10][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[9][6][1]' (FDE) to 'a_star_inst/base_cost_reg[9][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[8][6][1]' (FDE) to 'a_star_inst/base_cost_reg[8][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[14][6][1]' (FDE) to 'a_star_inst/base_cost_reg[14][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[13][6][1]' (FDE) to 'a_star_inst/base_cost_reg[13][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[12][6][1]' (FDE) to 'a_star_inst/base_cost_reg[12][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[7][6][1]' (FDE) to 'a_star_inst/base_cost_reg[7][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[6][6][1]' (FDE) to 'a_star_inst/base_cost_reg[6][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[5][6][1]' (FDE) to 'a_star_inst/base_cost_reg[5][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[4][6][1]' (FDE) to 'a_star_inst/base_cost_reg[4][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[3][6][1]' (FDE) to 'a_star_inst/base_cost_reg[3][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[2][6][1]' (FDE) to 'a_star_inst/base_cost_reg[2][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[1][6][1]' (FDE) to 'a_star_inst/base_cost_reg[1][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[0][6][1]' (FDE) to 'a_star_inst/base_cost_reg[0][6][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[11][5][1]' (FDE) to 'a_star_inst/base_cost_reg[11][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[10][5][1]' (FDE) to 'a_star_inst/base_cost_reg[10][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[9][5][1]' (FDE) to 'a_star_inst/base_cost_reg[9][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[8][5][1]' (FDE) to 'a_star_inst/base_cost_reg[8][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[14][5][1]' (FDE) to 'a_star_inst/base_cost_reg[14][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[13][5][1]' (FDE) to 'a_star_inst/base_cost_reg[13][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[12][5][1]' (FDE) to 'a_star_inst/base_cost_reg[12][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[7][5][1]' (FDE) to 'a_star_inst/base_cost_reg[7][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[6][5][1]' (FDE) to 'a_star_inst/base_cost_reg[6][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[5][5][1]' (FDE) to 'a_star_inst/base_cost_reg[5][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[4][5][1]' (FDE) to 'a_star_inst/base_cost_reg[4][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[3][5][1]' (FDE) to 'a_star_inst/base_cost_reg[3][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[2][5][1]' (FDE) to 'a_star_inst/base_cost_reg[2][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[1][5][1]' (FDE) to 'a_star_inst/base_cost_reg[1][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[0][5][1]' (FDE) to 'a_star_inst/base_cost_reg[0][5][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[11][4][1]' (FDE) to 'a_star_inst/base_cost_reg[11][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[10][4][1]' (FDE) to 'a_star_inst/base_cost_reg[10][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[9][4][1]' (FDE) to 'a_star_inst/base_cost_reg[9][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[8][4][1]' (FDE) to 'a_star_inst/base_cost_reg[8][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[14][4][1]' (FDE) to 'a_star_inst/base_cost_reg[14][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[13][4][1]' (FDE) to 'a_star_inst/base_cost_reg[13][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[12][4][1]' (FDE) to 'a_star_inst/base_cost_reg[12][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[7][4][1]' (FDE) to 'a_star_inst/base_cost_reg[7][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[6][4][1]' (FDE) to 'a_star_inst/base_cost_reg[6][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[5][4][1]' (FDE) to 'a_star_inst/base_cost_reg[5][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[4][4][1]' (FDE) to 'a_star_inst/base_cost_reg[4][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[3][4][1]' (FDE) to 'a_star_inst/base_cost_reg[3][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[2][4][1]' (FDE) to 'a_star_inst/base_cost_reg[2][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[1][4][1]' (FDE) to 'a_star_inst/base_cost_reg[1][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[0][4][1]' (FDE) to 'a_star_inst/base_cost_reg[0][4][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[11][3][1]' (FDE) to 'a_star_inst/base_cost_reg[11][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[10][3][1]' (FDE) to 'a_star_inst/base_cost_reg[10][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[9][3][1]' (FDE) to 'a_star_inst/base_cost_reg[9][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[8][3][1]' (FDE) to 'a_star_inst/base_cost_reg[8][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[14][3][1]' (FDE) to 'a_star_inst/base_cost_reg[14][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[13][3][1]' (FDE) to 'a_star_inst/base_cost_reg[13][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[12][3][1]' (FDE) to 'a_star_inst/base_cost_reg[12][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[7][3][1]' (FDE) to 'a_star_inst/base_cost_reg[7][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[6][3][1]' (FDE) to 'a_star_inst/base_cost_reg[6][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[5][3][1]' (FDE) to 'a_star_inst/base_cost_reg[5][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[4][3][1]' (FDE) to 'a_star_inst/base_cost_reg[4][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[3][3][1]' (FDE) to 'a_star_inst/base_cost_reg[3][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[2][3][1]' (FDE) to 'a_star_inst/base_cost_reg[2][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[1][3][1]' (FDE) to 'a_star_inst/base_cost_reg[1][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[0][3][1]' (FDE) to 'a_star_inst/base_cost_reg[0][3][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[11][2][1]' (FDE) to 'a_star_inst/base_cost_reg[11][2][2]'
+INFO: [Synth 8-3886] merging instance 'a_star_inst/base_cost_reg[10][2][1]' (FDE) to 'a_star_inst/base_cost_reg[10][2][2]'
+INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[0][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[1][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[2][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[3][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[4][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[5][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[6][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[7][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[8][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[9][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[10][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[11][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[12][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[13][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[14][0][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[0][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[1][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[2][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[3][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[4][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[5][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[6][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[7][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[8][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[9][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[10][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[11][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[12][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[13][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[14][1][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[0][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[1][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[2][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[3][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[4][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[5][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[6][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[7][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[8][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[9][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[10][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[11][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[12][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[13][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[14][2][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[0][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[1][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[2][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[3][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[4][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[5][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[6][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[7][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[8][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[9][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[10][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[11][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[12][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[13][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[14][3][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[0][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[1][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[2][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[3][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[4][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[5][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[6][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[7][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[8][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[9][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[10][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[11][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[12][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[13][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[14][4][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[0][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[1][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[2][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[3][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[4][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[5][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[6][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[7][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[8][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[9][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[10][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[11][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[12][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[13][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[14][5][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[0][6][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[1][6][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[2][6][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[3][6][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[4][6][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[5][6][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[6][6][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[7][6][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[8][6][0]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (base_cost_reg[9][6][0]) is unused and will be removed from module a_star.
+INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:57 ; elapsed = 00:01:04 . Memory (MB): peak = 992.848 ; gain = 706.805
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping  Report (see note below)
++------------+--------------+-----------+----------------------+----------------------------+
+|Module Name | RTL Object   | Inference | Size (Depth x Width) | Primitives                 | 
++------------+--------------+-----------+----------------------+----------------------------+
+|a_star_inst | closed_y_reg | Implied   | 128 x 4              | RAM64X1D x 4  RAM64M x 4   | 
+|a_star_inst | closed_x_reg | Implied   | 128 x 4              | RAM64X1D x 4  RAM64M x 4   | 
++------------+--------------+-----------+----------------------+----------------------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:03 ; elapsed = 00:01:11 . Memory (MB): peak = 992.848 ; gain = 706.805
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:10 ; elapsed = 00:01:19 . Memory (MB): peak = 1028.672 ; gain = 742.629
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping  Report
++------------+--------------+-----------+----------------------+----------------------------+
+|Module Name | RTL Object   | Inference | Size (Depth x Width) | Primitives                 | 
++------------+--------------+-----------+----------------------+----------------------------+
+|a_star_inst | closed_y_reg | Implied   | 128 x 4              | RAM64X1D x 4  RAM64M x 4   | 
+|a_star_inst | closed_x_reg | Implied   | 128 x 4              | RAM64X1D x 4  RAM64M x 4   | 
++------------+--------------+-----------+----------------------+----------------------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:20 ; elapsed = 00:01:29 . Memory (MB): peak = 1028.672 ; gain = 742.629
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:21 ; elapsed = 00:01:30 . Memory (MB): peak = 1028.672 ; gain = 742.629
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:21 ; elapsed = 00:01:30 . Memory (MB): peak = 1028.672 ; gain = 742.629
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:22 ; elapsed = 00:01:31 . Memory (MB): peak = 1028.672 ; gain = 742.629
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:22 ; elapsed = 00:01:31 . Memory (MB): peak = 1028.672 ; gain = 742.629
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:22 ; elapsed = 00:01:31 . Memory (MB): peak = 1028.672 ; gain = 742.629
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:22 ; elapsed = 00:01:31 . Memory (MB): peak = 1028.672 ; gain = 742.629
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     1|
+|2     |CARRY4   |    16|
+|3     |LUT1     |    13|
+|4     |LUT2     |   367|
+|5     |LUT3     |   241|
+|6     |LUT4     |   226|
+|7     |LUT5     |   432|
+|8     |LUT6     |  3443|
+|9     |MUXF7    |   474|
+|10    |MUXF8    |    94|
+|11    |RAM64M   |     8|
+|12    |RAM64X1D |     8|
+|13    |FDRE     |  1815|
+|14    |FDSE     |  2037|
+|15    |LDC      |     3|
+|16    |LDP      |     2|
+|17    |IBUF     |     2|
+|18    |OBUF     |    16|
++------+---------+------+
+
+Report Instance Areas: 
++------+--------------+-------+------+
+|      |Instance      |Module |Cells |
++------+--------------+-------+------+
+|1     |top           |       |  9198|
+|2     |  a_star_inst |a_star |  8656|
++------+--------------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:22 ; elapsed = 00:01:31 . Memory (MB): peak = 1028.672 ; gain = 742.629
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 615 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:02 ; elapsed = 00:01:22 . Memory (MB): peak = 1028.672 ; gain = 455.492
+Synthesis Optimization Complete : Time (s): cpu = 00:01:22 ; elapsed = 00:01:31 . Memory (MB): peak = 1028.672 ; gain = 742.629
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 607 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'top_with_astar' is not ideal for floorplanning, since the cellview 'a_star' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 21 instances were transformed.
+  LDC => LDCE: 3 instances
+  LDP => LDPE: 2 instances
+  RAM64M => RAM64M (RAMD64E, RAMD64E, RAMD64E, RAMD64E): 8 instances
+  RAM64X1D => RAM64X1D (RAMD64E, RAMD64E): 8 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+450 Infos, 195 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:24 ; elapsed = 00:01:34 . Memory (MB): peak = 1028.672 ; gain = 754.133
+WARNING: [Constraints 18-5210] No constraint will be written out.
+INFO: [Common 17-1381] The checkpoint 'C:/Users/ashlee/Downloads/FDP/FDP.runs/synth_1/top_with_astar.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file top_with_astar_utilization_synth.rpt -pb top_with_astar_utilization_synth.pb
+report_utilization: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.063 . Memory (MB): peak = 1028.672 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Thu Mar 19 18:48:50 2026...
