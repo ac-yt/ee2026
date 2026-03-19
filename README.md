@@ -1,5 +1,12 @@
 # ee2026 bomberman :(
 
+good luck to us
+
+## Links to Docs
+Week 8 Submission: https://nusu-my.sharepoint.com/:w:/g/personal/e1399074_u_nus_edu/IQBi3j6bE-0gSoHyuGnY5BGSAQrdWeo4YJe-6jXEB19_51A?e=OcpXZ0
+Report: https://nusu-my.sharepoint.com/:w:/g/personal/e1399074_u_nus_edu/IQBU9xSwJj5MQ6xbADAzMiu1AXfPLSG2szBlvLrRMgCU2-s?e=QDlhi6
+
+
 ## Version History
 ### Version 2.1 (20/3/26 3am, Ashlee)
 
@@ -20,7 +27,3 @@ Important To-dos:
   * Set start and goal positions to real ones (computer / player)
   * Modularize into its own module
   * Remove path drawing on screen
-
-## Links to Docs
-Week 8 Submission: https://nusu-my.sharepoint.com/:w:/g/personal/e1399074_u_nus_edu/IQBi3j6bE-0gSoHyuGnY5BGSAQrdWeo4YJe-6jXEB19_51A?e=OcpXZ0
-Report: https://nusu-my.sharepoint.com/:w:/g/personal/e1399074_u_nus_edu/IQBU9xSwJj5MQ6xbADAzMiu1AXfPLSG2szBlvLrRMgCU2-s?e=QDlhi6
