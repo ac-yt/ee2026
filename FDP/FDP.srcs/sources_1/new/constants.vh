@@ -39,7 +39,7 @@
 
 // path parameters
 `define MAX_PATH_LEN    81
-`define MAX_NUM_NODES   107
+`define MAX_NUM_NODES   81 // 107
 
 // oled colors
 `define OLED_WHITE      16'hFFFF

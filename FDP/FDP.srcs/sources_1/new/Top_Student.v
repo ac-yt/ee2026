@@ -5,11 +5,10 @@
 module Top_Student (
     input basys_clk,
     input btnC, btnL, btnR, btnU, btnD, UART_RX,
-    input [7:0] sw,
+    input [15:0] sw,
     output [7:0] JC,
     output UART_TX,
-    output [13:0] led,
-    output reg [15:14] led2,
+    output [15:0] led,
     output [7:0] seg,
     output [3:0] an
 );
@@ -68,7 +67,7 @@ module Top_Student (
         .btnC(btnC),
         .btnU(btnU),
         .btnD(btnD),
-        .sw(sw),
+        .sw(sw[7:0]),
         .tx_en(tx_en_game),
         .player(player),
         .data_tx_game(data_tx_game)
@@ -132,17 +131,17 @@ module Top_Student (
     parameter WALL_COLOR = `OLED_WHITE;
 
     reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
-    reg [15:0] pixel_map [0:`PIX_MAP_WIDTH-1][0:`PIX_MAP_HEIGHT-1];
+//    reg [15:0] pixel_map [0:`PIX_MAP_WIDTH-1][0:`PIX_MAP_HEIGHT-1];
     reg [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat;
 
     integer tx, ty, dx, dy, i;
 
     initial begin
-        for (tx = 0; tx < `PIX_MAP_WIDTH; tx = tx + 1) begin
-            for (ty = 0; ty < `PIX_MAP_HEIGHT; ty = ty + 1) begin
-                pixel_map[tx][ty] = `OLED_BLACK;
-            end
-        end
+//        for (tx = 0; tx < `PIX_MAP_WIDTH; tx = tx + 1) begin
+//            for (ty = 0; ty < `PIX_MAP_HEIGHT; ty = ty + 1) begin
+//                pixel_map[tx][ty] = `OLED_BLACK;
+//            end
+//        end
 
         for (tx = 0; tx < `TILE_MAP_WIDTH; tx = tx + 1) begin
             for (ty = 0; ty < `TILE_MAP_HEIGHT; ty = ty + 1) begin
@@ -169,12 +168,12 @@ module Top_Student (
         // Example powerup
         tile_map[2][6] = `MAP_POWERUP;
 
-        for (tx = 0; tx < `PIX_MAP_WIDTH; tx = tx + 1) begin
-            for (ty = 0; ty < `PIX_MAP_HEIGHT; ty = ty + 1) begin
-                if (tx < `MIN_PIX_X || tx > `MAX_PIX_X || ty < `MIN_PIX_Y || ty > `MAX_PIX_Y)
-                    pixel_map[tx][ty] = WALL_COLOR;
-            end
-        end
+//        for (tx = 0; tx < `PIX_MAP_WIDTH; tx = tx + 1) begin
+//            for (ty = 0; ty < `PIX_MAP_HEIGHT; ty = ty + 1) begin
+//                if (tx < `MIN_PIX_X || tx > `MAX_PIX_X || ty < `MIN_PIX_Y || ty > `MAX_PIX_Y)
+//                    pixel_map[tx][ty] = WALL_COLOR;
+//            end
+//        end
     end
 
     // Flatten tile map for submodules
@@ -194,35 +193,31 @@ module Top_Student (
         input [2:0] tile_type;
         input [2:0] local_x;
         input [2:0] local_y;
-        integer cx, cy;
     begin
         expand_tile = `OLED_BLACK;
-        cx = local_x - 3;
-        cy = local_y - 3;
-
         case (tile_type)
             `MAP_EMPTY:   expand_tile = `OLED_BLACK;
             `MAP_WALL:    expand_tile = WALL_COLOR;
             `MAP_BLOCK:   expand_tile = `OLED_GREY;
-            `MAP_BOMB:    expand_tile = ((cx*cx + cy*cy) <= 9) ? `OLED_ORANGE : `OLED_BLACK;
+            `MAP_BOMB:    expand_tile = (local_x >= 2 && local_x <= 3 && local_y >= 2 && local_y <= 3) ? `OLED_ORANGE : `OLED_BLACK; // same as the circle
             `MAP_POWERUP: expand_tile = `OLED_MAGENTA;
             default:      expand_tile = `OLED_BLACK;
         endcase
     end
     endfunction
 
-    always @(*) begin
-        for (tx = 0; tx < `TILE_MAP_WIDTH; tx = tx + 1) begin
-            for (ty = 0; ty < `TILE_MAP_HEIGHT; ty = ty + 1) begin
-                for (dx = 0; dx < `TILE_SIZE; dx = dx + 1) begin
-                    for (dy = 0; dy < `TILE_SIZE; dy = dy + 1) begin
-                        pixel_map[`MIN_PIX_X + (`TILE_SIZE*tx) + dx][`MIN_PIX_Y + (`TILE_SIZE*ty) + dy]
-                            = expand_tile(tile_map[tx][ty], dx[2:0], dy[2:0]);
-                    end
-                end
-            end
-        end
-    end
+//    always @(*) begin
+//        for (tx = 0; tx < `TILE_MAP_WIDTH; tx = tx + 1) begin
+//            for (ty = 0; ty < `TILE_MAP_HEIGHT; ty = ty + 1) begin
+//                for (dx = 0; dx < `TILE_SIZE; dx = dx + 1) begin
+//                    for (dy = 0; dy < `TILE_SIZE; dy = dy + 1) begin
+//                        pixel_map[`MIN_PIX_X + (`TILE_SIZE*tx) + dx][`MIN_PIX_Y + (`TILE_SIZE*ty) + dy]
+//                            = expand_tile(tile_map[tx][ty], dx[2:0], dy[2:0]);
+//                    end
+//                end
+//            end
+//        end
+//    end
 
     // =========================================================
     // PLAYER CONTROLLER
@@ -375,75 +370,88 @@ module Top_Student (
     // =========================================================
     // PATH PLANNING FOR SINGLE PLAYER
     // =========================================================
-
+ 
+    wire clk_a_star;
+    variable_clock #(.CLOCK_SPEED(`CLOCK_SPEED), .OUT_SPEED(`CLOCK_SPEED / 2)) clk_a_star_inst (
+                     .clk(basys_clk), .clk_out(clk_a_star));
+ 
+    // signals
+    parameter integer UPDATE_TIME = 0.5 * `CLOCK_SPEED/2;
     reg update_path = 0;
-    reg updated = 0;
+    reg [$clog2(UPDATE_TIME)-1:0] update_counter = 0;
     wire [4*`MAX_PATH_LEN-1:0] path_flat_x;
     wire [4*`MAX_PATH_LEN-1:0] path_flat_y;
-    reg [3:0] path_x [0:`MAX_PATH_LEN];
-    reg [3:0] path_y [0:`MAX_PATH_LEN];
-    wire [6:0] path_len;
+    wire [6:0]  path_len;
     wire path_valid;
-    reg path_saved = 1;
     wire [10:0] path_cost;
-    reg [4*`MAX_PATH_LEN-1:0] path_flat_y_loc, path_flat_x_loc;
-    reg [7:0] path_index = 0;
+ 
+    // unpacked path arrays (in fast domain, populated after CDC capture)
+    reg [3:0] path_x [0:`MAX_PATH_LEN-1];
+    reg [3:0] path_y [0:`MAX_PATH_LEN-1];
     reg [6:0] path_len_loc = 0;
-    reg [10:0] path_cost_loc;
-
-    a_star #(.CLOCK_SPEED(`CLOCK_SPEED)) a_star_inst
-        (.clk(basys_clk), .update(update_path),
-         .start_x(0), .start_y(0), .goal_x(5), .goal_y(5),
-         .tile_map_flat({(`TILE_MAP_SIZE*3){3'b000}}),
-         .path_flat_x(path_flat_x), .path_flat_y(path_flat_y),
-         .path_len(path_len), .path_valid(path_valid), .path_cost(path_cost));
-     
-    always @ (posedge basys_clk) begin
-        if (path_valid) begin
-            path_flat_y_loc <= path_flat_y;
-            path_flat_x_loc <= path_flat_x;
-            path_len_loc <= path_len;
-            path_cost_loc <= path_cost;
-            
-            path_saved <= 0;
-            path_index <= 0;
-            led2[14] <= 1;
-        end
-    end
-
-    always @ (posedge basys_clk) begin
-        if (!updated) begin
+    reg  path_saved   = 1;
+ 
+    // a_star instantiation (slow clock domain) runs on a divided clock, CDC is handled with a 2-FF synchronizer on path_valid
+    a_star #(.CLOCK_SPEED(`CLOCK_SPEED/2)) a_star_inst (
+        .clk          (clk_a_star),
+        .update       (update_path),
+        .start_x      (4'd2),//(player_center_tx),
+        .start_y      (4'd0),//(player_center_ty),
+        .goal_x       (player_center_tx),
+        .goal_y       (player_center_ty),
+        .tile_map_flat(tile_map_flat),
+        .path_flat_x  (path_flat_x),
+        .path_flat_y  (path_flat_y),
+        .path_len     (path_len),
+        .path_valid   (path_valid),
+        .path_cost    (path_cost)
+    );
+ 
+    // update every 0.5s
+    always @ (posedge clk_a_star) begin
+        if (update_counter == UPDATE_TIME-1) begin
+            update_counter <= 0;
             update_path <= 1;
-            updated <= 1;
-        end else update_path <= 0;
-
-//        if (path_valid) begin
-//            path_saved <= 0;
-//            path_index <= 0;
-//            led2[14] <= 1;
-//        end
-
-        if (!path_saved) begin
-            led2[15] <= 1;
-            if (path_index < path_len_loc) begin
-                path_x[path_index] <= path_flat_x_loc[path_index*4 +: 4];
-                path_y[path_index] <= path_flat_y_loc[path_index*4 +: 4];
-                path_index <= path_index + 1;
-            end
-            else begin
-            end
+        end
+        else begin
+            update_counter <= update_counter + 1;
+            update_path <= 0;
         end
     end
     
-    assign led[4:1] = path_x[0];
-    assign led[8:5] = path_x[1];
-//    assign led[12:9] = path_x[2];
+    // 2-FF CDC synchronizer: path_valid (slow) -> fast domain
+    reg path_valid_ff1=0, path_valid_ff2=0, path_valid_ff2_prev=0;
+    always @(posedge basys_clk) begin
+        path_valid_ff1 <= path_valid;
+        path_valid_ff2 <= path_valid_ff1;
+        path_valid_ff2_prev <= path_valid_ff2;
+    end
+    wire path_valid_sync_pulse = path_valid_ff2 & ~path_valid_ff2_prev; // single-cycle pulse in fast domain when path_valid safely rises
+ 
+    // capture and unpack path data on safe pulse
+    // path_flat_x/y are stable before path_valid is asserted, safe to sample ~2 fast cycles later when the sync pulse fires
+    always @(posedge basys_clk) begin
+        if (path_valid_sync_pulse) begin
+            path_len_loc <= path_len;
+            // Unpack flat bus directly into arrays in one cycle
+            for (i = 0; i < `MAX_PATH_LEN; i = i+1) begin
+                path_x[i] <= path_flat_x[i*4 +: 4];
+                path_y[i] <= path_flat_y[i*4 +: 4];
+            end
+        end
+    end
 
     // =========================================================
     // SINGLE PLAYER OLED OVERLAY
     // =========================================================
+    
+    wire [3:0] tile_x_of_pixel = (x >= `MIN_PIX_X && x <= `MAX_PIX_X) ?
+                                  (x - `MIN_PIX_X) / `TILE_SIZE : 4'hF;
+    wire [3:0] tile_y_of_pixel = (y >= `MIN_PIX_Y && y <= `MAX_PIX_Y) ?
+                                  (y - `MIN_PIX_Y) / `TILE_SIZE : 4'hF;
+    
     always @(*) begin
-        oled_data_single = pixel_map[x][y];
+        oled_data_single = expand_tile(tile_map[tile_x_of_pixel][tile_y_of_pixel], x, y);
 
         // bomb
         if (bomb_active) begin
@@ -472,25 +480,17 @@ module Top_Student (
                 pixel_in_tile(x, y, bomb_tx + explosion_stage, bomb_ty))
                 oled_data_single = `OLED_YELLOW;
         end
-
-        // path
-//        if (path_mask[x/`TILE_SIZE][y/`TILE_SIZE]) oled_data_single = `OLED_MAGENTA;
         
-        if (pixel_in_tile(x, y, path_x[0], path_y[0])) oled_data_single = `OLED_CYAN;
-        if (pixel_in_tile(x, y, path_x[1], path_y[1])) oled_data_single = `OLED_CYAN;
-        if (pixel_in_tile(x, y, path_x[2], path_y[2])) oled_data_single = `OLED_CYAN;
-        if (pixel_in_tile(x, y, path_x[3], path_y[3])) oled_data_single = `OLED_CYAN;
-        if (pixel_in_tile(x, y, path_x[4], path_y[4])) oled_data_single = `OLED_CYAN;
-        if (pixel_in_tile(x, y, path_x[5], path_y[5])) oled_data_single = `OLED_CYAN;
-        if (pixel_in_tile(x, y, path_x[6], path_y[6])) oled_data_single = `OLED_CYAN;
-        if (pixel_in_tile(x, y, path_x[7], path_y[7])) oled_data_single = `OLED_CYAN;
-        
-        if (pixel_in_tile(x, y, path_x[path_index], path_y[path_index]))
-            oled_data_single = `OLED_RED; // highlight current step
+        for (i = 0; i < `MAX_PATH_LEN; i = i+1) begin
+            if (i < path_len_loc && pixel_in_tile(x, y, path_x[i], path_y[i]))
+                oled_data_single = `OLED_CYAN;
+        end
 
         // player
-        if (player_region)
-            oled_data_single = player_dead ? `OLED_GREEN : `OLED_BLUE;
+        if (player_region) oled_data_single = player_dead ? `OLED_GREEN : `OLED_BLUE;
+        
+        // draw walls
+        if (x < `MIN_PIX_X || x > `MAX_PIX_X || y < `MIN_PIX_Y || y > `MAX_PIX_Y) oled_data_single = WALL_COLOR;
     end
 
     // =========================================================
@@ -534,210 +534,29 @@ module Top_Student (
     // =========================================================
     // DEBUGGING
     // =========================================================
-    reg [7:0] seg_player, seg_state, seg_path, seg_2, seg_1, seg_path2;
+    reg [7:0] seg_player, seg_state;
 
     always @(*) begin
-//        case (player)
-//            1'b0: seg_player = 8'b11111001; // 1
-//            1'b1: seg_player = 8'b10100100; // 2
-//            default: seg_player = 8'b11111111;
-//        endcase
+        case (player)
+            1'b0: seg_player = 8'b11111001; // 1
+            1'b1: seg_player = 8'b10100100; // 2
+            default: seg_player = 8'b11111111;
+        endcase
 
-//        case (pair_state)
-//            `PAIRED: seg_state = 8'b11111001; // 1
-//            default: seg_state = 8'b11000000; // 0
-//        endcase
-        
-        case (path_len)
-            0: seg_path = 8'b11000000;
-            1: seg_path = 8'b11111001;
-            2: seg_path = 8'b10100100;
-            3: seg_path = 8'b10110000;
-            4: seg_path = 8'b10011001;
-            5: seg_path = 8'b10010010;
-            6: seg_path = 8'b10000010;
-            7: seg_path = 8'b11111000;
-            8: seg_path = 8'b10000000;
-            9: seg_path = 8'b10011000;
-            default: seg_path = 8'b10001000;
-        endcase
-        
-        case (path_len_loc)
-                    0: seg_path2 = 8'b11000000;
-                    1: seg_path2 = 8'b11111001;
-                    2: seg_path2 = 8'b10100100;
-                    3: seg_path2 = 8'b10110000;
-                    4: seg_path2 = 8'b10011001;
-                    5: seg_path2 = 8'b10010010;
-                    6: seg_path2 = 8'b10000010;
-                    7: seg_path2 = 8'b11111000;
-                    8: seg_path2 = 8'b10000000;
-                    9: seg_path2 = 8'b10011000;
-                    default: seg_path2 = 8'b10001000;
-                endcase
-        
-        case (path_x[2])
-            0: seg_2 = 8'b11000000;
-            1: seg_2 = 8'b11111001;
-            2: seg_2 = 8'b10100100;
-            3: seg_2 = 8'b10110000;
-            4: seg_2 = 8'b10011001;
-            5: seg_2 = 8'b10010010;
-            6: seg_2 = 8'b10000010;
-            7: seg_2 = 8'b11111000;
-            8: seg_2 = 8'b10000000;
-            9: seg_2 = 8'b10011000;
-            default: seg_2 = 8'b10001000;
-        endcase
-        
-        case (path_x[1])
-            0: seg_1 = 8'b11000000;
-            1: seg_1 = 8'b11111001;
-            2: seg_1 = 8'b10100100;
-            3: seg_1 = 8'b10110000;
-            4: seg_1 = 8'b10011001;
-            5: seg_1 = 8'b10010010;
-            6: seg_1 = 8'b10000010;
-            7: seg_1 = 8'b11111000;
-            8: seg_1 = 8'b10000000;
-            9: seg_1 = 8'b10011000;
-            default: seg_1 = 8'b10001000;
+        case (pair_state)
+            `PAIRED: seg_state = 8'b11111001; // 1
+            default: seg_state = 8'b11000000; // 0
         endcase
     end
 
     seven_segment seg_inst (
         .clk(basys_clk),
-        .seg0(seg_1),
-        .seg1(seg_2),
-//        .seg0(seg_state),
-//        .seg1(8'b11111111),
-        .seg2(seg_path),
-        //.seg2(8'b10001100),
-        .seg3(seg_path2),
+        .seg0(seg_state),
+        .seg1(8'b11111111),
+        .seg2(8'b10001100),
+        .seg3(seg_player),
         .seg(seg),
         .an(an)
     );
 
-endmodule
-
-// Wrap your code into a module so we can instantiate it
-module top_with_astar (
-    input basys_clk, btnC, //rst,
-    output [15:0] led
-);
-    reg update_path = 0;
-    reg [1:0] updated = 0;
-    wire [4*`MAX_PATH_LEN-1:0] path_flat_x;
-    wire [4*`MAX_PATH_LEN-1:0] path_flat_y;
-    reg [3:0] path_x [0:`MAX_PATH_LEN];
-    reg [3:0] path_y [0:`MAX_PATH_LEN];
-    wire [6:0] path_len;
-    wire path_valid;
-    reg prev_path_valid = 0;
-    reg path_saved = 1;
-    wire [10:0] path_cost;
-    reg [4*`TILE_MAP_SIZE-1:0] path_flat_y_loc, path_flat_x_loc;
-    reg [7:0] path_index = 0;
-    reg [6:0] path_len_loc = 0;
-    reg [10:0] path_cost_loc;
-//        reg rst = 1;
-
-    a_star #(.CLOCK_SPEED(`CLOCK_SPEED)) a_star_inst
-        (.clk(basys_clk), .update(update_path),// .rst(rst),
-         .start_x(4'b0), .start_y(4'b0), .goal_x(4'b1), .goal_y(4'b1),
-         .tile_map_flat({(`TILE_MAP_SIZE){3'b000}}),
-         .path_flat_x(path_flat_x), .path_flat_y(path_flat_y),
-         .path_len(path_len), .path_valid(path_valid), .path_cost(path_cost));
-
-//        reg [1:0] counter = 0;
-    
-//        always @(posedge basys_clk) begin
-//            if (counter < 3) begin
-//                rst <= 1;          // keep reset high
-//                counter <= counter + 1;
-//            end else begin
-//                rst <= 0;          // release reset after 3 cycles
-//            end
-//        end
-
-
-
-        always @ (posedge basys_clk) begin
-            if (btnC) update_path <= 1;
-            else update_path <= 0;
-//            if (updated < 3) begin
-//                updated <= updated + 1;
-//                update_path <= 1;
-//            end
-//            else update_path <= 0;
-        end
-        
-        always @(posedge basys_clk) begin
-//        if (rst) begin
-//            update_path   <= 0;
-//            updated       <= 0;
-//            path_len_loc  <= 0;
-//            path_cost_loc <= 0;
-//            led           <= 0;
-//        end else begin
-//            if (!updated) begin
-//                update_path <= 1;
-//                updated <= 1;
-//            end else update_path <= 0;
-            
-            if (path_valid && !prev_path_valid) begin
-                prev_path_valid <= 1;
-                path_len_loc   <= path_len;
-                path_cost_loc  <= path_cost;
-                path_flat_x_loc <= path_flat_x;
-                path_flat_y_loc <= path_flat_y;
-                path_saved <= 0;
-                path_index <= 0;
-            end
-            
-//            path_len_loc <= path_len;
-    
-    //        if (path_valid) begin
-    //            path_saved <= 0;
-    //            path_index <= 0;
-    //            path_len_loc <= path_len;
-    //            path_flat_y_loc <= path_flat_y;
-    //            path_flat_x_loc <= path_flat_x;
-    //            led[14] <= 1;
-    //        end
-    
-            if (!path_saved) begin
-//                led[15] <= 1;
-                if (path_index < path_len_loc) begin
-                    path_x[path_index] <= path_flat_x_loc[path_index*4 +: 4];
-                    path_y[path_index] <= path_flat_y_loc[path_index*4 +: 4];
-                    path_index <= path_index + 1;
-                end
-                else if (path_index < `MAX_PATH_LEN) begin
-                    path_x[path_index] <= 4'hF;
-                    path_y[path_index] <= 4'hF;
-                    path_index <= path_index + 1;
-                end
-                else begin
-                    path_index = 0;
-                    path_saved <= 1;
-                end
-            end
-    
-//            led[6:0]  <= path_len;
-//            led[13:7]  <= path_len_loc;
-    
-    //        led[4:1]  <= path_x[0];
-    //        led[8:5]  <= path_x[1];
-    //        led[12:9] <= path_x[2];
-        end
-//    end
-
-    assign led[0] = update_path;
-    assign led[3:1] = path_len[3:1];
-    assign led[7:4] = path_len_loc[3:0];
-    assign led[11:8] = path_flat_x[3:0];
-//    assign led[11:8] = path_x[0];
-    assign led[15:12] = path_x[0];
-//    assign led[15:12] = path_y[0];
 endmodule

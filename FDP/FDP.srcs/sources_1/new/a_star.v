@@ -19,7 +19,7 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
     reg [7:0] open_counter=0; // count number of items in the open list
     reg [7:0] closed_counter=0; // count number of items in the open list
     
-    reg [7:0] base_cost [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the base cost of each node (cost more to move to block than empty tile)
+//    reg [7:0] base_cost [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the base cost of each node (cost more to move to block than empty tile)
     reg [7:0] cost_array [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the cost of each node from the start node
     reg [3:0] parent_x [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the parent x of each node
     reg [3:0] parent_y [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the parent y of each node
@@ -67,8 +67,14 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
     reg [7:0] init_index_x=0, init_index_y=0;
     reg [$clog2(`MAX_PATH_LEN*4)-1:0] init_index_i=0;
     
+    wire [3:0] scan_open_x = open_x[scan_index];
+    wire [3:0] scan_open_y = open_y[scan_index];
+    
+    wire [1:0] tile_base_cost = (tile_map[nb_x][nb_y] == `MAP_BLOCK) ? BLOCK_COST : EMPTY_COST;
+    
     // NEXT STATE LOGIC
     always @ (*) begin
+        next_state = state;
 //        if (rst) next_state = RESET_2D;
         if (update) next_state = RESET_2D;
         else begin
@@ -109,8 +115,7 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
                     next_state = NB_CHECK_VALID;
                 end
                 NB_CHECK_VALID: begin // check if neighbor is within bounds and is not a wall
-                    if (nb_x >= 0 && nb_x < `TILE_MAP_WIDTH &&
-                        nb_y >= 0 && nb_y < `TILE_MAP_HEIGHT)
+                    if (nb_x != 4'hF && nb_x < `TILE_MAP_WIDTH && nb_y != 4'hF && nb_y < `TILE_MAP_HEIGHT)
                         if (tile_map[nb_x][nb_y] != `MAP_WALL) next_state = NB_CHECK_GOAL;
                         else next_state = NB_NEXT;
                     else next_state = NB_NEXT;
@@ -156,9 +161,14 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
                         next_state = DONE;
                     end
                 end
+                DONE: next_state = DONE;
+                default: next_state = RESET_2D;
             endcase
         end
     end
+    
+    wire [3:0] next_path_x = parent_x[curr_path_x][curr_path_y];
+    wire [3:0] next_path_y = parent_y[curr_path_x][curr_path_y];
    
     // SEQUENTIAL LOGIC
     always @ (posedge clk) begin
@@ -188,7 +198,7 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
                 path_valid <= 0;
                 tile_map[init_index_x][init_index_y] <= tile_map_flat[(init_index_y*`TILE_MAP_WIDTH + init_index_x)*3 +: 3];
 
-                base_cost[init_index_x][init_index_y] <= (tile_map_flat[(init_index_y*`TILE_MAP_WIDTH + init_index_x)*3 +: 3] == `MAP_BLOCK) ? BLOCK_COST : EMPTY_COST;
+//                base_cost[init_index_x][init_index_y] <= (tile_map_flat[(init_index_y*`TILE_MAP_WIDTH + init_index_x)*3 +: 3] == `MAP_BLOCK) ? BLOCK_COST : EMPTY_COST;
                                     
                 cost_array[init_index_x][init_index_y] <= 8'hFF;
                 parent_x[init_index_x][init_index_y] <= 4'hF;
@@ -243,10 +253,10 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
             end
             FIND_BEST_SCAN: begin // scan through entire open list to find lowest f cost on the list
                 if (scan_index < open_counter) begin
-                    if (cost_array[open_x[scan_index]][open_y[scan_index]] + heuristic(open_x[scan_index], open_y[scan_index], goal_x_loc, goal_y_loc) < best_f) begin
-                        best_f <= cost_array[open_x[scan_index]][open_y[scan_index]] + heuristic(open_x[scan_index], open_y[scan_index], goal_x_loc, goal_y_loc);
-                        best_x <= open_x[scan_index];
-                        best_y <= open_y[scan_index];
+                    if (cost_array[scan_open_x][scan_open_y] + heuristic(scan_open_x, scan_open_y, goal_x_loc, goal_y_loc) < best_f) begin
+                        best_f <= cost_array[scan_open_x][scan_open_y] + heuristic(scan_open_x, scan_open_y, goal_x_loc, goal_y_loc);
+                        best_x <= scan_open_x;
+                        best_y <= scan_open_y;
                         best_index <= scan_index;
                     end
                     scan_index <= scan_index + 1;
@@ -257,7 +267,7 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
                 curr_y <= best_y;
             end
             POP_OPEN_INIT: begin // reset shifting of queue down (to remove the curr node from open list)
-                shift_index <= 0;
+                shift_index <= best_index;
             end
             POP_OPEN_SHIFT: begin // shift down all
                 open_x[shift_index] <= open_x[shift_index+1];
@@ -300,7 +310,7 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
                 if (nb_x == goal_x_loc && nb_y == goal_y_loc) begin
                     parent_x[nb_x][nb_y] <= curr_x;
                     parent_y[nb_x][nb_y] <= curr_y;
-                    cost_array[nb_x][nb_y] <= cost_array[curr_x][curr_y] + base_cost[nb_x][nb_y];
+                    cost_array[nb_x][nb_y] <= cost_array[curr_x][curr_y] + tile_base_cost;
                 end
             end
             NB_CHECK_CLOSED_INIT: begin // reset scan of closed list
@@ -322,8 +332,8 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
             NB_CHECK_OPEN_DONE: begin
                 if (open_x[scan_index] == nb_x && open_y[scan_index] == nb_y) begin // neighbor was found on open list
                     // check if current nb cost is less than parents cost + cost to move
-                    if (cost_array[curr_x][curr_y] + base_cost[nb_x][nb_y] < cost_array[nb_x][nb_y]) begin
-                        cost_array[nb_x][nb_y] <= cost_array[curr_x][curr_y] + base_cost[nb_x][nb_y];
+                    if (cost_array[curr_x][curr_y] + tile_base_cost < cost_array[nb_x][nb_y]) begin
+                        cost_array[nb_x][nb_y] <= cost_array[curr_x][curr_y] + tile_base_cost;
                         parent_x[nb_x][nb_y] <= curr_x; // update parent node
                         parent_y[nb_x][nb_y] <= curr_y;
                     end
@@ -331,7 +341,7 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
                 else begin
                     open_x[open_counter] <= nb_x; // push to open list
                     open_y[open_counter] <= nb_y;
-                    cost_array[nb_x][nb_y] <= cost_array[curr_x][curr_y] + base_cost[nb_x][nb_y];
+                    cost_array[nb_x][nb_y] <= cost_array[curr_x][curr_y] + tile_base_cost;
                     parent_x[nb_x][nb_y] <= curr_x; // update parent node
                     parent_y[nb_x][nb_y] <= curr_y;
                     
@@ -352,8 +362,8 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
                 path_flat_y[path_index*4 +: 4] <= curr_path_y;
                 
                 if (!(curr_path_x == start_x_loc && curr_path_y == start_y_loc)) begin
-                    curr_path_x <= parent_x[curr_path_x][curr_path_y];
-                    curr_path_y <= parent_y[curr_path_x][curr_path_y];
+                    curr_path_x <= next_path_x;
+                    curr_path_y <= next_path_y;
                     path_index <= path_index + 1;
                 end
             end
@@ -381,3 +391,107 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
     end
     endfunction
 endmodule
+
+/*
+
+// Wrap your code into a module so we can instantiate it
+module top_with_astar (
+    input basys_clk, btnC, //rst,
+    output [15:0] led
+);
+    wire clk_a_star;
+    variable_clock #(.CLOCK_SPEED(`CLOCK_SPEED), .OUT_SPEED(`CLOCK_SPEED/2)) clk_a_star_inst
+                    (.clk(basys_clk), .clk_out(clk_a_star)); 
+    
+    reg update_path = 0;
+    reg [1:0] updated = 0;
+    wire [4*`MAX_PATH_LEN-1:0] path_flat_x;
+    wire [4*`MAX_PATH_LEN-1:0] path_flat_y;
+    reg [3:0] path_x [0:`MAX_PATH_LEN];
+    reg [3:0] path_y [0:`MAX_PATH_LEN];
+    wire [6:0] path_len;
+    wire path_valid;
+    reg prev_path_valid = 0;
+    reg path_saved = 1;
+    wire [10:0] path_cost;
+    reg [4*`TILE_MAP_SIZE-1:0] path_flat_y_loc, path_flat_x_loc;
+    reg [7:0] path_index = 0;
+    reg [6:0] path_len_loc = 0;
+    reg [10:0] path_cost_loc;
+//        reg rst = 1;
+
+    a_star #(.CLOCK_SPEED(`CLOCK_SPEED/2)) a_star_inst
+        (.clk(clk_a_star), .update(update_path),// .rst(rst),
+         .start_x(4'b0), .start_y(4'b0), .goal_x(4'b0001), .goal_y(4'b0001),
+         .tile_map_flat({(`TILE_MAP_SIZE){3'b000}}),
+         .path_flat_x(path_flat_x), .path_flat_y(path_flat_y),
+         .path_len(path_len), .path_valid(path_valid), .path_cost(path_cost));
+
+        // Synchronize btnC into slow domain (2-FF)
+        reg btnC_ff1 = 0, btnC_ff2 = 0, btnC_ff2_prev = 0;
+        always @(posedge clk_a_star) begin
+            btnC_ff1      <= btnC;
+            btnC_ff2      <= btnC_ff1;
+            btnC_ff2_prev <= btnC_ff2;
+        end
+        
+        // Single rising-edge pulse, fully in slow domain
+        wire update_pulse = btnC_ff2 & ~btnC_ff2_prev;
+        
+        // Drive update_path from slow domain only
+        always @(posedge clk_a_star) begin
+            update_path <= update_pulse;
+        end
+        
+        
+        reg path_valid_ff1 = 0;   // first sync stage  (clocked by basys_clk)
+        reg path_valid_ff2 = 0;   // second sync stage (clocked by basys_clk)
+        reg path_valid_ff2_prev = 0; // for rising edge detection
+        
+        
+        always @(posedge basys_clk) begin
+            path_valid_ff1     <= path_valid;        // may be metastable, but resolves by next cycle
+            path_valid_ff2     <= path_valid_ff1;    // stable by now
+            path_valid_ff2_prev <= path_valid_ff2;
+        end
+        
+        // Single-cycle pulse in the fast domain when path_valid safely goes high
+        wire path_valid_sync_pulse = path_valid_ff2 & ~path_valid_ff2_prev;
+        
+        
+        always @(posedge basys_clk) begin
+            if (path_valid_sync_pulse) begin
+                path_flat_x_loc <= path_flat_x;
+                path_flat_y_loc <= path_flat_y;
+                path_len_loc    <= path_len;
+                path_cost_loc   <= path_cost;
+                path_saved      <= 0;
+                path_index      <= 0;
+            end
+            
+            if (!path_saved) begin
+//                led[15] <= 1;
+                if (path_index < path_len_loc) begin
+                    path_x[path_index] <= path_flat_x_loc[path_index*4 +: 4];
+                    path_y[path_index] <= path_flat_y_loc[path_index*4 +: 4];
+                    path_index <= path_index + 1;
+                end
+                else if (path_index < `MAX_PATH_LEN) begin
+                    path_x[path_index] <= 4'hF;
+                    path_y[path_index] <= 4'hF;
+                    path_index <= path_index + 1;
+                end
+                else begin
+                    path_saved <= 1;
+                end
+            end
+            
+        end
+
+    assign led[0] = update_path;
+    assign led[3:1] = path_len[3:1];
+    assign led[7:4] = path_len_loc[3:0];
+    assign led[11:8] = path_flat_x[3:0];
+    assign led[15:12] = path_x[0];
+endmodule
+*/

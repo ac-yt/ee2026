@@ -5,7 +5,7 @@
 module package_game_data (input clk, btnL, btnR, btnC, btnU, btnD, player, 
                           input [7:0] sw,
                           output reg tx_en,
-                          output reg [`DATA_BITS-1:0] data_tx_game=0);
+                          output reg [`GAME_BITS-1:0] data_tx_game=0);
                           
     wire [4:0] btns = {btnL, btnD, btnC, btnU, btnR};
     reg [4:0] prev_btns = 0;
@@ -68,6 +68,7 @@ module pairing_fsm (input clk, received, busy_tx, btn_accept, btn_cancel, btn_pa
     reg [$clog2(PAIR_TIME)-1:0] pair_counter = 0;
     
     always @ (*) begin
+        next_state = `SINGLE;
         if (received && data_rx_code == CANCEL_CODE) next_state = `SINGLE;
         else begin
             case (state)
@@ -95,6 +96,7 @@ module pairing_fsm (input clk, received, busy_tx, btn_accept, btn_cancel, btn_pa
                     if ((hb_rx_counter >= HB_TIMEOUT - 1) ||
                         (!busy_tx && cancel_pair)) next_state = `SINGLE;
                 end
+                default: next_state = `SINGLE;
             endcase
         end
     end

@@ -26,6 +26,7 @@ module uart_tx (input clk, rst, tx_en,
     reg [INDEX_BITS-1:0] bit_index = 0;
     
     always @ (*) begin
+        next_state = state;
         case (state)
             WAIT: next_state = (!busy && tx_en) ? TRANSMIT : WAIT;
             TRANSMIT: if (busy && counter == DIV-1) next_state = (bit_index == TOTAL_BITS) ? WAIT : TRANSMIT;
@@ -110,6 +111,7 @@ module uart_rx (input clk, rst, rx,
     reg [INDEX_BITS-1:0] bit_index = 0;
     
     always @ (*) begin
+        next_state = state;
         case (state)
             WAIT: next_state = (rx == 0) ? RECEIVE : WAIT;
             RECEIVE: if (busy && counter == DIV-1) next_state = (bit_index == `DATA_BITS+1) ? EXPORT: RECEIVE;
@@ -172,7 +174,10 @@ module uart_rx (input clk, rst, rx,
                         data <= packet[`DATA_BITS-1:0];
                         valid <= 1'b1;
                     end
-                    else valid <= 1'b0;
+                    else begin
+                        data <= data;
+                        valid <= 1'b0;
+                    end
                 end
             endcase
         end

@@ -2,13 +2,13 @@
 # Vivado v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Wed Mar 18 20:07:07 2026
-# Process ID: 57496
-# Current directory: C:/Users/ashlee/Downloads/FDP/FDP.runs/blk_mem_gen_img_synth_1
+# Start of session at: Thu Mar 19 20:46:49 2026
+# Process ID: 51160
+# Current directory: C:/VivadoProjects/ee2026/FDP/FDP.runs/blk_mem_gen_img_synth_1
 # Command line: vivado.exe -log blk_mem_gen_img.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source blk_mem_gen_img.tcl
-# Log file: C:/Users/ashlee/Downloads/FDP/FDP.runs/blk_mem_gen_img_synth_1/blk_mem_gen_img.vds
-# Journal file: C:/Users/ashlee/Downloads/FDP/FDP.runs/blk_mem_gen_img_synth_1\vivado.jou
+# Log file: C:/VivadoProjects/ee2026/FDP/FDP.runs/blk_mem_gen_img_synth_1/blk_mem_gen_img.vds
+# Journal file: C:/VivadoProjects/ee2026/FDP/FDP.runs/blk_mem_gen_img_synth_1\vivado.jou
 #-----------------------------------------------------------
 source blk_mem_gen_img.tcl -notrace
 INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP blk_mem_gen_img, cache-ID = adba6af32e9e90cd.
-INFO: [Common 17-206] Exiting Vivado at Wed Mar 18 20:07:13 2026...
+INFO: [Common 17-206] Exiting Vivado at Thu Mar 19 20:46:55 2026...

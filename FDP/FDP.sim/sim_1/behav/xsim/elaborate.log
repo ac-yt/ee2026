@@ -7,7 +7,8 @@ Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.a_star_default
+Compiling module xil_defaultlib.variable_clock(OUT_SPEED=5000000...
+Compiling module xil_defaultlib.a_star(CLOCK_SPEED=50000000)
 Compiling module xil_defaultlib.top_with_astar
 Compiling module xil_defaultlib.tb_top_with_astar
 Compiling module xil_defaultlib.glbl

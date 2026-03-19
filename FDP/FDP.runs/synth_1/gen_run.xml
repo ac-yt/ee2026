@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1773917227">
-  <File Type="PA-TCL" Name="top_with_astar.tcl"/>
-  <File Type="RDS-PROPCONSTRS" Name="top_with_astar_drc_synth.rpt"/>
-  <File Type="REPORTS-TCL" Name="top_with_astar_reports.tcl"/>
-  <File Type="RDS-RDS" Name="top_with_astar.vds"/>
-  <File Type="RDS-UTIL" Name="top_with_astar_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="top_with_astar_utilization_synth.pb"/>
-  <File Type="RDS-DCP" Name="top_with_astar.dcp"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="top_with_astar_timing_summary_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="top_with_astar_timing_summary_synth.pb"/>
+<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1773946829">
+  <File Type="PA-TCL" Name="Top_Student.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="Top_Student_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="Top_Student_reports.tcl"/>
+  <File Type="RDS-RDS" Name="Top_Student.vds"/>
+  <File Type="RDS-UTIL" Name="Top_Student_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="Top_Student_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="Top_Student.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="Top_Student_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="Top_Student_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci">
@@ -169,7 +169,7 @@
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="top_with_astar"/>
+      <Option Name="TopModule" Val="Top_Student"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">

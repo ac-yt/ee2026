@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/ashlee/Downloads/FDP/FDP.runs/impl_1'
+HD_PWD='C:/VivadoProjects/ee2026/FDP/FDP.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -42,6 +42,6 @@ EAStep()
 
 # pre-commands:
 /bin/touch .init_design.begin.rst
-EAStep vivado -log top_with_astar.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source top_with_astar.tcl -notrace
+EAStep vivado -log Top_Student.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source Top_Student.tcl -notrace
 
 
