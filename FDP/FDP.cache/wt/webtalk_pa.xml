@@ -3,7 +3,7 @@
 <!--The data in this file is primarily intended for consumption by Xilinx tools.
 The structure and the elements are likely to change over the next few releases.
 This means code written to parse this file will need to be revisited each subsequent release.-->
-<application name="pa" timeStamp="Sun Mar 22 02:13:32 2026">
+<application name="pa" timeStamp="Sun Mar 22 02:24:08 2026">
 <section name="Project Information" visible="false">
 <property name="ProjectID" value="460dcca714304358b440e3de6869bc38" type="ProjectID"/>
 <property name="ProjectIteration" value="125" type="ProjectIteration"/>
@@ -26,15 +26,15 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="EditRedo" value="2" type="JavaHandler"/>
 <property name="EditUndo" value="12" type="JavaHandler"/>
 <property name="FlipToViewTaskSynthesis" value="1" type="JavaHandler"/>
-<property name="LaunchProgramFpga" value="94" type="JavaHandler"/>
-<property name="OpenHardwareManager" value="72" type="JavaHandler"/>
+<property name="LaunchProgramFpga" value="95" type="JavaHandler"/>
+<property name="OpenHardwareManager" value="73" type="JavaHandler"/>
 <property name="OpenProject" value="1" type="JavaHandler"/>
 <property name="OpenRecentTarget" value="4" type="JavaHandler"/>
-<property name="ProgramDevice" value="52" type="JavaHandler"/>
+<property name="ProgramDevice" value="53" type="JavaHandler"/>
 <property name="ProjectSummary" value="10" type="JavaHandler"/>
 <property name="RecustomizeCore" value="5" type="JavaHandler"/>
 <property name="ReportTimingSummary" value="5" type="JavaHandler"/>
-<property name="ReportUtilization" value="27" type="JavaHandler"/>
+<property name="ReportUtilization" value="28" type="JavaHandler"/>
 <property name="RunBitgen" value="134" type="JavaHandler"/>
 <property name="RunImplementation" value="2" type="JavaHandler"/>
 <property name="RunNoiseAnalysis" value="1" type="JavaHandler"/>
@@ -57,7 +57,7 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="ArchiveProjectDialog_ARCHIVE_NAME" value="3" type="GuiHandlerData"/>
 <property name="ArchiveProjectDialog_CHOOSE_ARCHIVE_LOCATION" value="3" type="GuiHandlerData"/>
 <property name="BaseDialog_CANCEL" value="39" type="GuiHandlerData"/>
-<property name="BaseDialog_OK" value="81" type="GuiHandlerData"/>
+<property name="BaseDialog_OK" value="82" type="GuiHandlerData"/>
 <property name="BaseDialog_YES" value="4" type="GuiHandlerData"/>
 <property name="CmdMsgDialog_OK" value="20" type="GuiHandlerData"/>
 <property name="CmdMsgDialog_OPEN_MESSAGES_VIEW" value="1" type="GuiHandlerData"/>
@@ -67,7 +67,7 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="ExpRunTreePanel_EXP_RUN_TREE_TABLE" value="6" type="GuiHandlerData"/>
 <property name="FileSetPanel_FILE_SET_PANEL_TREE" value="227" type="GuiHandlerData"/>
 <property name="FileSetPanel_MESSAGES" value="9" type="GuiHandlerData"/>
-<property name="FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE" value="341" type="GuiHandlerData"/>
+<property name="FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE" value="343" type="GuiHandlerData"/>
 <property name="FlowNavigatorTreePanel_RESET_SYNTHESIS_RUN" value="6" type="GuiHandlerData"/>
 <property name="GraphicalView_ZOOM_IN" value="12" type="GuiHandlerData"/>
 <property name="GraphicalView_ZOOM_OUT" value="46" type="GuiHandlerData"/>
@@ -125,14 +125,14 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="ProgramDebugTab_OPEN_RECENTLY_OPENED_TARGET" value="9" type="GuiHandlerData"/>
 <property name="ProgramDebugTab_OPEN_TARGET" value="19" type="GuiHandlerData"/>
 <property name="ProgramDebugTab_PROGRAM_DEVICE" value="44" type="GuiHandlerData"/>
-<property name="ProgramFpgaDialog_PROGRAM" value="96" type="GuiHandlerData"/>
+<property name="ProgramFpgaDialog_PROGRAM" value="97" type="GuiHandlerData"/>
 <property name="ProgramFpgaDialog_SPECIFY_BITSTREAM_FILE" value="4" type="GuiHandlerData"/>
 <property name="ProgressDialog_BACKGROUND" value="23" type="GuiHandlerData"/>
 <property name="ProgressDialog_CANCEL" value="6" type="GuiHandlerData"/>
 <property name="ProjectSummaryUtilizationGadget_PROJECT_SUMMARY_UTILIZATION_GADGET_TABBED" value="1" type="GuiHandlerData"/>
 <property name="ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_PANEL_TABBED" value="2" type="GuiHandlerData"/>
 <property name="ProjectTab_CLOSE_DESIGN" value="6" type="GuiHandlerData"/>
-<property name="ProjectTab_RELOAD" value="11" type="GuiHandlerData"/>
+<property name="ProjectTab_RELOAD" value="12" type="GuiHandlerData"/>
 <property name="RDICommands_DELETE" value="1" type="GuiHandlerData"/>
 <property name="RDICommands_UNDO" value="4" type="GuiHandlerData"/>
 <property name="RDIViews_WAVEFORM_VIEWER" value="7" type="GuiHandlerData"/>
@@ -159,6 +159,11 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="TimingSumResultsTab_SHOW_ONLY_FAILING_CHECKS" value="1" type="GuiHandlerData"/>
 <property name="UtilizationHierViewTreeTablePanel_TABLE(Hierarchy)" value="2" type="GuiHandlerData"/>
 <property name="VioTreeTablePanel_VIO_TREE_TABLE" value="7" type="GuiHandlerData"/>
+</item>
+<item name="Other">
+<property name="GuiMode" value="79" type="GuiMode"/>
+<property name="BatchMode" value="0" type="BatchMode"/>
+<property name="TclMode" value="61" type="TclMode"/>
 </item>
 </section>
 </application>
