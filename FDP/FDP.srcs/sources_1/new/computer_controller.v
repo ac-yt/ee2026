@@ -21,7 +21,7 @@ module computer_controller(input clk,
     wire [4*`MAX_PATH_LEN-1:0] path_flat_y;
     wire [6:0] path_len;
     wire path_valid;
-    wire [10:0] path_cost;
+    // wire [10:0] path_cost;
     reg [3:0] path_x [0:`MAX_PATH_LEN-1];
     reg [3:0] path_y [0:`MAX_PATH_LEN-1];
     
@@ -96,8 +96,10 @@ module computer_controller(input clk,
         if (path_valid_sync_pulse) begin
             for (i = 0; i < `MAX_PATH_LEN; i = i+1) begin
                 if (i < path_len) begin
-                    path_x[i] <= path_flat_x[(path_len-1-i)*4 +: 4];
-                    path_y[i] <= path_flat_y[(path_len-1-i)*4 +: 4];
+                    path_x[i] <= path_flat_x[(`MAX_PATH_LEN-1-i)*4 +: 4];
+                    path_y[i] <= path_flat_y[(`MAX_PATH_LEN-1-i)*4 +: 4];
+//                    path_x[i] <= path_flat_x[(path_len-1-i)*4 +: 4];
+//                    path_y[i] <= path_flat_y[(path_len-1-i)*4 +: 4];
                 end
                 else begin
                     path_x[i] <= 4'hF;
@@ -142,8 +144,8 @@ module computer_controller(input clk,
         .path_flat_x  (path_flat_x),
         .path_flat_y  (path_flat_y),
         .path_len     (path_len),
-        .path_valid   (path_valid),
-        .path_cost    (path_cost)
+        .path_valid   (path_valid)
+        // .path_cost    (path_cost)
     );
 
 endmodule
