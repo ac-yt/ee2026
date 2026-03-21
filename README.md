@@ -23,11 +23,18 @@ Changes Made:
 * Added A* path planning for computer player (not yet fully integrated)
 * Added A* into Top Student with map updates every 0.5s and screen drawing (to be removed later)
 * Removed pixel map to reduce LUT usage (expand each pixel at the rendering step instead, manually draw border)
+ 
+### Version 2.2 (21/3/26, Ashlee)
 
-Important To-dos:
-* Fix player controller timing issue (WNS is too high for the clock speed)
-* Verify player/bomb controller and improve efficiency
-* Finalize path planning for computer
-  * Set start and goal positions to real ones (computer / player)
-  * Modularize into its own module
-  * Remove path drawing on screen
+Changes Made:
+* Moved A* into computer_controller module
+* Changed tile_map_flat indexing to tile_map indexing in bomb/player controller
+
+## Important To-dos
+* Player/bomb controller
+  * Fix player controller timing issue (WNS is too high for the clock speed)
+  * Verify player/bomb controller and improve efficiency
+  * Make bomb controller compatible with computer
+* Computer controller
+  * Change to use BRAM to try and reduce LUT usage
+
