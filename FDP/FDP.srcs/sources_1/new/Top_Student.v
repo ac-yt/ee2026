@@ -362,96 +362,35 @@ module Top_Student (
     end
     endfunction
 
-    wire player_region;
-    assign player_region =
-        (x >= player_x) && (x < player_x + `PLAYER_WIDTH) &&
-        (y >= player_y) && (y < player_y + `PLAYER_WIDTH);
+    wire player_region = (x >= player_x) && (x < player_x + `PLAYER_WIDTH) && (y >= player_y) && (y < player_y + `PLAYER_WIDTH);
         
     // =========================================================
-    // PATH PLANNING FOR SINGLE PLAYER
+    // COMPUTER CONTROLLER
     // =========================================================
- 
-    wire clk_a_star;
-    variable_clock #(.CLOCK_SPEED(`CLOCK_SPEED), .OUT_SPEED(`CLOCK_SPEED / 2)) clk_a_star_inst (
-                     .clk(basys_clk), .clk_out(clk_a_star));
- 
-    // signals
-    parameter integer UPDATE_TIME = 0.5 * `CLOCK_SPEED/2;
-    reg update_path = 0;
-    reg [$clog2(UPDATE_TIME)-1:0] update_counter = 0;
-    wire [4*`MAX_PATH_LEN-1:0] path_flat_x;
-    wire [4*`MAX_PATH_LEN-1:0] path_flat_y;
-    wire [6:0]  path_len;
-    wire path_valid;
-    wire [10:0] path_cost;
- 
-    // unpacked path arrays (in fast domain, populated after CDC capture)
-    reg [3:0] path_x [0:`MAX_PATH_LEN-1];
-    reg [3:0] path_y [0:`MAX_PATH_LEN-1];
-    reg [6:0] path_len_loc = 0;
-    reg  path_saved   = 1;
- 
-    // a_star instantiation (slow clock domain) runs on a divided clock, CDC is handled with a 2-FF synchronizer on path_valid
-    a_star #(.CLOCK_SPEED(`CLOCK_SPEED/2)) a_star_inst (
-        .clk          (clk_a_star),
-        .update       (update_path),
-        .start_x      (4'd2),//(player_center_tx),
-        .start_y      (4'd0),//(player_center_ty),
-        .goal_x       (player_center_tx),
-        .goal_y       (player_center_ty),
-        .tile_map_flat(tile_map_flat),
-        .path_flat_x  (path_flat_x),
-        .path_flat_y  (path_flat_y),
-        .path_len     (path_len),
-        .path_valid   (path_valid),
-        .path_cost    (path_cost)
-    );
- 
-    // update every 0.5s
-    always @ (posedge clk_a_star) begin
-        if (update_counter == UPDATE_TIME-1) begin
-            update_counter <= 0;
-            update_path <= 1;
-        end
-        else begin
-            update_counter <= update_counter + 1;
-            update_path <= 0;
-        end
-    end
     
-    // 2-FF CDC synchronizer: path_valid (slow) -> fast domain
-    reg path_valid_ff1=0, path_valid_ff2=0, path_valid_ff2_prev=0;
-    always @(posedge basys_clk) begin
-        path_valid_ff1 <= path_valid;
-        path_valid_ff2 <= path_valid_ff1;
-        path_valid_ff2_prev <= path_valid_ff2;
-    end
-    wire path_valid_sync_pulse = path_valid_ff2 & ~path_valid_ff2_prev; // single-cycle pulse in fast domain when path_valid safely rises
- 
-    // capture and unpack path data on safe pulse
-    // path_flat_x/y are stable before path_valid is asserted, safe to sample ~2 fast cycles later when the sync pulse fires
-    always @(posedge basys_clk) begin
-        if (path_valid_sync_pulse) begin
-            path_len_loc <= path_len;
-            // Unpack flat bus directly into arrays in one cycle
-            for (i = 0; i < `MAX_PATH_LEN; i = i+1) begin
-                path_x[i] <= path_flat_x[i*4 +: 4];
-                path_y[i] <= path_flat_y[i*4 +: 4];
-            end
-        end
-    end
+    wire [6:0] computer_x;
+    wire [5:0] computer_y;
+    wire computer_region = (x >= computer_x) && (x < computer_x + `PLAYER_WIDTH) && (y >= computer_y) && (y < computer_y + `PLAYER_WIDTH);
+    
+    computer_controller comp_inst (.clk(basys_clk),
+                                   .player_tx(player_center_tx), 
+                                   .player_ty(player_center_ty), 
+                                   .tile_map_flat(tile_map_flat),
+                                   .computer_x(computer_x),
+                                   .computer_y(computer_y));
 
     // =========================================================
     // SINGLE PLAYER OLED OVERLAY
     // =========================================================
     
-    wire [3:0] tile_x_of_pixel = (x >= `MIN_PIX_X && x <= `MAX_PIX_X) ?
-                                  (x - `MIN_PIX_X) / `TILE_SIZE : 4'hF;
-    wire [3:0] tile_y_of_pixel = (y >= `MIN_PIX_Y && y <= `MAX_PIX_Y) ?
-                                  (y - `MIN_PIX_Y) / `TILE_SIZE : 4'hF;
+    wire [3:0] tile_x_of_pixel = (x >= `MIN_PIX_X && x <= `MAX_PIX_X) ? ((x - `MIN_PIX_X) * 7'd43) >> 8 : 4'hF; // replace divider with reciprocal multiply + shift
+    wire [3:0] tile_y_of_pixel = (y >= `MIN_PIX_Y && y <= `MAX_PIX_Y) ? ((y - `MIN_PIX_Y) * 7'd43) >> 8 : 4'hF;
+    wire [2:0] local_x = (tile_x_of_pixel == 4'hF) ? 0 : (x - `MIN_PIX_X - tile_x_of_pixel * 6);
+    wire [2:0] local_y = (tile_y_of_pixel == 4'hF) ? 0 : (y - `MIN_PIX_Y - tile_y_of_pixel * 6);
     
     always @(*) begin
-        oled_data_single = expand_tile(tile_map[tile_x_of_pixel][tile_y_of_pixel], x, y);
+        if (tile_x_of_pixel == 4'hF || tile_y_of_pixel == 4'hF) oled_data_single = `OLED_ORANGE;
+        else oled_data_single = expand_tile(tile_map[tile_x_of_pixel][tile_y_of_pixel], local_x, local_y);
 
         // bomb
         if (bomb_active) begin
@@ -481,13 +420,10 @@ module Top_Student (
                 oled_data_single = `OLED_YELLOW;
         end
         
-        for (i = 0; i < `MAX_PATH_LEN; i = i+1) begin
-            if (i < path_len_loc && pixel_in_tile(x, y, path_x[i], path_y[i]))
-                oled_data_single = `OLED_CYAN;
-        end
 
         // player
         if (player_region) oled_data_single = player_dead ? `OLED_GREEN : `OLED_BLUE;
+        if (computer_region) oled_data_single = `OLED_MAGENTA;
         
         // draw walls
         if (x < `MIN_PIX_X || x > `MAX_PIX_X || y < `MIN_PIX_Y || y > `MAX_PIX_Y) oled_data_single = WALL_COLOR;

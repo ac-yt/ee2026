@@ -20,6 +20,18 @@ module player_controller (
     output [3:0] player_center_ty,
     output reg player_dead = 0
 );
+    
+    // added this
+    reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
+    integer ux, uy; // unpack map
+    always @(*) begin
+        for (uy = 0; uy < `TILE_MAP_HEIGHT; uy = uy + 1)
+            for (ux = 0; ux < `TILE_MAP_WIDTH; ux = ux + 1)
+                tile_map[ux][uy] = tile_map_flat[(uy*`TILE_MAP_WIDTH + ux)*3 +: 3];
+    end
+    
+    assign player_center_tx = pixel_to_tile_x(player_x + `PLAYER_WIDTH/2);
+    assign player_center_ty = pixel_to_tile_y(player_y + `PLAYER_HEIGHT/2);
 
     parameter PLAYER_SPEED  = 35;
     parameter PLAYER_COUNT  = `CLOCK_SPEED / PLAYER_SPEED;
@@ -33,14 +45,6 @@ module player_controller (
         else
             player_counter <= player_counter + 1;
     end
-
-    function [2:0] get_tile;
-        input [3:0] tx;
-        input [3:0] ty;
-    begin
-        get_tile = tile_map_flat[(ty*`TILE_MAP_WIDTH + tx)*3 +: 3];
-    end
-    endfunction
 
     function [3:0] pixel_to_tile_x;
         input [6:0] px;
@@ -64,7 +68,7 @@ module player_controller (
         if (tx_in >= `TILE_MAP_WIDTH || ty_in >= `TILE_MAP_HEIGHT)
             is_walkable_tile = 0;
         else begin
-            tile_val = get_tile(tx_in, ty_in);
+            tile_val = tile_map[tx_in][ty_in];
             case (tile_val)
                 `MAP_EMPTY,
                 `MAP_POWERUP: is_walkable_tile = 1;
@@ -85,12 +89,13 @@ module player_controller (
             (ty_in == bomb_ty);
     end
     endfunction
-
+    
     function can_move_to;
         input [6:0] next_x;
         input [5:0] next_y;
         reg [6:0] right_x;
         reg [5:0] bottom_y;
+        // reg [3:0] l_tx, r_tx, b_ty, t_ty;
         reg [3:0] tl_tx, tr_tx, bl_tx, br_tx;
         reg [3:0] tl_ty, tr_ty, bl_ty, br_ty;
         reg tl_ok, tr_ok, bl_ok, br_ok;
@@ -124,9 +129,6 @@ module player_controller (
         end
     end
     endfunction
-
-    assign player_center_tx = pixel_to_tile_x(player_x + `PLAYER_WIDTH/2);
-    assign player_center_ty = pixel_to_tile_y(player_y + `PLAYER_HEIGHT/2);
 
     always @(posedge clk) begin
         if (player_hit)

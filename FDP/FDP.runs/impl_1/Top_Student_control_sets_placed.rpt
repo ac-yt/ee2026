@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-| Date         : Fri Mar 20 03:08:01 2026
+| Date         : Sat Mar 21 16:25:50 2026
 | Host         : ac-yt running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file Top_Student_control_sets_placed.rpt
 | Design       : Top_Student
@@ -23,8 +23,8 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Number of unique control sets                            |   407 |
-| Unused register locations in slices containing registers |   126 |
+| Number of unique control sets                            |   402 |
+| Unused register locations in slices containing registers |   138 |
 +----------------------------------------------------------+-------+
 
 
@@ -35,11 +35,11 @@ Table of Contents
 | Fanout | Control Sets |
 +--------+--------------+
 |      2 |            2 |
-|      8 |            2 |
-|     10 |            2 |
-|     12 |            1 |
-|     14 |            2 |
-|    16+ |          398 |
+|      8 |           14 |
+|     10 |            3 |
+|     12 |            3 |
+|     14 |            5 |
+|    16+ |          375 |
 +--------+--------------+
 
 
@@ -49,428 +49,423 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |            2660 |          579 |
+| No           | No                    | No                     |            2014 |          360 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |             392 |           59 |
-| Yes          | No                    | No                     |            3088 |          774 |
+| No           | Yes                   | No                     |             452 |           70 |
+| Yes          | No                    | No                     |            1444 |          328 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |            5006 |          825 |
+| Yes          | Yes                   | No                     |            5432 |         1052 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
 4. Detailed Control Set Information
 -----------------------------------
 
-+----------------------+------------------------------------------------+---------------------------------------------+------------------+----------------+
-|     Clock Signal     |                  Enable Signal                 |               Set/Reset Signal              | Slice Load Count | Bel Load Count |
-+----------------------+------------------------------------------------+---------------------------------------------+------------------+----------------+
-| ~clk_6p25m_BUFG      |                                                |                                             |                1 |              2 |
-|  basys_clk_IBUF_BUFG | tx_inst/tx_i_1_n_0                             |                                             |                1 |              2 |
-|  basys_clk_IBUF_BUFG | tx_inst/bit_index[4]_i_2_n_0                   | tx_inst/bit_index[4]_i_1_n_0                |                2 |              8 |
-|  basys_clk_IBUF_BUFG | pair_inst/tx_en_i_1_n_0                        |                                             |                2 |              8 |
-|  basys_clk_IBUF_BUFG | rx_inst/bit_index                              | rx_inst/bit_index[4]_i_1__0_n_0             |                2 |             10 |
-|  basys_clk_IBUF_BUFG | game_inst/prev_btns_1                          |                                             |                2 |             10 |
-|  basys_clk_IBUF_BUFG |                                                | pair_inst/pair_state[0]                     |                3 |             12 |
-|  clk_a_star_BUFG     | a_star_inst/path_len[6]_i_2_n_0                | a_star_inst/path_len[6]_i_1_n_0             |                3 |             14 |
-|  clk_a_star_BUFG     | a_star_inst/open_counter[7]_i_2_n_0            | a_star_inst/open_counter[7]_i_1_n_0         |                2 |             14 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[10][0][7]_i_2_n_0       | a_star_inst/cost_array[10][0][7]_i_1_n_0    |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[7][4][3]_i_2_n_0          | a_star_inst/parent_x[7][4][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[6][7][3]_i_2_n_0          | a_star_inst/parent_x[6][7][3]_i_1_n_0       |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[7][1][3]_i_2_n_0          | a_star_inst/parent_x[7][1][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[6][8][3]_i_2_n_0          | a_star_inst/parent_x[6][8][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[7][2][3]_i_2_n_0          | a_star_inst/parent_x[7][2][3]_i_1_n_0       |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[7][3][3]_i_2_n_0          | a_star_inst/parent_x[7][3][3]_i_1_n_0       |                4 |             16 |
-|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/bomb_ty[3]_i_1_n_0              |                                             |                3 |             16 |
-|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/clear_bomb_tx[3]_i_1_n_0        |                                             |                2 |             16 |
-|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/destroy_down_tx[3]_i_1_n_0      |                                             |                4 |             16 |
-|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/destroy_left_tx[3]_i_1_n_0      |                                             |                5 |             16 |
-|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/destroy_right_tx[3]_i_1_n_0     |                                             |                5 |             16 |
-|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/destroy_up_tx[3]_i_1_n_0        |                                             |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[7][5][3]_i_2_n_0          | a_star_inst/parent_x[7][5][3]_i_1_n_0       |                4 |             16 |
-|  basys_clk_IBUF_BUFG | game_inst/prev_sw_0                            |                                             |                2 |             16 |
-|  basys_clk_IBUF_BUFG | game_inst/tx_en_i_1__0_n_0                     |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[7][6][3]_i_2_n_0          | a_star_inst/parent_x[7][6][3]_i_1_n_0       |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[7][7][3]_i_2_n_0          | a_star_inst/parent_x[7][7][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[7][0][3]_i_2_n_0          | a_star_inst/parent_x[7][0][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[9][0][3]_i_2_n_0          | a_star_inst/parent_x[9][0][3]_i_1_n_0       |                2 |             16 |
-|  basys_clk_IBUF_BUFG | rx_inst/data[7]_i_1_n_0                        |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[7][8][3]_i_2_n_0          | a_star_inst/parent_x[7][8][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[8][6][3]_i_2_n_0          | a_star_inst/parent_x[8][6][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[8][0][3]_i_2_n_0          | a_star_inst/parent_x[8][0][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[8][2][3]_i_2_n_0          | a_star_inst/parent_x[8][2][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[8][3][3]_i_2_n_0          | a_star_inst/parent_x[8][3][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[8][4][3]_i_2_n_0          | a_star_inst/parent_x[8][4][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/closed_counter[7]_i_2_n_0          | a_star_inst/closed_counter[7]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[8][7][3]_i_2_n_0          | a_star_inst/parent_x[8][7][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[8][8][3]_i_2_n_0          | a_star_inst/parent_x[8][8][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[0][1][7]_i_2_n_0        | a_star_inst/cost_array[0][1][7]_i_1_n_0     |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[0][3][7]_i_2_n_0        | a_star_inst/cost_array[0][3][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[0][2][7]_i_2_n_0        | a_star_inst/cost_array[0][2][7]_i_1_n_0     |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[0][4][7]_i_2_n_0        | a_star_inst/cost_array[0][4][7]_i_1_n_0     |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[0][5][7]_i_2_n_0        | a_star_inst/cost_array[0][5][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[0][0][7]_i_2_n_0        | a_star_inst/cost_array[0][0][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[0][6][7]_i_2_n_0        | a_star_inst/cost_array[0][6][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[10][3][7]_i_2_n_0       | a_star_inst/cost_array[10][3][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[0][8][7]_i_2_n_0        | a_star_inst/cost_array[0][8][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[10][4][7]_i_2_n_0       | a_star_inst/cost_array[10][4][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[10][8][7]_i_2_n_0       | a_star_inst/cost_array[10][8][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[10][2][7]_i_2_n_0       | a_star_inst/cost_array[10][2][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[10][6][7]_i_2_n_0       | a_star_inst/cost_array[10][6][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[10][7][7]_i_2_n_0       | a_star_inst/cost_array[10][7][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[0][3]_i_1_n_0               |                                             |                7 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[10][1][7]_i_2_n_0       | a_star_inst/cost_array[10][1][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[11][0][7]_i_2_n_0       | a_star_inst/cost_array[11][0][7]_i_1_n_0    |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[0][7][7]_i_2_n_0        | a_star_inst/cost_array[0][7][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[11][2][7]_i_2_n_0       | a_star_inst/cost_array[11][2][7]_i_1_n_0    |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[11][3][7]_i_2_n_0       | a_star_inst/cost_array[11][3][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[10][5][7]_i_2_n_0       | a_star_inst/cost_array[10][5][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[11][1][7]_i_2_n_0       | a_star_inst/cost_array[11][1][7]_i_1_n_0    |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[11][4][7]_i_2_n_0       | a_star_inst/cost_array[11][4][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[13][0][7]_i_2_n_0       | a_star_inst/cost_array[13][0][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[12][7][7]_i_2_n_0       | a_star_inst/cost_array[12][7][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[11][6][7]_i_2_n_0       | a_star_inst/cost_array[11][6][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[12][3][7]_i_2_n_0       | a_star_inst/cost_array[12][3][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[12][1][7]_i_2_n_0       | a_star_inst/cost_array[12][1][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[12][0][7]_i_2_n_0       | a_star_inst/cost_array[12][0][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[11][8][7]_i_2_n_0       | a_star_inst/cost_array[11][8][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[11][5][7]_i_2_n_0       | a_star_inst/cost_array[11][5][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[12][2][7]_i_2_n_0       | a_star_inst/cost_array[12][2][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[12][4][7]_i_2_n_0       | a_star_inst/cost_array[12][4][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[12][5][7]_i_2_n_0       | a_star_inst/cost_array[12][5][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[13][1][7]_i_2_n_0       | a_star_inst/cost_array[13][1][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[13][2][7]_i_2_n_0       | a_star_inst/cost_array[13][2][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[11][7][7]_i_2_n_0       | a_star_inst/cost_array[11][7][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[12][8][7]_i_2_n_0       | a_star_inst/cost_array[12][8][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[12][6][7]_i_2_n_0       | a_star_inst/cost_array[12][6][7]_i_1_n_0    |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[13][7][7]_i_2_n_0       | a_star_inst/cost_array[13][7][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[13][4][7]_i_2_n_0       | a_star_inst/cost_array[13][4][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[13][6][7]_i_2_n_0       | a_star_inst/cost_array[13][6][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[14][2][7]_i_2_n_0       | a_star_inst/cost_array[14][2][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[13][5][7]_i_2_n_0       | a_star_inst/cost_array[13][5][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[13][3][7]_i_2_n_0       | a_star_inst/cost_array[13][3][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[13][8][7]_i_2_n_0       | a_star_inst/cost_array[13][8][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[14][1][7]_i_2_n_0       | a_star_inst/cost_array[14][1][7]_i_1_n_0    |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[14][4][7]_i_2_n_0       | a_star_inst/cost_array[14][4][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[14][3][7]_i_2_n_0       | a_star_inst/cost_array[14][3][7]_i_1_n_0    |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[14][0][7]_i_2_n_0       | a_star_inst/cost_array[14][0][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[14][5][7]_i_2_n_0       | a_star_inst/cost_array[14][5][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/best_index[7]_i_2_n_0              | a_star_inst/best_f[7]_i_1_n_0               |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[9][1][3]_i_2_n_0          | a_star_inst/parent_x[9][1][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[14][6][7]_i_2_n_0       | a_star_inst/cost_array[14][6][7]_i_1_n_0    |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[14][8][7]_i_2_n_0       | a_star_inst/cost_array[14][8][7]_i_1_n_0    |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[14][7][7]_i_2_n_0       | a_star_inst/cost_array[14][7][7]_i_1_n_0    |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[1][0][7]_i_2_n_0        | a_star_inst/cost_array[1][0][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[8][1][3]_i_2_n_0          | a_star_inst/parent_x[8][1][3]_i_1_n_0       |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[8][5][3]_i_2_n_0          | a_star_inst/parent_x[8][5][3]_i_1_n_0       |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[9][3][3]_i_2_n_0          | a_star_inst/parent_x[9][3][3]_i_1_n_0       |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[13][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[16][3]_i_1_n_0              |                                             |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[10][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[9][4][3]_i_2_n_0          | a_star_inst/parent_x[9][4][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[14][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[12][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[15][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[11][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[1][2][7]_i_2_n_0        | a_star_inst/cost_array[1][2][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[1][4][7]_i_2_n_0        | a_star_inst/cost_array[1][4][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[1][1][7]_i_2_n_0        | a_star_inst/cost_array[1][1][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[1][5][7]_i_2_n_0        | a_star_inst/cost_array[1][5][7]_i_1_n_0     |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[1][6][7]_i_2_n_0        | a_star_inst/cost_array[1][6][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[2][1][7]_i_2_n_0        | a_star_inst/cost_array[2][1][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[2][0][7]_i_2_n_0        | a_star_inst/cost_array[2][0][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[2][3][7]_i_2_n_0        | a_star_inst/cost_array[2][3][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[1][7][7]_i_2_n_0        | a_star_inst/cost_array[1][7][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[2][2][7]_i_2_n_0        | a_star_inst/cost_array[2][2][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[2][4][7]_i_2_n_0        | a_star_inst/cost_array[2][4][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[1][8][7]_i_2_n_0        | a_star_inst/cost_array[1][8][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[2][5][7]_i_2_n_0        | a_star_inst/cost_array[2][5][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[2][6][7]_i_2_n_0        | a_star_inst/cost_array[2][6][7]_i_1_n_0     |                6 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[1][3][7]_i_2_n_0        | a_star_inst/cost_array[1][3][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[3][0][7]_i_2_n_0        | a_star_inst/cost_array[3][0][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[3][7][7]_i_2_n_0        | a_star_inst/cost_array[3][7][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[3][8][7]_i_2_n_0        | a_star_inst/cost_array[3][8][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[2][8][7]_i_2_n_0        | a_star_inst/cost_array[2][8][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[3][3][7]_i_2_n_0        | a_star_inst/cost_array[3][3][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[3][6][7]_i_2_n_0        | a_star_inst/cost_array[3][6][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[2][7][7]_i_2_n_0        | a_star_inst/cost_array[2][7][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[3][5][7]_i_2_n_0        | a_star_inst/cost_array[3][5][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[4][3][7]_i_2_n_0        | a_star_inst/cost_array[4][3][7]_i_1_n_0     |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[4][4][7]_i_2_n_0        | a_star_inst/cost_array[4][4][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[3][4][7]_i_2_n_0        | a_star_inst/cost_array[3][4][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[4][2][7]_i_2_n_0        | a_star_inst/cost_array[4][2][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[3][2][7]_i_2_n_0        | a_star_inst/cost_array[3][2][7]_i_1_n_0     |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[3][1][7]_i_2_n_0        | a_star_inst/cost_array[3][1][7]_i_1_n_0     |                6 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[4][0][7]_i_2_n_0        | a_star_inst/cost_array[4][0][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[4][1][7]_i_2_n_0        | a_star_inst/cost_array[4][1][7]_i_1_n_0     |                6 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[4][6][7]_i_2_n_0        | a_star_inst/cost_array[4][6][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[4][7][7]_i_2_n_0        | a_star_inst/cost_array[4][7][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[4][8][7]_i_2_n_0        | a_star_inst/cost_array[4][8][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[5][3][7]_i_2_n_0        | a_star_inst/cost_array[5][3][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[5][0][7]_i_2_n_0        | a_star_inst/cost_array[5][0][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[5][2][7]_i_2_n_0        | a_star_inst/cost_array[5][2][7]_i_1_n_0     |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[5][4][7]_i_2_n_0        | a_star_inst/cost_array[5][4][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[5][6][7]_i_2_n_0        | a_star_inst/cost_array[5][6][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[6][0][7]_i_2_n_0        | a_star_inst/cost_array[6][0][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[5][1][7]_i_2_n_0        | a_star_inst/cost_array[5][1][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[6][1][7]_i_2_n_0        | a_star_inst/cost_array[6][1][7]_i_1_n_0     |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[5][5][7]_i_2_n_0        | a_star_inst/cost_array[5][5][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[4][5][7]_i_2_n_0        | a_star_inst/cost_array[4][5][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[5][8][7]_i_2_n_0        | a_star_inst/cost_array[5][8][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[5][7][7]_i_2_n_0        | a_star_inst/cost_array[5][7][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[6][2][7]_i_2_n_0        | a_star_inst/cost_array[6][2][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[7][0][7]_i_2_n_0        | a_star_inst/cost_array[7][0][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[7][8][7]_i_2_n_0        | a_star_inst/cost_array[7][8][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[7][2][7]_i_2_n_0        | a_star_inst/cost_array[7][2][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[7][1][7]_i_2_n_0        | a_star_inst/cost_array[7][1][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[6][4][7]_i_2_n_0        | a_star_inst/cost_array[6][4][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[6][7][7]_i_2_n_0        | a_star_inst/cost_array[6][7][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[7][5][7]_i_2_n_0        | a_star_inst/cost_array[7][5][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[7][6][7]_i_2_n_0        | a_star_inst/cost_array[7][6][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[6][3][7]_i_2_n_0        | a_star_inst/cost_array[6][3][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[6][8][7]_i_2_n_0        | a_star_inst/cost_array[6][8][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[6][5][7]_i_2_n_0        | a_star_inst/cost_array[6][5][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[7][7][7]_i_2_n_0        | a_star_inst/cost_array[7][7][7]_i_1_n_0     |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[6][6][7]_i_2_n_0        | a_star_inst/cost_array[6][6][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[7][4][7]_i_2_n_0        | a_star_inst/cost_array[7][4][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[7][3][7]_i_2_n_0        | a_star_inst/cost_array[7][3][7]_i_1_n_0     |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[8][0][7]_i_2_n_0        | a_star_inst/cost_array[8][0][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[9][1][7]_i_2_n_0        | a_star_inst/cost_array[9][1][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[8][2][7]_i_2_n_0        | a_star_inst/cost_array[8][2][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[9][6][7]_i_2_n_0        | a_star_inst/cost_array[9][6][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[9][7][7]_i_2_n_0        | a_star_inst/cost_array[9][7][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[8][6][7]_i_2_n_0        | a_star_inst/cost_array[8][6][7]_i_1_n_0     |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[8][3][7]_i_2_n_0        | a_star_inst/cost_array[8][3][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[8][7][7]_i_2_n_0        | a_star_inst/cost_array[8][7][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[8][8][7]_i_2_n_0        | a_star_inst/cost_array[8][8][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[8][5][7]_i_2_n_0        | a_star_inst/cost_array[8][5][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[9][5][7]_i_2_n_0        | a_star_inst/cost_array[9][5][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[8][1][7]_i_2_n_0        | a_star_inst/cost_array[8][1][7]_i_1_n_0     |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[9][0][7]_i_2_n_0        | a_star_inst/cost_array[9][0][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[9][2][7]_i_2_n_0        | a_star_inst/cost_array[9][2][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[8][4][7]_i_2_n_0        | a_star_inst/cost_array[8][4][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[9][3][7]_i_2_n_0        | a_star_inst/cost_array[9][3][7]_i_1_n_0     |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[9][4][7]_i_2_n_0        | a_star_inst/cost_array[9][4][7]_i_1_n_0     |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/cost_array[9][8][7]_i_2_n_0        | a_star_inst/cost_array[9][8][7]_i_1_n_0     |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[9][7][3]_i_2_n_0          | a_star_inst/parent_x[9][7][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[9][2][3]_i_2_n_0          | a_star_inst/parent_x[9][2][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[9][8][3]_i_2_n_0          | a_star_inst/parent_x[9][8][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[9][6][3]_i_2_n_0          | a_star_inst/parent_x[9][6][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/init_index_y[7]_i_1_n_0            | update_path_reg_n_0                         |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[9][5][3]_i_2_n_0          | a_star_inst/parent_x[9][5][3]_i_1_n_0       |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/init_index_x[0]_i_1_n_0            | update_path_reg_n_0                         |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[17][3]_i_1_n_0              |                                             |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[18][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[19][3]_i_1_n_0              |                                             |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[1][3]_i_1_n_0               |                                             |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[23][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[20][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[25][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[24][3]_i_1_n_0              |                                             |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[28][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[26][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[27][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[21][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[22][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[2][3]_i_1_n_0               |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[32][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[33][3]_i_1_n_0              |                                             |                6 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[30][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[31][3]_i_1_n_0              |                                             |                6 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[34][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[29][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[35][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[41][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[39][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[43][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[36][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[42][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[38][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[3][3]_i_1_n_0               |                                             |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[40][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[37][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[4][3]_i_1_n_0               |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[48][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[47][3]_i_1_n_0              |                                             |                7 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[50][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[46][3]_i_1_n_0              |                                             |                7 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[51][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[49][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[53][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[45][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[52][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[44][3]_i_1_n_0              |                                             |                6 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[58][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[55][3]_i_1_n_0              |                                             |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[5][3]_i_1_n_0               |                                             |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[61][3]_i_1_n_0              |                                             |                6 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[54][3]_i_1_n_0              |                                             |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[56][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[57][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[59][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[60][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[6][3]_i_1_n_0               |                                             |                6 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[65][3]_i_1_n_0              |                                             |                7 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[66][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[69][3]_i_1_n_0              |                                             |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[63][3]_i_1_n_0              |                                             |                7 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[64][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[68][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[62][3]_i_1_n_0              |                                             |                7 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[67][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[76][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[74][3]_i_1_n_0              |                                             |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[75][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[70][3]_i_1_n_0              |                                             |                7 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[77][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[78][3]_i_1_n_0              |                                             |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[79][3]_i_1_n_0              |                                             |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[73][3]_i_1_n_0              |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[72][3]_i_1_n_0              |                                             |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[71][3]_i_1_n_0              |                                             |                6 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[80][3]_i_1_n_0              |                                             |                6 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[9][3]_i_1_n_0               |                                             |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[7][3]_i_1_n_0               |                                             |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/open_y[8][3]_i_1_n_0               |                                             |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[0][0][3]_i_2_n_0          | a_star_inst/parent_x[0][0][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[10][0][3]_i_2_n_0         | a_star_inst/parent_x[10][0][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[10][1][3]_i_2_n_0         | a_star_inst/parent_x[10][1][3]_i_1_n_0      |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[0][6][3]_i_2_n_0          | a_star_inst/parent_x[0][6][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[0][2][3]_i_2_n_0          | a_star_inst/parent_x[0][2][3]_i_1_n_0       |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[0][1][3]_i_2_n_0          | a_star_inst/parent_x[0][1][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[0][7][3]_i_2_n_0          | a_star_inst/parent_x[0][7][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[0][8][3]_i_2_n_0          | a_star_inst/parent_x[0][8][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[0][3][3]_i_2_n_0          | a_star_inst/parent_x[0][3][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[0][4][3]_i_2_n_0          | a_star_inst/parent_x[0][4][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[0][5][3]_i_2_n_0          | a_star_inst/parent_x[0][5][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[10][6][3]_i_2_n_0         | a_star_inst/parent_x[10][6][3]_i_1_n_0      |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[11][0][3]_i_2_n_0         | a_star_inst/parent_x[11][0][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[10][2][3]_i_2_n_0         | a_star_inst/parent_x[10][2][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[10][7][3]_i_2_n_0         | a_star_inst/parent_x[10][7][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[10][3][3]_i_2_n_0         | a_star_inst/parent_x[10][3][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[10][5][3]_i_2_n_0         | a_star_inst/parent_x[10][5][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[10][4][3]_i_2_n_0         | a_star_inst/parent_x[10][4][3]_i_1_n_0      |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[11][2][3]_i_2_n_0         | a_star_inst/parent_x[11][2][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[11][1][3]_i_2_n_0         | a_star_inst/parent_x[11][1][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[10][8][3]_i_2_n_0         | a_star_inst/parent_x[10][8][3]_i_1_n_0      |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[11][6][3]_i_2_n_0         | a_star_inst/parent_x[11][6][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[11][4][3]_i_2_n_0         | a_star_inst/parent_x[11][4][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[11][5][3]_i_2_n_0         | a_star_inst/parent_x[11][5][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[11][7][3]_i_2_n_0         | a_star_inst/parent_x[11][7][3]_i_1_n_0      |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[11][3][3]_i_2_n_0         | a_star_inst/parent_x[11][3][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[12][2][3]_i_2_n_0         | a_star_inst/parent_x[12][2][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[11][8][3]_i_2_n_0         | a_star_inst/parent_x[11][8][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[12][3][3]_i_2_n_0         | a_star_inst/parent_x[12][3][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[12][1][3]_i_2_n_0         | a_star_inst/parent_x[12][1][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[12][0][3]_i_2_n_0         | a_star_inst/parent_x[12][0][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[12][4][3]_i_2_n_0         | a_star_inst/parent_x[12][4][3]_i_1_n_0      |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[12][5][3]_i_2_n_0         | a_star_inst/parent_x[12][5][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[13][0][3]_i_2_n_0         | a_star_inst/parent_x[13][0][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[13][2][3]_i_2_n_0         | a_star_inst/parent_x[13][2][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[12][6][3]_i_2_n_0         | a_star_inst/parent_x[12][6][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[12][7][3]_i_2_n_0         | a_star_inst/parent_x[12][7][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[12][8][3]_i_2_n_0         | a_star_inst/parent_x[12][8][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[13][5][3]_i_2_n_0         | a_star_inst/parent_x[13][5][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[13][1][3]_i_2_n_0         | a_star_inst/parent_x[13][1][3]_i_1_n_0      |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[13][3][3]_i_2_n_0         | a_star_inst/parent_x[13][3][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[13][4][3]_i_2_n_0         | a_star_inst/parent_x[13][4][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[13][8][3]_i_2_n_0         | a_star_inst/parent_x[13][8][3]_i_1_n_0      |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[14][1][3]_i_2_n_0         | a_star_inst/parent_x[14][1][3]_i_1_n_0      |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[13][6][3]_i_2_n_0         | a_star_inst/parent_x[13][6][3]_i_1_n_0      |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[14][4][3]_i_2_n_0         | a_star_inst/parent_x[14][4][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[14][0][3]_i_2_n_0         | a_star_inst/parent_x[14][0][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[14][5][3]_i_2_n_0         | a_star_inst/parent_x[14][5][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[14][3][3]_i_2_n_0         | a_star_inst/parent_x[14][3][3]_i_1_n_0      |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[13][7][3]_i_2_n_0         | a_star_inst/parent_x[13][7][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[14][6][3]_i_2_n_0         | a_star_inst/parent_x[14][6][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[14][2][3]_i_2_n_0         | a_star_inst/parent_x[14][2][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[14][7][3]_i_2_n_0         | a_star_inst/parent_x[14][7][3]_i_1_n_0      |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[2][0][3]_i_2_n_0          | a_star_inst/parent_x[2][0][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[14][8][3]_i_2_n_0         | a_star_inst/parent_x[14][8][3]_i_1_n_0      |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[1][0][3]_i_2_n_0          | a_star_inst/parent_x[1][0][3]_i_1_n_0       |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[1][1][3]_i_2_n_0          | a_star_inst/parent_x[1][1][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[1][3][3]_i_2_n_0          | a_star_inst/parent_x[1][3][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[1][5][3]_i_2_n_0          | a_star_inst/parent_x[1][5][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[1][6][3]_i_2_n_0          | a_star_inst/parent_x[1][6][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[1][4][3]_i_2_n_0          | a_star_inst/parent_x[1][4][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[1][7][3]_i_2_n_0          | a_star_inst/parent_x[1][7][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[1][8][3]_i_2_n_0          | a_star_inst/parent_x[1][8][3]_i_1_n_0       |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[1][2][3]_i_2_n_0          | a_star_inst/parent_x[1][2][3]_i_1_n_0       |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[2][2][3]_i_2_n_0          | a_star_inst/parent_x[2][2][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[2][8][3]_i_2_n_0          | a_star_inst/parent_x[2][8][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[2][3][3]_i_2_n_0          | a_star_inst/parent_x[2][3][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[3][1][3]_i_2_n_0          | a_star_inst/parent_x[3][1][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[2][7][3]_i_2_n_0          | a_star_inst/parent_x[2][7][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[2][4][3]_i_2_n_0          | a_star_inst/parent_x[2][4][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[2][5][3]_i_2_n_0          | a_star_inst/parent_x[2][5][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[2][6][3]_i_2_n_0          | a_star_inst/parent_x[2][6][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[2][1][3]_i_2_n_0          | a_star_inst/parent_x[2][1][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[3][0][3]_i_2_n_0          | a_star_inst/parent_x[3][0][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[3][4][3]_i_2_n_0          | a_star_inst/parent_x[3][4][3]_i_1_n_0       |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[3][3][3]_i_2_n_0          | a_star_inst/parent_x[3][3][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[3][2][3]_i_2_n_0          | a_star_inst/parent_x[3][2][3]_i_1_n_0       |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[3][6][3]_i_2_n_0          | a_star_inst/parent_x[3][6][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[4][1][3]_i_2_n_0          | a_star_inst/parent_x[4][1][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[3][7][3]_i_2_n_0          | a_star_inst/parent_x[3][7][3]_i_1_n_0       |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[4][2][3]_i_2_n_0          | a_star_inst/parent_x[4][2][3]_i_1_n_0       |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[4][3][3]_i_2_n_0          | a_star_inst/parent_x[4][3][3]_i_1_n_0       |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[3][5][3]_i_2_n_0          | a_star_inst/parent_x[3][5][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[4][0][3]_i_2_n_0          | a_star_inst/parent_x[4][0][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[3][8][3]_i_2_n_0          | a_star_inst/parent_x[3][8][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[4][7][3]_i_2_n_0          | a_star_inst/parent_x[4][7][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[5][0][3]_i_2_n_0          | a_star_inst/parent_x[5][0][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[5][1][3]_i_2_n_0          | a_star_inst/parent_x[5][1][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[4][6][3]_i_2_n_0          | a_star_inst/parent_x[4][6][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[5][4][3]_i_2_n_0          | a_star_inst/parent_x[5][4][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[4][4][3]_i_2_n_0          | a_star_inst/parent_x[4][4][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[5][2][3]_i_2_n_0          | a_star_inst/parent_x[5][2][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[5][3][3]_i_2_n_0          | a_star_inst/parent_x[5][3][3]_i_1_n_0       |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[4][8][3]_i_2_n_0          | a_star_inst/parent_x[4][8][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[4][5][3]_i_2_n_0          | a_star_inst/parent_x[4][5][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[6][2][3]_i_2_n_0          | a_star_inst/parent_x[6][2][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[6][3][3]_i_2_n_0          | a_star_inst/parent_x[6][3][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[6][4][3]_i_2_n_0          | a_star_inst/parent_x[6][4][3]_i_1_n_0       |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[6][6][3]_i_2_n_0          | a_star_inst/parent_x[6][6][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[5][5][3]_i_2_n_0          | a_star_inst/parent_x[5][5][3]_i_1_n_0       |                2 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[5][6][3]_i_2_n_0          | a_star_inst/parent_x[5][6][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[6][0][3]_i_2_n_0          | a_star_inst/parent_x[6][0][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[6][1][3]_i_2_n_0          | a_star_inst/parent_x[6][1][3]_i_1_n_0       |                4 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[5][7][3]_i_2_n_0          | a_star_inst/parent_x[5][7][3]_i_1_n_0       |                3 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[5][8][3]_i_2_n_0          | a_star_inst/parent_x[5][8][3]_i_1_n_0       |                1 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/parent_x[6][5][3]_i_2_n_0          | a_star_inst/parent_x[6][5][3]_i_1_n_0       |                5 |             16 |
-|  clk_a_star_BUFG     | a_star_inst/goal_y_loc[3]_i_1_n_0              |                                             |                8 |             18 |
-|  basys_clk_IBUF_BUFG | rx_inst/counter                                | rx_inst/counter[10]_i_1_n_0                 |                3 |             20 |
-|  basys_clk_IBUF_BUFG | tx_inst/packet[16]_i_2_n_0                     | tx_inst/packet[16]_i_1_n_0                  |                3 |             24 |
-|  clk_a_star_BUFG     | a_star_inst/shift_index[7]_i_1_n_0             |                                             |                5 |             24 |
-|  clk_a_star_BUFG     | a_star_inst/curr_path_x[3]_i_1_n_0             |                                             |                5 |             24 |
-|  clk_a_star_BUFG     | a_star_inst/curr_x[3]_i_1_n_0                  |                                             |                4 |             26 |
-|  clk_a_star_BUFG     | a_star_inst/init_index_i[8]_i_1_n_0            | update_path_reg_n_0                         |                6 |             28 |
-|  clk_a_star_BUFG     | a_star_inst/best_index[7]_i_2_n_0              | a_star_inst/best_index[7]_i_1_n_0           |                7 |             34 |
-| ~clk_6p25m_BUFG      |                                                | oled1/frame_counter[16]_i_1_n_0             |                5 |             34 |
-|  basys_clk_IBUF_BUFG | player_ctrl_inst/player_x[6]_i_1_n_0           |                                             |               12 |             36 |
-|  basys_clk_IBUF_BUFG |                                                | seg_inst/an_select                          |                6 |             40 |
-|  basys_clk_IBUF_BUFG | player_ctrl_inst/player_y[5]_i_1_n_0           |                                             |               12 |             40 |
-| ~clk_6p25m_BUFG      | oled1/delay[0]_i_1_n_0                         |                                             |                5 |             40 |
-|  basys_clk_IBUF_BUFG |                                                | player_ctrl_inst/player_counter[21]_i_1_n_0 |                6 |             42 |
-|  clk_a_star_BUFG     | a_star_inst/curr_path_x[3]_i_1_n_0             | a_star_inst/path_index[7]_i_1_n_0           |                8 |             42 |
-|  clk_a_star_BUFG     | a_star_inst/scan_index[7]_i_2_n_0              | a_star_inst/scan_index[7]_i_1_n_0           |                7 |             44 |
-|  basys_clk_IBUF_BUFG | pair_inst/hb_tx_counter[23]_i_2_n_0            | pair_inst/hb_tx_counter[23]_i_1_n_0         |                6 |             46 |
-|  clk_a_star_BUFG     | a_star_inst/nb_x[3]_i_1_n_0                    |                                             |                7 |             46 |
-|  clk_a_star_BUFG     | a_star_inst/closed_y_reg_r1_0_63_0_2_i_4_n_0   |                                             |                6 |             48 |
-|  clk_a_star_BUFG     | a_star_inst/closed_y_reg_r1_64_127_0_2_i_1_n_0 |                                             |                6 |             48 |
-|  clk_a_star_BUFG     |                                                | update_path                                 |                6 |             48 |
-|  clk_a_star_BUFG     | a_star_inst/state[4]_i_1_n_0                   | update_path_reg_n_0                         |               11 |             52 |
-|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/bomb_active                     | bomb_ctrl_inst/blink_counter[26]_i_1_n_0    |               10 |             54 |
-|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/explosion_active                | bomb_ctrl_inst/explosion_stage_counter      |                7 |             56 |
-|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/bomb_active                     | bomb_ctrl_inst/bomb_counter[28]_i_1_n_0     |                9 |             58 |
-|  basys_clk_IBUF_BUFG | pair_inst/hb_tx_counter[23]_i_2_n_0            | pair_inst/pair_counter[28]_i_1_n_0          |                8 |             58 |
-|  basys_clk_IBUF_BUFG | pair_inst/display_counter_reg[0]               | pair_inst/display_counter_reg[0]_0          |                9 |             60 |
-|  basys_clk_IBUF_BUFG |                                                | clk_6p25m_inst/count[31]_i_1__0_n_0         |                8 |             62 |
-|  basys_clk_IBUF_BUFG |                                                | clk_a_star_inst/clk_out0                    |                9 |             64 |
-| ~clk_6p25m_BUFG      | oled1/state                                    |                                             |                9 |             64 |
-| ~clk_6p25m_BUFG      |                                                | oled1/spi_word[39]_i_1_n_0                  |               16 |             90 |
-|  basys_clk_IBUF_BUFG |                                                |                                             |              122 |            530 |
-|  basys_clk_IBUF_BUFG | path_valid_sync_pulse                          |                                             |              357 |           1310 |
-|  clk_a_star_BUFG     |                                                |                                             |              456 |           2128 |
-+----------------------+------------------------------------------------+---------------------------------------------+------------------+----------------+
++----------------------+--------------------------------------------------------+----------------------------------------------------+------------------+----------------+
+|     Clock Signal     |                      Enable Signal                     |                  Set/Reset Signal                  | Slice Load Count | Bel Load Count |
++----------------------+--------------------------------------------------------+----------------------------------------------------+------------------+----------------+
+|  basys_clk_IBUF_BUFG | tx_inst/tx_i_1_n_0                                     |                                                    |                1 |              2 |
+| ~clk_6p25m_BUFG      |                                                        |                                                    |                1 |              2 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[32][3]            |                4 |              8 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[3][0]             |                4 |              8 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[36][3]            |                4 |              8 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[34][3]            |                4 |              8 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[31][3]            |                4 |              8 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[33][3]            |                4 |              8 |
+|  basys_clk_IBUF_BUFG | pair_inst/tx_en_i_1_n_0                                |                                                    |                2 |              8 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[10][3]            |                4 |              8 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[30][3]            |                4 |              8 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[26][3]            |                4 |              8 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[27][3]            |                4 |              8 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[29][3]            |                4 |              8 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[28][3]            |                4 |              8 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[37][3]            |                4 |              8 |
+|  basys_clk_IBUF_BUFG | rx_inst/bit_index                                      |                                                    |                2 |             10 |
+|  basys_clk_IBUF_BUFG | game_inst/prev_btns                                    |                                                    |                1 |             10 |
+|  basys_clk_IBUF_BUFG | tx_inst/bit_index[4]_i_1_n_0                           |                                                    |                1 |             10 |
+|  basys_clk_IBUF_BUFG |                                                        | pair_inst/pair_state[0]                            |                2 |             12 |
+|  basys_clk_IBUF_BUFG | comp_inst/a_star_inst/computer_y_reg[0][0]             |                                                    |                4 |             12 |
+|  clk_a_star          | comp_inst/a_star_inst/open_counter[6]_i_2_n_0          | comp_inst/a_star_inst/open_counter[6]_i_1_n_0      |                2 |             12 |
+|  clk_a_star          | comp_inst/a_star_inst/shift_index[6]_i_1_n_0           |                                                    |                2 |             14 |
+|  clk_a_star          | comp_inst/a_star_inst/closed_counter[6]_i_2_n_0        | comp_inst/a_star_inst/closed_counter[6]_i_1_n_0    |                2 |             14 |
+|  clk_a_star          | comp_inst/a_star_inst/curr_path_x[3]_i_1_n_0           | comp_inst/a_star_inst/path_index[6]_i_1_n_0        |                2 |             14 |
+|  basys_clk_IBUF_BUFG | comp_inst/a_star_inst/E[0]                             | comp_inst/path_valid_sync_pulse                    |                4 |             14 |
+|  basys_clk_IBUF_BUFG | comp_inst/a_star_inst/computer_x_reg[0][0]             |                                                    |                3 |             14 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[20][0]            |                7 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[6][7][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[6][7][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[6][6][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[6][6][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[7][1][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[7][1][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[7][2][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[7][2][3]_i_1_n_0    |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[6][5][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[6][5][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[7][0][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[7][0][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[7][3][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[7][3][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[7][4][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[7][4][3]_i_1_n_0    |                4 |             16 |
+|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/destroy_down_tx[3]_i_1_n_0              |                                                    |                3 |             16 |
+|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/destroy_left_tx[3]_i_1_n_0              |                                                    |                5 |             16 |
+|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/clear_bomb_tx[3]_i_1_n_0                |                                                    |                3 |             16 |
+|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/destroy_right_tx[3]_i_1_n_0             |                                                    |                4 |             16 |
+|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/destroy_up_tx[3]_i_1_n_0                |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[7][6][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[7][6][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[7][7][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[7][7][3]_i_1_n_0    |                4 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[35][3]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[38][3]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_x_reg[39][3]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[13][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[12][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[14][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[11][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[23][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[18][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[15][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[22][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[17][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[19][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[25][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[16][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[24][0]            |                8 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[21][0]            |                8 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[13][3]_i_1_n_0            |                                                    |                2 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[8][0]             |                7 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[9][0]             |                6 |             16 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        | comp_inst/a_star_inst/path_y_reg[7][0]             |                8 |             16 |
+|  basys_clk_IBUF_BUFG | game_inst/prev_sw                                      |                                                    |                3 |             16 |
+|  basys_clk_IBUF_BUFG | game_inst/tx_en_i_1__0_n_0                             |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[8][2][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[8][2][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[8][3][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[8][3][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[8][4][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[8][4][3]_i_1_n_0    |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[8][5][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[8][5][3]_i_1_n_0    |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[7][5][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[7][5][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[8][1][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[8][1][3]_i_1_n_0    |                2 |             16 |
+|  basys_clk_IBUF_BUFG | rx_inst/data[7]_i_1_n_0                                |                                                    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[8][0][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[8][0][3]_i_1_n_0    |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[8][6][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[8][6][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[7][8][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[7][8][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[9][1][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[9][1][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[9][4][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[9][4][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[9][5][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[9][5][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[9][3][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[9][3][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[8][8][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[8][8][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[13][2][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[13][2][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[13][6][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[13][6][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[13][8][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[13][8][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[13][5][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[13][5][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[14][1][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[14][1][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[13][7][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[13][7][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[14][2][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[14][2][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[14][3][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[14][3][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[13][3][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[13][3][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[14][0][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[14][0][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[13][4][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[13][4][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[9][0][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[9][0][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[9][6][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[9][6][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[9][2][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[9][2][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/init_index_x[0]_i_1_n_0          | comp_inst/update_path_reg_n_0                      |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[9][8][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[9][8][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[9][7][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[9][7][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/init_index_y[7]_i_1_n_0          | comp_inst/update_path_reg_n_0                      |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[0][3]_i_1_n_0             |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[14][3]_i_1_n_0            |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[11][3]_i_1_n_0            |                                                    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[8][7][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[8][7][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[15][3]_i_1_n_0            |                                                    |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[12][3]_i_1_n_0            |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[10][3]_i_1_n_0            |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[16][3]_i_1_n_0            |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[18][3]_i_1_n_0            |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[17][3]_i_1_n_0            |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[19][3]_i_1_n_0            |                                                    |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[22][3]_i_1_n_0            |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[23][3]_i_1_n_0            |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[1][3]_i_1_n_0             |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[20][3]_i_1_n_0            |                                                    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[25][3]_i_1_n_0            |                                                    |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[24][3]_i_1_n_0            |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[21][3]_i_1_n_0            |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[30][3]_i_1_n_0            |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[27][3]_i_1_n_0            |                                                    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[2][3]_i_1_n_0             |                                                    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[31][3]_i_1_n_0            |                                                    |                8 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[26][3]_i_1_n_0            |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[29][3]_i_1_n_0            |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[28][3]_i_1_n_0            |                                                    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[33][3]_i_1_n_0            |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[32][3]_i_1_n_0            |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[34][3]_i_1_n_0            |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[3][3]_i_1_n_0             |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[38][3]_i_1_n_0            |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[35][3]_i_1_n_0            |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[4][3]_i_1_n_0             |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[36][3]_i_1_n_0            |                                                    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[6][3]_i_1_n_0             |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[37][3]_i_1_n_0            |                                                    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[5][3]_i_1_n_0             |                                                    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[39][3]_i_1_n_0            |                                                    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[8][3]_i_1_n_0             |                                                    |                6 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[7][3]_i_1_n_0             |                                                    |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/open_y[9][3]_i_1_n_0             |                                                    |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[0][0][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[0][0][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[0][3][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[0][3][3]_i_1_n_0    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[0][7][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[0][7][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[10][0][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[10][0][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[10][1][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[10][1][3]_i_1_n_0   |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[0][1][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[0][1][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[0][6][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[0][6][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[0][8][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[0][8][3]_i_1_n_0    |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[0][4][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[0][4][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[0][5][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[0][5][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[0][2][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[0][2][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[10][8][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[10][8][3]_i_1_n_0   |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[11][1][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[11][1][3]_i_1_n_0   |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[11][2][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[11][2][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[11][3][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[11][3][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[10][4][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[10][4][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[10][6][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[10][6][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[10][5][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[10][5][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[10][7][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[10][7][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[11][0][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[11][0][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[10][2][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[10][2][3]_i_1_n_0   |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[10][3][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[10][3][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[11][8][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[11][8][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[11][5][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[11][5][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[11][4][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[11][4][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[11][6][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[11][6][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[12][1][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[12][1][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[12][4][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[12][4][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[12][3][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[12][3][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[12][2][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[12][2][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[11][7][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[11][7][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[12][0][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[12][0][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[12][5][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[12][5][3]_i_1_n_0   |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[13][0][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[13][0][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[13][1][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[13][1][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[12][7][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[12][7][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[12][8][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[12][8][3]_i_1_n_0   |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[12][6][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[12][6][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[9][5][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[9][5][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[9][6][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[9][6][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[9][4][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[9][4][7]_i_1_n_0  |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[9][7][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[9][7][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[9][8][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[9][8][7]_i_1_n_0  |                6 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[0][0][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[0][0][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[0][4][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[0][4][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[0][2][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[0][2][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[0][5][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[0][5][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[0][1][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[0][1][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[0][3][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[0][3][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[0][6][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[0][6][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[10][3][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[10][3][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[10][0][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[10][0][7]_i_1_n_0 |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[11][1][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[11][1][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[10][5][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[10][5][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[0][8][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[0][8][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[10][6][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[10][6][7]_i_1_n_0 |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[0][7][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[0][7][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[10][7][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[10][7][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[10][1][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[10][1][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[10][2][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[10][2][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[10][8][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[10][8][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[11][0][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[11][0][7]_i_1_n_0 |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[10][4][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[10][4][7]_i_1_n_0 |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[11][6][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[11][6][7]_i_1_n_0 |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[11][5][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[11][5][7]_i_1_n_0 |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[12][1][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[12][1][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[12][3][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[12][3][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[12][2][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[12][2][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[12][4][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[12][4][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[11][7][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[11][7][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[12][5][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[12][5][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[12][0][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[12][0][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[11][8][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[11][8][7]_i_1_n_0 |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[11][3][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[11][3][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[11][2][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[11][2][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[11][4][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[11][4][7]_i_1_n_0 |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[13][1][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[13][1][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[12][7][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[12][7][7]_i_1_n_0 |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[13][0][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[13][0][7]_i_1_n_0 |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[13][5][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[13][5][7]_i_1_n_0 |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[13][7][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[13][7][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[13][6][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[13][6][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[12][6][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[12][6][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[13][4][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[13][4][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[13][8][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[13][8][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[13][2][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[13][2][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[14][0][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[14][0][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[12][8][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[12][8][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[13][3][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[13][3][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[14][2][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[14][2][7]_i_1_n_0 |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[14][3][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[14][3][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[14][7][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[14][7][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[14][6][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[14][6][7]_i_1_n_0 |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[14][4][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[14][4][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[14][1][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[14][1][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[14][8][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[14][8][7]_i_1_n_0 |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[14][5][7]_i_2_n_0     | comp_inst/a_star_inst/cost_array[14][5][7]_i_1_n_0 |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[1][0][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[1][0][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[1][3][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[1][3][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[1][5][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[1][5][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[1][2][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[1][2][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[1][6][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[1][6][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[1][4][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[1][4][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[1][7][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[1][7][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[1][1][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[1][1][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[3][2][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[3][2][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[2][2][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[2][2][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[2][4][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[2][4][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[2][5][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[2][5][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[2][3][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[2][3][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[2][1][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[2][1][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[1][8][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[1][8][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[3][0][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[3][0][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[2][6][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[2][6][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[2][8][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[2][8][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[3][1][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[3][1][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[2][0][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[2][0][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[2][7][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[2][7][7]_i_1_n_0  |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[3][6][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[3][6][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[4][2][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[4][2][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[4][1][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[4][1][7]_i_1_n_0  |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[4][3][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[4][3][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[4][4][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[4][4][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[4][5][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[4][5][7]_i_1_n_0  |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[4][6][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[4][6][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[3][8][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[3][8][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[3][3][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[3][3][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[3][4][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[3][4][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[4][0][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[4][0][7]_i_1_n_0  |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[3][7][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[3][7][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[3][5][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[3][5][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[4][8][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[4][8][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[5][2][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[5][2][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[5][4][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[5][4][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[5][3][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[5][3][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[5][8][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[5][8][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[6][0][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[6][0][7]_i_1_n_0  |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[6][1][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[6][1][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[4][7][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[4][7][7]_i_1_n_0  |                6 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[5][7][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[5][7][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[5][0][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[5][0][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[5][6][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[5][6][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[5][1][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[5][1][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[5][5][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[5][5][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[7][5][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[7][5][7]_i_1_n_0  |                6 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[6][8][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[6][8][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[6][4][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[6][4][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[7][4][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[7][4][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[6][5][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[6][5][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[6][2][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[6][2][7]_i_1_n_0  |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[6][6][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[6][6][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[7][0][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[7][0][7]_i_1_n_0  |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[7][1][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[7][1][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[6][3][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[6][3][7]_i_1_n_0  |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[7][2][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[7][2][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[6][7][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[6][7][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[7][3][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[7][3][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[8][7][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[8][7][7]_i_1_n_0  |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[8][2][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[8][2][7]_i_1_n_0  |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[7][6][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[7][6][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[8][0][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[8][0][7]_i_1_n_0  |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[8][4][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[8][4][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[8][6][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[8][6][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[7][8][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[7][8][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[8][5][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[8][5][7]_i_1_n_0  |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[7][7][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[7][7][7]_i_1_n_0  |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[8][3][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[8][3][7]_i_1_n_0  |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[8][8][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[8][8][7]_i_1_n_0  |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[8][1][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[8][1][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[9][2][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[9][2][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[9][1][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[9][1][7]_i_1_n_0  |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[9][0][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[9][0][7]_i_1_n_0  |                5 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/cost_array[9][3][7]_i_2_n_0      | comp_inst/a_star_inst/cost_array[9][3][7]_i_1_n_0  |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[1][3][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[1][3][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[14][4][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[14][4][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[14][6][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[14][6][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[1][0][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[1][0][3]_i_1_n_0    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[1][1][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[1][1][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[14][5][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[14][5][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[1][4][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[1][4][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[1][2][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[1][2][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[14][7][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[14][7][3]_i_1_n_0   |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[14][8][3]_i_2_n_0       | comp_inst/a_star_inst/parent_x[14][8][3]_i_1_n_0   |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[2][4][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[2][4][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[2][0][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[2][0][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[1][6][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[1][6][3]_i_1_n_0    |                1 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[2][1][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[2][1][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[1][7][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[1][7][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[1][8][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[1][8][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[2][2][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[2][2][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[2][6][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[2][6][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[1][5][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[1][5][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[2][3][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[2][3][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[2][5][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[2][5][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[3][1][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[3][1][3]_i_1_n_0    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[3][2][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[3][2][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[3][7][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[3][7][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[3][4][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[3][4][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[2][8][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[2][8][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[3][0][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[3][0][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[2][7][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[2][7][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[3][3][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[3][3][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[3][5][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[3][5][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[3][6][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[3][6][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[4][4][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[4][4][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[4][3][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[4][3][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[4][0][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[4][0][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[3][8][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[3][8][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[4][5][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[4][5][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[4][6][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[4][6][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[4][1][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[4][1][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[4][8][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[4][8][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[4][2][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[4][2][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[4][7][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[4][7][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[5][0][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[5][0][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[5][8][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[5][8][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[5][5][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[5][5][3]_i_1_n_0    |                3 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[5][1][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[5][1][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[5][2][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[5][2][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[5][4][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[5][4][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[5][6][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[5][6][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[6][1][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[6][1][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[5][3][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[5][3][3]_i_1_n_0    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[6][0][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[6][0][3]_i_1_n_0    |                4 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[5][7][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[5][7][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[6][3][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[6][3][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[6][2][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[6][2][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[6][8][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[6][8][3]_i_1_n_0    |                2 |             16 |
+|  clk_a_star          | comp_inst/a_star_inst/parent_x[6][4][3]_i_2_n_0        | comp_inst/a_star_inst/parent_x[6][4][3]_i_1_n_0    |                2 |             16 |
+|  basys_clk_IBUF_BUFG | rx_inst/counter                                        |                                                    |                5 |             22 |
+|  clk_a_star          | comp_inst/a_star_inst/curr_path_x[3]_i_1_n_0           |                                                    |                6 |             24 |
+|  basys_clk_IBUF_BUFG | tx_inst/packet[16]_i_1_n_0                             |                                                    |                5 |             26 |
+|  clk_a_star          | comp_inst/a_star_inst/curr_x[3]_i_1_n_0                |                                                    |                3 |             26 |
+|  clk_a_star          | comp_inst/a_star_inst/init_index_i[7]_i_1_n_0          | comp_inst/update_path_reg_n_0                      |                5 |             28 |
+|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/bomb_counter[28]_i_1_n_0                |                                                    |               13 |             30 |
+|  clk_a_star          | comp_inst/a_star_inst/goal_y_loc[3]_i_1_n_0            |                                                    |                4 |             32 |
+| ~clk_6p25m_BUFG      |                                                        | oled1/frame_counter[16]_i_1_n_0                    |                5 |             34 |
+|  clk_a_star          | comp_inst/a_star_inst/scan_index[6]_i_2_n_0            | comp_inst/a_star_inst/scan_index[6]_i_1_n_0        |                4 |             38 |
+|  basys_clk_IBUF_BUFG |                                                        | seg_inst/an_select                                 |                6 |             40 |
+| ~clk_6p25m_BUFG      | oled1/delay[0]_i_1_n_0                                 |                                                    |                5 |             40 |
+|  basys_clk_IBUF_BUFG | player_ctrl_inst/player_x[6]_i_1_n_0                   |                                                    |               14 |             42 |
+|  basys_clk_IBUF_BUFG |                                                        | comp_inst/computer_counter[22]_i_1_n_0             |                6 |             44 |
+|  basys_clk_IBUF_BUFG |                                                        | player_ctrl_inst/player_counter[21]_i_1_n_0        |                7 |             44 |
+|  basys_clk_IBUF_BUFG | player_ctrl_inst/player_y[5]_i_1_n_0                   |                                                    |                7 |             44 |
+|  clk_a_star          | comp_inst/a_star_inst/state[4]_i_1_n_0                 | comp_inst/update_path_reg_n_0                      |               10 |             46 |
+|  clk_a_star          | comp_inst/a_star_inst/nb_x[3]_i_1_n_0                  |                                                    |                8 |             46 |
+|  basys_clk_IBUF_BUFG | pair_inst/hb_tx_counter[23]_i_2_n_0                    | pair_inst/hb_tx_counter[23]_i_1_n_0                |                6 |             48 |
+|  clk_a_star          | comp_inst/a_star_inst/best_x[3]_i_2_n_0                | comp_inst/a_star_inst/best_x[3]_i_1_n_0            |                8 |             48 |
+|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/bomb_active                             | bomb_ctrl_inst/blink_counter[26]_i_1_n_0           |                6 |             54 |
+|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/explosion_active                        | bomb_ctrl_inst/explosion_stage_counter             |                7 |             56 |
+|  basys_clk_IBUF_BUFG | bomb_ctrl_inst/bomb_active                             | bomb_ctrl_inst/bomb_counter[28]_i_1_n_0            |                8 |             58 |
+|  basys_clk_IBUF_BUFG | pair_inst/hb_tx_counter[23]_i_2_n_0                    | pair_inst/pair_counter[28]_i_1_n_0                 |                8 |             58 |
+|  basys_clk_IBUF_BUFG | pair_inst/display_counter_reg[0]                       | pair_inst/display_counter_reg[29]                  |                9 |             60 |
+|  basys_clk_IBUF_BUFG |                                                        | clk_6p25m_inst/count[31]_i_1__0_n_0                |                8 |             62 |
+|  clk_a_star          |                                                        | comp_inst/update_counter[31]_i_1_n_0               |                8 |             62 |
+| ~clk_6p25m_BUFG      | oled1/state                                            |                                                    |                9 |             64 |
+|  basys_clk_IBUF_BUFG |                                                        | comp_inst/clk_a_star_inst/clk_out0                 |                9 |             64 |
+|  clk_a_star          | comp_inst/a_star_inst/closed_y_reg_r1_0_63_0_2_i_4_n_0 |                                                    |                8 |             64 |
+| ~clk_6p25m_BUFG      |                                                        | oled1/spi_word[39]_i_1_n_0                         |               19 |             90 |
+|  clk_a_star          | comp_inst/a_star_inst/path_len[6]_i_2_n_0              | comp_inst/a_star_inst/path_len[6]_i_1_n_0          |               17 |             92 |
+|  basys_clk_IBUF_BUFG | comp_inst/path_valid_sync_pulse                        |                                                    |               64 |            200 |
+|  basys_clk_IBUF_BUFG |                                                        |                                                    |              115 |            524 |
+|  clk_a_star          |                                                        |                                                    |              244 |           1488 |
++----------------------+--------------------------------------------------------+----------------------------------------------------+------------------+----------------+
 
 

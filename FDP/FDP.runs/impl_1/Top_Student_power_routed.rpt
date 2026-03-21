@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-| Date             : Fri Mar 20 03:11:08 2026
+| Date             : Sat Mar 21 16:27:06 2026
 | Host             : ac-yt running 64-bit major release  (build 9200)
 | Command          : report_power -file Top_Student_power_routed.rpt -pb Top_Student_power_summary_routed.pb -rpx Top_Student_power_routed.rpx
 | Design           : Top_Student
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.165        |
+| Total On-Chip Power (W)  | 0.108        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.093        |
+| Dynamic (W)              | 0.036        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 5.0          |
-| Max Ambient (C)          | 84.2         |
-| Junction Temperature (C) | 25.8         |
+| Max Ambient (C)          | 84.5         |
+| Junction Temperature (C) | 25.5         |
 | Confidence Level         | Low          |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,19 +52,20 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.010 |        3 |       --- |             --- |
-| Slice Logic              |     0.038 |    30971 |       --- |             --- |
-|   LUT as Logic           |     0.036 |    19235 |     20800 |           92.48 |
-|   CARRY4                 |     0.001 |     1397 |      8150 |           17.14 |
-|   F7/F8 Muxes            |    <0.001 |     1382 |     32600 |            4.24 |
-|   Register               |    <0.001 |     5573 |     41600 |           13.40 |
-|   Others                 |     0.000 |       28 |       --- |             --- |
-|   LUT as Distributed RAM |     0.000 |       48 |      9600 |            0.50 |
+| Clocks                   |     0.008 |        3 |       --- |             --- |
+| Slice Logic              |     0.013 |    22355 |       --- |             --- |
+|   LUT as Logic           |     0.012 |    13441 |     20800 |           64.62 |
+|   CARRY4                 |    <0.001 |      893 |      8150 |           10.96 |
+|   Register               |    <0.001 |     4671 |     41600 |           11.23 |
+|   F7/F8 Muxes            |    <0.001 |     1076 |     32600 |            3.30 |
+|   Others                 |     0.000 |       33 |       --- |             --- |
 |   BUFG                   |     0.000 |        2 |        32 |            6.25 |
-| Signals                  |     0.043 |    21753 |       --- |             --- |
-| I/O                      |     0.002 |       52 |       106 |           49.06 |
+|   LUT as Distributed RAM |     0.000 |       32 |      9600 |            0.33 |
+| Signals                  |     0.012 |    15797 |       --- |             --- |
+| DSPs                     |     0.002 |        4 |        90 |            4.44 |
+| I/O                      |     0.001 |       52 |       106 |           49.06 |
 | Static Power             |     0.072 |          |           |                 |
-| Total                    |     0.165 |          |           |                 |
+| Total                    |     0.108 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -74,7 +75,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.101 |       0.092 |      0.010 |
+| Vccint    |       1.000 |     0.045 |       0.035 |      0.010 |
 | Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |
 | Vcco33    |       3.300 |     0.001 |       0.000 |      0.001 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
@@ -143,32 +144,25 @@ Table of Contents
 +--------------------------------+-----------+
 | Name                           | Power (W) |
 +--------------------------------+-----------+
-| Top_Student                    |     0.093 |
-|   a_star_inst                  |     0.014 |
-|     closed_x_reg_r1_0_63_0_2   |     0.000 |
-|     closed_x_reg_r1_0_63_3_3   |     0.000 |
-|     closed_x_reg_r1_64_127_0_2 |     0.000 |
-|     closed_x_reg_r1_64_127_3_3 |     0.000 |
-|     closed_x_reg_r2_0_63_0_2   |     0.000 |
-|     closed_x_reg_r2_0_63_3_3   |     0.000 |
-|     closed_x_reg_r2_64_127_0_2 |     0.000 |
-|     closed_x_reg_r2_64_127_3_3 |     0.000 |
-|     closed_y_reg_r1_0_63_0_2   |     0.000 |
-|     closed_y_reg_r1_0_63_3_3   |     0.000 |
-|     closed_y_reg_r1_64_127_0_2 |     0.000 |
-|     closed_y_reg_r1_64_127_3_3 |     0.000 |
-|     closed_y_reg_r2_0_63_0_2   |     0.000 |
-|     closed_y_reg_r2_0_63_3_3   |     0.000 |
-|     closed_y_reg_r2_64_127_0_2 |     0.000 |
-|     closed_y_reg_r2_64_127_3_3 |     0.000 |
-|   bomb_ctrl_inst               |     0.011 |
+| Top_Student                    |     0.036 |
+|   bomb_ctrl_inst               |     0.003 |
 |   clk_6p25m_inst               |    <0.001 |
-|   clk_a_star_inst              |    <0.001 |
+|   comp_inst                    |     0.019 |
+|     a_star_inst                |     0.013 |
+|       closed_x_reg_r1_0_63_0_2 |     0.000 |
+|       closed_x_reg_r1_0_63_3_3 |     0.000 |
+|       closed_x_reg_r2_0_63_0_2 |     0.000 |
+|       closed_x_reg_r2_0_63_3_3 |     0.000 |
+|       closed_y_reg_r1_0_63_0_2 |     0.000 |
+|       closed_y_reg_r1_0_63_3_3 |     0.000 |
+|       closed_y_reg_r2_0_63_0_2 |     0.000 |
+|       closed_y_reg_r2_0_63_3_3 |     0.000 |
+|     clk_a_star_inst            |    <0.001 |
 |   game_inst                    |    <0.001 |
 |   oled1                        |    <0.001 |
 |   pair_inst                    |    <0.001 |
 |   pair_oled_inst               |    <0.001 |
-|   player_ctrl_inst             |     0.035 |
+|   player_ctrl_inst             |     0.007 |
 |   rx_inst                      |    <0.001 |
 |   seg_inst                     |    <0.001 |
 |   tx_inst                      |    <0.001 |

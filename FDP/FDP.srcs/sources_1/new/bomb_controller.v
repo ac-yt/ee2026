@@ -1,26 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 18.03.2026 17:15:13
-// Design Name: 
-// Module Name: bomb_controller
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-
-`timescale 1ns / 1ps
 
 `include "constants.vh"
 
@@ -73,6 +51,15 @@ module bomb_controller (
     output reg [3:0] destroy_right_tx = 0,
     output reg [3:0] destroy_right_ty = 0
 );
+    
+    // added this
+    reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
+    integer ux, uy; // unpack map
+    always @(*) begin
+        for (uy = 0; uy < `TILE_MAP_HEIGHT; uy = uy + 1)
+            for (ux = 0; ux < `TILE_MAP_WIDTH; ux = ux + 1)
+                tile_map[ux][uy] = tile_map_flat[(uy*`TILE_MAP_WIDTH + ux)*3 +: 3];
+    end
 
     parameter integer BOMB_COUNTDOWN_TIME  = 2 * `CLOCK_SPEED;
     parameter integer BOMB_BLINK_TIME      = `CLOCK_SPEED / 2;
@@ -95,7 +82,7 @@ module bomb_controller (
         input [3:0] tx;
         input [3:0] ty;
     begin
-        get_tile = tile_map_flat[(ty*`TILE_MAP_WIDTH + tx)*3 +: 3];
+        get_tile = tile_map[tx][ty];
     end
     endfunction
 

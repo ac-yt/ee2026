@@ -1,76 +1,79 @@
 `timescale 1ns / 1ps
 
-module a_star #(parameter CLOCK_SPEED=100_000_000)
-               (input clk, update,// rst,
-                input [3:0] start_x, start_y, goal_x, goal_y,
-                input [3*`TILE_MAP_SIZE-1:0] tile_map_flat,
-                output reg [4*`MAX_PATH_LEN-1:0] path_flat_x=0, path_flat_y=0,
-                output reg [6:0] path_len=0,
-                output reg path_valid=0,
-                output reg [10:0] path_cost=0);
+module a_star (input clk, update,// rst,
+               input [3:0] start_x, start_y, goal_x, goal_y,
+               input [3*`TILE_MAP_SIZE-1:0] tile_map_flat,
+               output reg [4*`MAX_PATH_LEN-1:0] path_flat_x=0, path_flat_y=0,
+               output reg [6:0] path_len=0,
+               output reg path_valid=0,
+               output reg [10:0] path_cost=0);
   
-    localparam integer EMPTY_COST = 1;
-    localparam integer BLOCK_COST = 3;
+    parameter integer EMPTY_COST = 1;
+    parameter integer BLOCK_COST = 3;
+    parameter integer MAX_COST = 3 * `MAX_PATH_LEN;
+    
+    // reset and update map variables
+    reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
+    reg [7:0] init_index_x=0, init_index_y=0;
+    reg [$clog2(`MAX_PATH_LEN*4)-1:0] init_index_i=0;
     
     reg [3:0] open_x [0:`MAX_NUM_NODES-1]; // maximum 81 ENTRIES
     reg [3:0] open_y [0:`MAX_NUM_NODES-1]; // open list to store nodes to visit next
     reg [3:0] closed_x [0:`MAX_NUM_NODES-1]; // closed list to store visited nodes
     reg [3:0] closed_y [0:`MAX_NUM_NODES-1];
-    reg [7:0] open_counter=0; // count number of items in the open list
-    reg [7:0] closed_counter=0; // count number of items in the open list
+    reg [$clog2(`MAX_NUM_NODES):0] open_counter=0; // count number of items in the open list
+    reg [$clog2(`MAX_NUM_NODES):0] closed_counter=0; // count number of items in the open list
     
 //    reg [7:0] base_cost [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the base cost of each node (cost more to move to block than empty tile)
-    reg [7:0] cost_array [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the cost of each node from the start node
+    reg [$clog2(MAX_COST):0] cost_array [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the cost of each node from the start node
     reg [3:0] parent_x [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the parent x of each node
     reg [3:0] parent_y [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the parent y of each node
     
     reg [3:0] start_x_loc=0, start_y_loc=0, goal_x_loc=0, goal_y_loc=0; // store locally
     
     // parameters for FSM
-    localparam integer MAX_F = BLOCK_COST * `MAX_PATH_LEN + `TILE_MAP_WIDTH-1 + `TILE_MAP_HEIGHT-1;
+    parameter integer MAX_F = BLOCK_COST * `MAX_PATH_LEN + `TILE_MAP_WIDTH-1 + `TILE_MAP_HEIGHT-1;
     reg [$clog2(MAX_F):0] best_f=0, f_val=0;
-    reg [7:0] scan_index=0, best_index=0, shift_index=0, path_index=0;
+    reg [$clog2(`MAX_NUM_NODES):0] scan_index=0, best_index=0, shift_index=0, path_index=0;
     reg [3:0] best_x=0, best_y=0, curr_x=0, curr_y=0, nb_x=0, nb_y=0, curr_path_x=0, curr_path_y=0;
     reg [1:0] nb_index=0;
     
-    // FSM
-    localparam CHECK_OPEN             = 5'b00000;
-    localparam FIND_BEST_INIT         = 5'b00001;
-    localparam FIND_BEST_SCAN         = 5'b00010;
-    localparam FIND_BEST_DONE         = 5'b00011;
-    localparam POP_OPEN_INIT          = 5'b00100;
-    localparam POP_OPEN_SHIFT         = 5'b00101;
-    localparam POP_OPEN_DONE          = 5'b00110;
-    localparam NB_INIT                = 5'b00111;
-    localparam NB_GEN                 = 5'b01000;
-    localparam NB_CHECK_VALID         = 5'b01001;
-    localparam NB_CHECK_GOAL          = 5'b01010;
-    localparam NB_NEXT                = 5'b01011;
-    localparam NB_CHECK_CLOSED_INIT   = 5'b01100;
-    localparam NB_CHECK_CLOSED_SCAN   = 5'b01101;
-    localparam NB_CHECK_OPEN_INIT     = 5'b01110;
-    localparam NB_CHECK_OPEN_SCAN     = 5'b01111;
-    localparam NB_CHECK_OPEN_DONE     = 5'b10000;
-    localparam PATH_INIT              = 5'b10001;
-    localparam PATH_TRACE             = 5'b10010;
-    localparam DONE                   = 5'b10011;
-    localparam RESET_2D               = 5'b10100;
-    localparam RESET_1D               = 5'b10101;
-    localparam SET_START              = 5'b10110;
-    reg [4:0] state = RESET_2D;
-    reg [4:0] next_state = RESET_2D;
-    reg [4:0] prev_state = RESET_2D;
-    
-    reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
-//    integer tx, ty, i;
-    
-    reg [7:0] init_index_x=0, init_index_y=0;
-    reg [$clog2(`MAX_PATH_LEN*4)-1:0] init_index_i=0;
-    
+    // wires to FSM
     wire [3:0] scan_open_x = open_x[scan_index];
     wire [3:0] scan_open_y = open_y[scan_index];
     
     wire [1:0] tile_base_cost = (tile_map[nb_x][nb_y] == `MAP_BLOCK) ? BLOCK_COST : EMPTY_COST;
+    
+    wire [3:0] next_path_x = parent_x[curr_path_x][curr_path_y];
+    wire [3:0] next_path_y = parent_y[curr_path_x][curr_path_y];
+    
+    // FSM
+    parameter CHECK_OPEN             = 5'b00000;
+    parameter FIND_BEST_INIT         = 5'b00001;
+    parameter FIND_BEST_SCAN         = 5'b00010;
+    parameter FIND_BEST_DONE         = 5'b00011;
+    parameter POP_OPEN_INIT          = 5'b00100;
+    parameter POP_OPEN_SHIFT         = 5'b00101;
+    parameter POP_OPEN_DONE          = 5'b00110;
+    parameter NB_INIT                = 5'b00111;
+    parameter NB_GEN                 = 5'b01000;
+    parameter NB_CHECK_VALID         = 5'b01001;
+    parameter NB_CHECK_GOAL          = 5'b01010;
+    parameter NB_NEXT                = 5'b01011;
+    parameter NB_CHECK_CLOSED_INIT   = 5'b01100;
+    parameter NB_CHECK_CLOSED_SCAN   = 5'b01101;
+    parameter NB_CHECK_OPEN_INIT     = 5'b01110;
+    parameter NB_CHECK_OPEN_SCAN     = 5'b01111;
+    parameter NB_CHECK_OPEN_DONE     = 5'b10000;
+    parameter PATH_INIT              = 5'b10001;
+    parameter PATH_TRACE             = 5'b10010;
+    parameter DONE                   = 5'b10011;
+    parameter RESET_2D               = 5'b10100;
+    parameter RESET_1D               = 5'b10101;
+    parameter SET_START              = 5'b10110;
+    reg [4:0] state = RESET_2D;
+    reg [4:0] next_state = RESET_2D;
+    reg [4:0] prev_state = RESET_2D;
     
     // NEXT STATE LOGIC
     always @ (*) begin
@@ -166,9 +169,6 @@ module a_star #(parameter CLOCK_SPEED=100_000_000)
             endcase
         end
     end
-    
-    wire [3:0] next_path_x = parent_x[curr_path_x][curr_path_y];
-    wire [3:0] next_path_y = parent_y[curr_path_x][curr_path_y];
    
     // SEQUENTIAL LOGIC
     always @ (posedge clk) begin

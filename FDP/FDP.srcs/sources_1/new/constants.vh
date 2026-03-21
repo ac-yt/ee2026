@@ -38,8 +38,8 @@
 `define MAP_POWERUP     3'b100 // code for powerup tile/pixel
 
 // path parameters
-`define MAX_PATH_LEN    81
-`define MAX_NUM_NODES   81 // 107
+`define MAX_PATH_LEN    40 // 81
+`define MAX_NUM_NODES   40 // 81 // 107
 
 // oled colors
 `define OLED_WHITE      16'hFFFF
@@ -54,5 +54,10 @@
 `define OLED_GREY       16'b01011_010111_01011
 
 // player width
-`define PLAYER_WIDTH    3'b100 //
-`define PLAYER_HEIGHT   3'b100 // 
+`define PLAYER_WIDTH    3'b100
+`define PLAYER_HEIGHT   3'b100
+
+// single player
+`define PATH_SPEED      (`CLOCK_SPEED / 2)
+`define COMPUTER_SPEED  15
+`define UPDATE_TIME     (12 * `PATH_SPEED * `TILE_SIZE) / (10 * `COMPUTER_SPEED) // 1.2 times the time taken to travel between tiles
