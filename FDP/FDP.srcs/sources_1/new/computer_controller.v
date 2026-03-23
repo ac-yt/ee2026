@@ -61,8 +61,32 @@ module computer_controller(input clk,
         computer_tx_sync <= computer_tx;
         computer_ty_sync <= computer_ty;
     end
+    
+    // pre-register movement decisions
+    reg move_right_r=0, move_left_r=0, move_down_r=0, move_up_r=0;
+    always @(posedge clk) begin
+        move_right_r <= (computer_x < target_px);
+        move_left_r  <= (computer_x > target_px);
+        move_down_r  <= (computer_x == target_px && computer_y < target_py);
+        move_up_r    <= (computer_x == target_px && computer_y > target_py);
+    end
+    
+    always @(posedge clk) begin
+        if (computer_move_tick && path_len > 0) begin
+            if      (move_right_r) computer_x <= computer_x + 1;
+            else if (move_left_r)  computer_x <= computer_x - 1;
+            else if (move_down_r)  computer_y <= computer_y + 1;
+            else if (move_up_r)    computer_y <= computer_y - 1;
+    
+            if (computer_x == target_px && computer_y == target_py &&
+                path_step < path_len - 1)
+                path_step <= path_step + 1;
+        end
+        if (path_valid_sync_pulse) path_step <= 0;
+//        if (path_valid) path_step <= 0;
+    end
   
-    always @ (posedge clk) begin
+    /*always @ (posedge clk) begin
         if (computer_move_tick && path_len > 0) begin
             if (computer_x < target_px) computer_x <= computer_x + 1;
             else if (computer_x > target_px) computer_x <= computer_x - 1;
@@ -75,7 +99,7 @@ module computer_controller(input clk,
         
         // if (path_valid_sync_pulse) path_step <= (path_len > 1) ? 1 : 0;
         if (path_valid_sync_pulse) path_step <= 0;
-    end
+    end*/
 
     reg [$clog2(`UPDATE_TIME)-1:0] update_counter = 0;
     always @ (posedge clk_a_star) begin
