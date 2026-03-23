@@ -325,10 +325,10 @@ module Top_Student (
     wire computer_region = (x >= computer_x) && (x < computer_x + `PLAYER_WIDTH) && (y >= computer_y) && (y < computer_y + `PLAYER_WIDTH);
     
     computer_controller comp_inst (.clk(basys_clk),
-                                   .player_tx(player_center_tx), 
-                                   .player_ty(player_center_ty), 
-                                   .bomb_active(bomb_active),
-                                   .explosion_active(explosion_active),
+                                   .player_tx(player_tx), 
+                                   .player_ty(player_ty), 
+                                   // .bomb_active(bomb_active),
+                                   // .explosion_active(explosion_active),
                                    .tile_map_flat(tile_map_flat),
                                    .computer_x(computer_x),
                                    .computer_y(computer_y));
