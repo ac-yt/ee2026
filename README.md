@@ -17,24 +17,28 @@ Changes Made:
 * Player movement (**need to fix)
 * Bomb placing + bomb explosion
 
-### Version 2.1 (20/3/26 3am, Ashlee)
+### Version 2.1 (20/3/26 3am)
 
 Changes Made:
 * Added A* path planning for computer player (not yet fully integrated)
 * Added A* into Top Student with map updates every 0.5s and screen drawing (to be removed later)
 * Removed pixel map to reduce LUT usage (expand each pixel at the rendering step instead, manually draw border)
  
-### Version 2.2 (21/3/26, Ashlee)
+### Version 2.2 (21/3/26)
 
 Changes Made:
 * Moved A* into computer_controller module
 * Changed tile_map_flat indexing to tile_map indexing in bomb/player controller
 
+### Version 3.1 (24/3/26, Ashlee)
+
+Changes Made:
+* Changed player controller to use mouse and A* (plans path around blocks if possible, if cannot will run up to the closest block then stop)
+* Created separate modules for player controller and computer controller (Movement controller is its own separate one now also)
+* Made pairing work (did not work in previous versions) 
+
 ## Important To-dos
 * Player/bomb controller
-  * Fix player controller timing issue (WNS is too high for the clock speed)
-  * Verify player/bomb controller and improve efficiency
-  * Make bomb controller compatible with computer
-* Computer controller
-  * Change to use BRAM to try and reduce LUT usage
+  * Make player dead work
+  * Edit bomb controller to accept power up inputs
 
