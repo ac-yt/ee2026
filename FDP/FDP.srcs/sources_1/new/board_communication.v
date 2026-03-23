@@ -68,7 +68,7 @@ module pairing_fsm (input clk, received, busy_tx, btn_accept, btn_cancel, btn_pa
     reg [$clog2(PAIR_TIME)-1:0] pair_counter = 0;
     
     always @ (*) begin
-        next_state = `SINGLE;
+        next_state = state;
         if (received && data_rx_code == CANCEL_CODE) next_state = `SINGLE;
         else begin
             case (state)

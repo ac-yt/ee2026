@@ -5,147 +5,104 @@
 module computer_controller(input clk,
                            input [3:0] player_tx,
                            input [3:0] player_ty,
-                           // input [6:0] x,
-                           // input [5:0] y,
                            input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
-                           output reg [6:0] computer_x=`MIN_PIX_X + 1,
-                           output reg [5:0] computer_y=`MIN_PIX_Y + 1);
-                           // output reg [15:0] oled_path=0);
-
-    wire clk_a_star;
-    variable_clock #(.CLOCK_SPEED(`CLOCK_SPEED), .OUT_SPEED(`PATH_SPEED)) clk_a_star_inst
-                    (.clk(clk), .clk_out(clk_a_star));
- 
-    reg update_path = 0;
-    wire [4*`MAX_PATH_LEN-1:0] path_flat_x;
-    wire [4*`MAX_PATH_LEN-1:0] path_flat_y;
-    wire [6:0] path_len;
-    wire path_valid;
-    // wire [10:0] path_cost;
-    reg [3:0] path_x [0:`MAX_PATH_LEN-1];
-    reg [3:0] path_y [0:`MAX_PATH_LEN-1];
+                           input [1:0] speed_multiplier,
+                           
+                           output [3:0] computer_tx, computer_ty,
+                           output [6:0] computer_x,
+                           output [5:0] computer_y,
+                           output computer_dead,
+                                                     
+                           output place_bomb_req,
+                           output [3:0] place_bomb_tx,
+                           output [3:0] place_bomb_ty,
+                       
+                           output clear_bomb_req,
+                           output [3:0] clear_bomb_tx,
+                           output [3:0] clear_bomb_ty,
+                       
+                           output destroy_up_req,
+                           output [3:0] destroy_up_tx,
+                           output [3:0] destroy_up_ty,
+                       
+                           output destroy_down_req,
+                           output [3:0] destroy_down_tx,
+                           output [3:0] destroy_down_ty,
+                       
+                           output destroy_left_req,
+                           output [3:0] destroy_left_tx,
+                           output [3:0] destroy_left_ty,
+                       
+                           output destroy_right_req,
+                           output [3:0] destroy_right_tx,
+                           output [3:0] destroy_right_ty,
+                           
+                           output bomb_active,
+                           output [3:0] bomb_tx,
+                           output [3:0] bomb_ty,
+                           output bomb_red,
+                       
+                           output explosion_active,
+                           output [3:0] explosion_stage,
+                           output [3:0] explode_up_len,
+                           output [3:0] explode_down_len,
+                           output [3:0] explode_left_len,
+                           output [3:0] explode_right_len);
+                                                      
+    wire [$clog2(`PLAYER_MAX_SPEED)-1:0] speed = `COMPUTER_DEFAULT_SPEED + speed_multiplier * `COMPUTER_SPEED_INCREMENT;
     
-    // 2-FF CDC synchronizer: path_valid (slow) -> fast domain
-    reg path_valid_ff1 = 0, path_valid_ff2 = 0, path_valid_ff2_prev = 0;
-    always @(posedge clk) begin
-        path_valid_ff1 <= path_valid;
-        path_valid_ff2 <= path_valid_ff1;
-        path_valid_ff2_prev <= path_valid_ff2;
-    end
-    wire path_valid_sync_pulse = path_valid_ff2 & ~path_valid_ff2_prev; // single-cycle pulse in fast domain when path_valid safely rises
-   
-    parameter integer COMPUTER_COUNT  = `CLOCK_SPEED / `COMPUTER_SPEED;
-    reg [$clog2(COMPUTER_COUNT)-1:0] computer_counter = 0;
-    wire computer_move_tick = (computer_counter == COMPUTER_COUNT - 1);
-    always @(posedge clk) begin
-        if (computer_counter == COMPUTER_COUNT - 1) computer_counter <= 0;
-        else computer_counter <= computer_counter + 1;
-    end
+//    wire [3:0] mc_computer_tx, mc_computer_ty;
+//    wire [6:0] mc_computer_x;
+//    wire [5:0] mc_computer_y;
     
-    reg [6:0] path_step = 0;
-    wire [3:0] computer_tx = ((computer_x - 1 - `MIN_PIX_X) * 7'd43) >> 8; // replace divide by reciprocal multiply + shift 1/6 ~ 43/256
-    wire [3:0] computer_ty = ((computer_y - 1 - `MIN_PIX_Y) * 7'd43) >> 8; // uses the top left to see
-//    wire [3:0] computer_tx = (computer_x - 1 - `MIN_PIX_X) / `TILE_SIZE;
-//    wire [3:0] computer_ty = (computer_y - 1 - `MIN_PIX_Y) / `TILE_SIZE;
-    
-    wire [3:0] target_tx = (path_step < path_len) ? path_x[path_step] : computer_tx;
-    wire [3:0] target_ty = (path_step < path_len) ? path_y[path_step] : computer_ty;
-    wire [6:0] target_px = `MIN_PIX_X + target_tx * `TILE_SIZE + 1;
-    wire [5:0] target_py = `MIN_PIX_Y + target_ty * `TILE_SIZE + 1;
-//    wire [6:0] target_px = `MIN_PIX_X + (target_tx << 2) + (target_tx << 1) + 1; // center of target tile
-//    wire [5:0] target_py = `MIN_PIX_Y + (target_ty << 2) + (target_ty << 1) + 1;
-   
-    reg [3:0] computer_tx_sync = 0, computer_ty_sync = 0;
-        
-    always @ (posedge clk_a_star) begin
-        computer_tx_sync <= computer_tx;
-        computer_ty_sync <= computer_ty;
-    end
-    
-    // pre-register movement decisions
-    reg move_right_r=0, move_left_r=0, move_down_r=0, move_up_r=0;
-    always @(posedge clk) begin
-        move_right_r <= (computer_x < target_px);
-        move_left_r  <= (computer_x > target_px);
-        move_down_r  <= (computer_x == target_px && computer_y < target_py);
-        move_up_r    <= (computer_x == target_px && computer_y > target_py);
-    end
-    
-    always @(posedge clk) begin
-        if (computer_move_tick && path_len > 0) begin
-            if      (move_right_r) computer_x <= computer_x + 1;
-            else if (move_left_r)  computer_x <= computer_x - 1;
-            else if (move_down_r)  computer_y <= computer_y + 1;
-            else if (move_up_r)    computer_y <= computer_y - 1;
-    
-            if (computer_x == target_px && computer_y == target_py &&
-                path_step < path_len - 1)
-                path_step <= path_step + 1;
-        end
-        if (path_valid_sync_pulse) path_step <= 0;
-//        if (path_valid) path_step <= 0;
-    end
-  
-    /*always @ (posedge clk) begin
-        if (computer_move_tick && path_len > 0) begin
-            if (computer_x < target_px) computer_x <= computer_x + 1;
-            else if (computer_x > target_px) computer_x <= computer_x - 1;
-            else if (computer_y < target_py) computer_y <= computer_y + 1;
-            else if (computer_y > target_py) computer_y <= computer_y - 1;
- 
-            if (computer_x == target_px && computer_y == target_py && path_step < path_len - 1)
-                path_step <= path_step + 1;
-        end
-        
-        // if (path_valid_sync_pulse) path_step <= (path_len > 1) ? 1 : 0;
-        if (path_valid_sync_pulse) path_step <= 0;
-    end*/
-
-    reg [$clog2(`UPDATE_TIME)-1:0] update_counter = 0;
-    always @ (posedge clk_a_star) begin
-        if (update_counter == `UPDATE_TIME-1) begin
-            update_counter <= 0;
-            update_path <= 1;
-        end
-        else begin
-            update_counter <= update_counter + 1;
-            update_path <= 0;
-        end
-    end
-    
-    // capture and unpack path data on safe pulse
-    // path_flat_x/y are stable before path_valid is asserted, safe to sample ~2 fast cycles later when the sync pulse fires
-    integer i;
-    always @(posedge clk) begin
-        if (path_valid_sync_pulse) begin
-            for (i = 0; i < `MAX_PATH_LEN; i = i+1) begin
-                if (i < path_len) begin
-                    path_x[i] <= path_flat_x[(`MAX_PATH_LEN-1-i)*4 +: 4];
-                    path_y[i] <= path_flat_y[(`MAX_PATH_LEN-1-i)*4 +: 4];
-//                    path_x[i] <= path_flat_x[(path_len-1-i)*4 +: 4];
-//                    path_y[i] <= path_flat_y[(path_len-1-i)*4 +: 4];
-                end
-                else begin
-                    path_x[i] <= 4'hF;
-                    path_y[i] <= 4'hF;
-                end
-            end
-        end
-    end
-    
-    // a_star instantiation (slow clock domain) runs on a divided clock, CDC is handled with a 2-FF synchronizer on path_valid
-    a_star a_star_inst (
-        .clk          (clk_a_star),
-        .update       (update_path),
-        .start_x      (computer_tx_sync),//(player_center_tx),
-        .start_y      (computer_ty_sync),//(player_center_ty),
-        .goal_x       (player_tx),
-        .goal_y       (player_ty),
+    wire [3:0] next_tx, next_ty;
+    movement_controller comp_move (.clk(clk), .goal_tx(player_tx), .goal_ty(player_ty), .tile_map_flat(tile_map_flat), .speed(speed), .is_player(0),
+                                   .pos_tx_out(computer_tx), .pos_ty_out(computer_ty), .pos_x(computer_x), .pos_y(computer_y));
+//                                   .pos_tx_out(mc_computer_tx), .pos_ty_out(mc_computer_ty), .pos_x(mc_computer_x), .pos_y(mc_computer_y));
+                           
+    // bomb controller
+    wire bomb_passable;
+    wire player_hit;
+    wire trigger = 0;
+         
+    bomb_controller bomb_ctrl_inst (
+        .clk(clk),
+        .trigger(trigger),
         .tile_map_flat(tile_map_flat),
-        .path_flat_x  (path_flat_x),
-        .path_flat_y  (path_flat_y),
-        .path_len     (path_len),
-        .path_valid   (path_valid)
-        // .path_cost    (path_cost)
+        .player_x(computer_x),
+        .player_y(computer_y),
+        .player_tx(computer_tx),
+        .player_ty(computer_ty),
+        .player_dead(computer_dead),
+        .bomb_active(bomb_active),
+        .bomb_passable(bomb_passable),
+        .bomb_tx(bomb_tx),
+        .bomb_ty(bomb_ty),
+        .bomb_red(bomb_red),
+        .explosion_active(explosion_active),
+        .explosion_stage(explosion_stage),
+        .explode_up_len(explode_up_len),
+        .explode_down_len(explode_down_len),
+        .explode_left_len(explode_left_len),
+        .explode_right_len(explode_right_len),
+        .player_hit(player_hit),
+        .place_bomb_req(place_bomb_req),
+        .place_bomb_tx(place_bomb_tx),
+        .place_bomb_ty(place_bomb_ty),
+        .clear_bomb_req(clear_bomb_req),
+        .clear_bomb_tx(clear_bomb_tx),
+        .clear_bomb_ty(clear_bomb_ty),
+        .destroy_up_req(destroy_up_req),
+        .destroy_up_tx(destroy_up_tx),
+        .destroy_up_ty(destroy_up_ty),
+        .destroy_down_req(destroy_down_req),
+        .destroy_down_tx(destroy_down_tx),
+        .destroy_down_ty(destroy_down_ty),
+        .destroy_left_req(destroy_left_req),
+        .destroy_left_tx(destroy_left_tx),
+        .destroy_left_ty(destroy_left_ty),
+        .destroy_right_req(destroy_right_req),
+        .destroy_right_tx(destroy_right_tx),
+        .destroy_right_ty(destroy_right_ty)
     );
 endmodule

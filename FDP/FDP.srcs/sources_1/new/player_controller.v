@@ -2,26 +2,54 @@
 
 `include "constants.vh"
 
-module player_controller (
-    input clk,
-    input btnL,
-    input btnR,
-    input btnU,
-    input btnD,
-    input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
-    input bomb_active,
-    input bomb_passable,
-    input [3:0] bomb_tx,
-    input [3:0] bomb_ty,
-    input player_hit,
-    input [1:0] player_speed_multiplier,
-    output reg [6:0] player_x = `MIN_PIX_X,
-    output reg [5:0] player_y = `MIN_PIX_Y,
-    output reg [3:0] player_tx,
-    output reg [3:0] player_ty,
-    output reg player_dead = 0
-);  
-    // added this to unpack tile map
+module player_controller (input clk,
+                          input [3:0] mouse_tx,
+                          input [3:0] mouse_ty,
+                          input mouse_left, mouse_right, mouse_middle,
+                          input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
+                          input [1:0] speed_multiplier,
+                          
+                          output reg [3:0] player_tx, player_ty,
+                          output reg [6:0] player_x,
+                          output reg [5:0] player_y,
+                          output player_dead, 
+                          
+                          output place_bomb_req,
+                          output [3:0] place_bomb_tx,
+                          output [3:0] place_bomb_ty,
+                      
+                          output clear_bomb_req,
+                          output [3:0] clear_bomb_tx,
+                          output [3:0] clear_bomb_ty,
+                      
+                          output destroy_up_req,
+                          output [3:0] destroy_up_tx,
+                          output [3:0] destroy_up_ty,
+                      
+                          output destroy_down_req,
+                          output [3:0] destroy_down_tx,
+                          output [3:0] destroy_down_ty,
+                      
+                          output destroy_left_req,
+                          output [3:0] destroy_left_tx,
+                          output [3:0] destroy_left_ty,
+                      
+                          output destroy_right_req,
+                          output [3:0] destroy_right_tx,
+                          output [3:0] destroy_right_ty,
+                          
+                          output bomb_active,
+                          output [3:0] bomb_tx,
+                          output [3:0] bomb_ty,
+                          output bomb_red,
+                      
+                          output explosion_active,
+                          output [3:0] explosion_stage,
+                          output [3:0] explode_up_len,
+                          output [3:0] explode_down_len,
+                          output [3:0] explode_left_len,
+                          output [3:0] explode_right_len);
+    
     reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
     integer ux, uy; // unpack map
     always @(*) begin
@@ -30,111 +58,87 @@ module player_controller (
                 tile_map[ux][uy] = tile_map_flat[(uy*`TILE_MAP_WIDTH + ux)*3 +: 3];
     end
     
-    // variable player speed
-    parameter PLAYER_COUNT_MAX = `CLOCK_SPEED / `PLAYER_DEFAULT_SPEED;
-    reg [$clog2(PLAYER_COUNT_MAX)-1:0] player_counter = 0;
-    wire [31:0] player_count_thresh = `CLOCK_SPEED / (`PLAYER_DEFAULT_SPEED + player_speed_multiplier * `PLAYER_SPEED_INCREMENT); // changes based on speed
-    wire move_tick = (player_counter == player_count_thresh - 1);
-
-    always @(posedge clk) begin
-        if (player_counter == player_count_thresh - 1)
-            player_counter <= 0;
-        else
-            player_counter <= player_counter + 1;
-    end
-
-    function [3:0] pixel_to_tile_x;
-        input [6:0] px;
-    begin
-        pixel_to_tile_x = ((px - `MIN_PIX_X) * 7'd43) >> 8; //(px - `MIN_PIX_X) / `TILE_SIZE;
-    end
-    endfunction
-
-    function [3:0] pixel_to_tile_y;
-        input [5:0] py;
-    begin
-        pixel_to_tile_y = ((py - `MIN_PIX_Y) * 7'd43) >> 8; //(py - `MIN_PIX_Y) / `TILE_SIZE;
-    end
-    endfunction
-
-    function is_walkable_tile;
-        input [3:0] tx_in;
-        input [3:0] ty_in;
-        reg [2:0] tile_val;
-    begin
-        if (tx_in >= `TILE_MAP_WIDTH || ty_in >= `TILE_MAP_HEIGHT)
-            is_walkable_tile = 0;
-        else begin
-            tile_val = tile_map[tx_in][ty_in];//tile_map_flat[(ty_in*`TILE_MAP_WIDTH + tx_in)*3 +: 3]; // [tx_in][ty_in];
-            case (tile_val)
-                `MAP_EMPTY,
-                `MAP_POWERUP: is_walkable_tile = 1;
-                default:      is_walkable_tile = 0;
-            endcase
+    // variable speed based on power ups
+    wire [$clog2(`PLAYER_MAX_SPEED)-1:0] speed = `PLAYER_DEFAULT_SPEED + speed_multiplier * `PLAYER_SPEED_INCREMENT;
+    
+    reg mouse_left_prev = 0, mouse_right_prev = 0, mouse_middle_prev = 0;
+    wire mouse_left_pulse = mouse_left & ~mouse_left_prev;  // single cycle on press
+    wire mouse_right_pulse = mouse_right & ~mouse_right_prev;  // single cycle on press
+    wire mouse_middle_pulse = mouse_middle & ~mouse_middle_prev;  // single cycle on press
+    
+    reg [3:0] goal_tx = 0, goal_ty = 0;
+    
+    always @ (posedge clk) begin
+        mouse_left_prev <= mouse_left;
+        mouse_right_prev <= mouse_right;
+        mouse_middle_prev <= mouse_middle;
+        
+        if (mouse_left_pulse) begin
+            goal_tx <= mouse_tx;
+            goal_ty <= mouse_ty;
         end
     end
-    endfunction
-
-    function bomb_tile_is_exception;
-        input [3:0] tx_in;
-        input [3:0] ty_in;
-    begin
-        bomb_tile_is_exception = bomb_active && bomb_passable && (tx_in == bomb_tx) && (ty_in == bomb_ty);
-    end
-    endfunction
     
-    // tile edge coords
-    reg [3:0] tx_left_r=0,  tx_right_r=0;
-    reg [3:0] ty_top_r=0,   ty_bot_r=0;
-    reg [3:0] tx_ll_r=0,    tx_lr_r=0;  // lead left, lead right
-    reg [3:0] ty_lu_r=0,    ty_ld_r=0;  // lead up, lead down
+    wire [3:0] mc_player_tx, mc_player_ty;
+    wire [6:0] mc_player_x;
+    wire [5:0] mc_player_y;
     
-    always @(posedge clk) begin
-        tx_left_r  <= pixel_to_tile_x(player_x);
-        tx_right_r <= pixel_to_tile_x(player_x + `PLAYER_WIDTH  - 1);
-        ty_top_r   <= pixel_to_tile_y(player_y);
-        ty_bot_r   <= pixel_to_tile_y(player_y + `PLAYER_HEIGHT - 1);
-        tx_ll_r    <= pixel_to_tile_x(player_x - 1);
-        tx_lr_r    <= pixel_to_tile_x(player_x + `PLAYER_WIDTH);
-        ty_lu_r    <= pixel_to_tile_y(player_y - 1);
-        ty_ld_r    <= pixel_to_tile_y(player_y + `PLAYER_HEIGHT);
-    end
-    
-    // use registered to reduce wns
-    wire can_left  = (player_x > `MIN_PIX_X) &&
-                     (is_walkable_tile(tx_ll_r,  ty_top_r) || bomb_tile_is_exception(tx_ll_r,  ty_top_r)) &&
-                     (is_walkable_tile(tx_ll_r,  ty_bot_r) || bomb_tile_is_exception(tx_ll_r,  ty_bot_r));
-    
-    wire can_right = (player_x + `PLAYER_WIDTH - 1 < `MAX_PIX_X) &&
-                     (is_walkable_tile(tx_lr_r,  ty_top_r) || bomb_tile_is_exception(tx_lr_r,  ty_top_r)) &&
-                     (is_walkable_tile(tx_lr_r,  ty_bot_r) || bomb_tile_is_exception(tx_lr_r,  ty_bot_r));
-    
-    wire can_up    = (player_y > `MIN_PIX_Y) &&
-                     (is_walkable_tile(tx_left_r, ty_lu_r) || bomb_tile_is_exception(tx_left_r, ty_lu_r)) &&
-                     (is_walkable_tile(tx_right_r, ty_lu_r) || bomb_tile_is_exception(tx_right_r, ty_lu_r));
-    
-    wire can_down  = (player_y + `PLAYER_HEIGHT - 1 < `MAX_PIX_Y) &&
-                     (is_walkable_tile(tx_left_r, ty_ld_r) || bomb_tile_is_exception(tx_left_r, ty_ld_r)) &&
-                     (is_walkable_tile(tx_right_r, ty_ld_r) || bomb_tile_is_exception(tx_right_r, ty_ld_r));
-    
-    // breaks the combinational feedback into player_x/y CE
-    reg can_left_r=0, can_right_r=0, can_up_r=0, can_down_r=0;
-    always @(posedge clk) begin
-        can_left_r       <= can_left;
-        can_right_r      <= can_right;
-        can_up_r         <= can_up;
-        can_down_r       <= can_down;
-        player_tx <= pixel_to_tile_x(player_x + `PLAYER_WIDTH/2); // center of player
-        player_ty <= pixel_to_tile_y(player_y + `PLAYER_HEIGHT/2);
-    end
-    
-    always @(posedge clk) begin
-        if (player_hit) player_dead <= 1;
-        if (!player_dead && move_tick) begin
-            if      (btnL && can_left_r)  player_x <= player_x - 1;
-            else if (btnR && can_right_r) player_x <= player_x + 1;
-            else if (btnU && can_up_r)    player_y <= player_y - 1;
-            else if (btnD && can_down_r)  player_y <= player_y + 1;
+    always @ (posedge clk) begin
+        if (!player_dead) begin
+            player_tx <= mc_player_tx;
+            player_ty <= mc_player_ty;
+            player_x <= mc_player_x;
+            player_y <= mc_player_y;
         end
     end
+    
+    movement_controller player_move (.clk(clk), .goal_tx(goal_tx), .goal_ty(goal_ty), .tile_map_flat(tile_map_flat), .speed(speed), .is_player(1),
+//                                     .pos_tx_out(player_tx), .pos_ty_out(player_ty), .pos_x(player_x), .pos_y(player_y));
+                                     .pos_tx_out(mc_player_tx), .pos_ty_out(mc_player_ty), .pos_x(mc_player_x), .pos_y(mc_player_y));
+    
+    // bomb controller
+    wire bomb_passable;
+    wire player_hit;
+        
+    bomb_controller bomb_ctrl_inst (
+        .clk(clk),
+        .trigger(mouse_right),
+        .tile_map_flat(tile_map_flat),
+        .player_x(player_x),
+        .player_y(player_y),
+        .player_tx(player_tx),
+        .player_ty(player_ty),
+        .player_dead(player_dead),
+        .bomb_active(bomb_active),
+        .bomb_passable(bomb_passable),
+        .bomb_tx(bomb_tx),
+        .bomb_ty(bomb_ty),
+        .bomb_red(bomb_red),
+        .explosion_active(explosion_active),
+        .explosion_stage(explosion_stage),
+        .explode_up_len(explode_up_len),
+        .explode_down_len(explode_down_len),
+        .explode_left_len(explode_left_len),
+        .explode_right_len(explode_right_len),
+        .player_hit(player_hit),
+        .place_bomb_req(place_bomb_req),
+        .place_bomb_tx(place_bomb_tx),
+        .place_bomb_ty(place_bomb_ty),
+        .clear_bomb_req(clear_bomb_req),
+        .clear_bomb_tx(clear_bomb_tx),
+        .clear_bomb_ty(clear_bomb_ty),
+        .destroy_up_req(destroy_up_req),
+        .destroy_up_tx(destroy_up_tx),
+        .destroy_up_ty(destroy_up_ty),
+        .destroy_down_req(destroy_down_req),
+        .destroy_down_tx(destroy_down_tx),
+        .destroy_down_ty(destroy_down_ty),
+        .destroy_left_req(destroy_left_req),
+        .destroy_left_tx(destroy_left_tx),
+        .destroy_left_ty(destroy_left_ty),
+        .destroy_right_req(destroy_right_req),
+        .destroy_right_tx(destroy_right_tx),
+        .destroy_right_ty(destroy_right_ty)
+    );
+    
 endmodule

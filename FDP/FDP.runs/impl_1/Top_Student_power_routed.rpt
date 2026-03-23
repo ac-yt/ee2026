@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-| Date             : Mon Mar 23 14:00:48 2026
+| Date             : Tue Mar 24 02:02:56 2026
 | Host             : ac-yt running 64-bit major release  (build 9200)
 | Command          : report_power -file Top_Student_power_routed.rpt -pb Top_Student_power_summary_routed.pb -rpx Top_Student_power_routed.rpx
 | Design           : Top_Student
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.109        |
+| Total On-Chip Power (W)  | 0.144        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.037        |
+| Dynamic (W)              | 0.072        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 5.0          |
-| Max Ambient (C)          | 84.5         |
-| Junction Temperature (C) | 25.5         |
+| Max Ambient (C)          | 84.3         |
+| Junction Temperature (C) | 25.7         |
 | Confidence Level         | Low          |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,20 +52,20 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.008 |        3 |       --- |             --- |
-| Slice Logic              |     0.012 |    14576 |       --- |             --- |
-|   LUT as Logic           |     0.011 |     7961 |     20800 |           38.27 |
-|   CARRY4                 |    <0.001 |      467 |      8150 |            5.73 |
-|   Register               |    <0.001 |     4598 |     41600 |           11.05 |
-|   F7/F8 Muxes            |    <0.001 |      510 |     32600 |            1.56 |
-|   Others                 |     0.000 |       35 |       --- |             --- |
-|   BUFG                   |     0.000 |        2 |        32 |            6.25 |
-|   LUT as Distributed RAM |     0.000 |       16 |      9600 |            0.17 |
-| Signals                  |     0.011 |    11083 |       --- |             --- |
-| DSPs                     |     0.005 |       14 |        90 |           15.56 |
-| I/O                      |     0.001 |       52 |       106 |           49.06 |
+| Clocks                   |    <0.001 |        3 |       --- |             --- |
+| Slice Logic              |     0.031 |    25627 |       --- |             --- |
+|   LUT as Logic           |     0.029 |    13352 |     20800 |           64.19 |
+|   CARRY4                 |    <0.001 |      627 |      8150 |            7.69 |
+|   F7/F8 Muxes            |    <0.001 |     1405 |     32600 |            4.31 |
+|   Register               |    <0.001 |     8546 |     41600 |           20.54 |
+|   BUFG                   |    <0.001 |        4 |        32 |           12.50 |
+|   LUT as Distributed RAM |    <0.001 |       32 |      9600 |            0.33 |
+|   Others                 |     0.000 |       47 |       --- |             --- |
+| Signals                  |     0.034 |    19455 |       --- |             --- |
+| DSPs                     |     0.003 |        8 |        90 |            8.89 |
+| I/O                      |     0.003 |       54 |       106 |           50.94 |
 | Static Power             |     0.072 |          |           |                 |
-| Total                    |     0.109 |          |           |                 |
+| Total                    |     0.144 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -75,9 +75,9 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.045 |       0.036 |      0.010 |
+| Vccint    |       1.000 |     0.079 |       0.069 |      0.010 |
 | Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |
-| Vcco33    |       3.300 |     0.001 |       0.000 |      0.001 |
+| Vcco33    |       3.300 |     0.002 |       0.001 |      0.001 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |
@@ -141,27 +141,40 @@ Table of Contents
 3.1 By Hierarchy
 ----------------
 
-+-----------------------------+-----------+
-| Name                        | Power (W) |
-+-----------------------------+-----------+
-| Top_Student                 |     0.037 |
-|   bomb_ctrl_inst            |     0.003 |
-|   clk_6p25m_inst            |    <0.001 |
-|   comp_inst                 |     0.017 |
-|     a_star_inst             |     0.011 |
-|       closed_x_reg_0_63_0_2 |     0.000 |
-|       closed_x_reg_0_63_3_3 |     0.000 |
-|       closed_y_reg_0_63_0_2 |     0.000 |
-|       closed_y_reg_0_63_3_3 |     0.000 |
-|     clk_a_star_inst         |    <0.001 |
-|   game_inst                 |    <0.001 |
-|   oled1                     |    <0.001 |
-|   pair_inst                 |    <0.001 |
-|   pair_oled_inst            |    <0.001 |
-|   player_ctrl_inst          |     0.009 |
-|   rx_inst                   |    <0.001 |
-|   seg_inst                  |    <0.001 |
-|   tx_inst                   |    <0.001 |
-+-----------------------------+-----------+
++-------------------------------+-----------+
+| Name                          | Power (W) |
++-------------------------------+-----------+
+| Top_Student                   |     0.072 |
+|   clk_6p25m_inst              |    <0.001 |
+|   clk_inst                    |    <0.001 |
+|   comp_ctrl_inst              |     0.028 |
+|     comp_move                 |     0.028 |
+|       a_star_inst             |     0.015 |
+|         closed_x_reg_0_63_0_2 |    <0.001 |
+|         closed_x_reg_0_63_3_3 |    <0.001 |
+|         closed_y_reg_0_63_0_2 |    <0.001 |
+|         closed_y_reg_0_63_3_3 |    <0.001 |
+|       clk_a_star_inst         |    <0.001 |
+|   game_inst                   |    <0.001 |
+|   mouse_inst                  |    <0.001 |
+|     Inst_Ps2Interface         |    <0.001 |
+|   oled1                       |     0.001 |
+|   p1_ctrl_inst                |     0.034 |
+|     bomb_ctrl_inst            |    <0.001 |
+|     player_move               |     0.033 |
+|       a_star_inst             |     0.016 |
+|         closed_x_reg_0_63_0_2 |    <0.001 |
+|         closed_x_reg_0_63_3_3 |    <0.001 |
+|         closed_y_reg_0_63_0_2 |    <0.001 |
+|         closed_y_reg_0_63_3_3 |    <0.001 |
+|       clk_a_star_inst         |    <0.001 |
+|   pair_inst                   |    <0.001 |
+|   pair_oled_inst              |     0.001 |
+|   ps2_clk_IOBUF_inst          |     0.000 |
+|   ps2_data_IOBUF_inst         |     0.000 |
+|   rx_inst                     |    <0.001 |
+|   seg_inst                    |    <0.001 |
+|   tx_inst                     |     0.000 |
++-------------------------------+-----------+
 
 

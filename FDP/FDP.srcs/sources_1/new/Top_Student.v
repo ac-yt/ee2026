@@ -5,6 +5,7 @@
 module Top_Student (
     input basys_clk,
     input btnC, btnL, btnR, btnU, btnD, UART_RX,
+    inout ps2_clk, ps2_data,
     input [15:0] sw,
     output [7:0] JC,
     output UART_TX,
@@ -17,6 +18,10 @@ module Top_Student (
     // =========================================================
     wire busy_tx, busy_rx, received, tx_en_code, tx_en_game, player;
     wire [2:0] pair_state;
+    
+    wire clk;
+    variable_clock #(.CLOCK_SPEED(`BASYS_CLOCK_SPEED), .OUT_SPEED(`CLOCK_SPEED)) clk_inst
+                    (.clk(basys_clk), .clk_out(clk));
 
     reg [`DATA_BITS-1:0] data_tx = 0;
     wire [`CODE_BITS-1:0] data_tx_code;
@@ -24,16 +29,16 @@ module Top_Student (
     wire [`DATA_BITS-1:0] data_rx;
     wire [`CODE_BITS-1:0] data_rx_code = data_rx[`CODE_BITS-1:0];
     wire [`GAME_BITS-1:0] data_rx_game = data_rx[`DATA_BITS-1:`CODE_BITS];
-    wire tx_en = tx_en_code | tx_en_game;
+    wire tx_en = tx_en_code | (tx_en_game && pair_state == `PAIRED); //tx_en_game;
 
-    uart_tx tx_inst (.clk(basys_clk), .rst(0), .tx_en(tx_en), .data(data_tx), .tx(UART_TX), .busy(busy_tx));
+    uart_tx tx_inst (.clk(clk), .rst(0), .tx_en(tx_en), .data(data_tx), .tx(UART_TX), .busy(busy_tx));
 
-    uart_rx rx_inst (.clk(basys_clk), .rst(0), .rx(UART_RX), .data(data_rx), .busy(busy_rx), .valid(received));
+    uart_rx rx_inst (.clk(clk), .rst(0), .rx(UART_RX), .data(data_rx), .busy(busy_rx), .valid(received));
 
-    pairing_fsm pair_inst (.clk(basys_clk), .received(received), .busy_tx(busy_tx), .btn_accept(btnU), .btn_cancel(btnD), .btn_pair_one(btnL), .btn_pair_two(btnR),
+    pairing_fsm pair_inst (.clk(clk), .received(received), .busy_tx(busy_tx), .btn_accept(btnU), .btn_cancel(btnD), .btn_pair_one(btnL), .btn_pair_two(btnR),
                            .data_rx_code(data_rx_code), .tx_en(tx_en_code), .data_tx_code(data_tx_code), .state(pair_state), .player(player));
 
-    package_game_data game_inst (.clk(basys_clk), .btnL(btnL), .btnR(btnR), .btnC(btnC), .btnU(btnU), .btnD(btnD), .sw(sw[7:0]),
+    package_game_data game_inst (.clk(clk), .btnL(btnL), .btnR(btnR), .btnC(btnC), .btnU(btnU), .btnD(btnD), .sw(sw[7:0]),
                                  .tx_en(tx_en_game), .player(player), .data_tx_game(data_tx_game));
 
     // =========================================================
@@ -51,9 +56,9 @@ module Top_Student (
     wire [6:0] x = pixel_index % 96;
     wire [5:0] y = pixel_index / 96;
 
-    variable_clock #(.CLOCK_SPEED(`CLOCK_SPEED), .OUT_SPEED(6_250_000)) clk_6p25m_inst (.clk(basys_clk), .clk_out(clk_6p25m));
+    variable_clock #(.CLOCK_SPEED(`CLOCK_SPEED), .OUT_SPEED(6_250_000)) clk_6p25m_inst (.clk(clk), .clk_out(clk_6p25m));
 
-    pairing_oled pair_oled_inst (.clk(basys_clk), .pair_state(pair_state), .x(x), .y(y), .oled_data(oled_data_pair));
+    pairing_oled pair_oled_inst (.clk(clk), .pair_state(pair_state), .x(x), .y(y), .oled_data(oled_data_pair));
 
     Oled_Display oled1 (
         .clk(clk_6p25m),
@@ -88,12 +93,6 @@ module Top_Student (
     integer tx, ty, dx, dy, i;
 
     initial begin
-//        for (tx = 0; tx < `PIX_MAP_WIDTH; tx = tx + 1) begin
-//            for (ty = 0; ty < `PIX_MAP_HEIGHT; ty = ty + 1) begin
-//                pixel_map[tx][ty] = `OLED_BLACK;
-//            end
-//        end
-
         for (tx = 0; tx < `TILE_MAP_WIDTH; tx = tx + 1) begin
             for (ty = 0; ty < `TILE_MAP_HEIGHT; ty = ty + 1) begin
                 if ((tx % 2 == 1) && (ty % 2 == 1))
@@ -105,6 +104,7 @@ module Top_Student (
 
         // Test blocks
         tile_map[1][0]  = `MAP_BLOCK;
+        tile_map[0][3]  = `MAP_BLOCK;
         tile_map[1][2]  = `MAP_BLOCK;
         tile_map[3][2]  = `MAP_BLOCK;
         tile_map[5][6]  = `MAP_BLOCK;
@@ -118,13 +118,6 @@ module Top_Student (
 
         // Example powerup
         tile_map[2][6] = `MAP_POWERUP;
-
-//        for (tx = 0; tx < `PIX_MAP_WIDTH; tx = tx + 1) begin
-//            for (ty = 0; ty < `PIX_MAP_HEIGHT; ty = ty + 1) begin
-//                if (tx < `MIN_PIX_X || tx > `MAX_PIX_X || ty < `MIN_PIX_Y || ty > `MAX_PIX_Y)
-//                    pixel_map[tx][ty] = WALL_COLOR;
-//            end
-//        end
     end
 
     // Flatten tile map for submodules
@@ -138,7 +131,7 @@ module Top_Student (
     end
 
     // =========================================================
-    // TILE -> PIXEL BACKGROUND RENDERING
+    // TILE TO PIXEL BACKGROUND RENDERING
     // =========================================================
     function [15:0] expand_tile;
         input [2:0] tile_type;
@@ -157,186 +150,226 @@ module Top_Student (
     end
     endfunction
 
-    /*always @(*) begin
-        for (tx = 0; tx < `TILE_MAP_WIDTH; tx = tx + 1) begin
-            for (ty = 0; ty < `TILE_MAP_HEIGHT; ty = ty + 1) begin
-                for (dx = 0; dx < `TILE_SIZE; dx = dx + 1) begin
-                    for (dy = 0; dy < `TILE_SIZE; dy = dy + 1) begin
-                        pixel_map[`MIN_PIX_X + (`TILE_SIZE*tx) + dx][`MIN_PIX_Y + (`TILE_SIZE*ty) + dy]
-                            = expand_tile(tile_map[tx][ty], dx[2:0], dy[2:0]);
-                    end
-                end
+    // =========================================================
+    // MOUSE
+    // =========================================================
+    
+    
+    
+    wire [11:0] mouse_xpos, mouse_ypos;
+    wire [3:0]  mouse_zpos;
+    wire mouse_left, mouse_middle, mouse_right, mouse_new_event;
+    
+    reg mouse_setmax_x = 0, mouse_setmax_y = 0, mouse_setx = 0, mouse_sety = 0;
+    reg [11:0]  mouse_value = 0;
+    reg [1:0]   mouse_init_state = 0;
+    
+    wire [3:0] mouse_tx = (mouse_xpos >= `MIN_PIX_X && mouse_xpos <= `MAX_PIX_X) ? ((mouse_xpos - `MIN_PIX_X) * 7'd43) >> 8 : 4'hF;
+    wire [3:0] mouse_ty = (mouse_ypos >= `MIN_PIX_Y && mouse_ypos <= `MAX_PIX_Y) ? ((mouse_ypos - `MIN_PIX_Y) * 7'd43) >> 8 : 4'hF;
+    
+    // one-time initialisation to set max x=95, max y=63
+    always @(posedge clk) begin
+        mouse_setmax_x <= 0;
+        mouse_setmax_y <= 0;
+        case (mouse_init_state)
+            0: begin
+                mouse_value    <= 12'd95;   // max x = 95 (96 pixels wide)
+                mouse_setmax_x <= 1;
+                mouse_init_state <= 1;
             end
-        end
-    end*/
-
-    // =========================================================
-    // PLAYER CONTROLLER
-    // =========================================================
-    wire [6:0] player_x;
-    wire [5:0] player_y;
-    wire [3:0] player_tx;
-    wire [3:0] player_ty;
-    wire player_dead;
-
-    // =========================================================
-    // BOMB CONTROLLER
-    // =========================================================
-    wire bomb_active;
-    wire bomb_passable;
-    wire [3:0] bomb_tx;
-    wire [3:0] bomb_ty;
-    wire bomb_red;
-
-    wire explosion_active;
-    wire [3:0] explosion_stage;
-    wire [3:0] explode_up_len;
-    wire [3:0] explode_down_len;
-    wire [3:0] explode_left_len;
-    wire [3:0] explode_right_len;
-
-    wire player_hit;
-
-    wire place_bomb_req;
-    wire [3:0] place_bomb_tx;
-    wire [3:0] place_bomb_ty;
-
-    wire clear_bomb_req;
-    wire [3:0] clear_bomb_tx;
-    wire [3:0] clear_bomb_ty;
-
-    wire destroy_up_req, destroy_down_req, destroy_left_req, destroy_right_req;
-    wire [3:0] destroy_up_tx, destroy_up_ty;
-    wire [3:0] destroy_down_tx, destroy_down_ty;
-    wire [3:0] destroy_left_tx, destroy_left_ty;
-    wire [3:0] destroy_right_tx, destroy_right_ty;
-
-    player_controller player_ctrl_inst (
-        .clk(basys_clk),
-        .btnL(btnL),
-        .btnR(btnR),
-        .btnU(btnU),
-        .btnD(btnD),
-        .tile_map_flat(tile_map_flat),
-        .bomb_active(bomb_active),
-        .bomb_passable(bomb_passable),
-        .bomb_tx(bomb_tx),
-        .bomb_ty(bomb_ty),
-        .player_hit(player_hit),
-        .player_speed_multiplier(sw[1:0]),
-        .player_x(player_x),
-        .player_y(player_y),
-        .player_tx(player_tx),
-        .player_ty(player_ty),
-        .player_dead(player_dead)
-    );
-
-    bomb_controller bomb_ctrl_inst (
-        .clk(basys_clk),
-        .trigger(btnC),
-        .tile_map_flat(tile_map_flat),
-        .player_x(player_x),
-        .player_y(player_y),
-        .player_tx(player_tx),
-        .player_ty(player_ty),
-        .player_dead(player_dead),
-        .bomb_active(bomb_active),
-        .bomb_passable(bomb_passable),
-        .bomb_tx(bomb_tx),
-        .bomb_ty(bomb_ty),
-        .bomb_red(bomb_red),
-        .explosion_active(explosion_active),
-        .explosion_stage(explosion_stage),
-        .explode_up_len(explode_up_len),
-        .explode_down_len(explode_down_len),
-        .explode_left_len(explode_left_len),
-        .explode_right_len(explode_right_len),
-        .player_hit(player_hit),
-        .place_bomb_req(place_bomb_req),
-        .place_bomb_tx(place_bomb_tx),
-        .place_bomb_ty(place_bomb_ty),
-        .clear_bomb_req(clear_bomb_req),
-        .clear_bomb_tx(clear_bomb_tx),
-        .clear_bomb_ty(clear_bomb_ty),
-        .destroy_up_req(destroy_up_req),
-        .destroy_up_tx(destroy_up_tx),
-        .destroy_up_ty(destroy_up_ty),
-        .destroy_down_req(destroy_down_req),
-        .destroy_down_tx(destroy_down_tx),
-        .destroy_down_ty(destroy_down_ty),
-        .destroy_left_req(destroy_left_req),
-        .destroy_left_tx(destroy_left_tx),
-        .destroy_left_ty(destroy_left_ty),
-        .destroy_right_req(destroy_right_req),
-        .destroy_right_tx(destroy_right_tx),
-        .destroy_right_ty(destroy_right_ty)
-    );
-
-    // =========================================================
-    // MAP UPDATE REQUESTS FROM BOMB CONTROLLER
-    // =========================================================
-    always @(posedge basys_clk) begin
-        if (place_bomb_req)
-            tile_map[place_bomb_tx][place_bomb_ty] <= `MAP_BOMB;
-
-        if (clear_bomb_req)
-            tile_map[clear_bomb_tx][clear_bomb_ty] <= `MAP_EMPTY;
-
-        if (destroy_up_req && tile_map[destroy_up_tx][destroy_up_ty] == `MAP_BLOCK)
-            tile_map[destroy_up_tx][destroy_up_ty] <= `MAP_EMPTY;
-
-        if (destroy_down_req && tile_map[destroy_down_tx][destroy_down_ty] == `MAP_BLOCK)
-            tile_map[destroy_down_tx][destroy_down_ty] <= `MAP_EMPTY;
-
-        if (destroy_left_req && tile_map[destroy_left_tx][destroy_left_ty] == `MAP_BLOCK)
-            tile_map[destroy_left_tx][destroy_left_ty] <= `MAP_EMPTY;
-
-        if (destroy_right_req && tile_map[destroy_right_tx][destroy_right_ty] == `MAP_BLOCK)
-            tile_map[destroy_right_tx][destroy_right_ty] <= `MAP_EMPTY;
+            1: begin
+                mouse_value    <= 12'd63;   // max y = 63 (64 pixels tall)
+                mouse_setmax_y <= 1;
+                mouse_init_state <= 2;
+            end
+            default: begin end              // stay here forever
+        endcase
     end
-
+    
+    MouseCtl #(.SYSCLK_FREQUENCY_HZ(`CLOCK_SPEED)) mouse_inst (
+        .clk      (clk),
+        .rst      (1'b0),
+        .xpos     (mouse_xpos),
+        .ypos     (mouse_ypos),
+        .zpos     (mouse_zpos),
+        .left     (mouse_left),
+        .middle   (mouse_middle),
+        .right    (mouse_right),
+        .new_event(mouse_new_event),
+        .value    (mouse_value),
+        .setx     (mouse_setx),
+        .sety     (mouse_sety),
+        .setmax_x (mouse_setmax_x),
+        .setmax_y (mouse_setmax_y),
+        .ps2_clk  (ps2_clk),
+        .ps2_data (ps2_data)
+    );
+    
+    
+    
     // =========================================================
-    // RENDER HELPERS
+    // PLAYER AND COMPUTER CONTROLLERS
     // =========================================================
-    /*function pixel_in_tile;
-        input [6:0] px;
-        input [5:0] py;
-        input [3:0] tx_in;
-        input [3:0] ty_in;
-        reg [6:0] tile_left;
-        reg [5:0] tile_top;
-    begin
-        tile_left = `MIN_PIX_X + tx_in * `TILE_SIZE;
-        tile_top  = `MIN_PIX_Y + ty_in * `TILE_SIZE;
-        pixel_in_tile =
-            (px >= tile_left) && (px < tile_left + `TILE_SIZE) &&
-            (py >= tile_top)  && (py < tile_top + `TILE_SIZE);
-    end
-    endfunction*/
+                            
+    wire [6:0] p1_x;
+    wire [5:0] p1_y;
+    wire [3:0] p1_tx, p1_ty;
+    wire p1_dead;
+    
+    wire p1_place_bomb_req, p1_clear_bomb_req, p1_destroy_up_req, p1_destroy_down_req, p1_destroy_left_req, p1_destroy_right_req;
+    wire [3:0] p1_place_bomb_tx, p1_place_bomb_ty, p1_clear_bomb_tx, p1_clear_bomb_ty, p1_destroy_up_tx, p1_destroy_up_ty,
+               p1_destroy_down_tx, p1_destroy_down_ty, p1_destroy_left_tx, p1_destroy_left_ty, p1_destroy_right_tx, p1_destroy_right_ty;
+    
+    wire p1_bomb_active, p1_bomb_red;
+    wire [3:0] p1_bomb_tx, p1_bomb_ty;
+    
+    wire p1_explosion_active;
+    wire [3:0] p1_explosion_stage, p1_explode_up_len, p1_explode_down_len, p1_explode_left_len, p1_explode_right_len;
 
-    wire player_region = (x >= player_x) && (x < player_x + `PLAYER_WIDTH) && (y >= player_y) && (y < player_y + `PLAYER_WIDTH);
+    player_controller p1_ctrl_inst (
+        .clk(clk),
+        .mouse_tx(mouse_tx),
+        .mouse_ty(mouse_ty),
+        .mouse_left(mouse_left),
+        .mouse_right(mouse_right),
+        .mouse_middle(mouse_middle),
+        .tile_map_flat(tile_map_flat),
+        .speed_multiplier(sw[1:0]),
         
-    // =========================================================
-    // COMPUTER CONTROLLER
-    // =========================================================
+        .player_tx(p1_tx),
+        .player_ty(p1_ty),
+        .player_x(p1_x),
+        .player_y(p1_y),
+        .player_dead(p1_dead),
+
+        .place_bomb_req(p1_place_bomb_req),
+        .place_bomb_tx(p1_place_bomb_tx),
+        .place_bomb_ty(p1_place_bomb_ty),
+        .clear_bomb_req(p1_clear_bomb_req),
+        .clear_bomb_tx(p1_clear_bomb_tx),
+        .clear_bomb_ty(p1_clear_bomb_ty),
+        .destroy_up_req(p1_destroy_up_req),
+        .destroy_up_tx(p1_destroy_up_tx),
+        .destroy_up_ty(p1_destroy_up_ty),
+        .destroy_down_req(p1_destroy_down_req),
+        .destroy_down_tx(p1_destroy_down_tx),
+        .destroy_down_ty(p1_destroy_down_ty),
+        .destroy_left_req(p1_destroy_left_req),
+        .destroy_left_tx(p1_destroy_left_tx),
+        .destroy_left_ty(p1_destroy_left_ty),
+        .destroy_right_req(p1_destroy_right_req),
+        .destroy_right_tx(p1_destroy_right_tx),
+        .destroy_right_ty(p1_destroy_right_ty),
+        
+        .bomb_active(p1_bomb_active),
+        .bomb_tx(p1_bomb_tx),
+        .bomb_ty(p1_bomb_ty),
+        .bomb_red(p1_bomb_red),
+        
+        .explosion_active(p1_explosion_active),
+        .explosion_stage(p1_explosion_stage),
+        .explode_up_len(p1_explode_up_len),
+        .explode_down_len(p1_explode_down_len),
+        .explode_left_len(p1_explode_left_len),
+        .explode_right_len(p1_explode_right_len)
+    );
     
-    wire [6:0] computer_x;
-    wire [5:0] computer_y;
-    wire computer_region = (x >= computer_x) && (x < computer_x + `PLAYER_WIDTH) && (y >= computer_y) && (y < computer_y + `PLAYER_WIDTH);
+    wire [6:0] comp_x;
+    wire [5:0] comp_y;
+    wire [3:0] comp_tx, comp_ty;
+    wire comp_dead;
     
-    computer_controller comp_inst (.clk(basys_clk),
-                                   .player_tx(player_tx), 
-                                   .player_ty(player_ty), 
-                                   // .bomb_active(bomb_active),
-                                   // .explosion_active(explosion_active),
-                                   .tile_map_flat(tile_map_flat),
-                                   .computer_x(computer_x),
-                                   .computer_y(computer_y));
+    wire comp_place_bomb_req, comp_clear_bomb_req, comp_destroy_up_req, comp_destroy_down_req, comp_destroy_left_req, comp_destroy_right_req;
+    wire [3:0] comp_place_bomb_tx, comp_place_bomb_ty, comp_clear_bomb_tx, comp_clear_bomb_ty, comp_destroy_up_tx, comp_destroy_up_ty,
+               comp_destroy_down_tx, comp_destroy_down_ty, comp_destroy_left_tx, comp_destroy_left_ty, comp_destroy_right_tx, comp_destroy_right_ty;
+    
+    wire comp_bomb_active, comp_bomb_red;
+    wire [3:0] comp_bomb_tx, comp_bomb_ty;
+    
+    wire comp_explosion_active;
+    wire [3:0] comp_explosion_stage, comp_explode_up_len, comp_explode_down_len, comp_explode_left_len, comp_explode_right_len;
+
+    computer_controller comp_ctrl_inst (
+        .clk(clk),
+        .player_tx(p1_tx),
+        .player_ty(p1_ty),
+        .tile_map_flat(tile_map_flat),
+        .speed_multiplier(sw[1:0]),
+        
+        .computer_tx(comp_tx),
+        .computer_ty(comp_ty),
+        .computer_x(comp_x),
+        .computer_y(comp_y),
+        .computer_dead(comp_dead),
+
+        .place_bomb_req(comp_place_bomb_req),
+        .place_bomb_tx(comp_place_bomb_tx),
+        .place_bomb_ty(comp_place_bomb_ty),
+        .clear_bomb_req(comp_clear_bomb_req),
+        .clear_bomb_tx(comp_clear_bomb_tx),
+        .clear_bomb_ty(comp_clear_bomb_ty),
+        .destroy_up_req(comp_destroy_up_req),
+        .destroy_up_tx(comp_destroy_up_tx),
+        .destroy_up_ty(comp_destroy_up_ty),
+        .destroy_down_req(comp_destroy_down_req),
+        .destroy_down_tx(comp_destroy_down_tx),
+        .destroy_down_ty(comp_destroy_down_ty),
+        .destroy_left_req(comp_destroy_left_req),
+        .destroy_left_tx(comp_destroy_left_tx),
+        .destroy_left_ty(comp_destroy_left_ty),
+        .destroy_right_req(comp_destroy_right_req),
+        .destroy_right_tx(comp_destroy_right_tx),
+        .destroy_right_ty(comp_destroy_right_ty),
+        
+        .bomb_active(comp_bomb_active),
+        .bomb_tx(comp_bomb_tx),
+        .bomb_ty(comp_bomb_ty),
+        .bomb_red(comp_bomb_red),
+        
+        .explosion_active(comp_explosion_active),
+        .explosion_stage(comp_explosion_stage),
+        .explode_up_len(comp_explode_up_len),
+        .explode_down_len(comp_explode_down_len),
+        .explode_left_len(comp_explode_left_len),
+        .explode_right_len(comp_explode_right_len)
+    );
+
+
+
+    // =========================================================
+    // TILE MAP UPDATES
+    // =========================================================
+    always @(posedge clk) begin
+        if (p1_place_bomb_req) tile_map[p1_place_bomb_tx][p1_place_bomb_ty] <= `MAP_BOMB;
+        if (p1_clear_bomb_req) tile_map[p1_clear_bomb_tx][p1_clear_bomb_ty] <= `MAP_EMPTY;
+        if (p1_destroy_up_req && tile_map[p1_destroy_up_tx][p1_destroy_up_ty] == `MAP_BLOCK) tile_map[p1_destroy_up_tx][p1_destroy_up_ty] <= `MAP_EMPTY;
+        if (p1_destroy_down_req && tile_map[p1_destroy_down_tx][p1_destroy_down_ty] == `MAP_BLOCK) tile_map[p1_destroy_down_tx][p1_destroy_down_ty] <= `MAP_EMPTY;
+        if (p1_destroy_left_req && tile_map[p1_destroy_left_tx][p1_destroy_left_ty] == `MAP_BLOCK) tile_map[p1_destroy_left_tx][p1_destroy_left_ty] <= `MAP_EMPTY;
+        if (p1_destroy_right_req && tile_map[p1_destroy_right_tx][p1_destroy_right_ty] == `MAP_BLOCK) tile_map[p1_destroy_right_tx][p1_destroy_right_ty] <= `MAP_EMPTY;
+        
+        if (comp_place_bomb_req) tile_map[comp_place_bomb_tx][comp_place_bomb_ty] <= `MAP_BOMB;
+        if (comp_clear_bomb_req) tile_map[comp_clear_bomb_tx][comp_clear_bomb_ty] <= `MAP_EMPTY;
+        if (comp_destroy_up_req && tile_map[comp_destroy_up_tx][comp_destroy_up_ty] == `MAP_BLOCK) tile_map[comp_destroy_up_tx][comp_destroy_up_ty] <= `MAP_EMPTY;
+        if (comp_destroy_down_req && tile_map[comp_destroy_down_tx][comp_destroy_down_ty] == `MAP_BLOCK) tile_map[comp_destroy_down_tx][comp_destroy_down_ty] <= `MAP_EMPTY;
+        if (comp_destroy_left_req && tile_map[comp_destroy_left_tx][comp_destroy_left_ty] == `MAP_BLOCK) tile_map[comp_destroy_left_tx][comp_destroy_left_ty] <= `MAP_EMPTY;
+        if (comp_destroy_right_req && tile_map[comp_destroy_right_tx][comp_destroy_right_ty] == `MAP_BLOCK) tile_map[comp_destroy_right_tx][comp_destroy_right_ty] <= `MAP_EMPTY;
+    end
+    
+   
 
     // =========================================================
     // SINGLE PLAYER OLED OVERLAY
     // =========================================================
+    wire p1_region = (x >= p1_x) && (x < p1_x + `PLAYER_WIDTH) && (y >= p1_y) && (y < p1_y + `PLAYER_WIDTH);
+    wire comp_region = (x >= comp_x) && (x < comp_x + `PLAYER_WIDTH) && (y >= comp_y) && (y < comp_y + `PLAYER_WIDTH);
     
+    // lamped mouse cursor position
+    wire [6:0] mouse_cx = (mouse_xpos[6:0] < 1) ? 1 : (mouse_xpos[6:0] > 94) ? 94 : mouse_xpos[6:0];
+    wire [5:0] mouse_cy = (mouse_ypos[5:0] < 1) ? 1 : (mouse_ypos[5:0] > 62) ? 62 : mouse_ypos[5:0];
+    
+    wire mouse_region = (x >= mouse_cx - 1) && (x <= mouse_cx + 1) && (y >= mouse_cy - 1) && (y <= mouse_cy + 1);
+//    wire mouse_region = (x >= mouse_xpos[6:0] - 1) && (x <= mouse_xpos[6:0] + 1) && (y >= mouse_ypos[5:0] - 1) && (y <= mouse_ypos[5:0] + 1);
+       
     wire [3:0] tile_x_of_pixel = (x >= `MIN_PIX_X && x <= `MAX_PIX_X) ? ((x - `MIN_PIX_X) * 7'd43) >> 8 : 4'hF; // replace divider with reciprocal multiply + shift
     wire [3:0] tile_y_of_pixel = (y >= `MIN_PIX_Y && y <= `MAX_PIX_Y) ? ((y - `MIN_PIX_Y) * 7'd43) >> 8 : 4'hF;
     wire [2:0] local_x = (tile_x_of_pixel == 4'hF) ? 0 : (x - `MIN_PIX_X - tile_x_of_pixel * 6);
@@ -347,52 +380,48 @@ module Top_Student (
         else oled_data_single = expand_tile(tile_map[tile_x_of_pixel][tile_y_of_pixel], local_x, local_y);
 
         // bomb
-        if (bomb_active) begin
-            if (tile_x_of_pixel == bomb_tx && tile_y_of_pixel == bomb_ty) 
-//            if (pixel_in_tile(x, y, bomb_tx, bomb_ty))
-                oled_data_single = bomb_red ? `OLED_RED : `OLED_ORANGE;
+        if (p1_bomb_active) begin
+            if (tile_x_of_pixel == p1_bomb_tx && tile_y_of_pixel == p1_bomb_ty)
+                oled_data_single = p1_bomb_red ? `OLED_RED : `OLED_ORANGE;
         end
 
         // explosion
-        if (explosion_active) begin
-            if (tile_x_of_pixel == bomb_tx && tile_y_of_pixel == bomb_ty) 
-//            if (pixel_in_tile(x, y, bomb_tx, bomb_ty))
+        if (p1_explosion_active) begin
+            if (tile_x_of_pixel == p1_bomb_tx && tile_y_of_pixel == p1_bomb_ty)
                 oled_data_single = `OLED_YELLOW;
 
-            if ((explosion_stage <= explode_up_len) &&
-                tile_x_of_pixel == bomb_tx && tile_y_of_pixel == bomb_ty-explosion_stage)
-//                pixel_in_tile(x, y, bomb_tx, bomb_ty - explosion_stage))
+            if ((p1_explosion_stage <= p1_explode_up_len) &&
+                tile_x_of_pixel == p1_bomb_tx && tile_y_of_pixel == p1_bomb_ty-p1_explosion_stage)
                 oled_data_single = `OLED_YELLOW;
 
-            if ((explosion_stage <= explode_down_len) &&
-                tile_x_of_pixel == bomb_tx && tile_y_of_pixel == bomb_ty+explosion_stage)
-//                pixel_in_tile(x, y, bomb_tx, bomb_ty + explosion_stage))
+            if ((p1_explosion_stage <= p1_explode_down_len) &&
+                tile_x_of_pixel == p1_bomb_tx && tile_y_of_pixel == p1_bomb_ty+p1_explosion_stage)
                 oled_data_single = `OLED_YELLOW;
 
-            if ((explosion_stage <= explode_left_len) &&
-                tile_x_of_pixel == bomb_tx-explosion_stage && tile_y_of_pixel == bomb_ty)
-//                pixel_in_tile(x, y, bomb_tx - explosion_stage, bomb_ty))
+            if ((p1_explosion_stage <= p1_explode_left_len) &&
+                tile_x_of_pixel == p1_bomb_tx-p1_explosion_stage && tile_y_of_pixel == p1_bomb_ty)
                 oled_data_single = `OLED_YELLOW;
 
-            if ((explosion_stage <= explode_right_len) &&
-                tile_x_of_pixel == bomb_tx+explosion_stage && tile_y_of_pixel == bomb_ty)
-//                pixel_in_tile(x, y, bomb_tx + explosion_stage, bomb_ty))
+            if ((p1_explosion_stage <= p1_explode_right_len) &&
+                tile_x_of_pixel == p1_bomb_tx+p1_explosion_stage && tile_y_of_pixel == p1_bomb_ty)
                 oled_data_single = `OLED_YELLOW;
         end
-        
 
         // player
-        if (player_region) oled_data_single = player_dead ? `OLED_GREEN : `OLED_BLUE;
-        if (computer_region) oled_data_single = `OLED_MAGENTA;
+        if (p1_region) oled_data_single = p1_dead ? `OLED_GREEN : `OLED_BLUE;
+        if (comp_region) oled_data_single = `OLED_MAGENTA;
         
         // draw walls
         if (x < `MIN_PIX_X || x > `MAX_PIX_X || y < `MIN_PIX_Y || y > `MAX_PIX_Y) oled_data_single = WALL_COLOR;
+        if (mouse_region) oled_data_single = `OLED_ORANGE;
     end
+
+
 
     // =========================================================
     // MAIN LOOP
     // =========================================================
-    always @(posedge basys_clk) begin
+    always @(posedge clk) begin
         data_tx <= {data_tx_game, data_tx_code};
 
         case (pair_state)
@@ -400,7 +429,6 @@ module Top_Student (
                 display_counter <= 0;
                 display_text <= 0;
                 oled_data <= oled_data_single;
-//                led <= 8'b0;
             end
 
             `PAIRED: begin
@@ -416,19 +444,18 @@ module Top_Student (
                     oled_data <= oled_data_pair;
                 else
                     oled_data <= oled_data_multi;
-
-//                led <= data_rx_game;
             end
 
             default: begin
                 oled_data <= oled_data_pair;
-//                led <= 8'b0;
             end
         endcase
     end
 
+
+
     // =========================================================
-    // DEBUGGING
+    // SEVEN SEG DISPLAY
     // =========================================================
     reg [7:0] seg_player, seg_state;
 
@@ -446,7 +473,7 @@ module Top_Student (
     end
 
     seven_segment seg_inst (
-        .clk(basys_clk),
+        .clk(clk),
         .seg0(seg_state),
         .seg1(8'b11111111),
         .seg2(8'b10001100),
