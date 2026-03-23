@@ -14,14 +14,14 @@ module player_controller (
     input [3:0] bomb_tx,
     input [3:0] bomb_ty,
     input player_hit,
+    input [1:0] player_speed_multiplier,
     output reg [6:0] player_x = `MIN_PIX_X,
     output reg [5:0] player_y = `MIN_PIX_Y,
-    output [3:0] player_center_tx,
-    output [3:0] player_center_ty,
+    output reg [3:0] player_tx,
+    output reg [3:0] player_ty,
     output reg player_dead = 0
-);
-    
-    // added this
+);  
+    // added this to unpack tile map
     reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
     integer ux, uy; // unpack map
     always @(*) begin
@@ -30,17 +30,14 @@ module player_controller (
                 tile_map[ux][uy] = tile_map_flat[(uy*`TILE_MAP_WIDTH + ux)*3 +: 3];
     end
     
-    assign player_center_tx = pixel_to_tile_x(player_x + `PLAYER_WIDTH/2);
-    assign player_center_ty = pixel_to_tile_y(player_y + `PLAYER_HEIGHT/2);
-
-    parameter PLAYER_SPEED  = 35;
-    parameter PLAYER_COUNT  = `CLOCK_SPEED / PLAYER_SPEED;
-
-    reg [$clog2(PLAYER_COUNT)-1:0] player_counter = 0;
-    wire move_tick = (player_counter == PLAYER_COUNT - 1);
+    // variable player speed
+    parameter PLAYER_COUNT_MAX = `CLOCK_SPEED / `PLAYER_DEFAULT_SPEED;
+    reg [$clog2(PLAYER_COUNT_MAX)-1:0] player_counter = 0;
+    wire [31:0] player_count_thresh = `CLOCK_SPEED / (`PLAYER_DEFAULT_SPEED + player_speed_multiplier * `PLAYER_SPEED_INCREMENT); // changes based on speed
+    wire move_tick = (player_counter == player_count_thresh - 1);
 
     always @(posedge clk) begin
-        if (player_counter == PLAYER_COUNT - 1)
+        if (player_counter == player_count_thresh - 1)
             player_counter <= 0;
         else
             player_counter <= player_counter + 1;
@@ -49,14 +46,14 @@ module player_controller (
     function [3:0] pixel_to_tile_x;
         input [6:0] px;
     begin
-        pixel_to_tile_x = (px - `MIN_PIX_X) / `TILE_SIZE;
+        pixel_to_tile_x = ((px - `MIN_PIX_X) * 7'd43) >> 8; //(px - `MIN_PIX_X) / `TILE_SIZE;
     end
     endfunction
 
     function [3:0] pixel_to_tile_y;
         input [5:0] py;
     begin
-        pixel_to_tile_y = (py - `MIN_PIX_Y) / `TILE_SIZE;
+        pixel_to_tile_y = ((py - `MIN_PIX_Y) * 7'd43) >> 8; //(py - `MIN_PIX_Y) / `TILE_SIZE;
     end
     endfunction
 
@@ -68,7 +65,7 @@ module player_controller (
         if (tx_in >= `TILE_MAP_WIDTH || ty_in >= `TILE_MAP_HEIGHT)
             is_walkable_tile = 0;
         else begin
-            tile_val = tile_map[tx_in][ty_in];
+            tile_val = tile_map[tx_in][ty_in];//tile_map_flat[(ty_in*`TILE_MAP_WIDTH + tx_in)*3 +: 3]; // [tx_in][ty_in];
             case (tile_val)
                 `MAP_EMPTY,
                 `MAP_POWERUP: is_walkable_tile = 1;
@@ -82,68 +79,62 @@ module player_controller (
         input [3:0] tx_in;
         input [3:0] ty_in;
     begin
-        bomb_tile_is_exception =
-            bomb_active &&
-            bomb_passable &&
-            (tx_in == bomb_tx) &&
-            (ty_in == bomb_ty);
+        bomb_tile_is_exception = bomb_active && bomb_passable && (tx_in == bomb_tx) && (ty_in == bomb_ty);
     end
     endfunction
     
-    function can_move_to;
-        input [6:0] next_x;
-        input [5:0] next_y;
-        reg [6:0] right_x;
-        reg [5:0] bottom_y;
-        // reg [3:0] l_tx, r_tx, b_ty, t_ty;
-        reg [3:0] tl_tx, tr_tx, bl_tx, br_tx;
-        reg [3:0] tl_ty, tr_ty, bl_ty, br_ty;
-        reg tl_ok, tr_ok, bl_ok, br_ok;
-    begin
-        if (next_x < `MIN_PIX_X ||
-            next_y < `MIN_PIX_Y ||
-            (next_x + `PLAYER_WIDTH  - 1) > `MAX_PIX_X ||
-            (next_y + `PLAYER_HEIGHT - 1) > `MAX_PIX_Y) begin
-            can_move_to = 0;
-        end
-        else begin
-            right_x  = next_x + `PLAYER_WIDTH  - 1;
-            bottom_y = next_y + `PLAYER_HEIGHT - 1;
-
-            tl_tx = pixel_to_tile_x(next_x);
-            tr_tx = pixel_to_tile_x(right_x);
-            bl_tx = pixel_to_tile_x(next_x);
-            br_tx = pixel_to_tile_x(right_x);
-
-            tl_ty = pixel_to_tile_y(next_y);
-            tr_ty = pixel_to_tile_y(next_y);
-            bl_ty = pixel_to_tile_y(bottom_y);
-            br_ty = pixel_to_tile_y(bottom_y);
-
-            tl_ok = is_walkable_tile(tl_tx, tl_ty) || bomb_tile_is_exception(tl_tx, tl_ty);
-            tr_ok = is_walkable_tile(tr_tx, tr_ty) || bomb_tile_is_exception(tr_tx, tr_ty);
-            bl_ok = is_walkable_tile(bl_tx, bl_ty) || bomb_tile_is_exception(bl_tx, bl_ty);
-            br_ok = is_walkable_tile(br_tx, br_ty) || bomb_tile_is_exception(br_tx, br_ty);
-
-            can_move_to = tl_ok && tr_ok && bl_ok && br_ok;
-        end
-    end
-    endfunction
-
+    // tile edge coords
+    reg [3:0] tx_left_r=0,  tx_right_r=0;
+    reg [3:0] ty_top_r=0,   ty_bot_r=0;
+    reg [3:0] tx_ll_r=0,    tx_lr_r=0;  // lead left, lead right
+    reg [3:0] ty_lu_r=0,    ty_ld_r=0;  // lead up, lead down
+    
     always @(posedge clk) begin
-        if (player_hit)
-            player_dead <= 1;
-
+        tx_left_r  <= pixel_to_tile_x(player_x);
+        tx_right_r <= pixel_to_tile_x(player_x + `PLAYER_WIDTH  - 1);
+        ty_top_r   <= pixel_to_tile_y(player_y);
+        ty_bot_r   <= pixel_to_tile_y(player_y + `PLAYER_HEIGHT - 1);
+        tx_ll_r    <= pixel_to_tile_x(player_x - 1);
+        tx_lr_r    <= pixel_to_tile_x(player_x + `PLAYER_WIDTH);
+        ty_lu_r    <= pixel_to_tile_y(player_y - 1);
+        ty_ld_r    <= pixel_to_tile_y(player_y + `PLAYER_HEIGHT);
+    end
+    
+    // use registered to reduce wns
+    wire can_left  = (player_x > `MIN_PIX_X) &&
+                     (is_walkable_tile(tx_ll_r,  ty_top_r) || bomb_tile_is_exception(tx_ll_r,  ty_top_r)) &&
+                     (is_walkable_tile(tx_ll_r,  ty_bot_r) || bomb_tile_is_exception(tx_ll_r,  ty_bot_r));
+    
+    wire can_right = (player_x + `PLAYER_WIDTH - 1 < `MAX_PIX_X) &&
+                     (is_walkable_tile(tx_lr_r,  ty_top_r) || bomb_tile_is_exception(tx_lr_r,  ty_top_r)) &&
+                     (is_walkable_tile(tx_lr_r,  ty_bot_r) || bomb_tile_is_exception(tx_lr_r,  ty_bot_r));
+    
+    wire can_up    = (player_y > `MIN_PIX_Y) &&
+                     (is_walkable_tile(tx_left_r, ty_lu_r) || bomb_tile_is_exception(tx_left_r, ty_lu_r)) &&
+                     (is_walkable_tile(tx_right_r, ty_lu_r) || bomb_tile_is_exception(tx_right_r, ty_lu_r));
+    
+    wire can_down  = (player_y + `PLAYER_HEIGHT - 1 < `MAX_PIX_Y) &&
+                     (is_walkable_tile(tx_left_r, ty_ld_r) || bomb_tile_is_exception(tx_left_r, ty_ld_r)) &&
+                     (is_walkable_tile(tx_right_r, ty_ld_r) || bomb_tile_is_exception(tx_right_r, ty_ld_r));
+    
+    // breaks the combinational feedback into player_x/y CE
+    reg can_left_r=0, can_right_r=0, can_up_r=0, can_down_r=0;
+    always @(posedge clk) begin
+        can_left_r       <= can_left;
+        can_right_r      <= can_right;
+        can_up_r         <= can_up;
+        can_down_r       <= can_down;
+        player_tx <= pixel_to_tile_x(player_x + `PLAYER_WIDTH/2); // center of player
+        player_ty <= pixel_to_tile_y(player_y + `PLAYER_HEIGHT/2);
+    end
+    
+    always @(posedge clk) begin
+        if (player_hit) player_dead <= 1;
         if (!player_dead && move_tick) begin
-            if (btnL && can_move_to(player_x - 1, player_y))
-                player_x <= player_x - 1;
-            else if (btnR && can_move_to(player_x + 1, player_y))
-                player_x <= player_x + 1;
-            else if (btnU && can_move_to(player_x, player_y - 1))
-                player_y <= player_y - 1;
-            else if (btnD && can_move_to(player_x, player_y + 1))
-                player_y <= player_y + 1;
+            if      (btnL && can_left_r)  player_x <= player_x - 1;
+            else if (btnR && can_right_r) player_x <= player_x + 1;
+            else if (btnU && can_up_r)    player_y <= player_y - 1;
+            else if (btnD && can_down_r)  player_y <= player_y + 1;
         end
     end
-
 endmodule

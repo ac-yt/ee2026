@@ -1,5 +1,7 @@
 `timescale 1ns / 1ps
 
+`include "constants.vh"
+
 module a_star (input clk, update,// rst,
                input [3:0] start_x, start_y, goal_x, goal_y,
                input [3*`TILE_MAP_SIZE-1:0] tile_map_flat,
@@ -11,7 +13,9 @@ module a_star (input clk, update,// rst,
     // parameters 
     parameter integer EMPTY_COST = 1;
     parameter integer BLOCK_COST = 3;
-    parameter integer MAX_COST = BLOCK_COST * `MAX_PATH_LEN;
+    parameter integer BOMB_COST = 5;
+//    parameter integer MAX_COST = BLOCK_COST * `MAX_PATH_LEN;
+    parameter integer MAX_COST = BOMB_COST * `MAX_PATH_LEN;
     parameter integer MAX_F = MAX_COST + `TILE_MAP_WIDTH-1 + `TILE_MAP_HEIGHT-1;
     
     // BRAM 2D arrays - read latency is 1 cycle, write is same cycle
@@ -56,7 +60,9 @@ module a_star (input clk, update,// rst,
     // wires to FSM
     wire [3:0] scan_open_x = open_x[scan_index]; // FIND_BEST_SCAN, node on open list
     wire [3:0] scan_open_y = open_y[scan_index];
-    wire [1:0] tile_base_cost = (tile_map[nb_x][nb_y] == `MAP_BLOCK) ? BLOCK_COST : EMPTY_COST;
+//    wire [1:0] tile_base_cost = (tile_map[nb_x][nb_y] == `MAP_BLOCK) ? BLOCK_COST : EMPTY_COST;
+    wire [2:0] tile_base_cost = (tile_map[nb_x][nb_y] == `MAP_BLOCK) ? BLOCK_COST : 
+                                (tile_map[nb_x][nb_y] == `MAP_BOMB) ? BOMB_COST : EMPTY_COST;
     
     // FSM
     parameter CHECK_OPEN             = 5'b00000;

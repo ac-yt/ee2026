@@ -47,7 +47,7 @@ module pairing_fsm (input clk, received, busy_tx, btn_accept, btn_cancel, btn_pa
                     input [`CODE_BITS-1:0] data_rx_code,
                     output reg tx_en=0,
                     output reg [`CODE_BITS-1:0] data_tx_code=0,
-                    output reg [2:0] state,
+                    output reg [2:0] state=0,
                     output reg player=0);
 
     reg [2:0] next_state = 0;

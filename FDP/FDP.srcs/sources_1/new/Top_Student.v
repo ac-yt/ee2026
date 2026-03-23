@@ -8,11 +8,10 @@ module Top_Student (
     input [15:0] sw,
     output [7:0] JC,
     output UART_TX,
-    output [15:0] led,
+    output reg [15:0] led,
     output [7:0] seg,
     output [3:0] an
 );
-
     // =========================================================
     // COMMUNICATION
     // =========================================================
@@ -27,51 +26,15 @@ module Top_Student (
     wire [`GAME_BITS-1:0] data_rx_game = data_rx[`DATA_BITS-1:`CODE_BITS];
     wire tx_en = tx_en_code | tx_en_game;
 
-    uart_tx tx_inst (
-        .clk(basys_clk),
-        .rst(0),
-        .tx_en(tx_en),
-        .data(data_tx),
-        .tx(UART_TX),
-        .busy(busy_tx)
-    );
+    uart_tx tx_inst (.clk(basys_clk), .rst(0), .tx_en(tx_en), .data(data_tx), .tx(UART_TX), .busy(busy_tx));
 
-    uart_rx rx_inst (
-        .clk(basys_clk),
-        .rst(0),
-        .rx(UART_RX),
-        .data(data_rx),
-        .busy(busy_rx),
-        .valid(received)
-    );
+    uart_rx rx_inst (.clk(basys_clk), .rst(0), .rx(UART_RX), .data(data_rx), .busy(busy_rx), .valid(received));
 
-    pairing_fsm pair_inst (
-        .clk(basys_clk),
-        .received(received),
-        .busy_tx(busy_tx),
-        .btn_accept(btnU),
-        .btn_cancel(btnD),
-        .btn_pair_one(btnL),
-        .btn_pair_two(btnR),
-        .data_rx_code(data_rx_code),
-        .tx_en(tx_en_code),
-        .data_tx_code(data_tx_code),
-        .state(pair_state),
-        .player(player)
-    );
+    pairing_fsm pair_inst (.clk(basys_clk), .received(received), .busy_tx(busy_tx), .btn_accept(btnU), .btn_cancel(btnD), .btn_pair_one(btnL), .btn_pair_two(btnR),
+                           .data_rx_code(data_rx_code), .tx_en(tx_en_code), .data_tx_code(data_tx_code), .state(pair_state), .player(player));
 
-    package_game_data game_inst (
-        .clk(basys_clk),
-        .btnL(btnL),
-        .btnR(btnR),
-        .btnC(btnC),
-        .btnU(btnU),
-        .btnD(btnD),
-        .sw(sw[7:0]),
-        .tx_en(tx_en_game),
-        .player(player),
-        .data_tx_game(data_tx_game)
-    );
+    package_game_data game_inst (.clk(basys_clk), .btnL(btnL), .btnR(btnR), .btnC(btnC), .btnU(btnU), .btnD(btnD), .sw(sw[7:0]),
+                                 .tx_en(tx_en_game), .player(player), .data_tx_game(data_tx_game));
 
     // =========================================================
     // OLED
@@ -88,21 +51,9 @@ module Top_Student (
     wire [6:0] x = pixel_index % 96;
     wire [5:0] y = pixel_index / 96;
 
-    variable_clock #(
-        .CLOCK_SPEED(`CLOCK_SPEED),
-        .OUT_SPEED(6_250_000)
-    ) clk_6p25m_inst (
-        .clk(basys_clk),
-        .clk_out(clk_6p25m)
-    );
+    variable_clock #(.CLOCK_SPEED(`CLOCK_SPEED), .OUT_SPEED(6_250_000)) clk_6p25m_inst (.clk(basys_clk), .clk_out(clk_6p25m));
 
-    pairing_oled pair_oled_inst (
-        .clk(basys_clk),
-        .pair_state(pair_state),
-        .x(x),
-        .y(y),
-        .oled_data(oled_data_pair)
-    );
+    pairing_oled pair_oled_inst (.clk(basys_clk), .pair_state(pair_state), .x(x), .y(y), .oled_data(oled_data_pair));
 
     Oled_Display oled1 (
         .clk(clk_6p25m),
@@ -206,26 +157,26 @@ module Top_Student (
     end
     endfunction
 
-//    always @(*) begin
-//        for (tx = 0; tx < `TILE_MAP_WIDTH; tx = tx + 1) begin
-//            for (ty = 0; ty < `TILE_MAP_HEIGHT; ty = ty + 1) begin
-//                for (dx = 0; dx < `TILE_SIZE; dx = dx + 1) begin
-//                    for (dy = 0; dy < `TILE_SIZE; dy = dy + 1) begin
-//                        pixel_map[`MIN_PIX_X + (`TILE_SIZE*tx) + dx][`MIN_PIX_Y + (`TILE_SIZE*ty) + dy]
-//                            = expand_tile(tile_map[tx][ty], dx[2:0], dy[2:0]);
-//                    end
-//                end
-//            end
-//        end
-//    end
+    /*always @(*) begin
+        for (tx = 0; tx < `TILE_MAP_WIDTH; tx = tx + 1) begin
+            for (ty = 0; ty < `TILE_MAP_HEIGHT; ty = ty + 1) begin
+                for (dx = 0; dx < `TILE_SIZE; dx = dx + 1) begin
+                    for (dy = 0; dy < `TILE_SIZE; dy = dy + 1) begin
+                        pixel_map[`MIN_PIX_X + (`TILE_SIZE*tx) + dx][`MIN_PIX_Y + (`TILE_SIZE*ty) + dy]
+                            = expand_tile(tile_map[tx][ty], dx[2:0], dy[2:0]);
+                    end
+                end
+            end
+        end
+    end*/
 
     // =========================================================
     // PLAYER CONTROLLER
     // =========================================================
     wire [6:0] player_x;
     wire [5:0] player_y;
-    wire [3:0] player_center_tx;
-    wire [3:0] player_center_ty;
+    wire [3:0] player_tx;
+    wire [3:0] player_ty;
     wire player_dead;
 
     // =========================================================
@@ -272,21 +223,22 @@ module Top_Student (
         .bomb_tx(bomb_tx),
         .bomb_ty(bomb_ty),
         .player_hit(player_hit),
+        .player_speed_multiplier(sw[1:0]),
         .player_x(player_x),
         .player_y(player_y),
-        .player_center_tx(player_center_tx),
-        .player_center_ty(player_center_ty),
+        .player_tx(player_tx),
+        .player_ty(player_ty),
         .player_dead(player_dead)
     );
 
     bomb_controller bomb_ctrl_inst (
         .clk(basys_clk),
-        .btnC(btnC),
+        .trigger(btnC),
         .tile_map_flat(tile_map_flat),
         .player_x(player_x),
         .player_y(player_y),
-        .player_center_tx(player_center_tx),
-        .player_center_ty(player_center_ty),
+        .player_tx(player_tx),
+        .player_ty(player_ty),
         .player_dead(player_dead),
         .bomb_active(bomb_active),
         .bomb_passable(bomb_passable),
@@ -346,7 +298,7 @@ module Top_Student (
     // =========================================================
     // RENDER HELPERS
     // =========================================================
-    function pixel_in_tile;
+    /*function pixel_in_tile;
         input [6:0] px;
         input [5:0] py;
         input [3:0] tx_in;
@@ -360,7 +312,7 @@ module Top_Student (
             (px >= tile_left) && (px < tile_left + `TILE_SIZE) &&
             (py >= tile_top)  && (py < tile_top + `TILE_SIZE);
     end
-    endfunction
+    endfunction*/
 
     wire player_region = (x >= player_x) && (x < player_x + `PLAYER_WIDTH) && (y >= player_y) && (y < player_y + `PLAYER_WIDTH);
         
@@ -375,6 +327,8 @@ module Top_Student (
     computer_controller comp_inst (.clk(basys_clk),
                                    .player_tx(player_center_tx), 
                                    .player_ty(player_center_ty), 
+                                   .bomb_active(bomb_active),
+                                   .explosion_active(explosion_active),
                                    .tile_map_flat(tile_map_flat),
                                    .computer_x(computer_x),
                                    .computer_y(computer_y));
@@ -394,29 +348,35 @@ module Top_Student (
 
         // bomb
         if (bomb_active) begin
-            if (pixel_in_tile(x, y, bomb_tx, bomb_ty))
+            if (tile_x_of_pixel == bomb_tx && tile_y_of_pixel == bomb_ty) 
+//            if (pixel_in_tile(x, y, bomb_tx, bomb_ty))
                 oled_data_single = bomb_red ? `OLED_RED : `OLED_ORANGE;
         end
 
         // explosion
         if (explosion_active) begin
-            if (pixel_in_tile(x, y, bomb_tx, bomb_ty))
+            if (tile_x_of_pixel == bomb_tx && tile_y_of_pixel == bomb_ty) 
+//            if (pixel_in_tile(x, y, bomb_tx, bomb_ty))
                 oled_data_single = `OLED_YELLOW;
 
             if ((explosion_stage <= explode_up_len) &&
-                pixel_in_tile(x, y, bomb_tx, bomb_ty - explosion_stage))
+                tile_x_of_pixel == bomb_tx && tile_y_of_pixel == bomb_ty-explosion_stage)
+//                pixel_in_tile(x, y, bomb_tx, bomb_ty - explosion_stage))
                 oled_data_single = `OLED_YELLOW;
 
             if ((explosion_stage <= explode_down_len) &&
-                pixel_in_tile(x, y, bomb_tx, bomb_ty + explosion_stage))
+                tile_x_of_pixel == bomb_tx && tile_y_of_pixel == bomb_ty+explosion_stage)
+//                pixel_in_tile(x, y, bomb_tx, bomb_ty + explosion_stage))
                 oled_data_single = `OLED_YELLOW;
 
             if ((explosion_stage <= explode_left_len) &&
-                pixel_in_tile(x, y, bomb_tx - explosion_stage, bomb_ty))
+                tile_x_of_pixel == bomb_tx-explosion_stage && tile_y_of_pixel == bomb_ty)
+//                pixel_in_tile(x, y, bomb_tx - explosion_stage, bomb_ty))
                 oled_data_single = `OLED_YELLOW;
 
             if ((explosion_stage <= explode_right_len) &&
-                pixel_in_tile(x, y, bomb_tx + explosion_stage, bomb_ty))
+                tile_x_of_pixel == bomb_tx+explosion_stage && tile_y_of_pixel == bomb_ty)
+//                pixel_in_tile(x, y, bomb_tx + explosion_stage, bomb_ty))
                 oled_data_single = `OLED_YELLOW;
         end
         

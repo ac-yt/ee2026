@@ -2,8 +2,8 @@
 # Vivado v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Sun Mar 22 02:13:34 2026
-# Process ID: 49416
+# Start of session at: Mon Mar 23 11:37:35 2026
+# Process ID: 34504
 # Current directory: C:/VivadoProjects/ee2026/FDP/FDP.runs/synth_1
 # Command line: vivado.exe -log Top_Student.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Top_Student.tcl
 # Log file: C:/VivadoProjects/ee2026/FDP/FDP.runs/synth_1/Top_Student.vds
@@ -15,9 +15,9 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 50884 
+INFO: Helper process launched with PID 28664 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 387.293 ; gain = 101.383
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 387.457 ; gain = 101.629
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'Top_Student' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:5]
 	Parameter DISPLAY_TIME bound to: 300000000 - type: integer 
@@ -122,8 +122,7 @@ INFO: [Synth 8-226] default block is never used [C:/VivadoProjects/ee2026/FDP/FD
 WARNING: [Synth 8-693] zero replication count - replication ignored [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/imports/Desktop/Oled_Display.v:346]
 INFO: [Synth 8-6155] done synthesizing module 'Oled_Display' (7#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/imports/Desktop/Oled_Display.v:36]
 INFO: [Synth 8-6157] synthesizing module 'player_controller' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/player_controller.v:5]
-	Parameter PLAYER_SPEED bound to: 35 - type: integer 
-	Parameter PLAYER_COUNT bound to: 2857142 - type: integer 
+	Parameter PLAYER_COUNT_MAX bound to: 2857142 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'player_controller' (8#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/player_controller.v:5]
 INFO: [Synth 8-6157] synthesizing module 'bomb_controller' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:5]
 	Parameter BOMB_COUNTDOWN_TIME bound to: 200000000 - type: integer 
@@ -139,11 +138,12 @@ INFO: [Synth 8-6157] synthesizing module 'variable_clock__parameterized0' [C:/Vi
 	Parameter OUT_SPEED bound to: 50000000 - type: integer 
 	Parameter M bound to: 0 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'variable_clock__parameterized0' (9#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/variable_clock.v:3]
-INFO: [Synth 8-6157] synthesizing module 'a_star' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:3]
+INFO: [Synth 8-6157] synthesizing module 'a_star' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:5]
 	Parameter EMPTY_COST bound to: 1 - type: integer 
 	Parameter BLOCK_COST bound to: 3 - type: integer 
-	Parameter MAX_COST bound to: 120 - type: integer 
-	Parameter MAX_F bound to: 142 - type: integer 
+	Parameter BOMB_COST bound to: 5 - type: integer 
+	Parameter MAX_COST bound to: 200 - type: integer 
+	Parameter MAX_F bound to: 222 - type: integer 
 	Parameter CHECK_OPEN bound to: 5'b00000 
 	Parameter FIND_BEST_INIT bound to: 5'b00001 
 	Parameter FIND_BEST_SCAN bound to: 5'b00010 
@@ -169,19 +169,29 @@ INFO: [Synth 8-6157] synthesizing module 'a_star' [C:/VivadoProjects/ee2026/FDP/
 	Parameter SET_START bound to: 5'b10110 
 	Parameter FIND_BEST_BRAM_WAIT bound to: 5'b10111 
 	Parameter PATH_BRAM_WAIT bound to: 5'b11000 
-INFO: [Synth 8-5534] Detected attribute (* ram_style = "block" *) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:18]
-INFO: [Synth 8-5534] Detected attribute (* ram_style = "block" *) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:19]
-INFO: [Synth 8-5534] Detected attribute (* ram_style = "block" *) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:20]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:224]
-WARNING: [Synth 8-6014] Unused sequential element cost_goal_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:328]
-INFO: [Synth 8-6155] done synthesizing module 'a_star' (10#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:3]
+INFO: [Synth 8-5534] Detected attribute (* ram_style = "block" *) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:22]
+INFO: [Synth 8-5534] Detected attribute (* ram_style = "block" *) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:23]
+INFO: [Synth 8-5534] Detected attribute (* ram_style = "block" *) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:24]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:230]
+WARNING: [Synth 8-6014] Unused sequential element cost_goal_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:334]
+INFO: [Synth 8-6155] done synthesizing module 'a_star' (10#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:5]
+WARNING: [Synth 8-6014] Unused sequential element computer_tx_sync_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/computer_controller.v:200]
+WARNING: [Synth 8-6014] Unused sequential element computer_ty_sync_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/computer_controller.v:201]
+WARNING: [Synth 8-6014] Unused sequential element goal_tx_sync_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/computer_controller.v:202]
+WARNING: [Synth 8-6014] Unused sequential element goal_ty_sync_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/computer_controller.v:203]
 INFO: [Synth 8-6155] done synthesizing module 'computer_controller' (11#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/computer_controller.v:5]
-INFO: [Synth 8-226] default block is never used [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:476]
+WARNING: [Synth 8-689] width (1) of port connection 'player_tx' does not match port width (4) of module 'computer_controller' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:328]
+WARNING: [Synth 8-689] width (1) of port connection 'player_ty' does not match port width (4) of module 'computer_controller' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:329]
+INFO: [Synth 8-226] default block is never used [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:436]
 INFO: [Synth 8-6157] synthesizing module 'seven_segment' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/seven_segment.v:3]
 	Parameter SWITCH_TIME bound to: 1000000 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'seven_segment' (12#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/seven_segment.v:3]
 WARNING: [Synth 8-3848] Net led in module/entity Top_Student does not have driver. [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:11]
+WARNING: [Synth 8-3848] Net player_center_tx in module/entity Top_Student does not have driver. [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:328]
+WARNING: [Synth 8-3848] Net player_center_ty in module/entity Top_Student does not have driver. [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:329]
 INFO: [Synth 8-6155] done synthesizing module 'Top_Student' (13#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:5]
+WARNING: [Synth 8-3331] design computer_controller has unconnected port bomb_active
+WARNING: [Synth 8-3331] design computer_controller has unconnected port explosion_active
 WARNING: [Synth 8-3331] design Top_Student has unconnected port JC[2]
 WARNING: [Synth 8-3331] design Top_Student has unconnected port led[15]
 WARNING: [Synth 8-3331] design Top_Student has unconnected port led[14]
@@ -208,7 +218,7 @@ WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[10]
 WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[9]
 WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[8]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 756.023 ; gain = 470.113
+Finished RTL Elaboration : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 753.617 ; gain = 467.789
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -217,14 +227,16 @@ Report Check Netlist:
 +------+------------------+-------+---------+-------+------------------+
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
+WARNING: [Synth 8-3295] tying undriven pin comp_inst:player_tx[0] to constant 0 [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:327]
+WARNING: [Synth 8-3295] tying undriven pin comp_inst:player_ty[0] to constant 0 [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:327]
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 756.023 ; gain = 470.113
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 753.617 ; gain = 467.789
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 756.023 ; gain = 470.113
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 753.617 ; gain = 467.789
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7a35tcpg236-1
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -242,9 +254,9 @@ Completed Processing XDC Constraints
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 1029.992 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.021 . Memory (MB): peak = 1029.336 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 1030.090 ; gain = 744.180
+Finished Constraint Validation : Time (s): cpu = 00:00:33 ; elapsed = 00:00:38 . Memory (MB): peak = 1029.426 ; gain = 743.598
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5580] Multithreading enabled for synth_design using a maximum of 2 processes.
 ---------------------------------------------------------------------------------
@@ -252,13 +264,13 @@ Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcpg236-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 1030.090 ; gain = 744.180
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:33 ; elapsed = 00:00:38 . Memory (MB): peak = 1029.426 ; gain = 743.598
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 1030.090 ; gain = 744.180
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:33 ; elapsed = 00:00:38 . Memory (MB): peak = 1029.426 ; gain = 743.598
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5546] ROM "next_state0" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "tx" won't be mapped to RAM because it is too sparse
@@ -291,14 +303,6 @@ INFO: [Synth 8-5544] ROM "is_walkable_tile3" won't be mapped to Block RAM becaus
 INFO: [Synth 8-5544] ROM "is_walkable_tile4" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "is_walkable_tile5" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "is_walkable_tile6" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "is_walkable_tile7" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "is_walkable_tile8" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "is_walkable_tile9" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "is_walkable_tile10" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "is_walkable_tile11" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "is_walkable_tile12" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "is_walkable_tile13" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "is_walkable_tile14" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-4471] merging register 'place_bomb_tx_reg[3:0]' into 'bomb_tx_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:255]
 INFO: [Synth 8-4471] merging register 'place_bomb_ty_reg[3:0]' into 'bomb_ty_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:256]
 WARNING: [Synth 8-6014] Unused sequential element place_bomb_tx_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:255]
@@ -315,11 +319,11 @@ INFO: [Synth 8-5544] ROM "compute_reach_left" won't be mapped to Block RAM becau
 INFO: [Synth 8-5544] ROM "compute_reach_right" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5545] ROM "count0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "clk_out0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:224]
-INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:301]
-INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:410]
-INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:410]
-INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:301]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:230]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:307]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:416]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:416]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:307]
 INFO: [Synth 8-5546] ROM "tile_map_reg[0][0]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "tile_map_reg[0][1]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "tile_map_reg[0][2]" won't be mapped to RAM because it is too sparse
@@ -329,7 +333,6 @@ INFO: [Synth 8-5546] ROM "tile_map_reg[0][5]" won't be mapped to RAM because it 
 INFO: [Synth 8-5546] ROM "tile_map_reg[0][6]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "tile_map_reg[0][7]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "tile_map_reg[0][8]" won't be mapped to RAM because it is too sparse
-INFO: [Synth 8-5544] ROM "tile_base_cost" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "cost_array_reg[0][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "cost_array_reg[0][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "cost_array_reg[0][1]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
@@ -474,8 +477,8 @@ INFO: [Synth 8-5545] ROM "open_x_reg[37]" won't be mapped to RAM because address
 INFO: [Synth 8-5545] ROM "open_x_reg[38]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "open_x_reg[39]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5544] ROM "next_state" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
-INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/computer_controller.v:47]
-INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/computer_controller.v:46]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/computer_controller.v:75]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/computer_controller.v:73]
 INFO: [Synth 8-5545] ROM "update_counter" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "update_path" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5544] ROM "seg_state" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
@@ -565,37 +568,38 @@ INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'Oled_Display'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:40 ; elapsed = 00:00:45 . Memory (MB): peak = 1030.090 ; gain = 744.180
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:54 ; elapsed = 00:01:01 . Memory (MB): peak = 1029.426 ; gain = 743.598
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
 +------+--------------------+------------+----------+
 |      |RTL Partition       |Replication |Instances |
 +------+--------------------+------------+----------+
-|1     |Top_Student__GB0    |           1|     38224|
-|2     |computer_controller |           1|     26971|
-|3     |Top_Student__GB2    |           1|     14785|
+|1     |Top_Student__GB0    |           1|     32850|
+|2     |computer_controller |           1|     27527|
+|3     |Top_Student__GB2    |           1|     14600|
 +------+--------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input     32 Bit       Adders := 54    
+	   2 Input     32 Bit       Adders := 53    
 	   2 Input     30 Bit       Adders := 1     
 	   2 Input     29 Bit       Adders := 2     
 	   2 Input     28 Bit       Adders := 1     
 	   2 Input     27 Bit       Adders := 1     
 	   2 Input     24 Bit       Adders := 1     
 	   2 Input     23 Bit       Adders := 1     
-	   2 Input     22 Bit       Adders := 1     
 	   2 Input     20 Bit       Adders := 1     
 	   2 Input     17 Bit       Adders := 1     
 	   2 Input     11 Bit       Adders := 1     
 	   2 Input     10 Bit       Adders := 1     
-	   2 Input      8 Bit       Adders := 9     
-	   3 Input      8 Bit       Adders := 6     
-	   2 Input      7 Bit       Adders := 15    
+	   2 Input      9 Bit       Adders := 1     
+	   3 Input      9 Bit       Adders := 1     
+	   2 Input      8 Bit       Adders := 7     
+	   3 Input      8 Bit       Adders := 2     
+	   2 Input      7 Bit       Adders := 12    
 	   3 Input      7 Bit       Adders := 2     
 	   2 Input      6 Bit       Adders := 15    
 	   5 Input      5 Bit       Adders := 1     
@@ -615,23 +619,23 @@ Detailed RTL Component Info :
 	               27 Bit    Registers := 1     
 	               24 Bit    Registers := 1     
 	               23 Bit    Registers := 1     
-	               22 Bit    Registers := 1     
 	               20 Bit    Registers := 1     
 	               18 Bit    Registers := 1     
 	               17 Bit    Registers := 2     
 	               16 Bit    Registers := 4     
 	               11 Bit    Registers := 1     
 	               10 Bit    Registers := 1     
-	                8 Bit    Registers := 143   
-	                7 Bit    Registers := 7     
+	                9 Bit    Registers := 135   
+	                8 Bit    Registers := 11    
+	                7 Bit    Registers := 4     
 	                6 Bit    Registers := 11    
 	                5 Bit    Registers := 4     
-	                4 Bit    Registers := 467   
+	                4 Bit    Registers := 475   
 	                3 Bit    Registers := 171   
 	                2 Bit    Registers := 101   
-	                1 Bit    Registers := 31    
+	                1 Bit    Registers := 39    
 +---Multipliers : 
-	                 6x32  Multipliers := 4     
+	                 6x32  Multipliers := 14    
 +---RAMs : 
 	              160 Bit         RAMs := 2     
 +---Muxes : 
@@ -646,20 +650,20 @@ Detailed RTL Component Info :
 	   2 Input     24 Bit        Muxes := 1     
 	   7 Input     24 Bit        Muxes := 1     
 	   2 Input     23 Bit        Muxes := 1     
-	   2 Input     22 Bit        Muxes := 1     
 	  32 Input     20 Bit        Muxes := 1     
 	   2 Input     20 Bit        Muxes := 1     
 	   2 Input     18 Bit        Muxes := 1     
 	   2 Input     17 Bit        Muxes := 2     
 	   3 Input     17 Bit        Muxes := 2     
-	   3 Input     16 Bit        Muxes := 2     
 	   2 Input     16 Bit        Muxes := 20    
+	   3 Input     16 Bit        Muxes := 2     
 	   7 Input     16 Bit        Muxes := 1     
 	   2 Input     11 Bit        Muxes := 4     
 	   3 Input     11 Bit        Muxes := 1     
 	   2 Input     10 Bit        Muxes := 2     
+	  26 Input      9 Bit        Muxes := 1     
 	   2 Input      8 Bit        Muxes := 5     
-	  26 Input      8 Bit        Muxes := 2     
+	  26 Input      8 Bit        Muxes := 1     
 	   3 Input      8 Bit        Muxes := 1     
 	   7 Input      8 Bit        Muxes := 1     
 	   4 Input      8 Bit        Muxes := 1     
@@ -667,7 +671,7 @@ Detailed RTL Component Info :
 	  26 Input      6 Bit        Muxes := 6     
 	  32 Input      6 Bit        Muxes := 1     
 	   2 Input      6 Bit        Muxes := 2     
-	   2 Input      5 Bit        Muxes := 10    
+	   2 Input      5 Bit        Muxes := 12    
 	   3 Input      5 Bit        Muxes := 1     
 	  32 Input      5 Bit        Muxes := 1     
 	   7 Input      5 Bit        Muxes := 49    
@@ -676,15 +680,15 @@ Detailed RTL Component Info :
 	   4 Input      4 Bit        Muxes := 3     
 	   3 Input      4 Bit        Muxes := 1     
 	   7 Input      4 Bit        Muxes := 4     
-	   2 Input      3 Bit        Muxes := 13    
+	   2 Input      3 Bit        Muxes := 12    
 	   7 Input      3 Bit        Muxes := 2     
 	   3 Input      3 Bit        Muxes := 1     
-	   9 Input      3 Bit        Muxes := 20    
+	   9 Input      3 Bit        Muxes := 12    
 	  26 Input      2 Bit        Muxes := 2     
 	   4 Input      2 Bit        Muxes := 2     
 	   2 Input      2 Bit        Muxes := 1498  
 	   3 Input      2 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 2721  
+	   2 Input      1 Bit        Muxes := 2713  
 	  26 Input      1 Bit        Muxes := 288   
 	  27 Input      1 Bit        Muxes := 1     
 	   3 Input      1 Bit        Muxes := 17    
@@ -701,9 +705,9 @@ Detailed RTL Component Info :
 +---Adders : 
 	   2 Input     32 Bit       Adders := 2     
 	   2 Input     30 Bit       Adders := 1     
-	   3 Input      8 Bit       Adders := 5     
-	   3 Input      7 Bit       Adders := 2     
+	   3 Input      8 Bit       Adders := 2     
 	   2 Input      7 Bit       Adders := 2     
+	   3 Input      7 Bit       Adders := 2     
 	   2 Input      6 Bit       Adders := 2     
 	   3 Input      4 Bit       Adders := 2     
 	   2 Input      4 Bit       Adders := 2     
@@ -718,8 +722,8 @@ Detailed RTL Component Info :
 	                 6x32  Multipliers := 2     
 +---Muxes : 
 	   3 Input     30 Bit        Muxes := 1     
-	   3 Input     16 Bit        Muxes := 2     
 	   2 Input     16 Bit        Muxes := 12    
+	   3 Input     16 Bit        Muxes := 2     
 	   7 Input     16 Bit        Muxes := 1     
 	   2 Input     11 Bit        Muxes := 1     
 	   2 Input      8 Bit        Muxes := 2     
@@ -742,17 +746,19 @@ Module a_star
 Detailed RTL Component Info : 
 +---Adders : 
 	   2 Input     32 Bit       Adders := 1     
+	   2 Input      9 Bit       Adders := 1     
+	   3 Input      9 Bit       Adders := 1     
 	   2 Input      8 Bit       Adders := 6     
-	   3 Input      8 Bit       Adders := 1     
-	   2 Input      7 Bit       Adders := 2     
+	   2 Input      7 Bit       Adders := 1     
 	   2 Input      6 Bit       Adders := 5     
 	   5 Input      5 Bit       Adders := 1     
 	   2 Input      4 Bit       Adders := 2     
 	   2 Input      2 Bit       Adders := 1     
 +---Registers : 
 	              160 Bit    Registers := 2     
-	                8 Bit    Registers := 139   
-	                7 Bit    Registers := 4     
+	                9 Bit    Registers := 135   
+	                8 Bit    Registers := 7     
+	                7 Bit    Registers := 1     
 	                6 Bit    Registers := 8     
 	                5 Bit    Registers := 1     
 	                4 Bit    Registers := 363   
@@ -762,15 +768,16 @@ Detailed RTL Component Info :
 +---RAMs : 
 	              160 Bit         RAMs := 2     
 +---Muxes : 
+	  26 Input      9 Bit        Muxes := 1     
 	   2 Input      8 Bit        Muxes := 1     
-	  26 Input      8 Bit        Muxes := 2     
+	  26 Input      8 Bit        Muxes := 1     
 	  26 Input      6 Bit        Muxes := 6     
-	   2 Input      5 Bit        Muxes := 6     
+	   2 Input      5 Bit        Muxes := 8     
 	  26 Input      4 Bit        Muxes := 6     
 	   2 Input      4 Bit        Muxes := 4     
 	   4 Input      4 Bit        Muxes := 2     
 	   3 Input      4 Bit        Muxes := 1     
-	   2 Input      3 Bit        Muxes := 2     
+	   2 Input      3 Bit        Muxes := 1     
 	  26 Input      2 Bit        Muxes := 2     
 	   4 Input      2 Bit        Muxes := 2     
 	  26 Input      1 Bit        Muxes := 288   
@@ -788,8 +795,8 @@ Detailed RTL Component Info :
 	               23 Bit    Registers := 1     
 	                7 Bit    Registers := 2     
 	                6 Bit    Registers := 1     
-	                4 Bit    Registers := 82    
-	                1 Bit    Registers := 4     
+	                4 Bit    Registers := 80    
+	                1 Bit    Registers := 8     
 +---Multipliers : 
 	                 6x32  Multipliers := 2     
 +---Muxes : 
@@ -900,22 +907,22 @@ Detailed RTL Component Info :
 Module player_controller 
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input     32 Bit       Adders := 12    
-	   2 Input     22 Bit       Adders := 1     
-	   2 Input      8 Bit       Adders := 3     
-	   2 Input      7 Bit       Adders := 8     
+	   2 Input     32 Bit       Adders := 11    
+	   2 Input      8 Bit       Adders := 1     
+	   2 Input      7 Bit       Adders := 6     
 	   2 Input      6 Bit       Adders := 5     
 +---Registers : 
-	               22 Bit    Registers := 1     
 	                7 Bit    Registers := 1     
 	                6 Bit    Registers := 1     
-	                1 Bit    Registers := 1     
+	                4 Bit    Registers := 10    
+	                1 Bit    Registers := 5     
++---Multipliers : 
+	                 6x32  Multipliers := 10    
 +---Muxes : 
-	   2 Input     22 Bit        Muxes := 1     
 	   2 Input      7 Bit        Muxes := 1     
 	   2 Input      6 Bit        Muxes := 1     
-	   9 Input      3 Bit        Muxes := 16    
-	   2 Input      1 Bit        Muxes := 18    
+	   9 Input      3 Bit        Muxes := 8     
+	   2 Input      1 Bit        Muxes := 10    
 Module bomb_controller 
 Detailed RTL Component Info : 
 +---Adders : 
@@ -983,8 +990,8 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 Warning: Parallel synthesis criteria is not met 
-INFO: [Synth 8-4471] merging register 'init_index_y_reg[7:0]' into 'init_index_y_reg[7:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:195]
-WARNING: [Synth 8-6014] Unused sequential element init_index_y_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:195]
+INFO: [Synth 8-4471] merging register 'init_index_y_reg[7:0]' into 'init_index_y_reg[7:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:201]
+WARNING: [Synth 8-6014] Unused sequential element init_index_y_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:201]
 INFO: [Synth 8-5545] ROM "open_x_reg[1]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "open_x_reg[2]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "open_x_reg[3]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
@@ -1025,14 +1032,54 @@ INFO: [Synth 8-5545] ROM "open_x_reg[37]" won't be mapped to RAM because address
 INFO: [Synth 8-5545] ROM "open_x_reg[38]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "open_x_reg[39]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "open_x_reg[0]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-INFO: [Synth 8-5545] ROM "clk_a_star_inst/count0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-INFO: [Synth 8-5545] ROM "clk_a_star_inst/clk_out0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "clk_inst/count0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "clk_inst/clk_out0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "update_counter" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "update_path" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 DSP Report: Generating DSP computer_ty0, operation Mode is: A*(B:0x2b).
 DSP Report: operator computer_ty0 is absorbed into DSP computer_ty0.
 DSP Report: Generating DSP computer_tx0, operation Mode is: A*(B:0x2b).
 DSP Report: operator computer_tx0 is absorbed into DSP computer_tx0.
+WARNING: [Synth 8-6014] Unused sequential element tx_lr_r_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/player_controller.v:98]
+WARNING: [Synth 8-6014] Unused sequential element ty_bot_r_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/player_controller.v:96]
+WARNING: [Synth 8-6014] Unused sequential element ty_lu_r_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/player_controller.v:99]
+WARNING: [Synth 8-6014] Unused sequential element tx_left_r_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/player_controller.v:93]
+WARNING: [Synth 8-6014] Unused sequential element tx_right_r_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/player_controller.v:94]
+WARNING: [Synth 8-6014] Unused sequential element ty_ld_r_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/player_controller.v:100]
+WARNING: [Synth 8-6014] Unused sequential element ty_top_r_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/player_controller.v:95]
+WARNING: [Synth 8-6014] Unused sequential element tx_ll_r_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/player_controller.v:97]
+WARNING: [Synth 8-6014] Unused sequential element player_tx_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/player_controller.v:127]
+WARNING: [Synth 8-6014] Unused sequential element player_ty_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/player_controller.v:128]
+DSP Report: Generating DSP pixel_to_tile_x2_return0, operation Mode is: (A*(B:0x2b))'.
+DSP Report: register P is absorbed into DSP pixel_to_tile_x2_return0.
+DSP Report: operator pixel_to_tile_x2_return0 is absorbed into DSP pixel_to_tile_x2_return0.
+DSP Report: Generating DSP pixel_to_tile_y_return0, operation Mode is: (A*(B:0x2b))'.
+DSP Report: register P is absorbed into DSP pixel_to_tile_y_return0.
+DSP Report: operator pixel_to_tile_y_return0 is absorbed into DSP pixel_to_tile_y_return0.
+DSP Report: Generating DSP pixel_to_tile_y0_return0, operation Mode is: (A*(B:0x2b))'.
+DSP Report: register P is absorbed into DSP pixel_to_tile_y0_return0.
+DSP Report: operator pixel_to_tile_y0_return0 is absorbed into DSP pixel_to_tile_y0_return0.
+DSP Report: Generating DSP pixel_to_tile_y1_return0, operation Mode is: (A*(B:0x2b))'.
+DSP Report: register P is absorbed into DSP pixel_to_tile_y1_return0.
+DSP Report: operator pixel_to_tile_y1_return0 is absorbed into DSP pixel_to_tile_y1_return0.
+DSP Report: Generating DSP pixel_to_tile_x_return0, operation Mode is: (A*(B:0x2b))'.
+DSP Report: register P is absorbed into DSP pixel_to_tile_x_return0.
+DSP Report: operator pixel_to_tile_x_return0 is absorbed into DSP pixel_to_tile_x_return0.
+DSP Report: Generating DSP pixel_to_tile_x0_return0, operation Mode is: (A*(B:0x2b))'.
+DSP Report: register P is absorbed into DSP pixel_to_tile_x0_return0.
+DSP Report: operator pixel_to_tile_x0_return0 is absorbed into DSP pixel_to_tile_x0_return0.
+DSP Report: Generating DSP pixel_to_tile_y2_return0, operation Mode is: (A*(B:0x2b))'.
+DSP Report: register P is absorbed into DSP pixel_to_tile_y2_return0.
+DSP Report: operator pixel_to_tile_y2_return0 is absorbed into DSP pixel_to_tile_y2_return0.
+DSP Report: Generating DSP pixel_to_tile_x1_return0, operation Mode is: (A*(B:0x2b))'.
+DSP Report: register P is absorbed into DSP pixel_to_tile_x1_return0.
+DSP Report: operator pixel_to_tile_x1_return0 is absorbed into DSP pixel_to_tile_x1_return0.
+DSP Report: Generating DSP pixel_to_tile_x3_return0, operation Mode is: (A*(B:0x2b))'.
+DSP Report: register P is absorbed into DSP pixel_to_tile_x3_return0.
+DSP Report: operator pixel_to_tile_x3_return0 is absorbed into DSP pixel_to_tile_x3_return0.
+DSP Report: Generating DSP pixel_to_tile_y3_return0, operation Mode is: (A*(B:0x2b))'.
+DSP Report: register P is absorbed into DSP pixel_to_tile_y3_return0.
+DSP Report: operator pixel_to_tile_y3_return0 is absorbed into DSP pixel_to_tile_y3_return0.
 INFO: [Synth 8-4471] merging register 'bomb_ty_reg[3:0]' into 'bomb_ty_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
 INFO: [Synth 8-4471] merging register 'bomb_tx_reg[3:0]' into 'bomb_tx_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
 INFO: [Synth 8-4471] merging register 'bomb_tx_reg[3:0]' into 'bomb_tx_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
@@ -1044,10 +1091,10 @@ WARNING: [Synth 8-6014] Unused sequential element bomb_tx_reg was removed.  [C:/
 INFO: [Synth 8-5545] ROM "clear_bomb_req" won't be mapped to RAM because address size (29) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "clk_6p25m_inst/count0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "clk_6p25m_inst/clk_out0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-DSP Report: Generating DSP tile_y_of_pixel1, operation Mode is: A*(B:0x2b).
-DSP Report: operator tile_y_of_pixel1 is absorbed into DSP tile_y_of_pixel1.
 DSP Report: Generating DSP tile_x_of_pixel1, operation Mode is: A*(B:0x2b).
 DSP Report: operator tile_x_of_pixel1 is absorbed into DSP tile_x_of_pixel1.
+DSP Report: Generating DSP tile_y_of_pixel1, operation Mode is: A*(B:0x2b).
+DSP Report: operator tile_y_of_pixel1 is absorbed into DSP tile_y_of_pixel1.
 INFO: [Synth 8-5544] ROM "seg_state" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 WARNING: [Synth 8-3331] design Top_Student has unconnected port JC[2]
 WARNING: [Synth 8-3331] design Top_Student has unconnected port led[15]
@@ -1082,106 +1129,106 @@ INFO: [Synth 8-3886] merging instance 'comp_inst/a_star_inst/init_index_x_reg[4]
 INFO: [Synth 8-3886] merging instance 'comp_inst/a_star_inst/init_index_x_reg[5]__0' (FDRE) to 'comp_inst/a_star_inst/init_index_x_reg[5]'
 INFO: [Synth 8-3886] merging instance 'comp_inst/a_star_inst/init_index_x_reg[6]__0' (FDRE) to 'comp_inst/a_star_inst/init_index_x_reg[6]'
 INFO: [Synth 8-3886] merging instance 'comp_inst/a_star_inst/init_index_x_reg[7]__0' (FDRE) to 'comp_inst/a_star_inst/init_index_x_reg[7]'
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][0][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][1][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][2][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][3][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][4][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][5][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][6][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][6][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][6][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][6][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][6][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][6][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][6][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][6][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][6][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][6][7]) is unused and will be removed from module a_star.
-WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][6][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][0][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][1][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][2][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][3][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][4][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][5][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][6][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][6][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][6][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][6][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][6][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][6][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][6][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][6][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][6][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][6][8]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][6][8]) is unused and will be removed from module a_star.
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Synth 8-3886] merging instance 'i_0/pair_inst/data_tx_code_reg[7]' (FDE) to 'i_0/pair_inst/data_tx_code_reg[3]'
 INFO: [Synth 8-3886] merging instance 'i_0/pair_inst/data_tx_code_reg[6]' (FDE) to 'i_0/pair_inst/data_tx_code_reg[2]'
@@ -1317,8 +1364,9 @@ INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\tile
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\tile_map_reg[13][7][2] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\tile_map_reg[14][7][2] )
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (i_1/\seg_inst/seg_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (comp_inst/a_star_inst/\goal_y_loc_reg[2] )
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:30 ; elapsed = 00:01:36 . Memory (MB): peak = 1030.090 ; gain = 744.180
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:40 ; elapsed = 00:01:48 . Memory (MB): peak = 1029.426 ; gain = 743.598
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -1335,14 +1383,24 @@ Distributed RAM: Preliminary Mapping  Report (see note below)
 Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
 
 DSP: Preliminary Mapping  Report (see note below)
-+--------------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
-|Module Name         | DSP Mapping | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
-+--------------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
-|computer_controller | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-|computer_controller | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-|Top_Student         | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-|Top_Student         | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-+--------------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
++--------------------+---------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name         | DSP Mapping   | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++--------------------+---------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|computer_controller | A*(B:0x2b)    | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|computer_controller | A*(B:0x2b)    | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|player_controller   | (A*(B:0x2b))' | 12     | 6      | -      | -      | 12     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|player_controller   | (A*(B:0x2b))' | 12     | 6      | -      | -      | 12     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|player_controller   | (A*(B:0x2b))' | 12     | 6      | -      | -      | 12     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|player_controller   | (A*(B:0x2b))' | 12     | 6      | -      | -      | 12     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|player_controller   | (A*(B:0x2b))' | 12     | 6      | -      | -      | 12     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|player_controller   | (A*(B:0x2b))' | 12     | 6      | -      | -      | 12     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|player_controller   | (A*(B:0x2b))' | 12     | 6      | -      | -      | 12     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|player_controller   | (A*(B:0x2b))' | 12     | 6      | -      | -      | 12     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|player_controller   | (A*(B:0x2b))' | 12     | 6      | -      | -      | 12     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|player_controller   | (A*(B:0x2b))' | 12     | 6      | -      | -      | 12     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|Top_Student         | A*(B:0x2b)    | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|Top_Student         | A*(B:0x2b)    | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++--------------------+---------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
 
 Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
 ---------------------------------------------------------------------------------
@@ -1353,22 +1411,21 @@ Report RTL Partitions:
 +------+--------------------+------------+----------+
 |      |RTL Partition       |Replication |Instances |
 +------+--------------------+------------+----------+
-|1     |Top_Student__GB0    |           1|     15307|
-|2     |computer_controller |           1|     15302|
-|3     |Top_Student__GB2    |           1|      1662|
+|1     |Top_Student__GB0    |           1|     10183|
+|2     |computer_controller |           1|     16851|
+|3     |Top_Student__GB2    |           1|      1557|
 +------+--------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:39 ; elapsed = 00:01:47 . Memory (MB): peak = 1030.090 ; gain = 744.180
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:49 ; elapsed = 00:01:58 . Memory (MB): peak = 1029.426 ; gain = 743.598
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
-info: optimization accepted worst group hill climbing move (-6985.0/oG. 159.0ps)
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:02:03 ; elapsed = 00:02:12 . Memory (MB): peak = 1108.301 ; gain = 822.391
+Finished Timing Optimization : Time (s): cpu = 00:01:52 ; elapsed = 00:02:01 . Memory (MB): peak = 1029.426 ; gain = 743.598
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -1390,15 +1447,15 @@ Report RTL Partitions:
 +------+--------------------+------------+----------+
 |      |RTL Partition       |Replication |Instances |
 +------+--------------------+------------+----------+
-|1     |Top_Student__GB0    |           1|     15421|
-|2     |computer_controller |           1|     15302|
-|3     |Top_Student__GB2    |           1|      1662|
+|1     |Top_Student__GB0    |           1|     10183|
+|2     |computer_controller |           1|     16851|
+|3     |Top_Student__GB2    |           1|      1557|
 +------+--------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:02:11 ; elapsed = 00:02:20 . Memory (MB): peak = 1203.922 ; gain = 918.012
+Finished Technology Mapping : Time (s): cpu = 00:01:57 ; elapsed = 00:02:07 . Memory (MB): peak = 1070.676 ; gain = 784.848
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1422,7 +1479,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:02:13 ; elapsed = 00:02:21 . Memory (MB): peak = 1203.922 ; gain = 918.012
+Finished IO Insertion : Time (s): cpu = 00:01:59 ; elapsed = 00:02:08 . Memory (MB): peak = 1070.676 ; gain = 784.848
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1435,7 +1492,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:02:13 ; elapsed = 00:02:22 . Memory (MB): peak = 1203.922 ; gain = 918.012
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:59 ; elapsed = 00:02:08 . Memory (MB): peak = 1070.676 ; gain = 784.848
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1447,25 +1504,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:14 ; elapsed = 00:02:23 . Memory (MB): peak = 1203.922 ; gain = 918.012
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:59 ; elapsed = 00:02:09 . Memory (MB): peak = 1070.676 ; gain = 784.848
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:02:14 ; elapsed = 00:02:23 . Memory (MB): peak = 1203.922 ; gain = 918.012
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:59 ; elapsed = 00:02:09 . Memory (MB): peak = 1070.676 ; gain = 784.848
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:02:15 ; elapsed = 00:02:23 . Memory (MB): peak = 1203.922 ; gain = 918.012
+Finished Handling Custom Attributes : Time (s): cpu = 00:02:00 ; elapsed = 00:02:09 . Memory (MB): peak = 1070.676 ; gain = 784.848
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:02:15 ; elapsed = 00:02:23 . Memory (MB): peak = 1203.922 ; gain = 918.012
+Finished Renaming Generated Nets : Time (s): cpu = 00:02:00 ; elapsed = 00:02:09 . Memory (MB): peak = 1070.676 ; gain = 784.848
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -1478,56 +1535,57 @@ Report BlackBoxes:
 +-+--------------+----------+
 
 Report Cell Usage: 
-+------+--------+------+
-|      |Cell    |Count |
-+------+--------+------+
-|1     |BUFG    |     3|
-|2     |CARRY4  |   888|
-|3     |DSP48E1 |     4|
-|4     |LUT1    |   269|
-|5     |LUT2    |  1704|
-|6     |LUT3    |  1214|
-|7     |LUT4    |  1114|
-|8     |LUT5    |  1607|
-|9     |LUT6    |  5912|
-|10    |MUXF7   |   503|
-|11    |MUXF8   |    63|
-|12    |RAM64M  |     4|
-|13    |FDE_1   |    32|
-|14    |FDRE    |  2102|
-|15    |FDSE    |  2355|
-|16    |IBUF    |    15|
-|17    |OBUF    |    20|
-|18    |OBUFT   |    17|
-+------+--------+------+
++------+----------+------+
+|      |Cell      |Count |
++------+----------+------+
+|1     |BUFG      |     3|
+|2     |CARRY4    |   467|
+|3     |DSP48E1   |     4|
+|4     |DSP48E1_2 |    10|
+|5     |LUT1      |   102|
+|6     |LUT2      |   714|
+|7     |LUT3      |   698|
+|8     |LUT4      |   691|
+|9     |LUT5      |  1205|
+|10    |LUT6      |  5647|
+|11    |MUXF7     |   465|
+|12    |MUXF8     |    45|
+|13    |RAM64M    |     4|
+|14    |FDE_1     |    32|
+|15    |FDRE      |  2058|
+|16    |FDSE      |  2495|
+|17    |IBUF      |    15|
+|18    |OBUF      |    20|
+|19    |OBUFT     |    17|
++------+----------+------+
 
 Report Instance Areas: 
-+------+--------------------+-------------------------------+------+
-|      |Instance            |Module                         |Cells |
-+------+--------------------+-------------------------------+------+
-|1     |top                 |                               | 17826|
-|2     |  game_inst         |package_game_data              |    30|
-|3     |  bomb_ctrl_inst    |bomb_controller                |  1810|
-|4     |  clk_6p25m_inst    |variable_clock                 |    52|
-|5     |  comp_inst         |computer_controller            |  8566|
-|6     |    a_star_inst     |a_star                         |  7890|
-|7     |    clk_a_star_inst |variable_clock__parameterized0 |    52|
-|8     |  oled1             |Oled_Display                   |   941|
-|9     |  pair_inst         |pairing_fsm                    |   149|
-|10    |  pair_oled_inst    |pairing_oled                   |  1459|
-|11    |  player_ctrl_inst  |player_controller              |  3812|
-|12    |  rx_inst           |uart_rx                        |   102|
-|13    |  seg_inst          |seven_segment                  |    52|
-|14    |  tx_inst           |uart_tx                        |    76|
-+------+--------------------+-------------------------------+------+
++------+-------------------+-------------------------------+------+
+|      |Instance           |Module                         |Cells |
++------+-------------------+-------------------------------+------+
+|1     |top                |                               | 14692|
+|2     |  game_inst        |package_game_data              |    30|
+|3     |  bomb_ctrl_inst   |bomb_controller                |  1760|
+|4     |  clk_6p25m_inst   |variable_clock                 |    52|
+|5     |  comp_inst        |computer_controller            |  8823|
+|6     |    a_star_inst    |a_star                         |  8142|
+|7     |    clk_inst       |variable_clock__parameterized0 |    52|
+|8     |  oled1            |Oled_Display                   |   922|
+|9     |  pair_inst        |pairing_fsm                    |   145|
+|10    |  pair_oled_inst   |pairing_oled                   |  1459|
+|11    |  player_ctrl_inst |player_controller              |   837|
+|12    |  rx_inst          |uart_rx                        |   102|
+|13    |  seg_inst         |seven_segment                  |    55|
+|14    |  tx_inst          |uart_tx                        |    76|
++------+-------------------+-------------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:02:15 ; elapsed = 00:02:23 . Memory (MB): peak = 1203.922 ; gain = 918.012
+Finished Writing Synthesis Report : Time (s): cpu = 00:02:00 ; elapsed = 00:02:09 . Memory (MB): peak = 1070.676 ; gain = 784.848
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 188 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:55 ; elapsed = 00:02:15 . Memory (MB): peak = 1203.922 ; gain = 643.945
-Synthesis Optimization Complete : Time (s): cpu = 00:02:15 ; elapsed = 00:02:24 . Memory (MB): peak = 1203.922 ; gain = 918.012
+Synthesis finished with 0 errors, 0 critical warnings and 199 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:31 ; elapsed = 00:01:55 . Memory (MB): peak = 1070.676 ; gain = 509.039
+Synthesis Optimization Complete : Time (s): cpu = 00:02:00 ; elapsed = 00:02:10 . Memory (MB): peak = 1070.676 ; gain = 784.848
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 1509 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 1042 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
@@ -1537,11 +1595,11 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   RAM64M => RAM64M (RAMD64E, RAMD64E, RAMD64E, RAMD64E): 4 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-496 Infos, 162 Warnings, 0 Critical Warnings and 0 Errors encountered.
+488 Infos, 184 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:02:19 ; elapsed = 00:02:29 . Memory (MB): peak = 1203.922 ; gain = 929.547
+synth_design: Time (s): cpu = 00:02:02 ; elapsed = 00:02:13 . Memory (MB): peak = 1070.676 ; gain = 796.336
 WARNING: [Constraints 18-5210] No constraint will be written out.
 INFO: [Common 17-1381] The checkpoint 'C:/VivadoProjects/ee2026/FDP/FDP.runs/synth_1/Top_Student.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file Top_Student_utilization_synth.rpt -pb Top_Student_utilization_synth.pb
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.104 . Memory (MB): peak = 1203.922 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Sun Mar 22 02:16:10 2026...
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.072 . Memory (MB): peak = 1070.676 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Mon Mar 23 11:39:55 2026...

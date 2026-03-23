@@ -1,6 +1,6 @@
 // constants.vh
 `define CLOCK_SPEED   100_000_000
-`define BAUD_RATE     115200
+`define BAUD_RATE     115_200
 `define DATA_BITS     16
 `define CODE_BITS     8
 `define GAME_BITS     (`DATA_BITS - `CODE_BITS)
@@ -56,8 +56,11 @@
 // player width
 `define PLAYER_WIDTH    3'b100
 `define PLAYER_HEIGHT   3'b100
+`define PLAYER_DEFAULT_SPEED        35
+`define PLAYER_SPEED_INCREMENT      8
+`define PLAYER_MAX_SPEED            (`PLAYER_DEFAULT_SPEED + 2 * `PLAYER_SPEED_INCREMENT)
 
 // single player
-`define PATH_SPEED      (`CLOCK_SPEED / 2)
+`define PATH_SPEED      50_000_000
 `define COMPUTER_SPEED  15
 `define UPDATE_TIME     (12 * `PATH_SPEED * `TILE_SIZE) / (10 * `COMPUTER_SPEED) // 1.2 times the time taken to travel between tiles

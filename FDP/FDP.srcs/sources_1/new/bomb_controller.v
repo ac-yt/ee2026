@@ -4,12 +4,12 @@
 
 module bomb_controller (
     input clk,
-    input btnC,
+    input trigger,
     input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
     input [6:0] player_x,
     input [5:0] player_y,
-    input [3:0] player_center_tx,
-    input [3:0] player_center_ty,
+    input [3:0] player_tx,
+    input [3:0] player_ty,
     input player_dead,
 
     output reg bomb_active = 0,
@@ -71,11 +71,11 @@ module bomb_controller (
     reg [$clog2(BOMB_BLINK_TIME):0] blink_counter = 0;
     reg [$clog2(EXPLOSION_STAGE_TIME):0] explosion_stage_counter = 0;
 
-    reg btnC_d = 0;
-    wire btnC_pressed = btnC & ~btnC_d;
+    reg trigger_d = 0;
+    wire trigger_pressed = trigger & ~trigger_d;
 
     always @(posedge clk) begin
-        btnC_d <= btnC;
+        trigger_d <= trigger;
     end
 
     function [2:0] get_tile;
@@ -240,20 +240,20 @@ module bomb_controller (
         end
 
         // place bomb
-        if (!bomb_active && !explosion_active && !player_dead && btnC_pressed) begin
-            if (get_tile(player_center_tx, player_center_ty) == `MAP_EMPTY ||
-                get_tile(player_center_tx, player_center_ty) == `MAP_POWERUP) begin
+        if (!bomb_active && !explosion_active && !player_dead && trigger_pressed) begin
+            if (get_tile(player_tx, player_ty) == `MAP_EMPTY ||
+                get_tile(player_tx, player_ty) == `MAP_POWERUP) begin
                 bomb_active    <= 1;
                 bomb_passable  <= 1;
-                bomb_tx        <= player_center_tx;
-                bomb_ty        <= player_center_ty;
+                bomb_tx        <= player_tx;
+                bomb_ty        <= player_ty;
                 bomb_counter   <= 0;
                 blink_counter  <= 0;
                 bomb_red       <= 0;
 
                 place_bomb_req <= 1;
-                place_bomb_tx  <= player_center_tx;
-                place_bomb_ty  <= player_center_ty;
+                place_bomb_tx  <= player_tx;
+                place_bomb_ty  <= player_ty;
             end
         end
 
