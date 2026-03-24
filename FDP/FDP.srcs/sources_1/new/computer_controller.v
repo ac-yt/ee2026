@@ -74,7 +74,7 @@ module computer_controller(input clk,
 //    reg near_player_prev = 0;
 //    always @(posedge clk) near_player_prev <= near_player;
     
-    wire bomb_trigger = ~bomb_active & ((next_is_block & ~next_is_block_prev)); // | (near_player & ~near_player_prev));
+    wire bomb_trigger = ~bomb_active & next_is_block; //((next_is_block & ~next_is_block_prev)); // | (near_player & ~near_player_prev));
     
     // bomb controller
     wire bomb_passable;

@@ -22,6 +22,7 @@ module a_star (input clk, update, blocks_as_walls,
     (* ram_style = "block" *) reg [$clog2(MAX_COST):0] cost_array [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the cost of each node from the start node
     (* ram_style = "block" *) reg [3:0] parent_x [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the parent x of each node
     (* ram_style = "block" *) reg [3:0] parent_y [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1]; // stores the parent y of each node
+    (* ram_style = "block" *) reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
 
     // pipeline registers for BRAM read
     // must reread everytime so for cost_scan after every scan goes to BEST_WAIT (NEWLY ADDED)
@@ -33,9 +34,12 @@ module a_star (input clk, update, blocks_as_walls,
     reg [$clog2(MAX_COST)-1:0] cost_goal = 0; // goal cost for DONE, loaded in NB_CHECK_GOAL
     reg [3:0] par_x_out = 0; // parent_x/y BRAM output registered in PATH_BRAM_WAIT
     reg [3:0] par_y_out = 0;
+    reg [2:0] nb_is_wall = 0; // read in NB_BRAM_WAIT to use in NB_CHECK_VALID
+    reg [2:0] nb_is_block = 0; // read in NB_BRAM_WAIT to use in NB_CHECK_VALID
+    reg [2:0] tile_base_cost = 0; // read in NB_BRAM_WAIT to use in NB_CHECK_OPEN/CLOSED
+    reg [$clog2(MAX_F)-1:0] nb_heuristic = 0;
     
     // reset and update map variables
-    reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
     reg [7:0] init_index_x = 0, init_index_y = 0;
     reg [$clog2(`MAX_PATH_LEN*4)-1:0] init_index_i = 0;
     
@@ -60,7 +64,7 @@ module a_star (input clk, update, blocks_as_walls,
     // wires to FSM
     wire [3:0] scan_open_x = open_x[scan_index]; // FIND_BEST_SCAN, node on open list
     wire [3:0] scan_open_y = open_y[scan_index];
-    wire [1:0] tile_base_cost = (tile_map[nb_x][nb_y] == `MAP_BLOCK) ? BLOCK_COST : EMPTY_COST;
+//    wire [1:0] tile_base_cost = (tile_map[nb_x][nb_y] == `MAP_BLOCK) ? BLOCK_COST : EMPTY_COST;
 //    wire [2:0] tile_base_cost = (tile_map[nb_x][nb_y] == `MAP_BLOCK) ? BLOCK_COST : 
 //                                (tile_map[nb_x][nb_y] == `MAP_BOMB) ? BOMB_COST : EMPTY_COST;
     
@@ -90,6 +94,8 @@ module a_star (input clk, update, blocks_as_walls,
     parameter SET_START              = 5'b10110;
     parameter FIND_BEST_BRAM_WAIT    = 5'b10111;
     parameter PATH_BRAM_WAIT         = 5'b11000;
+    parameter NB_BRAM_WAIT           = 5'b11001;
+    // parameter FIND_BEST_COORDS       = 5'b11010;
     reg [4:0] state = RESET_2D;
     reg [4:0] next_state = RESET_2D;
     reg [4:0] prev_state = RESET_2D;
@@ -114,6 +120,9 @@ module a_star (input clk, update, blocks_as_walls,
                 FIND_BEST_INIT: begin // reset scan of best node on open list
                     next_state = FIND_BEST_BRAM_WAIT;
                 end
+//                FIND_BEST_COORDS: begin
+//                    next_state = FIND_BEST_BRAM_WAIT;
+//                end
                 FIND_BEST_BRAM_WAIT: begin
                     next_state = FIND_BEST_SCAN;
                 end
@@ -137,12 +146,16 @@ module a_star (input clk, update, blocks_as_walls,
                     next_state = NB_GEN;
                 end
                 NB_GEN: begin // find neighbours LRUD of current node
+                    next_state = NB_BRAM_WAIT;
+                end
+                NB_BRAM_WAIT: begin
                     next_state = NB_CHECK_VALID;
                 end
                 NB_CHECK_VALID: begin // check if neighbor is within bounds and is not a wall
                     if (nb_x != 4'hF && nb_x < `TILE_MAP_WIDTH && nb_y != 4'hF && nb_y < `TILE_MAP_HEIGHT)
+                        if (!nb_is_wall && (!blocks_as_walls || !nb_is_block)) next_state = NB_CHECK_GOAL;
 //                        if (tile_map[nb_x][nb_y] != `MAP_WALL && (!blocks_as_walls && tile_map[nb_x][nb_y] != `MAP_BLOCK)) next_state = NB_CHECK_GOAL;
-                        if (tile_map[nb_x][nb_y] != `MAP_WALL && (!blocks_as_walls || tile_map[nb_x][nb_y] != `MAP_BLOCK)) next_state = NB_CHECK_GOAL;
+//                        if (tile_map[nb_x][nb_y] != `MAP_WALL && (!blocks_as_walls || tile_map[nb_x][nb_y] != `MAP_BLOCK)) next_state = NB_CHECK_GOAL;
                         else next_state = NB_NEXT;
                     else next_state = NB_NEXT;
                 end
@@ -268,11 +281,12 @@ module a_star (input clk, update, blocks_as_walls,
                 end
                 FIND_BEST_BRAM_WAIT: begin // load BRAM cost_array
                     cost_scan <= cost_array[scan_open_x][scan_open_y]; // scan_index incremented in FIND_BEST_SCAN
+                    nb_heuristic <= heuristic(scan_open_x, scan_open_y, goal_x_loc, goal_y_loc);
                 end
                 FIND_BEST_SCAN: begin // scan through entire open list to find lowest f cost on the list
                     if (scan_index < open_counter) begin
-                        if (cost_scan + heuristic(scan_open_x, scan_open_y, goal_x_loc, goal_y_loc) < best_f) begin
-                            best_f <= cost_scan + heuristic(scan_open_x, scan_open_y, goal_x_loc, goal_y_loc);
+                        if (cost_scan + nb_heuristic < best_f) begin
+                            best_f <= cost_scan + nb_heuristic;
                             best_x <= scan_open_x;
                             best_y <= scan_open_y;
                             best_index <= scan_index;
@@ -325,6 +339,11 @@ module a_star (input clk, update, blocks_as_walls,
                     endcase
                     
                     cost_curr <= cost_array[curr_x][curr_y]; // pre-load for NB_CHECK_GOAL and OPEN_DONE
+                end
+                NB_BRAM_WAIT: begin
+                    nb_is_wall <= (tile_map[nb_x][nb_y] == `MAP_WALL);
+                    nb_is_block <= (tile_map[nb_x][nb_y] == `MAP_BLOCK);
+                    tile_base_cost <= (tile_map[nb_x][nb_y] == `MAP_BLOCK) ? BLOCK_COST : EMPTY_COST;
                 end
                 NB_CHECK_VALID: begin end // nothing done here
                 NB_CHECK_GOAL: begin // check if neighbor is goal
@@ -419,107 +438,3 @@ module a_star (input clk, update, blocks_as_walls,
     end
     endfunction
 endmodule
-
-/*
-
-// Wrap your code into a module so we can instantiate it
-module top_with_astar (
-    input basys_clk, btnC, //rst,
-    output [15:0] led
-);
-    wire clk_a_star;
-    variable_clock #(.CLOCK_SPEED(`CLOCK_SPEED), .OUT_SPEED(`CLOCK_SPEED/2)) clk_a_star_inst
-                    (.clk(basys_clk), .clk_out(clk_a_star)); 
-    
-    reg update_path = 0;
-    reg [1:0] updated = 0;
-    wire [4*`MAX_PATH_LEN-1:0] path_flat_x;
-    wire [4*`MAX_PATH_LEN-1:0] path_flat_y;
-    reg [3:0] path_x [0:`MAX_PATH_LEN];
-    reg [3:0] path_y [0:`MAX_PATH_LEN];
-    wire [6:0] path_len;
-    wire path_valid;
-    reg prev_path_valid = 0;
-    reg path_saved = 1;
-    wire [10:0] path_cost;
-    reg [4*`TILE_MAP_SIZE-1:0] path_flat_y_loc, path_flat_x_loc;
-    reg [7:0] path_index = 0;
-    reg [6:0] path_len_loc = 0;
-    reg [10:0] path_cost_loc;
-//        reg rst = 1;
-
-    a_star #(.CLOCK_SPEED(`CLOCK_SPEED/2)) a_star_inst
-        (.clk(clk_a_star), .update(update_path),// .rst(rst),
-         .start_x(4'b0), .start_y(4'b0), .goal_x(4'b0001), .goal_y(4'b0001),
-         .tile_map_flat({(`TILE_MAP_SIZE){3'b000}}),
-         .path_flat_x(path_flat_x), .path_flat_y(path_flat_y),
-         .path_len(path_len), .path_valid(path_valid), .path_cost(path_cost));
-
-        // Synchronize btnC into slow domain (2-FF)
-        reg btnC_ff1 = 0, btnC_ff2 = 0, btnC_ff2_prev = 0;
-        always @(posedge clk_a_star) begin
-            btnC_ff1      <= btnC;
-            btnC_ff2      <= btnC_ff1;
-            btnC_ff2_prev <= btnC_ff2;
-        end
-        
-        // Single rising-edge pulse, fully in slow domain
-        wire update_pulse = btnC_ff2 & ~btnC_ff2_prev;
-        
-        // Drive update_path from slow domain only
-        always @(posedge clk_a_star) begin
-            update_path <= update_pulse;
-        end
-        
-        
-        reg path_valid_ff1 = 0;   // first sync stage  (clocked by basys_clk)
-        reg path_valid_ff2 = 0;   // second sync stage (clocked by basys_clk)
-        reg path_valid_ff2_prev = 0; // for rising edge detection
-        
-        
-        always @(posedge basys_clk) begin
-            path_valid_ff1     <= path_valid;        // may be metastable, but resolves by next cycle
-            path_valid_ff2     <= path_valid_ff1;    // stable by now
-            path_valid_ff2_prev <= path_valid_ff2;
-        end
-        
-        // Single-cycle pulse in the fast domain when path_valid safely goes high
-        wire path_valid_sync_pulse = path_valid_ff2 & ~path_valid_ff2_prev;
-        
-        
-        always @(posedge basys_clk) begin
-            if (path_valid_sync_pulse) begin
-                path_flat_x_loc <= path_flat_x;
-                path_flat_y_loc <= path_flat_y;
-                path_len_loc    <= path_len;
-                path_cost_loc   <= path_cost;
-                path_saved      <= 0;
-                path_index      <= 0;
-            end
-            
-            if (!path_saved) begin
-//                led[15] <= 1;
-                if (path_index < path_len_loc) begin
-                    path_x[path_index] <= path_flat_x_loc[path_index*4 +: 4];
-                    path_y[path_index] <= path_flat_y_loc[path_index*4 +: 4];
-                    path_index <= path_index + 1;
-                end
-                else if (path_index < `MAX_PATH_LEN) begin
-                    path_x[path_index] <= 4'hF;
-                    path_y[path_index] <= 4'hF;
-                    path_index <= path_index + 1;
-                end
-                else begin
-                    path_saved <= 1;
-                end
-            end
-            
-        end
-
-    assign led[0] = update_path;
-    assign led[3:1] = path_len[3:1];
-    assign led[7:4] = path_len_loc[3:0];
-    assign led[11:8] = path_flat_x[3:0];
-    assign led[15:12] = path_x[0];
-endmodule
-*/
