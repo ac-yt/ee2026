@@ -58,6 +58,7 @@
 `define OLED_BLUE                   16'b00000_000000_11111
 `define OLED_MAGENTA                16'b11111_000000_11111
 `define OLED_GREY                   16'b01011_010111_01011
+`define OLED_PINK                   16'hF817
 
 // player width
 `define PLAYER_WIDTH                3'b100
@@ -68,8 +69,8 @@
 
 // single player
 `define PATH_SPEED                  25_000_000
-`define COMPUTER_DEFAULT_SPEED      15
+`define COMPUTER_DEFAULT_SPEED      25
 `define COMPUTER_SPEED_INCREMENT    5
 `define COMPUTER_MAX_SPEED          (`COMPUTER_DEFAULT_SPEED + 2 * `COMPUTER_SPEED_INCREMENT)
 //`define PLAYER_UPDATE_TIME          (15 * `PATH_SPEED * `TILE_SIZE) / (10 * `PLAYER_DEFAULT_TIME) // 1.2 times the time taken to travel between tiles
-`define UPDATE_TIME                 (15 * `PATH_SPEED * `TILE_SIZE) / (10 * `COMPUTER_DEFAULT_SPEED) // 1.2 times the time taken to travel between tiles
+`define UPDATE_TIME                 (12 * `PATH_SPEED * `TILE_SIZE) / (10 * `COMPUTER_DEFAULT_SPEED) // 1.2 times the time taken to travel between tiles

@@ -3,11 +3,13 @@
 `include "constants.vh"
 
 module player_controller (input clk,
+                          input player_number,
                           input [3:0] mouse_tx,
                           input [3:0] mouse_ty,
                           input mouse_left, mouse_right, mouse_middle,
                           input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
                           input [1:0] speed_multiplier,
+                          input map_changed,
                           
                           output reg [3:0] player_tx, player_ty,
                           output reg [6:0] player_x,
@@ -92,9 +94,15 @@ module player_controller (input clk,
         end
     end
     
-    movement_controller player_move (.clk(clk), .goal_tx(goal_tx), .goal_ty(goal_ty), .tile_map_flat(tile_map_flat), .speed(speed), .is_player(1),
+    wire [3:0] spawn_tx = (player_number == `PLAYER_1) ? 0 : 14;
+    wire [3:0] spawn_ty = (player_number == `PLAYER_1) ? 0 : 8;
+    wire next_is_block;
+    
+    movement_controller player_move (.clk(clk), .map_changed(map_changed), .spawn_tx(spawn_tx), .spawn_ty(spawn_ty), .goal_tx(goal_tx), .goal_ty(goal_ty),
+                                     .tile_map_flat(tile_map_flat), .speed(speed), .is_player(1),
+                                     .pos_tx_out(mc_player_tx), .pos_ty_out(mc_player_ty), .pos_x(mc_player_x), .pos_y(mc_player_y),
+                                     .next_is_block(next_is_block));
 //                                     .pos_tx_out(player_tx), .pos_ty_out(player_ty), .pos_x(player_x), .pos_y(player_y));
-                                     .pos_tx_out(mc_player_tx), .pos_ty_out(mc_player_ty), .pos_x(mc_player_x), .pos_y(mc_player_y));
     
     // bomb controller
     wire bomb_passable;

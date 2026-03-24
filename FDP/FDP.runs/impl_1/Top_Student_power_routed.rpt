@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-| Date             : Tue Mar 24 12:29:29 2026
+| Date             : Tue Mar 24 22:56:41 2026
 | Host             : ac-yt running 64-bit major release  (build 9200)
 | Command          : report_power -file Top_Student_power_routed.rpt -pb Top_Student_power_summary_routed.pb -rpx Top_Student_power_routed.rpx
 | Design           : Top_Student
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.141        |
+| Total On-Chip Power (W)  | 0.155        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.069        |
+| Dynamic (W)              | 0.083        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 5.0          |
-| Max Ambient (C)          | 84.3         |
-| Junction Temperature (C) | 25.7         |
+| Max Ambient (C)          | 84.2         |
+| Junction Temperature (C) | 25.8         |
 | Confidence Level         | Low          |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,21 +52,21 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.001 |        3 |       --- |             --- |
-| Slice Logic              |     0.028 |    26394 |       --- |             --- |
-|   LUT as Logic           |     0.026 |    14093 |     20800 |           67.75 |
+| Clocks                   |    <0.001 |        3 |       --- |             --- |
+| Slice Logic              |     0.035 |    32502 |       --- |             --- |
+|   LUT as Logic           |     0.033 |    18726 |     20800 |           90.03 |
 |   CARRY4                 |    <0.001 |      633 |      8150 |            7.77 |
-|   F7/F8 Muxes            |    <0.001 |     1457 |     32600 |            4.47 |
-|   Register               |    <0.001 |     8757 |     41600 |           21.05 |
+|   F7/F8 Muxes            |    <0.001 |     2221 |     32600 |            6.81 |
+|   Register               |    <0.001 |     8932 |     41600 |           21.47 |
 |   BUFG                   |    <0.001 |        4 |        32 |           12.50 |
 |   LUT as Distributed RAM |    <0.001 |       32 |      9600 |            0.33 |
 |   LUT as Shift Register  |    <0.001 |        1 |      9600 |            0.01 |
-|   Others                 |     0.000 |       49 |       --- |             --- |
-| Signals                  |     0.033 |    19958 |       --- |             --- |
-| DSPs                     |     0.003 |        8 |        90 |            8.89 |
+|   Others                 |     0.000 |       53 |       --- |             --- |
+| Signals                  |     0.043 |    24577 |       --- |             --- |
+| DSPs                     |     0.001 |        8 |        90 |            8.89 |
 | I/O                      |     0.003 |       55 |       106 |           51.89 |
 | Static Power             |     0.072 |          |           |                 |
-| Total                    |     0.141 |          |           |                 |
+| Total                    |     0.155 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -76,7 +76,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.075 |       0.066 |      0.010 |
+| Vccint    |       1.000 |     0.090 |       0.080 |      0.010 |
 | Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |
 | Vcco33    |       3.300 |     0.002 |       0.001 |      0.001 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
@@ -145,12 +145,13 @@ Table of Contents
 +-------------------------------+-----------+
 | Name                          | Power (W) |
 +-------------------------------+-----------+
-| Top_Student                   |     0.069 |
+| Top_Student                   |     0.083 |
 |   clk_6p25m_inst              |    <0.001 |
 |   clk_inst                    |    <0.001 |
-|   comp_ctrl_inst              |     0.024 |
-|     comp_move                 |     0.024 |
-|       a_star_inst             |     0.017 |
+|   comp_ctrl_inst              |     0.036 |
+|     bomb_ctrl_inst            |     0.002 |
+|     comp_move                 |     0.034 |
+|       a_star_inst             |     0.016 |
 |         closed_x_reg_0_63_0_2 |    <0.001 |
 |         closed_x_reg_0_63_3_3 |    <0.001 |
 |         closed_y_reg_0_63_0_2 |    <0.001 |
@@ -159,11 +160,11 @@ Table of Contents
 |   game_inst                   |    <0.001 |
 |   mouse_inst                  |    <0.001 |
 |     Inst_Ps2Interface         |    <0.001 |
-|   oled1                       |    <0.001 |
-|   p1_ctrl_inst                |     0.032 |
+|   oled1                       |     0.001 |
+|   p1_ctrl_inst                |     0.033 |
 |     bomb_ctrl_inst            |     0.002 |
-|     player_move               |     0.030 |
-|       a_star_inst             |     0.017 |
+|     player_move               |     0.031 |
+|       a_star_inst             |     0.015 |
 |         closed_x_reg_0_63_0_2 |    <0.001 |
 |         closed_x_reg_0_63_3_3 |    <0.001 |
 |         closed_y_reg_0_63_0_2 |    <0.001 |
@@ -176,7 +177,7 @@ Table of Contents
 |   random_unit                 |     0.001 |
 |   rx_inst                     |    <0.001 |
 |   seg_inst                    |    <0.001 |
-|   tx_inst                     |     0.000 |
+|   tx_inst                     |    <0.001 |
 +-------------------------------+-----------+
 
 

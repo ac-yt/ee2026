@@ -145,12 +145,12 @@ module Top_Student (
     // =========================================================
     
     wire [11:0] mouse_xpos, mouse_ypos;
-    wire [3:0]  mouse_zpos;
+    wire [3:0] mouse_zpos;
     wire mouse_left, mouse_middle, mouse_right, mouse_new_event;
     
     reg mouse_setmax_x = 0, mouse_setmax_y = 0, mouse_setx = 0, mouse_sety = 0;
-    reg [11:0]  mouse_value = 0;
-    reg [1:0]   mouse_init_state = 0;
+    reg [11:0] mouse_value = 0;
+    reg [1:0] mouse_init_state = 0;
     
     wire [3:0] mouse_tx = (mouse_xpos >= `MIN_PIX_X && mouse_xpos <= `MAX_PIX_X) ? ((mouse_xpos - `MIN_PIX_X) * 7'd43) >> 8 : 4'hF;
     wire [3:0] mouse_ty = (mouse_ypos >= `MIN_PIX_Y && mouse_ypos <= `MAX_PIX_Y) ? ((mouse_ypos - `MIN_PIX_Y) * 7'd43) >> 8 : 4'hF;
@@ -161,7 +161,7 @@ module Top_Student (
         mouse_setmax_y <= 0;
         case (mouse_init_state)
             0: begin
-                mouse_value    <= 12'd95;   // max x = 95 (96 pixels wide)
+                mouse_value <= 12'd95;   // max x = 95 (96 pixels wide)
                 mouse_setmax_x <= 1;
                 mouse_init_state <= 1;
             end
@@ -198,7 +198,11 @@ module Top_Student (
     // =========================================================
     // PLAYER AND COMPUTER CONTROLLERS
     // =========================================================
-                            
+    
+    
+    
+    reg map_changed;
+                              
     wire [6:0] p1_x;
     wire [5:0] p1_y;
     wire [3:0] p1_tx, p1_ty;
@@ -216,6 +220,7 @@ module Top_Student (
 
     player_controller p1_ctrl_inst (
         .clk(clk),
+        .player_number(`PLAYER_1),
         .mouse_tx(mouse_tx),
         .mouse_ty(mouse_ty),
         .mouse_left(mouse_left),
@@ -223,6 +228,7 @@ module Top_Student (
         .mouse_middle(mouse_middle),
         .tile_map_flat(tile_map_flat),
         .speed_multiplier(sw[1:0]),
+        .map_changed(map_changed),
         
         .player_tx(p1_tx),
         .player_ty(p1_ty),
@@ -262,7 +268,7 @@ module Top_Student (
         .explode_right_len(p1_explode_right_len)
     );
     
-    /*wire [6:0] p2_x;
+    wire [6:0] p2_x;
     wire [5:0] p2_y;
     wire [3:0] p2_tx, p2_ty;
     wire p2_dead;
@@ -286,6 +292,7 @@ module Top_Student (
 
     player_controller p2_ctrl_inst (
         .clk(clk),
+        .player_number(`PLAYER_2),
         .mouse_tx(p2_mouse_tx),
         .mouse_ty(p2_mouse_ty),
         .mouse_left(p2_mouse_left),
@@ -293,6 +300,7 @@ module Top_Student (
         .mouse_middle(p2_mouse_middle),
         .tile_map_flat(tile_map_flat),
         .speed_multiplier(sw[1:0]),
+        .map_changed(map_changed),
         
         .player_tx(p2_tx),
         .player_ty(p2_ty),
@@ -330,7 +338,7 @@ module Top_Student (
         .explode_down_len(p2_explode_down_len),
         .explode_left_len(p2_explode_left_len),
         .explode_right_len(p2_explode_right_len)
-    );*/
+    );
     
     wire [6:0] comp_x;
     wire [5:0] comp_y;
@@ -353,6 +361,7 @@ module Top_Student (
         .player_ty(p1_ty),
         .tile_map_flat(tile_map_flat),
         .speed_multiplier(sw[1:0]),
+        .map_changed(map_changed),
         
         .computer_tx(comp_tx),
         .computer_ty(comp_ty),
@@ -398,6 +407,8 @@ module Top_Student (
     // TILE MAP UPDATES
     // =========================================================
     
+    
+    
     always @(posedge clk)
         case (gen_state)
             `RESET: begin
@@ -421,6 +432,12 @@ module Top_Student (
                 else gen_state <= `GAMEPLAY;
             end
             `GAMEPLAY: begin // PHASE: GAMEPLAY (One driver for all updates!), blocks generate powerups ~75% of the time
+                map_changed <= p1_place_bomb_req | p1_clear_bomb_req | p1_destroy_up_req | p1_destroy_down_req | p1_destroy_left_req | p1_destroy_right_req | 
+                               p2_place_bomb_req | p2_clear_bomb_req | p2_destroy_up_req | p2_destroy_down_req | p2_destroy_left_req | p2_destroy_right_req |
+                               comp_place_bomb_req | comp_clear_bomb_req | comp_destroy_up_req | comp_destroy_down_req | comp_destroy_left_req | comp_destroy_right_req;
+                  
+                  
+                // player 1
                 if (p1_place_bomb_req) tile_map[p1_place_bomb_tx][p1_place_bomb_ty] <= `MAP_BOMB;
                 if (p1_clear_bomb_req) tile_map[p1_clear_bomb_tx][p1_clear_bomb_ty] <= `MAP_EMPTY;
                     
@@ -439,6 +456,27 @@ module Top_Student (
                 if (p1_destroy_right_req && tile_map[p1_destroy_right_tx][p1_destroy_right_ty] == `MAP_BLOCK) begin
                     if (random_seed[7:0] > three_quarter) tile_map[p1_destroy_right_tx][p1_destroy_right_ty] <= `MAP_EMPTY;
                     else tile_map[p1_destroy_right_tx][p1_destroy_right_ty] <= `MAP_POWERUP;
+                end
+                
+                // computer
+                if (comp_place_bomb_req) tile_map[comp_place_bomb_tx][comp_place_bomb_ty] <= `MAP_BOMB;
+                if (comp_clear_bomb_req) tile_map[comp_clear_bomb_tx][comp_clear_bomb_ty] <= `MAP_EMPTY;
+                   
+                if (comp_destroy_up_req && tile_map[comp_destroy_up_tx][comp_destroy_up_ty] == `MAP_BLOCK) begin
+                    if (random_seed[7:0] > three_quarter) tile_map[comp_destroy_up_tx][comp_destroy_up_ty] <= `MAP_EMPTY;
+                    else tile_map[comp_destroy_up_tx][comp_destroy_up_ty] <= `MAP_POWERUP;
+                end
+                if (comp_destroy_down_req && tile_map[comp_destroy_down_tx][comp_destroy_down_ty] == `MAP_BLOCK) begin
+                    if (random_seed[7:0] > three_quarter) tile_map[comp_destroy_down_tx][comp_destroy_down_ty] <= `MAP_EMPTY;
+                    else tile_map[comp_destroy_down_tx][comp_destroy_down_ty] <= `MAP_POWERUP;
+                end
+                if (comp_destroy_left_req && tile_map[comp_destroy_left_tx][comp_destroy_left_ty] == `MAP_BLOCK) begin
+                    if (random_seed[7:0] > three_quarter) tile_map[comp_destroy_left_tx][comp_destroy_left_ty] <= `MAP_EMPTY;
+                    else tile_map[comp_destroy_left_tx][comp_destroy_left_ty] <= `MAP_POWERUP;
+                end
+                if (comp_destroy_right_req && tile_map[comp_destroy_right_tx][comp_destroy_right_ty] == `MAP_BLOCK) begin
+                    if (random_seed[7:0] > three_quarter) tile_map[comp_destroy_right_tx][comp_destroy_right_ty] <= `MAP_EMPTY;
+                    else tile_map[comp_destroy_right_tx][comp_destroy_right_ty] <= `MAP_POWERUP;
                 end
             end
         endcase
@@ -467,13 +505,12 @@ module Top_Student (
         if (tile_x_of_pixel == 4'hF || tile_y_of_pixel == 4'hF) oled_data_single = `OLED_ORANGE;
         else oled_data_single = expand_tile(tile_map[tile_x_of_pixel][tile_y_of_pixel], local_x, local_y);
 
-        // bomb
+        // player 1 bomb and explosion
         if (p1_bomb_active) begin
             if (tile_x_of_pixel == p1_bomb_tx && tile_y_of_pixel == p1_bomb_ty)
                 oled_data_single = p1_bomb_red ? `OLED_RED : `OLED_ORANGE;
         end
 
-        // explosion
         if (p1_explosion_active) begin
             if (tile_x_of_pixel == p1_bomb_tx && tile_y_of_pixel == p1_bomb_ty)
                 oled_data_single = `OLED_YELLOW;
@@ -494,10 +531,38 @@ module Top_Student (
                 tile_x_of_pixel == p1_bomb_tx+p1_explosion_stage && tile_y_of_pixel == p1_bomb_ty)
                 oled_data_single = `OLED_YELLOW;
         end
+        
+        // computer bomb and explosion
+        if (comp_bomb_active) begin
+            if (tile_x_of_pixel == comp_bomb_tx && tile_y_of_pixel == comp_bomb_ty)
+                oled_data_single = comp_bomb_red ? `OLED_RED : `OLED_ORANGE;
+        end
+
+        if (comp_explosion_active) begin
+            if (tile_x_of_pixel == comp_bomb_tx && tile_y_of_pixel == comp_bomb_ty)
+                oled_data_single = `OLED_YELLOW;
+
+            if ((comp_explosion_stage <= comp_explode_up_len) &&
+                tile_x_of_pixel == comp_bomb_tx && tile_y_of_pixel == comp_bomb_ty-comp_explosion_stage)
+                oled_data_single = `OLED_YELLOW;
+
+            if ((comp_explosion_stage <= comp_explode_down_len) &&
+                tile_x_of_pixel == comp_bomb_tx && tile_y_of_pixel == comp_bomb_ty+comp_explosion_stage)
+                oled_data_single = `OLED_YELLOW;
+
+            if ((comp_explosion_stage <= comp_explode_left_len) &&
+                tile_x_of_pixel == comp_bomb_tx-comp_explosion_stage && tile_y_of_pixel == comp_bomb_ty)
+                oled_data_single = `OLED_YELLOW;
+
+            if ((comp_explosion_stage <= comp_explode_right_len) &&
+                tile_x_of_pixel == comp_bomb_tx+comp_explosion_stage && tile_y_of_pixel == comp_bomb_ty)
+                oled_data_single = `OLED_YELLOW;
+        end
+
 
         // player
-        if (p1_region) oled_data_single = p1_dead ? `OLED_GREEN : `OLED_BLUE;
-        if (comp_region) oled_data_single = `OLED_MAGENTA;
+        if (comp_region) oled_data_single = comp_dead ? `OLED_PINK : `OLED_RED;
+        if (p1_region) oled_data_single = p1_dead ? `OLED_CYAN : `OLED_BLUE;
         
         // draw walls
         if (x < `MIN_PIX_X || x > `MAX_PIX_X || y < `MIN_PIX_Y || y > `MAX_PIX_Y) oled_data_single = WALL_COLOR;

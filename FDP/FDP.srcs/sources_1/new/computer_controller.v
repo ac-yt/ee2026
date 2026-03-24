@@ -7,6 +7,7 @@ module computer_controller(input clk,
                            input [3:0] player_ty,
                            input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
                            input [1:0] speed_multiplier,
+                           input map_changed,
                            
                            output [3:0] computer_tx, computer_ty,
                            output [6:0] computer_x,
@@ -55,19 +56,33 @@ module computer_controller(input clk,
 //    wire [6:0] mc_computer_x;
 //    wire [5:0] mc_computer_y;
     
-    wire [3:0] next_tx, next_ty;
-    movement_controller comp_move (.clk(clk), .goal_tx(player_tx), .goal_ty(player_ty), .tile_map_flat(tile_map_flat), .speed(speed), .is_player(0),
-                                   .pos_tx_out(computer_tx), .pos_ty_out(computer_ty), .pos_x(computer_x), .pos_y(computer_y));
+    // place bomb if blocked by block
+    wire next_is_block;
+    reg next_is_block_prev = 0;
+    always @(posedge clk) next_is_block_prev <= next_is_block;
+        
+    movement_controller comp_move (.clk(clk), .map_changed(map_changed), .spawn_tx(14), .spawn_ty(8), .goal_tx(player_tx), .goal_ty(player_ty),
+                                   .tile_map_flat(tile_map_flat), .speed(speed), .is_player(0),// .stop(next_is_block),
+                                   .pos_tx_out(computer_tx), .pos_ty_out(computer_ty), .pos_x(computer_x), .pos_y(computer_y),
+                                   .next_is_block(next_is_block));
 //                                   .pos_tx_out(mc_computer_tx), .pos_ty_out(mc_computer_ty), .pos_x(mc_computer_x), .pos_y(mc_computer_y));
-                           
+    
+    // place bomb if near player
+//    wire [4:0] dist_to_player = ((computer_tx > player_tx) ? computer_tx - player_tx : player_tx - computer_tx) +
+//                                ((computer_ty > player_ty) ? computer_ty - player_ty : player_ty - computer_ty);
+//    wire near_player = (dist_to_player <= 2); // within 2 tiles
+//    reg near_player_prev = 0;
+//    always @(posedge clk) near_player_prev <= near_player;
+    
+    wire bomb_trigger = ~bomb_active & ((next_is_block & ~next_is_block_prev)); // | (near_player & ~near_player_prev));
+    
     // bomb controller
     wire bomb_passable;
     wire player_hit;
-    wire trigger = 0;
          
     bomb_controller bomb_ctrl_inst (
         .clk(clk),
-        .trigger(trigger),
+        .trigger(bomb_trigger),
         .tile_map_flat(tile_map_flat),
         .player_x(computer_x),
         .player_y(computer_y),
