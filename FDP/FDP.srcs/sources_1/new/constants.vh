@@ -18,6 +18,11 @@
 `define WAIT_CONFIRM                3'b101
 `define PAIRED                      3'b110
 
+// map gen state
+`define RESET                       2'b00
+`define GENERATION                  2'b01
+`define GAMEPLAY                    2'b10
+
 // map parameters
 `define TILE_SIZE                   6 // size of each tile
 `define TILE_MAP_WIDTH              15 // number of tiles along x axis

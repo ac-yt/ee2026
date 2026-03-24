@@ -17,7 +17,6 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
-set_param xicom.use_bs_reader 1
 create_project -in_memory -part xc7a35tcpg236-1
 
 set_param project.singleFileAddWarning.threshold 0
@@ -46,6 +45,7 @@ read_verilog -library xil_defaultlib {
   C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v
   C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/computer_controller.v
   C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/movement_controller.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/lfsr_rng.v
 }
 read_vhdl -library xil_defaultlib {
   C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/imports/Desktop/Mouse_Control.vhd
