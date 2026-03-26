@@ -2,42 +2,31 @@
 
 `include "constants.vh"
 
-module package_game_data (input clk, btnL, btnR, btnC, btnU, btnD, player, 
-                          input [7:0] sw,
+module package_game_data (input clk,
+                          input player,
+                          input [11:0] mouse_x, mouse_y,
+                          input mouse_left, mouse_middle, mouse_right,
+                          // to add number of power ups
                           output reg tx_en,
                           output reg [`GAME_BITS-1:0] data_tx_game=0);
                           
-    wire [4:0] btns = {btnL, btnD, btnC, btnU, btnR};
-    reg [4:0] prev_btns = 0;
-    reg [7:0] prev_sw = 0;
-    
-    //    wire deb_btnU, deb_btnD, deb_btnL, deb_btnR, deb_btnC;
-    //    wire [4:0] btns = {deb_btnL, deb_btnD, deb_btnC, deb_btnU, deb_btnR};
-    //    wire clean_btnU = btnU;
-    //    wire clean_btnD = btnD;
-    //    wire clean_btnL = btnL;
-    //    wire clean_btnR = btnR;
-    //    wire clean_btnC = btnC;
-    //    debounce #(.MILLISECONDS(DEBOUNCE_MS), .CLOCK_SPEED(CLOCK_SPEED)) dbU (.clk(basys_clk), .btn_in(btnU), .btn_out(deb_btnU));
-    //    debounce #(.MILLISECONDS(DEBOUNCE_MS), .CLOCK_SPEED(CLOCK_SPEED)) dbD (.clk(basys_clk), .btn_in(btnD), .btn_out(deb_btnD));
-    //    debounce #(.MILLISECONDS(DEBOUNCE_MS), .CLOCK_SPEED(CLOCK_SPEED)) dbL (.clk(basys_clk), .btn_in(btnL), .btn_out(deb_btnL));
-    //    debounce #(.MILLISECONDS(DEBOUNCE_MS), .CLOCK_SPEED(CLOCK_SPEED)) dbR (.clk(basys_clk), .btn_in(btnR), .btn_out(deb_btnR));
-    //    debounce #(.MILLISECONDS(DEBOUNCE_MS), .CLOCK_SPEED(CLOCK_SPEED)) dbC (.clk(basys_clk), .btn_in(btnC), .btn_out(deb_btnC));
+    wire [`DATA_BITS-1:0] data = {mouse_x, mouse_y, mouse_left, mouse_middle, mouse_right};
+    reg [`DATA_BITS-1:0] prev_data = 0;
     
     always @ (posedge clk) begin
         tx_en <= 1'b0;
         if (player == `PLAYER_2) begin
-            if (btns != prev_btns) begin
+            if (data != prev_data) begin
                 tx_en <= 1'b1;
-                data_tx_game <= btns; // header + 5 bits
-                prev_btns <= btns;
+                data_tx_game <= data; // header + 5 bits
+                prev_data <= data;
             end
         end
         else begin
-            if (sw != prev_sw) begin
+            if (data != prev_data) begin
                 tx_en <= 1'b1;
-                data_tx_game <= sw;
-                prev_sw <= sw;
+                data_tx_game <= data;
+                prev_data <= data;
             end
         end
     end   

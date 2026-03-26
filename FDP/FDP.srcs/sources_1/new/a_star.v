@@ -44,19 +44,17 @@ module a_star (input clk, update, blocks_as_walls,
     reg [$clog2(`MAX_PATH_LEN*4)-1:0] init_index_i = 0;
     
     // open list
-    reg [3:0] open_x [0:`MAX_NUM_NODES-1]; // maximum 81 ENTRIES
-    reg [3:0] open_y [0:`MAX_NUM_NODES-1]; // open list to store nodes to visit next
-    reg [$clog2(`MAX_NUM_NODES)-1:0] open_counter = 0; // count number of items in the open list
-    
-    // BRAM closed list
-    reg [3:0] closed_x [0:`MAX_NUM_NODES-1]; // closed list to store visited nodes
-    reg [3:0] closed_y [0:`MAX_NUM_NODES-1];
-    reg [$clog2(`MAX_NUM_NODES)-1:0] closed_counter = 0; // count number of items in the open list
+    reg [3:0] open_x [0:`MAX_OPEN_NODES-1];
+    reg [3:0] open_y [0:`MAX_OPEN_NODES-1]; // open list to store nodes to visit next
+    reg [$clog2(`MAX_OPEN_NODES)-1:0] open_counter = 0; // count number of items in the open list
+    reg [3:0] closed_x [0:`MAX_CLOSED_NODES-1]; // closed list to store visited nodes
+    reg [3:0] closed_y [0:`MAX_CLOSED_NODES-1];
+    reg [$clog2(`MAX_CLOSED_NODES)-1:0] closed_counter = 0; // count number of items in the open list
 
     // fsm registers
     reg [3:0] start_x_loc=0, start_y_loc=0, goal_x_loc=0, goal_y_loc=0; // store locally
     reg [$clog2(MAX_F)-1:0] best_f=0;
-    reg [$clog2(`MAX_NUM_NODES)-1:0] scan_index=0, best_index=0, shift_index=0, path_index=0;
+    reg [$clog2(`MAX_CLOSED_NODES)-1:0] scan_index=0, best_index=0, shift_index=0, path_index=0;
     reg [3:0] best_x=0, best_y=0, curr_x=0, curr_y=0, nb_x=0, nb_y=0, curr_path_x=0, curr_path_y=0;
     reg [1:0] nb_index=0;
     // reg [10:0] path_cost=0;
@@ -110,7 +108,7 @@ module a_star (input clk, update, blocks_as_walls,
                     if (init_index_x == `TILE_MAP_WIDTH-1 && init_index_y == `TILE_MAP_HEIGHT-1) next_state = RESET_1D;
                 end
                 RESET_1D: begin
-                    if (init_index_i == `MAX_NUM_NODES-1) next_state = SET_START;
+                    if (init_index_i == `MAX_CLOSED_NODES-1) next_state = SET_START;
                 end
                 SET_START: next_state = CHECK_OPEN;
                 CHECK_OPEN: begin // check if open list has nodes
@@ -249,8 +247,10 @@ module a_star (input clk, update, blocks_as_walls,
                     parent_y[init_index_x][init_index_y] <= 4'hF;
                 end
                 RESET_1D: begin
-                    open_x[init_index_i]   <= 4'hF;
-                    open_y[init_index_i]   <= 4'hF;
+                    if (init_index_i < `MAX_OPEN_NODES) begin
+                        open_x[init_index_i]   <= 4'hF;
+                        open_y[init_index_i]   <= 4'hF;
+                    end
                     closed_x[init_index_i] <= 4'hF;
                     closed_y[init_index_i] <= 4'hF;
                 end
