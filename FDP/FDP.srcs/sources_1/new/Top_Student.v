@@ -9,7 +9,8 @@ module Top_Student (
     input [15:0] sw,
     output [7:0] JC,
     output UART_TX,
-    output reg [15:0] led,
+//    output reg [15:0] led,
+    output [15:0] led,
     output [7:0] seg,
     output [3:0] an
 );
@@ -193,6 +194,18 @@ module Top_Student (
         .ps2_data (ps2_data)
     );
     
+    // register pulses
+    reg mouse_left_prev = 0, mouse_right_prev = 0, mouse_middle_prev = 0;
+    wire mouse_left_pulse = mouse_left & ~mouse_left_prev;  // single cycle on press
+    wire mouse_right_pulse = mouse_right & ~mouse_right_prev;  // single cycle on press
+    wire mouse_middle_pulse = mouse_middle & ~mouse_middle_prev;  // single cycle on press
+    
+    always @ (posedge clk) begin
+        mouse_left_prev <= mouse_left;
+        mouse_right_prev <= mouse_right;
+        mouse_middle_prev <= mouse_middle;
+    end
+    
     
     
     // =========================================================
@@ -201,7 +214,7 @@ module Top_Student (
     
     
     
-    reg map_changed;
+    reg map_changed = 0;
                               
     wire [6:0] p1_x;
     wire [5:0] p1_y;
@@ -217,15 +230,84 @@ module Top_Student (
     
     wire p1_explosion_active;
     wire [3:0] p1_explosion_stage, p1_explode_up_len, p1_explode_down_len, p1_explode_left_len, p1_explode_right_len;
+    
+    wire p1_update, p1_baw, p1_valid;
+    wire [4*`MAX_PATH_LEN-1:0] p1_pfx, p1_pfy;
+    wire [6:0] p1_len;
+    
+    reg [3:0] p1_goal_tx = 0, p1_goal_ty = 0;
+            
+    always @ (posedge clk) begin
+        if (mouse_left_pulse) begin
+            p1_goal_tx <= mouse_tx;
+            p1_goal_ty <= mouse_ty;
+        end
+    end
+    
+//    player_one_controller p12_ctrl_inst (
+//      .clk(clk),
+//      .goal_tx(p1_goal_tx),
+//      .goal_ty(p1_goal_ty),
+//      .mouse_left_pulse(mouse_left_pulse),
+//      .mouse_right_pulse(mouse_right_pulse),
+//      .mouse_middle_pulse(mouse_middle_pulse),
+//      .tile_map_flat(tile_map_flat),
+//      .speed_multiplier(sw[1:0]),
+//      .map_changed(map_changed),
+      
+//      .p1_tx(p1_tx),
+//      .p1_ty(p1_ty),
+//      .p1_x(p1_x),
+//      .p1_y(p1_y),
+//      .p1_dead(p1_dead),
+
+//      .place_bomb_req(p1_place_bomb_req),
+//      .place_bomb_tx(p1_place_bomb_tx),
+//      .place_bomb_ty(p1_place_bomb_ty),
+//      .clear_bomb_req(p1_clear_bomb_req),
+//      .clear_bomb_tx(p1_clear_bomb_tx),
+//      .clear_bomb_ty(p1_clear_bomb_ty),
+//      .destroy_up_req(p1_destroy_up_req),
+//      .destroy_up_tx(p1_destroy_up_tx),
+//      .destroy_up_ty(p1_destroy_up_ty),
+//      .destroy_down_req(p1_destroy_down_req),
+//      .destroy_down_tx(p1_destroy_down_tx),
+//      .destroy_down_ty(p1_destroy_down_ty),
+//      .destroy_left_req(p1_destroy_left_req),
+//      .destroy_left_tx(p1_destroy_left_tx),
+//      .destroy_left_ty(p1_destroy_left_ty),
+//      .destroy_right_req(p1_destroy_right_req),
+//      .destroy_right_tx(p1_destroy_right_tx),
+//      .destroy_right_ty(p1_destroy_right_ty),
+      
+//      .bomb_active(p1_bomb_active),
+//      .bomb_tx(p1_bomb_tx),
+//      .bomb_ty(p1_bomb_ty),
+//      .bomb_red(p1_bomb_red),
+      
+//      .explosion_active(p1_explosion_active),
+//      .explosion_stage(p1_explosion_stage),
+//      .explode_up_len(p1_explode_up_len),
+//      .explode_down_len(p1_explode_down_len),
+//      .explode_left_len(p1_explode_left_len),
+//      .explode_right_len(p1_explode_right_len),
+      
+//      .update(p1_update),
+//      .blocks_as_walls(p1_baw),
+//      .path_flat_x(p1_pfx),
+//      .path_flat_y(p1_pfy),
+//      .path_valid(p1_valid),
+//      .path_len(p1_len)
+//  );                          
 
     player_controller p1_ctrl_inst (
         .clk(clk),
         .player_number(`PLAYER_1),
-        .mouse_tx(mouse_tx),
-        .mouse_ty(mouse_ty),
-        .mouse_left(mouse_left),
-        .mouse_right(mouse_right),
-        .mouse_middle(mouse_middle),
+        .goal_tx(p1_goal_tx),
+        .goal_ty(p1_goal_ty),
+        .mouse_left_pulse(mouse_left_pulse),
+        .mouse_right_pulse(mouse_right_pulse),
+        .mouse_middle_pulse(mouse_middle_pulse),
         .tile_map_flat(tile_map_flat),
         .speed_multiplier(sw[1:0]),
         .map_changed(map_changed),
@@ -265,7 +347,14 @@ module Top_Student (
         .explode_up_len(p1_explode_up_len),
         .explode_down_len(p1_explode_down_len),
         .explode_left_len(p1_explode_left_len),
-        .explode_right_len(p1_explode_right_len)
+        .explode_right_len(p1_explode_right_len),
+        
+        .update(p1_update),
+        .blocks_as_walls(p1_baw),
+        .path_flat_x(p1_pfx),
+        .path_flat_y(p1_pfy),
+        .path_valid(p1_valid),
+        .path_len(p1_len)
     );
     
     wire [6:0] p2_x;
@@ -284,20 +373,49 @@ module Top_Student (
     wire [3:0] p2_explosion_stage, p2_explode_up_len, p2_explode_down_len, p2_explode_left_len, p2_explode_right_len;
     
     wire [11:0] p2_mouse_xpos, p2_mouse_ypos;
-//    wire [3:0]  mouse_zpos; // dont care
-    wire p2_mouse_left, p2_mouse_middle, p2_mouse_right, p2_mouse_new_event;
+    wire p2_mouse_left, p2_mouse_middle, p2_mouse_right;
     
     wire [3:0] p2_mouse_tx = (p2_mouse_xpos >= `MIN_PIX_X && p2_mouse_xpos <= `MAX_PIX_X) ? ((p2_mouse_xpos - `MIN_PIX_X) * 7'd43) >> 8 : 4'hF;
     wire [3:0] p2_mouse_ty = (p2_mouse_ypos >= `MIN_PIX_Y && p2_mouse_ypos <= `MAX_PIX_Y) ? ((p2_mouse_ypos - `MIN_PIX_Y) * 7'd43) >> 8 : 4'hF;
+    
+    wire p2_update, p2_baw, p2_valid;
+    wire [4*`MAX_PATH_LEN-1:0] p2_pfx, p2_pfy;
+    wire [6:0] p2_len;
+    
+    // register pulses
+    reg p2_mouse_left_prev = 0, p2_mouse_right_prev = 0, p2_mouse_middle_prev = 0;
+    wire p2_mouse_left_pulse = p2_mouse_left & ~p2_mouse_left_prev;  // single cycle on press
+    wire p2_mouse_right_pulse = p2_mouse_right & ~p2_mouse_right_prev;  // single cycle on press
+    wire p2_mouse_middle_pulse = p2_mouse_middle & ~p2_mouse_middle_prev;  // single cycle on press
+    
+    always @ (posedge clk) begin
+        p2_mouse_left_prev <= p2_mouse_left;
+        p2_mouse_right_prev <= p2_mouse_right;
+        p2_mouse_middle_prev <= p2_mouse_middle;
+    end
+    
+    reg [3:0] p2_player_goal_tx = 0, p2_player_goal_ty = 0;
+    
+    wire single_player = (pair_state == `SINGLE);
+  
+    wire [3:0] p2_goal_tx = single_player ? p1_tx : p2_player_goal_tx; 
+    wire [3:0] p2_goal_ty = single_player ? p1_ty : p2_player_goal_ty; 
 
-    player_controller p2_ctrl_inst (
+    always @ (posedge clk) begin
+        if (p2_mouse_left_pulse) begin
+            p2_player_goal_tx <= p2_mouse_tx;
+            p2_player_goal_ty <= p2_mouse_ty;
+        end
+    end
+    
+    player_two_controller p2_ctrl_inst (
         .clk(clk),
-        .player_number(`PLAYER_2),
-        .mouse_tx(p2_mouse_tx),
-        .mouse_ty(p2_mouse_ty),
-        .mouse_left(p2_mouse_left),
-        .mouse_right(p2_mouse_right),
-        .mouse_middle(p2_mouse_middle),
+        .single_player(single_player),
+        .goal_tx(p2_goal_tx),
+        .goal_ty(p2_goal_ty),
+        .mouse_left_pulse(p2_mouse_left_pulse),
+        .mouse_right_pulse(p2_mouse_right_pulse),
+        .mouse_middle_pulse(p2_mouse_middle_pulse),
         .tile_map_flat(tile_map_flat),
         .speed_multiplier(sw[1:0]),
         .map_changed(map_changed),
@@ -337,7 +455,14 @@ module Top_Student (
         .explode_up_len(p2_explode_up_len),
         .explode_down_len(p2_explode_down_len),
         .explode_left_len(p2_explode_left_len),
-        .explode_right_len(p2_explode_right_len)
+        .explode_right_len(p2_explode_right_len),
+        
+        .update(p2_update),
+        .blocks_as_walls(p2_baw),
+        .path_flat_x(p2_pfx),
+        .path_flat_y(p2_pfy),
+        .path_valid(p2_valid),
+        .path_len(p2_len)
     );
     
     wire [6:0] comp_x;
@@ -354,11 +479,75 @@ module Top_Student (
     
     wire comp_explosion_active;
     wire [3:0] comp_explosion_stage, comp_explode_up_len, comp_explode_down_len, comp_explode_left_len, comp_explode_right_len;
+    
+    
+    wire comp_update, comp_baw, comp_valid;
+    wire [4*`MAX_PATH_LEN-1:0] comp_pfx, comp_pfy;
+    wire [6:0] comp_len;
+    
+    a_star_mux as_mux_inst (.clk(clk),
+                            .tile_map_flat(tile_map_flat),
+                            .c0_update(p1_update), 
+                            .c0_baw(p1_baw), 
+                            .c0_stx(p1_tx), 
+                            .c0_sty(p1_ty), 
+                            .c0_gtx(p1_goal_tx), 
+                            .c0_gty(p1_goal_ty),
+                            .c0_pfx(p1_pfx), 
+                            .c0_pfy(p1_pfy),
+                            .c0_valid(p1_valid), 
+                            .c0_len(p1_len),
+                           
+                            .c1_update(comp_update), 
+                            .c1_baw(comp_baw),
+                            .c1_stx(comp_tx), 
+                            .c1_sty(comp_ty), 
+                            .c1_gtx(p1_tx), 
+                            .c1_gty(p1_ty),
+                            .c1_pfx(comp_pfx), 
+                            .c1_pfy(comp_pfy),
+                            .c1_valid(comp_valid),
+                            .c1_len(comp_len));
 
+//    wire nib, nib2;
+//    movement_controller computer_inst (.clk(clk),
+////                              .led(0),
+//                              .map_changed(map_changed),
+//                            .spawn_tx(14), 
+//                            .spawn_ty(8),
+//                            .goal_tx(p1_tx), .goal_ty(p1_ty), // player for computer, mouse for player 
+////                            .goal_tx(p1_goal_tx), .goal_ty(p1_goal_ty), // player for computer, mouse for player 
+//                            .tile_map_flat(tile_map_flat), .speed(30),
+//                            .is_player(0),
+//                            .next_is_block(nib),
+//                            .pos_tx_out(comp_tx), .pos_ty_out(comp_ty),
+//                            .pos_x(comp_x), .pos_y(comp_y),
+//                            .as_update(comp_update), .as_baw(comp_baw), 
+//                            .path_flat_x(comp_pfx), .path_flat_y(comp_pfy),
+//                            .path_valid(comp_valid), // fast
+//                            .path_len(comp_len));
+    
+//    movement_controller player_inst (.clk(clk),
+////                              .led(led),
+//                              .map_changed(map_changed),
+//                            .spawn_tx(0), 
+//                            .spawn_ty(0),
+////                            .goal_tx(comp_tx), .goal_ty(comp_ty), // player for computer, mouse for player 
+//                            .goal_tx(p1_goal_tx), .goal_ty(p1_goal_ty), // player for computer, mouse for player 
+//                            .tile_map_flat(tile_map_flat), .speed(30),
+//                            .is_player(1),
+//                            .next_is_block(nib2),
+//                            .pos_tx_out(p1_tx), .pos_ty_out(p1_ty),
+//                            .pos_x(p1_x), .pos_y(p1_y),
+//                            .as_update(p1_update), .as_baw(p1_baw), 
+//                            .path_flat_x(p1_pfx), .path_flat_y(p1_pfy),
+//                            .path_valid(p1_valid), // fast
+//                            .path_len(p1_len));
+    
     computer_controller comp_ctrl_inst (
         .clk(clk),
-        .player_tx(p1_tx),
-        .player_ty(p1_ty),
+        .goal_tx(p1_tx),
+        .goal_ty(p1_ty),
         .tile_map_flat(tile_map_flat),
         .speed_multiplier(sw[1:0]),
         .map_changed(map_changed),
@@ -398,7 +587,14 @@ module Top_Student (
         .explode_up_len(comp_explode_up_len),
         .explode_down_len(comp_explode_down_len),
         .explode_left_len(comp_explode_left_len),
-        .explode_right_len(comp_explode_right_len)
+        .explode_right_len(comp_explode_right_len),
+        
+        .update(comp_update),
+        .blocks_as_walls(comp_baw),
+        .path_flat_x(comp_pfx),
+        .path_flat_y(comp_pfy),
+        .path_valid(comp_valid),
+        .path_len(comp_len)
     );
 
 
@@ -561,8 +757,8 @@ module Top_Student (
 
 
         // player
-        if (comp_region) oled_data_single = comp_dead ? `OLED_PINK : `OLED_RED;
-        if (p1_region) oled_data_single = p1_dead ? `OLED_CYAN : `OLED_BLUE;
+        if (comp_region) oled_data_single = `OLED_RED; //comp_dead ? `OLED_PINK : `OLED_RED;
+        if (p1_region) oled_data_single = `OLED_BLUE; //p1_dead ? `OLED_CYAN : `OLED_BLUE;
         
         // draw walls
         if (x < `MIN_PIX_X || x > `MAX_PIX_X || y < `MIN_PIX_Y || y > `MAX_PIX_Y) oled_data_single = WALL_COLOR;

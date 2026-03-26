@@ -1,187 +1,740 @@
 Vivado Simulator 2018.2
 Time resolution is 1 ps
-=== Starting testbench ===
-t=0 state=10100 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=000000 flat_y=000000, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2685000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=000000 flat_y=000000, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2705000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=000001 flat_y=000001, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2725000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=000003 flat_y=000003, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2745000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=000007 flat_y=000007, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2765000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=00000f flat_y=00000f, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2785000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=00001f flat_y=00001f, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2805000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=00003f flat_y=00003f, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2825000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=00007f flat_y=00007f, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2845000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=0000ff flat_y=0000ff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2865000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=0001ff flat_y=0001ff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2885000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=0003ff flat_y=0003ff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2905000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=0007ff flat_y=0007ff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2925000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=000fff flat_y=000fff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2945000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=001fff flat_y=001fff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2965000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=003fff flat_y=003fff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=2985000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=007fff flat_y=007fff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=3005000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=00ffff flat_y=00ffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=3025000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=01ffff flat_y=01ffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=3045000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=03ffff flat_y=03ffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=3065000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=07ffff flat_y=07ffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=3085000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=0fffff flat_y=0fffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=3105000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=1fffff flat_y=1fffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=3125000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=3fffff flat_y=3fffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=3145000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=7fffff flat_y=7fffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=3165000 state=10101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9165000 state=10110 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9185000 state=00000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9205000 state=00001 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9225000 state=00010 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9265000 state=00011 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9285000 state=00100 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9305000 state=00101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9325000 state=00110 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9345000 state=00111 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9365000 state=01000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9385000 state=01001 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9405000 state=01011 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9425000 state=01000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9445000 state=01001 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9465000 state=01010 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9485000 state=01100 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9505000 state=01101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9545000 state=01110 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9565000 state=01111 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9585000 state=10000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9605000 state=01011 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9625000 state=01000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9645000 state=01001 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9665000 state=01011 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9685000 state=01000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9705000 state=01001 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9725000 state=01010 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9745000 state=01100 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9765000 state=01101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9805000 state=01110 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9825000 state=01111 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9865000 state=10000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9885000 state=01011 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9905000 state=00000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9925000 state=00001 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=9945000 state=00010 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10005000 state=00011 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10025000 state=00100 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10045000 state=00101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10085000 state=00110 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10105000 state=00111 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10125000 state=01000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10145000 state=01001 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10165000 state=01010 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10185000 state=01100 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10205000 state=01101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10225000 state=01011 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10245000 state=01000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10265000 state=01001 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10285000 state=01010 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10305000 state=01100 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10325000 state=01101 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10385000 state=01110 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10405000 state=01111 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10445000 state=10000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10465000 state=01011 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10485000 state=01000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10505000 state=01001 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10525000 state=01011 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10545000 state=01000 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10565000 state=01001 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10585000 state=01010 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10605000 state=10001 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10625000 state=10010 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffffff flat_y=ffffff, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10645000 state=10010 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=fffff1 flat_y=fffff1, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10665000 state=10010 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=ffff01 flat_y=ffff11, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10685000 state=10011 path_valid=0 saved=1 path_idx=  0 path_len=0000000 flat_x=fff001 flat_y=fff011, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10705000 state=10011 path_valid=1 saved=1 path_idx=  0 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10725000 state=10011 path_valid=0 saved=1 path_idx=  0 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000000 flat_xl=xxxxxx flat_yl=xxxxxx, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10735000 state=10011 path_valid=0 saved=0 path_idx=  0 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=xxxxxxxxxxxxxxxx, path_y=xxxxxxxxxxxxxxxx
-t=10745000 state=10011 path_valid=0 saved=0 path_idx=  1 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=1xxxxxxxxxxxxxxx, path_y=1xxxxxxxxxxxxxxx
-t=10755000 state=10011 path_valid=0 saved=0 path_idx=  2 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=10xxxxxxxxxxxxxx, path_y=11xxxxxxxxxxxxxx
-t=10765000 state=10011 path_valid=0 saved=0 path_idx=  3 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100xxxxxxxxxxxxx, path_y=110xxxxxxxxxxxxx
-t=10775000 state=10011 path_valid=0 saved=0 path_idx=  4 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fxxxxxxxxxxxx, path_y=110fxxxxxxxxxxxx
-t=10785000 state=10011 path_valid=0 saved=0 path_idx=  5 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100ffxxxxxxxxxxx, path_y=110ffxxxxxxxxxxx
-t=10795000 state=10011 path_valid=0 saved=0 path_idx=  6 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffxxxxxxxxxx, path_y=110fffxxxxxxxxxx
-t=10805000 state=10011 path_valid=0 saved=0 path_idx=  7 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100ffffxxxxxxxxx, path_y=110ffffxxxxxxxxx
-t=10815000 state=10011 path_valid=0 saved=0 path_idx=  8 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffxxxxxxxx, path_y=110fffffxxxxxxxx
-t=10825000 state=10011 path_valid=0 saved=0 path_idx=  9 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100ffffffxxxxxxx, path_y=110ffffffxxxxxxx
-t=10835000 state=10011 path_valid=0 saved=0 path_idx= 10 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffxxxxxx, path_y=110fffffffxxxxxx
-t=10845000 state=10011 path_valid=0 saved=0 path_idx= 11 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100ffffffffxxxxx, path_y=110ffffffffxxxxx
-t=10855000 state=10011 path_valid=0 saved=0 path_idx= 12 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffxxxx, path_y=110fffffffffxxxx
-t=10865000 state=10011 path_valid=0 saved=0 path_idx= 13 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100ffffffffffxxx, path_y=110ffffffffffxxx
-t=10875000 state=10011 path_valid=0 saved=0 path_idx= 14 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffxx, path_y=110fffffffffffxx
-t=10885000 state=10011 path_valid=0 saved=0 path_idx= 15 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100ffffffffffffx, path_y=110ffffffffffffx
-t=10895000 state=10011 path_valid=0 saved=0 path_idx= 16 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=10905000 state=10011 path_valid=0 saved=0 path_idx= 17 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=10915000 state=10011 path_valid=0 saved=0 path_idx= 18 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=10925000 state=10011 path_valid=0 saved=0 path_idx= 19 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=10935000 state=10011 path_valid=0 saved=0 path_idx= 20 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=10945000 state=10011 path_valid=0 saved=0 path_idx= 21 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=10955000 state=10011 path_valid=0 saved=0 path_idx= 22 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=10965000 state=10011 path_valid=0 saved=0 path_idx= 23 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=10975000 state=10011 path_valid=0 saved=0 path_idx= 24 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=10985000 state=10011 path_valid=0 saved=0 path_idx= 25 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=10995000 state=10011 path_valid=0 saved=0 path_idx= 26 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11005000 state=10011 path_valid=0 saved=0 path_idx= 27 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11015000 state=10011 path_valid=0 saved=0 path_idx= 28 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11025000 state=10011 path_valid=0 saved=0 path_idx= 29 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11035000 state=10011 path_valid=0 saved=0 path_idx= 30 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11045000 state=10011 path_valid=0 saved=0 path_idx= 31 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11055000 state=10011 path_valid=0 saved=0 path_idx= 32 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11065000 state=10011 path_valid=0 saved=0 path_idx= 33 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11075000 state=10011 path_valid=0 saved=0 path_idx= 34 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11085000 state=10011 path_valid=0 saved=0 path_idx= 35 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11095000 state=10011 path_valid=0 saved=0 path_idx= 36 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11105000 state=10011 path_valid=0 saved=0 path_idx= 37 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11115000 state=10011 path_valid=0 saved=0 path_idx= 38 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11125000 state=10011 path_valid=0 saved=0 path_idx= 39 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11135000 state=10011 path_valid=0 saved=0 path_idx= 40 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11145000 state=10011 path_valid=0 saved=0 path_idx= 41 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11155000 state=10011 path_valid=0 saved=0 path_idx= 42 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11165000 state=10011 path_valid=0 saved=0 path_idx= 43 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11175000 state=10011 path_valid=0 saved=0 path_idx= 44 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11185000 state=10011 path_valid=0 saved=0 path_idx= 45 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11195000 state=10011 path_valid=0 saved=0 path_idx= 46 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11205000 state=10011 path_valid=0 saved=0 path_idx= 47 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11215000 state=10011 path_valid=0 saved=0 path_idx= 48 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11225000 state=10011 path_valid=0 saved=0 path_idx= 49 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11235000 state=10011 path_valid=0 saved=0 path_idx= 50 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11245000 state=10011 path_valid=0 saved=0 path_idx= 51 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11255000 state=10011 path_valid=0 saved=0 path_idx= 52 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11265000 state=10011 path_valid=0 saved=0 path_idx= 53 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11275000 state=10011 path_valid=0 saved=0 path_idx= 54 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11285000 state=10011 path_valid=0 saved=0 path_idx= 55 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11295000 state=10011 path_valid=0 saved=0 path_idx= 56 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11305000 state=10011 path_valid=0 saved=0 path_idx= 57 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11315000 state=10011 path_valid=0 saved=0 path_idx= 58 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11325000 state=10011 path_valid=0 saved=0 path_idx= 59 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11335000 state=10011 path_valid=0 saved=0 path_idx= 60 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11345000 state=10011 path_valid=0 saved=0 path_idx= 61 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11355000 state=10011 path_valid=0 saved=0 path_idx= 62 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11365000 state=10011 path_valid=0 saved=0 path_idx= 63 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11375000 state=10011 path_valid=0 saved=0 path_idx= 64 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11385000 state=10011 path_valid=0 saved=0 path_idx= 65 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11395000 state=10011 path_valid=0 saved=0 path_idx= 66 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11405000 state=10011 path_valid=0 saved=0 path_idx= 67 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11415000 state=10011 path_valid=0 saved=0 path_idx= 68 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11425000 state=10011 path_valid=0 saved=0 path_idx= 69 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11435000 state=10011 path_valid=0 saved=0 path_idx= 70 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11445000 state=10011 path_valid=0 saved=0 path_idx= 71 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11455000 state=10011 path_valid=0 saved=0 path_idx= 72 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11465000 state=10011 path_valid=0 saved=0 path_idx= 73 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11475000 state=10011 path_valid=0 saved=0 path_idx= 74 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11485000 state=10011 path_valid=0 saved=0 path_idx= 75 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11495000 state=10011 path_valid=0 saved=0 path_idx= 76 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11505000 state=10011 path_valid=0 saved=0 path_idx= 77 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11515000 state=10011 path_valid=0 saved=0 path_idx= 78 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11525000 state=10011 path_valid=0 saved=0 path_idx= 79 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11535000 state=10011 path_valid=0 saved=0 path_idx= 80 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11545000 state=10011 path_valid=0 saved=0 path_idx= 81 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-t=11555000 state=10011 path_valid=0 saved=1 path_idx= 81 path_len=0000011 flat_x=fff001 flat_y=fff011, path_lenl=0000011 flat_xl=fff001 flat_yl=fff011, path_x=100fffffffffffff, path_y=110fffffffffffff
-Latched path_len_loc = 3
-Latched path_cost_loc = 2
-Path coordinates:
-Step 0: (1,1)
-Step 1: (0,1)
-Step 2: (0,0)
+====================================================
+ TWO movement_controller + a_star_mux
+====================================================
+[A*]  @10000  -> RESET_2D
+[MUX] @50000  C1 update  baw=0  start=(14,8)  goal=(0,0)
+
+-- TEST 1: Spawn positions --
+[PASS] P1 spawn tile x  got=0
+[PASS] P1 spawn tile y  got=0
+[PASS] COMP spawn tile x  got=14
+[PASS] COMP spawn tile y  got=8
+
+-- TEST 2: P1 click to (2,1) --
+[MUX] @90000  state 0->2  c0p=0 c1p=0
+[MUX] @90000  as_update pulse -> A* starting
+[P1]  @130000  goal->(2,1)
+[INFO] Waiting for P1 path...
+[MUX] @150000  C0 update  baw=1  start=(0,0)  goal=(2,1)
+[A*]  @5510000  -> SET_START  start=(14,8) goal=(0,0)
+[A*]  @5530000  -> CHECK_OPEN  open_counter=1
+[A*]  @5850000  -> NB_CHECK_CLOSED_SCAN  nb=(14,7)  scan=0  closed_ctr=1
+[A*]  @6150000  -> NB_CHECK_CLOSED_SCAN  nb=(13,8)  scan=0  closed_ctr=1
+[A*]  @6370000  -> CHECK_OPEN  open_counter=2
+[A*]  @6750000  -> NB_CHECK_CLOSED_SCAN  nb=(14,6)  scan=0  closed_ctr=2
+[A*]  @7010000  -> NB_CHECK_CLOSED_SCAN  nb=(14,8)  scan=0  closed_ctr=2
+[A*]  @7150000  -> NB_CHECK_CLOSED_SCAN  nb=(13,7)  scan=0  closed_ctr=2
+[A*]  @7410000  -> CHECK_OPEN  open_counter=3
+[A*]  @7850000  -> NB_CHECK_CLOSED_SCAN  nb=(13,7)  scan=0  closed_ctr=3
+[A*]  @8210000  -> NB_CHECK_CLOSED_SCAN  nb=(12,8)  scan=0  closed_ctr=3
+[A*]  @8510000  -> NB_CHECK_CLOSED_SCAN  nb=(14,8)  scan=0  closed_ctr=3
+[A*]  @8550000  -> CHECK_OPEN  open_counter=3
+[A*]  @8990000  -> NB_CHECK_CLOSED_SCAN  nb=(14,5)  scan=0  closed_ctr=4
+[A*]  @9310000  -> NB_CHECK_CLOSED_SCAN  nb=(14,7)  scan=0  closed_ctr=4
+[A*]  @9470000  -> NB_CHECK_CLOSED_SCAN  nb=(13,6)  scan=0  closed_ctr=4
+[A*]  @9790000  -> CHECK_OPEN  open_counter=4
+[A*]  @10290000  -> NB_CHECK_CLOSED_SCAN  nb=(13,6)  scan=0  closed_ctr=5
+[A*]  @10630000  -> NB_CHECK_CLOSED_SCAN  nb=(13,8)  scan=0  closed_ctr=5
+[A*]  @10810000  -> NB_CHECK_CLOSED_SCAN  nb=(12,7)  scan=0  closed_ctr=5
+[A*]  @11170000  -> NB_CHECK_CLOSED_SCAN  nb=(14,7)  scan=0  closed_ctr=5
+[A*]  @11230000  -> CHECK_OPEN  open_counter=4
+[A*]  @11730000  -> NB_CHECK_CLOSED_SCAN  nb=(12,7)  scan=0  closed_ctr=6
+[A*]  @12170000  -> NB_CHECK_CLOSED_SCAN  nb=(11,8)  scan=0  closed_ctr=6
+[A*]  @12550000  -> NB_CHECK_CLOSED_SCAN  nb=(13,8)  scan=0  closed_ctr=6
+[A*]  @12630000  -> CHECK_OPEN  open_counter=4
+[A*]  @13130000  -> NB_CHECK_CLOSED_SCAN  nb=(14,4)  scan=0  closed_ctr=7
+[A*]  @13530000  -> NB_CHECK_CLOSED_SCAN  nb=(14,6)  scan=0  closed_ctr=7
+[A*]  @13730000  -> NB_CHECK_CLOSED_SCAN  nb=(13,5)  scan=0  closed_ctr=7
+[A*]  @14130000  -> CHECK_OPEN  open_counter=5
+[A*]  @14690000  -> NB_CHECK_CLOSED_SCAN  nb=(13,5)  scan=0  closed_ctr=8
+[A*]  @15110000  -> NB_CHECK_CLOSED_SCAN  nb=(13,7)  scan=0  closed_ctr=8
+[A*]  @15330000  -> NB_CHECK_CLOSED_SCAN  nb=(12,6)  scan=0  closed_ctr=8
+[A*]  @15770000  -> NB_CHECK_CLOSED_SCAN  nb=(14,6)  scan=0  closed_ctr=8
+[A*]  @15870000  -> CHECK_OPEN  open_counter=5
+[A*]  @16430000  -> NB_CHECK_CLOSED_SCAN  nb=(12,6)  scan=0  closed_ctr=9
+[A*]  @16870000  -> NB_CHECK_CLOSED_SCAN  nb=(12,8)  scan=0  closed_ctr=9
+[A*]  @17110000  -> NB_CHECK_CLOSED_SCAN  nb=(11,7)  scan=0  closed_ctr=9
+[A*]  @17570000  -> NB_CHECK_CLOSED_SCAN  nb=(13,7)  scan=0  closed_ctr=9
+[A*]  @17690000  -> CHECK_OPEN  open_counter=5
+[A*]  @18250000  -> NB_CHECK_CLOSED_SCAN  nb=(11,7)  scan=0  closed_ctr=10
+[A*]  @18790000  -> NB_CHECK_CLOSED_SCAN  nb=(10,8)  scan=0  closed_ctr=10
+[A*]  @19270000  -> NB_CHECK_CLOSED_SCAN  nb=(12,8)  scan=0  closed_ctr=10
+[A*]  @19410000  -> CHECK_OPEN  open_counter=5
+[A*]  @19970000  -> NB_CHECK_CLOSED_SCAN  nb=(14,3)  scan=0  closed_ctr=11
+[A*]  @20470000  -> NB_CHECK_CLOSED_SCAN  nb=(14,5)  scan=0  closed_ctr=11
+[A*]  @20730000  -> NB_CHECK_CLOSED_SCAN  nb=(13,4)  scan=0  closed_ctr=11
+[A*]  @21230000  -> CHECK_OPEN  open_counter=6
+[A*]  @21850000  -> NB_CHECK_CLOSED_SCAN  nb=(13,4)  scan=0  closed_ctr=12
+[A*]  @22370000  -> NB_CHECK_CLOSED_SCAN  nb=(13,6)  scan=0  closed_ctr=12
+[A*]  @22650000  -> NB_CHECK_CLOSED_SCAN  nb=(12,5)  scan=0  closed_ctr=12
+[A*]  @23190000  -> NB_CHECK_CLOSED_SCAN  nb=(14,5)  scan=0  closed_ctr=12
+[A*]  @23350000  -> CHECK_OPEN  open_counter=6
+[A*]  @23970000  -> NB_CHECK_CLOSED_SCAN  nb=(12,5)  scan=0  closed_ctr=13
+[A*]  @24510000  -> NB_CHECK_CLOSED_SCAN  nb=(12,7)  scan=0  closed_ctr=13
+[A*]  @24810000  -> NB_CHECK_CLOSED_SCAN  nb=(11,6)  scan=0  closed_ctr=13
+[A*]  @25370000  -> NB_CHECK_CLOSED_SCAN  nb=(13,6)  scan=0  closed_ctr=13
+[A*]  @25550000  -> CHECK_OPEN  open_counter=6
+[A*]  @26170000  -> NB_CHECK_CLOSED_SCAN  nb=(11,6)  scan=0  closed_ctr=14
+[A*]  @26730000  -> NB_CHECK_CLOSED_SCAN  nb=(11,8)  scan=0  closed_ctr=14
+[A*]  @27050000  -> NB_CHECK_CLOSED_SCAN  nb=(10,7)  scan=0  closed_ctr=14
+[A*]  @27630000  -> NB_CHECK_CLOSED_SCAN  nb=(12,7)  scan=0  closed_ctr=14
+[A*]  @27830000  -> CHECK_OPEN  open_counter=6
+[A*]  @28450000  -> NB_CHECK_CLOSED_SCAN  nb=(10,7)  scan=0  closed_ctr=15
+[A*]  @29110000  -> NB_CHECK_CLOSED_SCAN  nb=(9,8)  scan=0  closed_ctr=15
+[A*]  @29710000  -> NB_CHECK_CLOSED_SCAN  nb=(11,8)  scan=0  closed_ctr=15
+[A*]  @29930000  -> CHECK_OPEN  open_counter=6
+[A*]  @30550000  -> NB_CHECK_CLOSED_SCAN  nb=(14,2)  scan=0  closed_ctr=16
+[A*]  @31170000  -> NB_CHECK_CLOSED_SCAN  nb=(14,4)  scan=0  closed_ctr=16
+[A*]  @31510000  -> NB_CHECK_CLOSED_SCAN  nb=(13,3)  scan=0  closed_ctr=16
+[A*]  @32130000  -> CHECK_OPEN  open_counter=7
+[A*]  @32810000  -> NB_CHECK_CLOSED_SCAN  nb=(13,3)  scan=0  closed_ctr=17
+[A*]  @33450000  -> NB_CHECK_CLOSED_SCAN  nb=(13,5)  scan=0  closed_ctr=17
+[A*]  @33810000  -> NB_CHECK_CLOSED_SCAN  nb=(12,4)  scan=0  closed_ctr=17
+[A*]  @34470000  -> NB_CHECK_CLOSED_SCAN  nb=(14,4)  scan=0  closed_ctr=17
+[A*]  @34710000  -> CHECK_OPEN  open_counter=7
+[A*]  @35390000  -> NB_CHECK_CLOSED_SCAN  nb=(12,4)  scan=0  closed_ctr=18
+[A*]  @36050000  -> NB_CHECK_CLOSED_SCAN  nb=(12,6)  scan=0  closed_ctr=18
+[A*]  @36430000  -> NB_CHECK_CLOSED_SCAN  nb=(11,5)  scan=0  closed_ctr=18
+[A*]  @37110000  -> NB_CHECK_CLOSED_SCAN  nb=(13,5)  scan=0  closed_ctr=18
+[A*]  @37370000  -> CHECK_OPEN  open_counter=7
+[A*]  @38050000  -> NB_CHECK_CLOSED_SCAN  nb=(11,5)  scan=0  closed_ctr=19
+[A*]  @38730000  -> NB_CHECK_CLOSED_SCAN  nb=(11,7)  scan=0  closed_ctr=19
+[A*]  @39130000  -> NB_CHECK_CLOSED_SCAN  nb=(10,6)  scan=0  closed_ctr=19
+[A*]  @39830000  -> NB_CHECK_CLOSED_SCAN  nb=(12,6)  scan=0  closed_ctr=19
+[A*]  @40110000  -> CHECK_OPEN  open_counter=7
+[A*]  @40790000  -> NB_CHECK_CLOSED_SCAN  nb=(10,6)  scan=0  closed_ctr=20
+[A*]  @41490000  -> NB_CHECK_CLOSED_SCAN  nb=(10,8)  scan=0  closed_ctr=20
+[A*]  @41910000  -> NB_CHECK_CLOSED_SCAN  nb=(9,7)  scan=0  closed_ctr=20
+[A*]  @42630000  -> NB_CHECK_CLOSED_SCAN  nb=(11,7)  scan=0  closed_ctr=20
+[A*]  @42930000  -> CHECK_OPEN  open_counter=7
+[A*]  @43610000  -> NB_CHECK_CLOSED_SCAN  nb=(9,7)  scan=0  closed_ctr=21
+[A*]  @44410000  -> NB_CHECK_CLOSED_SCAN  nb=(8,8)  scan=0  closed_ctr=21
+[A*]  @45150000  -> NB_CHECK_CLOSED_SCAN  nb=(10,8)  scan=0  closed_ctr=21
+[A*]  @45470000  -> CHECK_OPEN  open_counter=7
+[A*]  @46150000  -> NB_CHECK_CLOSED_SCAN  nb=(14,1)  scan=0  closed_ctr=22
+[A*]  @46910000  -> NB_CHECK_CLOSED_SCAN  nb=(14,3)  scan=0  closed_ctr=22
+[A*]  @47350000  -> NB_CHECK_CLOSED_SCAN  nb=(13,2)  scan=0  closed_ctr=22
+[A*]  @48110000  -> CHECK_OPEN  open_counter=8
+[A*]  @48850000  -> NB_CHECK_CLOSED_SCAN  nb=(13,2)  scan=0  closed_ctr=23
+[A*]  @49630000  -> NB_CHECK_CLOSED_SCAN  nb=(13,4)  scan=0  closed_ctr=23
+[A*]  @50090000  -> NB_CHECK_CLOSED_SCAN  nb=(12,3)  scan=0  closed_ctr=23
+[A*]  @50890000  -> NB_CHECK_CLOSED_SCAN  nb=(14,3)  scan=0  closed_ctr=23
+[A*]  @51230000  -> CHECK_OPEN  open_counter=8
+[A*]  @51970000  -> NB_CHECK_CLOSED_SCAN  nb=(12,3)  scan=0  closed_ctr=24
+[A*]  @52770000  -> NB_CHECK_CLOSED_SCAN  nb=(12,5)  scan=0  closed_ctr=24
+[A*]  @53250000  -> NB_CHECK_CLOSED_SCAN  nb=(11,4)  scan=0  closed_ctr=24
+[A*]  @54070000  -> NB_CHECK_CLOSED_SCAN  nb=(13,4)  scan=0  closed_ctr=24
+[A*]  @54430000  -> CHECK_OPEN  open_counter=8
+[A*]  @55170000  -> NB_CHECK_CLOSED_SCAN  nb=(11,4)  scan=0  closed_ctr=25
+[A*]  @55990000  -> NB_CHECK_CLOSED_SCAN  nb=(11,6)  scan=0  closed_ctr=25
+[A*]  @56490000  -> NB_CHECK_CLOSED_SCAN  nb=(10,5)  scan=0  closed_ctr=25
+[A*]  @57330000  -> NB_CHECK_CLOSED_SCAN  nb=(12,5)  scan=0  closed_ctr=25
+[A*]  @57710000  -> CHECK_OPEN  open_counter=8
+[A*]  @58450000  -> NB_CHECK_CLOSED_SCAN  nb=(10,5)  scan=0  closed_ctr=26
+[A*]  @59290000  -> NB_CHECK_CLOSED_SCAN  nb=(10,7)  scan=0  closed_ctr=26
+[A*]  @59810000  -> NB_CHECK_CLOSED_SCAN  nb=(9,6)  scan=0  closed_ctr=26
+[A*]  @60670000  -> NB_CHECK_CLOSED_SCAN  nb=(11,6)  scan=0  closed_ctr=26
+[A*]  @61070000  -> CHECK_OPEN  open_counter=8
+[A*]  @61810000  -> NB_CHECK_CLOSED_SCAN  nb=(9,6)  scan=0  closed_ctr=27
+[A*]  @62670000  -> NB_CHECK_CLOSED_SCAN  nb=(9,8)  scan=0  closed_ctr=27
+[A*]  @63210000  -> NB_CHECK_CLOSED_SCAN  nb=(8,7)  scan=0  closed_ctr=27
+[A*]  @64090000  -> NB_CHECK_CLOSED_SCAN  nb=(10,7)  scan=0  closed_ctr=27
+[A*]  @64510000  -> CHECK_OPEN  open_counter=8
+[A*]  @65250000  -> NB_CHECK_CLOSED_SCAN  nb=(8,7)  scan=0  closed_ctr=28
+[A*]  @66210000  -> NB_CHECK_CLOSED_SCAN  nb=(7,8)  scan=0  closed_ctr=28
+[A*]  @67110000  -> NB_CHECK_CLOSED_SCAN  nb=(9,8)  scan=0  closed_ctr=28
+[A*]  @67550000  -> CHECK_OPEN  open_counter=8
+[A*]  @68290000  -> NB_CHECK_CLOSED_SCAN  nb=(14,0)  scan=0  closed_ctr=29
+[A*]  @69210000  -> NB_CHECK_CLOSED_SCAN  nb=(14,2)  scan=0  closed_ctr=29
+[A*]  @69770000  -> NB_CHECK_CLOSED_SCAN  nb=(13,1)  scan=0  closed_ctr=29
+[A*]  @70690000  -> CHECK_OPEN  open_counter=9
+[A*]  @71490000  -> NB_CHECK_CLOSED_SCAN  nb=(13,1)  scan=0  closed_ctr=30
+[A*]  @72430000  -> NB_CHECK_CLOSED_SCAN  nb=(13,3)  scan=0  closed_ctr=30
+[A*]  @73010000  -> NB_CHECK_CLOSED_SCAN  nb=(12,2)  scan=0  closed_ctr=30
+[A*]  @73970000  -> NB_CHECK_CLOSED_SCAN  nb=(14,2)  scan=0  closed_ctr=30
+[A*]  @74430000  -> CHECK_OPEN  open_counter=9
+[A*]  @75230000  -> NB_CHECK_CLOSED_SCAN  nb=(12,2)  scan=0  closed_ctr=31
+[A*]  @76190000  -> NB_CHECK_CLOSED_SCAN  nb=(12,4)  scan=0  closed_ctr=31
+[A*]  @76790000  -> NB_CHECK_CLOSED_SCAN  nb=(11,3)  scan=0  closed_ctr=31
+[A*]  @77770000  -> NB_CHECK_CLOSED_SCAN  nb=(13,3)  scan=0  closed_ctr=31
+[A*]  @78250000  -> CHECK_OPEN  open_counter=9
+[A*]  @79050000  -> NB_CHECK_CLOSED_SCAN  nb=(11,3)  scan=0  closed_ctr=32
+[A*]  @80030000  -> NB_CHECK_CLOSED_SCAN  nb=(11,5)  scan=0  closed_ctr=32
+[A*]  @80650000  -> NB_CHECK_CLOSED_SCAN  nb=(10,4)  scan=0  closed_ctr=32
+[A*]  @81650000  -> NB_CHECK_CLOSED_SCAN  nb=(12,4)  scan=0  closed_ctr=32
+[A*]  @82150000  -> CHECK_OPEN  open_counter=9
+[A*]  @82950000  -> NB_CHECK_CLOSED_SCAN  nb=(10,4)  scan=0  closed_ctr=33
+[A*]  @83950000  -> NB_CHECK_CLOSED_SCAN  nb=(10,6)  scan=0  closed_ctr=33
+[A*]  @84590000  -> NB_CHECK_CLOSED_SCAN  nb=(9,5)  scan=0  closed_ctr=33
+[A*]  @85610000  -> NB_CHECK_CLOSED_SCAN  nb=(11,5)  scan=0  closed_ctr=33
+[A*]  @86130000  -> CHECK_OPEN  open_counter=9
+[A*]  @86930000  -> NB_CHECK_CLOSED_SCAN  nb=(9,5)  scan=0  closed_ctr=34
+[A*]  @87950000  -> NB_CHECK_CLOSED_SCAN  nb=(9,7)  scan=0  closed_ctr=34
+[A*]  @88610000  -> NB_CHECK_CLOSED_SCAN  nb=(8,6)  scan=0  closed_ctr=34
+[A*]  @89650000  -> NB_CHECK_CLOSED_SCAN  nb=(10,6)  scan=0  closed_ctr=34
+[A*]  @90190000  -> CHECK_OPEN  open_counter=9
+[A*]  @90990000  -> NB_CHECK_CLOSED_SCAN  nb=(8,6)  scan=0  closed_ctr=35
+[A*]  @92030000  -> NB_CHECK_CLOSED_SCAN  nb=(8,8)  scan=0  closed_ctr=35
+[A*]  @92710000  -> NB_CHECK_CLOSED_SCAN  nb=(7,7)  scan=0  closed_ctr=35
+[A*]  @93770000  -> NB_CHECK_CLOSED_SCAN  nb=(9,7)  scan=0  closed_ctr=35
+[A*]  @94330000  -> CHECK_OPEN  open_counter=9
+[A*]  @95130000  -> NB_CHECK_CLOSED_SCAN  nb=(7,7)  scan=0  closed_ctr=36
+[A*]  @96270000  -> NB_CHECK_CLOSED_SCAN  nb=(6,8)  scan=0  closed_ctr=36
+[A*]  @97350000  -> NB_CHECK_CLOSED_SCAN  nb=(8,8)  scan=0  closed_ctr=36
+[A*]  @97930000  -> CHECK_OPEN  open_counter=9
+[A*]  @98810000  -> NB_CHECK_CLOSED_SCAN  nb=(14,1)  scan=0  closed_ctr=37
+[A*]  @99510000  -> NB_CHECK_CLOSED_SCAN  nb=(13,0)  scan=0  closed_ctr=37
+[A*]  @100590000  -> CHECK_OPEN  open_counter=9
+[A*]  @101390000  -> NB_CHECK_CLOSED_SCAN  nb=(13,0)  scan=0  closed_ctr=38
+[A*]  @102490000  -> NB_CHECK_CLOSED_SCAN  nb=(13,2)  scan=0  closed_ctr=38
+[A*]  @103210000  -> NB_CHECK_CLOSED_SCAN  nb=(12,1)  scan=0  closed_ctr=38
+[A*]  @104330000  -> NB_CHECK_CLOSED_SCAN  nb=(14,1)  scan=0  closed_ctr=38
+[A*]  @104930000  -> CHECK_OPEN  open_counter=9
+[A*]  @105730000  -> NB_CHECK_CLOSED_SCAN  nb=(12,1)  scan=0  closed_ctr=39
+[A*]  @106850000  -> NB_CHECK_CLOSED_SCAN  nb=(12,3)  scan=0  closed_ctr=39
+[A*]  @107590000  -> NB_CHECK_CLOSED_SCAN  nb=(11,2)  scan=0  closed_ctr=39
+[A*]  @108730000  -> NB_CHECK_CLOSED_SCAN  nb=(13,2)  scan=0  closed_ctr=39
+[A*]  @109350000  -> CHECK_OPEN  open_counter=9
+[A*]  @110150000  -> NB_CHECK_CLOSED_SCAN  nb=(11,2)  scan=0  closed_ctr=40
+[A*]  @111290000  -> NB_CHECK_CLOSED_SCAN  nb=(11,4)  scan=0  closed_ctr=40
+[A*]  @112050000  -> NB_CHECK_CLOSED_SCAN  nb=(10,3)  scan=0  closed_ctr=40
+[A*]  @113210000  -> NB_CHECK_CLOSED_SCAN  nb=(12,3)  scan=0  closed_ctr=40
+[A*]  @113850000  -> CHECK_OPEN  open_counter=9
+[A*]  @114650000  -> NB_CHECK_CLOSED_SCAN  nb=(10,3)  scan=0  closed_ctr=41
+[A*]  @115810000  -> NB_CHECK_CLOSED_SCAN  nb=(10,5)  scan=0  closed_ctr=41
+[A*]  @116590000  -> NB_CHECK_CLOSED_SCAN  nb=(9,4)  scan=0  closed_ctr=41
+[A*]  @117770000  -> NB_CHECK_CLOSED_SCAN  nb=(11,4)  scan=0  closed_ctr=41
+[A*]  @118430000  -> CHECK_OPEN  open_counter=9
+[A*]  @119230000  -> NB_CHECK_CLOSED_SCAN  nb=(9,4)  scan=0  closed_ctr=42
+[A*]  @120410000  -> NB_CHECK_CLOSED_SCAN  nb=(9,6)  scan=0  closed_ctr=42
+[A*]  @121210000  -> NB_CHECK_CLOSED_SCAN  nb=(8,5)  scan=0  closed_ctr=42
+[A*]  @122410000  -> NB_CHECK_CLOSED_SCAN  nb=(10,5)  scan=0  closed_ctr=42
+[A*]  @123090000  -> CHECK_OPEN  open_counter=9
+[A*]  @123890000  -> NB_CHECK_CLOSED_SCAN  nb=(8,5)  scan=0  closed_ctr=43
+[A*]  @125090000  -> NB_CHECK_CLOSED_SCAN  nb=(8,7)  scan=0  closed_ctr=43
+[A*]  @125910000  -> NB_CHECK_CLOSED_SCAN  nb=(7,6)  scan=0  closed_ctr=43
+[A*]  @127130000  -> NB_CHECK_CLOSED_SCAN  nb=(9,6)  scan=0  closed_ctr=43
+[A*]  @127830000  -> CHECK_OPEN  open_counter=9
+[A*]  @128630000  -> NB_CHECK_CLOSED_SCAN  nb=(7,6)  scan=0  closed_ctr=44
+[A*]  @129850000  -> NB_CHECK_CLOSED_SCAN  nb=(7,8)  scan=0  closed_ctr=44
+[A*]  @130690000  -> NB_CHECK_CLOSED_SCAN  nb=(6,7)  scan=0  closed_ctr=44
+[A*]  @131930000  -> NB_CHECK_CLOSED_SCAN  nb=(8,7)  scan=0  closed_ctr=44
+[A*]  @132650000  -> CHECK_OPEN  open_counter=9
+[A*]  @133450000  -> NB_CHECK_CLOSED_SCAN  nb=(6,7)  scan=0  closed_ctr=45
+[A*]  @134770000  -> NB_CHECK_CLOSED_SCAN  nb=(5,8)  scan=0  closed_ctr=45
+[A*]  @136030000  -> NB_CHECK_CLOSED_SCAN  nb=(7,8)  scan=0  closed_ctr=45
+[A*]  @136770000  -> CHECK_OPEN  open_counter=9
+[A*]  @137650000  -> NB_CHECK_CLOSED_SCAN  nb=(13,1)  scan=0  closed_ctr=46
+[A*]  @138530000  -> NB_CHECK_CLOSED_SCAN  nb=(12,0)  scan=0  closed_ctr=46
+[A*]  @139810000  -> NB_CHECK_CLOSED_SCAN  nb=(14,0)  scan=0  closed_ctr=46
+[A*]  @140570000  -> CHECK_OPEN  open_counter=9
+[A*]  @141370000  -> NB_CHECK_CLOSED_SCAN  nb=(12,0)  scan=0  closed_ctr=47
+[A*]  @142650000  -> NB_CHECK_CLOSED_SCAN  nb=(12,2)  scan=0  closed_ctr=47
+[A*]  @143550000  -> NB_CHECK_CLOSED_SCAN  nb=(11,1)  scan=0  closed_ctr=47
+[A*]  @144850000  -> NB_CHECK_CLOSED_SCAN  nb=(13,1)  scan=0  closed_ctr=47
+[A*]  @145630000  -> CHECK_OPEN  open_counter=9
+[A*]  @146430000  -> NB_CHECK_CLOSED_SCAN  nb=(11,1)  scan=0  closed_ctr=48
+[A*]  @147730000  -> NB_CHECK_CLOSED_SCAN  nb=(11,3)  scan=0  closed_ctr=48
+[A*]  @148650000  -> NB_CHECK_CLOSED_SCAN  nb=(10,2)  scan=0  closed_ctr=48
+[A*]  @149970000  -> NB_CHECK_CLOSED_SCAN  nb=(12,2)  scan=0  closed_ctr=48
+[A*]  @150770000  -> CHECK_OPEN  open_counter=9
+[A*]  @151570000  -> NB_CHECK_CLOSED_SCAN  nb=(10,2)  scan=0  closed_ctr=49
+[A*]  @152890000  -> NB_CHECK_CLOSED_SCAN  nb=(10,4)  scan=0  closed_ctr=49
+[A*]  @153830000  -> NB_CHECK_CLOSED_SCAN  nb=(9,3)  scan=0  closed_ctr=49
+[A*]  @155170000  -> NB_CHECK_CLOSED_SCAN  nb=(11,3)  scan=0  closed_ctr=49
+[A*]  @155990000  -> CHECK_OPEN  open_counter=9
+[A*]  @156790000  -> NB_CHECK_CLOSED_SCAN  nb=(9,3)  scan=0  closed_ctr=50
+[A*]  @158130000  -> NB_CHECK_CLOSED_SCAN  nb=(9,5)  scan=0  closed_ctr=50
+[A*]  @159090000  -> NB_CHECK_CLOSED_SCAN  nb=(8,4)  scan=0  closed_ctr=50
+[A*]  @160450000  -> NB_CHECK_CLOSED_SCAN  nb=(10,4)  scan=0  closed_ctr=50
+[A*]  @161290000  -> CHECK_OPEN  open_counter=9
+[A*]  @162090000  -> NB_CHECK_CLOSED_SCAN  nb=(8,4)  scan=0  closed_ctr=51
+[A*]  @163450000  -> NB_CHECK_CLOSED_SCAN  nb=(8,6)  scan=0  closed_ctr=51
+[A*]  @164430000  -> NB_CHECK_CLOSED_SCAN  nb=(7,5)  scan=0  closed_ctr=51
+[A*]  @165810000  -> NB_CHECK_CLOSED_SCAN  nb=(9,5)  scan=0  closed_ctr=51
+[A*]  @166670000  -> CHECK_OPEN  open_counter=9
+[A*]  @167470000  -> NB_CHECK_CLOSED_SCAN  nb=(7,5)  scan=0  closed_ctr=52
+[A*]  @168850000  -> NB_CHECK_CLOSED_SCAN  nb=(7,7)  scan=0  closed_ctr=52
+[A*]  @169850000  -> NB_CHECK_CLOSED_SCAN  nb=(6,6)  scan=0  closed_ctr=52
+[A*]  @171250000  -> NB_CHECK_CLOSED_SCAN  nb=(8,6)  scan=0  closed_ctr=52
+[A*]  @172130000  -> CHECK_OPEN  open_counter=9
+[A*]  @172930000  -> NB_CHECK_CLOSED_SCAN  nb=(6,6)  scan=0  closed_ctr=53
+[A*]  @174330000  -> NB_CHECK_CLOSED_SCAN  nb=(6,8)  scan=0  closed_ctr=53
+[A*]  @175350000  -> NB_CHECK_CLOSED_SCAN  nb=(5,7)  scan=0  closed_ctr=53
+[A*]  @176770000  -> NB_CHECK_CLOSED_SCAN  nb=(7,7)  scan=0  closed_ctr=53
+[A*]  @177670000  -> CHECK_OPEN  open_counter=9
+[A*]  @178470000  -> NB_CHECK_CLOSED_SCAN  nb=(5,7)  scan=0  closed_ctr=54
+[A*]  @179970000  -> NB_CHECK_CLOSED_SCAN  nb=(4,8)  scan=0  closed_ctr=54
+[A*]  @181410000  -> NB_CHECK_CLOSED_SCAN  nb=(6,8)  scan=0  closed_ctr=54
+[A*]  @182330000  -> CHECK_OPEN  open_counter=9
+[A*]  @183210000  -> NB_CHECK_CLOSED_SCAN  nb=(12,1)  scan=0  closed_ctr=55
+[A*]  @184270000  -> NB_CHECK_CLOSED_SCAN  nb=(11,0)  scan=0  closed_ctr=55
+[A*]  @185730000  -> NB_CHECK_CLOSED_SCAN  nb=(13,0)  scan=0  closed_ctr=55
+[A*]  @186670000  -> CHECK_OPEN  open_counter=9
+[A*]  @187470000  -> NB_CHECK_CLOSED_SCAN  nb=(11,0)  scan=0  closed_ctr=56
+[A*]  @188930000  -> NB_CHECK_CLOSED_SCAN  nb=(11,2)  scan=0  closed_ctr=56
+[A*]  @190010000  -> NB_CHECK_CLOSED_SCAN  nb=(10,1)  scan=0  closed_ctr=56
+[A*]  @191490000  -> NB_CHECK_CLOSED_SCAN  nb=(12,1)  scan=0  closed_ctr=56
+[A*]  @192450000  -> CHECK_OPEN  open_counter=9
+[A*]  @193250000  -> NB_CHECK_CLOSED_SCAN  nb=(10,1)  scan=0  closed_ctr=57
+[A*]  @194730000  -> NB_CHECK_CLOSED_SCAN  nb=(10,3)  scan=0  closed_ctr=57
+[A*]  @195830000  -> NB_CHECK_CLOSED_SCAN  nb=(9,2)  scan=0  closed_ctr=57
+[A*]  @197330000  -> NB_CHECK_CLOSED_SCAN  nb=(11,2)  scan=0  closed_ctr=57
+[A*]  @198310000  -> CHECK_OPEN  open_counter=9
+[A*]  @199110000  -> NB_CHECK_CLOSED_SCAN  nb=(9,2)  scan=0  closed_ctr=58
+[A*]  @200610000  -> NB_CHECK_CLOSED_SCAN  nb=(9,4)  scan=0  closed_ctr=58
+[A*]  @201730000  -> NB_CHECK_CLOSED_SCAN  nb=(8,3)  scan=0  closed_ctr=58
+[A*]  @203250000  -> NB_CHECK_CLOSED_SCAN  nb=(10,3)  scan=0  closed_ctr=58
+[A*]  @204250000  -> CHECK_OPEN  open_counter=9
+[A*]  @205050000  -> NB_CHECK_CLOSED_SCAN  nb=(8,3)  scan=0  closed_ctr=59
+[A*]  @206570000  -> NB_CHECK_CLOSED_SCAN  nb=(8,5)  scan=0  closed_ctr=59
+[A*]  @207710000  -> NB_CHECK_CLOSED_SCAN  nb=(7,4)  scan=0  closed_ctr=59
+[A*]  @209250000  -> NB_CHECK_CLOSED_SCAN  nb=(9,4)  scan=0  closed_ctr=59
+[A*]  @210270000  -> CHECK_OPEN  open_counter=9
+[A*]  @211070000  -> NB_CHECK_CLOSED_SCAN  nb=(7,4)  scan=0  closed_ctr=60
+[A*]  @212610000  -> NB_CHECK_CLOSED_SCAN  nb=(7,6)  scan=0  closed_ctr=60
+[A*]  @213770000  -> NB_CHECK_CLOSED_SCAN  nb=(6,5)  scan=0  closed_ctr=60
+[A*]  @215330000  -> NB_CHECK_CLOSED_SCAN  nb=(8,5)  scan=0  closed_ctr=60
+[A*]  @216370000  -> CHECK_OPEN  open_counter=9
+[A*]  @217170000  -> NB_CHECK_CLOSED_SCAN  nb=(6,5)  scan=0  closed_ctr=61
+[A*]  @218730000  -> NB_CHECK_CLOSED_SCAN  nb=(6,7)  scan=0  closed_ctr=61
+[A*]  @219910000  -> NB_CHECK_CLOSED_SCAN  nb=(5,6)  scan=0  closed_ctr=61
+[A*]  @221490000  -> NB_CHECK_CLOSED_SCAN  nb=(7,6)  scan=0  closed_ctr=61
+[A*]  @222550000  -> CHECK_OPEN  open_counter=9
+[A*]  @223350000  -> NB_CHECK_CLOSED_SCAN  nb=(5,6)  scan=0  closed_ctr=62
+[A*]  @224930000  -> NB_CHECK_CLOSED_SCAN  nb=(5,8)  scan=0  closed_ctr=62
+[A*]  @226130000  -> NB_CHECK_CLOSED_SCAN  nb=(4,7)  scan=0  closed_ctr=62
+[A*]  @227730000  -> NB_CHECK_CLOSED_SCAN  nb=(6,7)  scan=0  closed_ctr=62
+[A*]  @228810000  -> CHECK_OPEN  open_counter=9
+[A*]  @229610000  -> NB_CHECK_CLOSED_SCAN  nb=(4,7)  scan=0  closed_ctr=63
+[A*]  @231290000  -> NB_CHECK_CLOSED_SCAN  nb=(3,8)  scan=0  closed_ctr=63
+[A*]  @232910000  -> NB_CHECK_CLOSED_SCAN  nb=(5,8)  scan=0  closed_ctr=63
+[A*]  @234010000  -> CHECK_OPEN  open_counter=9
+[A*]  @234890000  -> NB_CHECK_CLOSED_SCAN  nb=(11,1)  scan=0  closed_ctr=64
+[A*]  @236130000  -> NB_CHECK_CLOSED_SCAN  nb=(10,0)  scan=0  closed_ctr=64
+[A*]  @237770000  -> NB_CHECK_CLOSED_SCAN  nb=(12,0)  scan=0  closed_ctr=64
+[A*]  @238890000  -> CHECK_OPEN  open_counter=9
+[A*]  @239690000  -> NB_CHECK_CLOSED_SCAN  nb=(10,0)  scan=0  closed_ctr=65
+[A*]  @241330000  -> NB_CHECK_CLOSED_SCAN  nb=(10,2)  scan=0  closed_ctr=65
+[A*]  @242590000  -> NB_CHECK_CLOSED_SCAN  nb=(9,1)  scan=0  closed_ctr=65
+[A*]  @244250000  -> NB_CHECK_CLOSED_SCAN  nb=(11,1)  scan=0  closed_ctr=65
+[A*]  @245390000  -> CHECK_OPEN  open_counter=9
+[A*]  @246190000  -> NB_CHECK_CLOSED_SCAN  nb=(9,1)  scan=0  closed_ctr=66
+[A*]  @247850000  -> NB_CHECK_CLOSED_SCAN  nb=(9,3)  scan=0  closed_ctr=66
+[A*]  @249130000  -> NB_CHECK_CLOSED_SCAN  nb=(8,2)  scan=0  closed_ctr=66
+[A*]  @250810000  -> NB_CHECK_CLOSED_SCAN  nb=(10,2)  scan=0  closed_ctr=66
+[A*]  @251970000  -> CHECK_OPEN  open_counter=9
+[A*]  @252770000  -> NB_CHECK_CLOSED_SCAN  nb=(8,2)  scan=0  closed_ctr=67
+[A*]  @254450000  -> NB_CHECK_CLOSED_SCAN  nb=(8,4)  scan=0  closed_ctr=67
+[A*]  @255750000  -> NB_CHECK_CLOSED_SCAN  nb=(7,3)  scan=0  closed_ctr=67
+[A*]  @257450000  -> NB_CHECK_CLOSED_SCAN  nb=(9,3)  scan=0  closed_ctr=67
+[A*]  @258630000  -> CHECK_OPEN  open_counter=9
+[A*]  @259430000  -> NB_CHECK_CLOSED_SCAN  nb=(7,3)  scan=0  closed_ctr=68
+[A*]  @261130000  -> NB_CHECK_CLOSED_SCAN  nb=(7,5)  scan=0  closed_ctr=68
+[A*]  @262450000  -> NB_CHECK_CLOSED_SCAN  nb=(6,4)  scan=0  closed_ctr=68
+[A*]  @264170000  -> NB_CHECK_CLOSED_SCAN  nb=(8,4)  scan=0  closed_ctr=68
+[A*]  @265370000  -> CHECK_OPEN  open_counter=9
+[A*]  @266170000  -> NB_CHECK_CLOSED_SCAN  nb=(6,4)  scan=0  closed_ctr=69
+[A*]  @267890000  -> NB_CHECK_CLOSED_SCAN  nb=(6,6)  scan=0  closed_ctr=69
+[A*]  @269230000  -> NB_CHECK_CLOSED_SCAN  nb=(5,5)  scan=0  closed_ctr=69
+[A*]  @270970000  -> NB_CHECK_CLOSED_SCAN  nb=(7,5)  scan=0  closed_ctr=69
+[A*]  @272190000  -> CHECK_OPEN  open_counter=9
+[A*]  @272990000  -> NB_CHECK_CLOSED_SCAN  nb=(5,5)  scan=0  closed_ctr=70
+[A*]  @274730000  -> NB_CHECK_CLOSED_SCAN  nb=(5,7)  scan=0  closed_ctr=70
+[A*]  @276090000  -> NB_CHECK_CLOSED_SCAN  nb=(4,6)  scan=0  closed_ctr=70
+[A*]  @277850000  -> NB_CHECK_CLOSED_SCAN  nb=(6,6)  scan=0  closed_ctr=70
+[A*]  @279090000  -> CHECK_OPEN  open_counter=9
+[A*]  @279890000  -> NB_CHECK_CLOSED_SCAN  nb=(4,6)  scan=0  closed_ctr=71
+[A*]  @281650000  -> NB_CHECK_CLOSED_SCAN  nb=(4,8)  scan=0  closed_ctr=71
+[A*]  @283110000  -> NB_CHECK_CLOSED_SCAN  nb=(5,7)  scan=0  closed_ctr=71
+[A*]  @284370000  -> CHECK_OPEN  open_counter=8
+[A*]  @285270000  -> NB_CHECK_CLOSED_SCAN  nb=(2,8)  scan=0  closed_ctr=72
+[A*]  @287050000  -> NB_CHECK_CLOSED_SCAN  nb=(4,8)  scan=0  closed_ctr=72
+[A*]  @288330000  -> CHECK_OPEN  open_counter=8
+[A*]  @289150000  -> NB_CHECK_CLOSED_SCAN  nb=(10,1)  scan=0  closed_ctr=73
+[A*]  @290570000  -> NB_CHECK_CLOSED_SCAN  nb=(9,0)  scan=0  closed_ctr=73
+[A*]  @292370000  -> NB_CHECK_CLOSED_SCAN  nb=(11,0)  scan=0  closed_ctr=73
+[A*]  @293670000  -> CHECK_OPEN  open_counter=8
+[A*]  @294410000  -> NB_CHECK_CLOSED_SCAN  nb=(9,0)  scan=0  closed_ctr=74
+[A*]  @296210000  -> NB_CHECK_CLOSED_SCAN  nb=(9,2)  scan=0  closed_ctr=74
+[A*]  @297650000  -> NB_CHECK_CLOSED_SCAN  nb=(8,1)  scan=0  closed_ctr=74
+[A*]  @299470000  -> NB_CHECK_CLOSED_SCAN  nb=(10,1)  scan=0  closed_ctr=74
+[A*]  @300790000  -> CHECK_OPEN  open_counter=8
+[A*]  @301530000  -> NB_CHECK_CLOSED_SCAN  nb=(8,1)  scan=0  closed_ctr=75
+[A*]  @303350000  -> NB_CHECK_CLOSED_SCAN  nb=(8,3)  scan=0  closed_ctr=75
+[A*]  @304810000  -> NB_CHECK_CLOSED_SCAN  nb=(7,2)  scan=0  closed_ctr=75
+[A*]  @306650000  -> NB_CHECK_CLOSED_SCAN  nb=(9,2)  scan=0  closed_ctr=75
+[A*]  @307990000  -> CHECK_OPEN  open_counter=8
+[A*]  @308730000  -> NB_CHECK_CLOSED_SCAN  nb=(7,2)  scan=0  closed_ctr=76
+[A*]  @310570000  -> NB_CHECK_CLOSED_SCAN  nb=(7,4)  scan=0  closed_ctr=76
+[A*]  @312050000  -> NB_CHECK_CLOSED_SCAN  nb=(6,3)  scan=0  closed_ctr=76
+[A*]  @313910000  -> NB_CHECK_CLOSED_SCAN  nb=(8,3)  scan=0  closed_ctr=76
+[A*]  @315270000  -> CHECK_OPEN  open_counter=8
+[A*]  @316010000  -> NB_CHECK_CLOSED_SCAN  nb=(6,3)  scan=0  closed_ctr=77
+[A*]  @317870000  -> NB_CHECK_CLOSED_SCAN  nb=(6,5)  scan=0  closed_ctr=77
+[A*]  @319370000  -> NB_CHECK_CLOSED_SCAN  nb=(5,4)  scan=0  closed_ctr=77
+[A*]  @321250000  -> NB_CHECK_CLOSED_SCAN  nb=(7,4)  scan=0  closed_ctr=77
+[A*]  @322630000  -> CHECK_OPEN  open_counter=8
+[A*]  @323370000  -> NB_CHECK_CLOSED_SCAN  nb=(5,4)  scan=0  closed_ctr=78
+[A*]  @325250000  -> NB_CHECK_CLOSED_SCAN  nb=(5,6)  scan=0  closed_ctr=78
+[A*]  @326770000  -> NB_CHECK_CLOSED_SCAN  nb=(4,5)  scan=0  closed_ctr=78
+[A*]  @328670000  -> NB_CHECK_CLOSED_SCAN  nb=(6,5)  scan=0  closed_ctr=78
+[A*]  @330070000  -> CHECK_OPEN  open_counter=8
+[A*]  @330810000  -> NB_CHECK_CLOSED_SCAN  nb=(4,5)  scan=0  closed_ctr=79
+[A*]  @332710000  -> NB_CHECK_CLOSED_SCAN  nb=(4,7)  scan=0  closed_ctr=79
+[A*]  @334250000  -> NB_CHECK_CLOSED_SCAN  nb=(3,6)  scan=0  closed_ctr=79
+[A*]  @336170000  -> NB_CHECK_CLOSED_SCAN  nb=(5,6)  scan=0  closed_ctr=79
+[A*]  @337590000  -> CHECK_OPEN  open_counter=8
+[A*]  @338330000  -> NB_CHECK_CLOSED_SCAN  nb=(2,7)  scan=0  closed_ctr=80
+[A*]  @340350000  -> NB_CHECK_CLOSED_SCAN  nb=(1,8)  scan=0  closed_ctr=80
+[A*]  @342310000  -> NB_CHECK_CLOSED_SCAN  nb=(3,8)  scan=0  closed_ctr=80
+[A*]  @343770000  -> CHECK_OPEN  open_counter=9
+[A*]  @344650000  -> NB_CHECK_CLOSED_SCAN  nb=(9,1)  scan=0  closed_ctr=81
+[A*]  @346250000  -> NB_CHECK_CLOSED_SCAN  nb=(8,0)  scan=0  closed_ctr=81
+[A*]  @348230000  -> NB_CHECK_CLOSED_SCAN  nb=(10,0)  scan=0  closed_ctr=81
+[A*]  @349710000  -> CHECK_OPEN  open_counter=9
+[A*]  @350510000  -> NB_CHECK_CLOSED_SCAN  nb=(8,0)  scan=0  closed_ctr=82
+[A*]  @352490000  -> NB_CHECK_CLOSED_SCAN  nb=(8,2)  scan=0  closed_ctr=82
+[A*]  @354110000  -> NB_CHECK_CLOSED_SCAN  nb=(7,1)  scan=0  closed_ctr=82
+[A*]  @356110000  -> NB_CHECK_CLOSED_SCAN  nb=(9,1)  scan=0  closed_ctr=82
+[A*]  @357610000  -> CHECK_OPEN  open_counter=9
+[A*]  @358410000  -> NB_CHECK_CLOSED_SCAN  nb=(7,1)  scan=0  closed_ctr=83
+[A*]  @360410000  -> NB_CHECK_CLOSED_SCAN  nb=(7,3)  scan=0  closed_ctr=83
+[A*]  @362050000  -> NB_CHECK_CLOSED_SCAN  nb=(6,2)  scan=0  closed_ctr=83
+[A*]  @364070000  -> NB_CHECK_CLOSED_SCAN  nb=(8,2)  scan=0  closed_ctr=83
+[A*]  @365590000  -> CHECK_OPEN  open_counter=9
+[A*]  @366390000  -> NB_CHECK_CLOSED_SCAN  nb=(6,2)  scan=0  closed_ctr=84
+[A*]  @368410000  -> NB_CHECK_CLOSED_SCAN  nb=(6,4)  scan=0  closed_ctr=84
+[A*]  @370070000  -> NB_CHECK_CLOSED_SCAN  nb=(5,3)  scan=0  closed_ctr=84
+[A*]  @372110000  -> NB_CHECK_CLOSED_SCAN  nb=(7,3)  scan=0  closed_ctr=84
+[A*]  @373650000  -> CHECK_OPEN  open_counter=9
+[A*]  @374450000  -> NB_CHECK_CLOSED_SCAN  nb=(5,3)  scan=0  closed_ctr=85
+[A*]  @376490000  -> NB_CHECK_CLOSED_SCAN  nb=(5,5)  scan=0  closed_ctr=85
+[A*]  @378170000  -> NB_CHECK_CLOSED_SCAN  nb=(4,4)  scan=0  closed_ctr=85
+[A*]  @380230000  -> NB_CHECK_CLOSED_SCAN  nb=(6,4)  scan=0  closed_ctr=85
+[A*]  @381790000  -> CHECK_OPEN  open_counter=9
+[A*]  @382590000  -> NB_CHECK_CLOSED_SCAN  nb=(4,4)  scan=0  closed_ctr=86
+[A*]  @384650000  -> NB_CHECK_CLOSED_SCAN  nb=(4,6)  scan=0  closed_ctr=86
+[A*]  @386430000  -> NB_CHECK_CLOSED_SCAN  nb=(5,5)  scan=0  closed_ctr=86
+[A*]  @388010000  -> CHECK_OPEN  open_counter=8
+[A*]  @388910000  -> NB_CHECK_CLOSED_SCAN  nb=(2,6)  scan=0  closed_ctr=87
+[A*]  @390990000  -> NB_CHECK_CLOSED_SCAN  nb=(4,6)  scan=0  closed_ctr=87
+[A*]  @392590000  -> CHECK_OPEN  open_counter=8
+[A*]  @393330000  -> NB_CHECK_CLOSED_SCAN  nb=(2,6)  scan=0  closed_ctr=88
+[A*]  @395410000  -> NB_CHECK_CLOSED_SCAN  nb=(2,8)  scan=0  closed_ctr=88
+[A*]  @397130000  -> NB_CHECK_CLOSED_SCAN  nb=(1,7)  scan=0  closed_ctr=88
+[A*]  @399210000  -> CHECK_OPEN  open_counter=8
+[A*]  @399950000  -> NB_CHECK_CLOSED_SCAN  nb=(1,7)  scan=0  closed_ctr=89
+[A*]  @402130000  -> NB_CHECK_CLOSED_SCAN  nb=(0,8)  scan=0  closed_ctr=89
+[A*]  @404250000  -> NB_CHECK_CLOSED_SCAN  nb=(2,8)  scan=0  closed_ctr=89
+[A*]  @405870000  -> CHECK_OPEN  open_counter=8
+[A*]  @406690000  -> NB_CHECK_CLOSED_SCAN  nb=(8,1)  scan=0  closed_ctr=90
+[A*]  @408450000  -> NB_CHECK_CLOSED_SCAN  nb=(7,0)  scan=0  closed_ctr=90
+[A*]  @410590000  -> NB_CHECK_CLOSED_SCAN  nb=(9,0)  scan=0  closed_ctr=90
+[A*]  @412230000  -> CHECK_OPEN  open_counter=8
+[A*]  @412970000  -> NB_CHECK_CLOSED_SCAN  nb=(7,0)  scan=0  closed_ctr=91
+[A*]  @415110000  -> NB_CHECK_CLOSED_SCAN  nb=(7,2)  scan=0  closed_ctr=91
+[A*]  @416890000  -> NB_CHECK_CLOSED_SCAN  nb=(6,1)  scan=0  closed_ctr=91
+[A*]  @419050000  -> NB_CHECK_CLOSED_SCAN  nb=(8,1)  scan=0  closed_ctr=91
+[A*]  @420710000  -> CHECK_OPEN  open_counter=8
+[A*]  @421450000  -> NB_CHECK_CLOSED_SCAN  nb=(6,1)  scan=0  closed_ctr=92
+[A*]  @423610000  -> NB_CHECK_CLOSED_SCAN  nb=(6,3)  scan=0  closed_ctr=92
+[A*]  @425410000  -> NB_CHECK_CLOSED_SCAN  nb=(5,2)  scan=0  closed_ctr=92
+[A*]  @427590000  -> NB_CHECK_CLOSED_SCAN  nb=(7,2)  scan=0  closed_ctr=92
+[A*]  @429270000  -> CHECK_OPEN  open_counter=8
+[A*]  @430010000  -> NB_CHECK_CLOSED_SCAN  nb=(5,2)  scan=0  closed_ctr=93
+[A*]  @432190000  -> NB_CHECK_CLOSED_SCAN  nb=(5,4)  scan=0  closed_ctr=93
+[A*]  @434010000  -> NB_CHECK_CLOSED_SCAN  nb=(4,3)  scan=0  closed_ctr=93
+[A*]  @436210000  -> NB_CHECK_CLOSED_SCAN  nb=(6,3)  scan=0  closed_ctr=93
+[A*]  @437910000  -> CHECK_OPEN  open_counter=8
+[A*]  @438650000  -> NB_CHECK_CLOSED_SCAN  nb=(4,3)  scan=0  closed_ctr=94
+[A*]  @440850000  -> NB_CHECK_CLOSED_SCAN  nb=(4,5)  scan=0  closed_ctr=94
+[A*]  @442690000  -> NB_CHECK_CLOSED_SCAN  nb=(3,4)  scan=0  closed_ctr=94
+[A*]  @444910000  -> NB_CHECK_CLOSED_SCAN  nb=(5,4)  scan=0  closed_ctr=94
+[A*]  @446630000  -> CHECK_OPEN  open_counter=8
+[A*]  @447370000  -> NB_CHECK_CLOSED_SCAN  nb=(2,5)  scan=0  closed_ctr=95
+[A*]  @449610000  -> NB_CHECK_CLOSED_SCAN  nb=(2,7)  scan=0  closed_ctr=95
+[A*]  @451490000  -> NB_CHECK_CLOSED_SCAN  nb=(1,6)  scan=0  closed_ctr=95
+[A*]  @453750000  -> NB_CHECK_CLOSED_SCAN  nb=(3,6)  scan=0  closed_ctr=95
+[A*]  @455510000  -> CHECK_OPEN  open_counter=9
+[A*]  @456310000  -> NB_CHECK_CLOSED_SCAN  nb=(1,6)  scan=0  closed_ctr=96
+[A*]  @458570000  -> NB_CHECK_CLOSED_SCAN  nb=(1,8)  scan=0  closed_ctr=96
+[A*]  @460470000  -> NB_CHECK_CLOSED_SCAN  nb=(0,7)  scan=0  closed_ctr=96
+[A*]  @462750000  -> NB_CHECK_CLOSED_SCAN  nb=(2,7)  scan=0  closed_ctr=96
+[A*]  @464530000  -> CHECK_OPEN  open_counter=9
+[A*]  @465330000  -> NB_CHECK_CLOSED_SCAN  nb=(0,7)  scan=0  closed_ctr=97
+[A*]  @467770000  -> NB_CHECK_CLOSED_SCAN  nb=(1,8)  scan=0  closed_ctr=97
+[A*]  @469570000  -> CHECK_OPEN  open_counter=8
+[A*]  @470390000  -> NB_CHECK_CLOSED_SCAN  nb=(7,1)  scan=0  closed_ctr=98
+[A*]  @472330000  -> NB_CHECK_CLOSED_SCAN  nb=(6,0)  scan=0  closed_ctr=98
+[A*]  @474630000  -> NB_CHECK_CLOSED_SCAN  nb=(8,0)  scan=0  closed_ctr=98
+[A*]  @476450000  -> CHECK_OPEN  open_counter=8
+[A*]  @477190000  -> NB_CHECK_CLOSED_SCAN  nb=(6,0)  scan=0  closed_ctr=99
+[A*]  @479490000  -> NB_CHECK_CLOSED_SCAN  nb=(6,2)  scan=0  closed_ctr=99
+[A*]  @481450000  -> NB_CHECK_CLOSED_SCAN  nb=(5,1)  scan=0  closed_ctr=99
+[A*]  @483770000  -> NB_CHECK_CLOSED_SCAN  nb=(7,1)  scan=0  closed_ctr=99
+[A*]  @485610000  -> CHECK_OPEN  open_counter=8
+[A*]  @486350000  -> NB_CHECK_CLOSED_SCAN  nb=(5,1)  scan=0  closed_ctr=100
+[A*]  @488670000  -> NB_CHECK_CLOSED_SCAN  nb=(5,3)  scan=0  closed_ctr=100
+[A*]  @490650000  -> NB_CHECK_CLOSED_SCAN  nb=(4,2)  scan=0  closed_ctr=100
+[A*]  @492990000  -> NB_CHECK_CLOSED_SCAN  nb=(6,2)  scan=0  closed_ctr=100
+[A*]  @494850000  -> CHECK_OPEN  open_counter=8
+[A*]  @495590000  -> NB_CHECK_CLOSED_SCAN  nb=(4,2)  scan=0  closed_ctr=101
+[A*]  @497930000  -> NB_CHECK_CLOSED_SCAN  nb=(4,4)  scan=0  closed_ctr=101
+[A*]  @500010000  -> NB_CHECK_CLOSED_SCAN  nb=(5,3)  scan=0  closed_ctr=101
+[A*]  @501890000  -> CHECK_OPEN  open_counter=7
+[A*]  @502730000  -> NB_CHECK_CLOSED_SCAN  nb=(2,4)  scan=0  closed_ctr=102
+[A*]  @505090000  -> NB_CHECK_CLOSED_SCAN  nb=(4,4)  scan=0  closed_ctr=102
+[A*]  @506990000  -> CHECK_OPEN  open_counter=7
+[A*]  @507670000  -> NB_CHECK_CLOSED_SCAN  nb=(2,4)  scan=0  closed_ctr=103
+[A*]  @510030000  -> NB_CHECK_CLOSED_SCAN  nb=(2,6)  scan=0  closed_ctr=103
+[A*]  @512050000  -> NB_CHECK_CLOSED_SCAN  nb=(1,5)  scan=0  closed_ctr=103
+[A*]  @514410000  -> CHECK_OPEN  open_counter=7
+[A*]  @515090000  -> NB_CHECK_CLOSED_SCAN  nb=(1,5)  scan=0  closed_ctr=104
+[A*]  @517470000  -> NB_CHECK_CLOSED_SCAN  nb=(1,7)  scan=0  closed_ctr=104
+[A*]  @519510000  -> NB_CHECK_CLOSED_SCAN  nb=(0,6)  scan=0  closed_ctr=104
+[A*]  @521910000  -> NB_CHECK_CLOSED_SCAN  nb=(2,6)  scan=0  closed_ctr=104
+[A*]  @523830000  -> CHECK_OPEN  open_counter=7
+[A*]  @524510000  -> NB_CHECK_CLOSED_SCAN  nb=(0,6)  scan=0  closed_ctr=105
+[A*]  @526910000  -> NB_CHECK_CLOSED_SCAN  nb=(0,8)  scan=0  closed_ctr=105
+[A*]  @529050000  -> NB_CHECK_CLOSED_SCAN  nb=(1,7)  scan=0  closed_ctr=105
+[A*]  @530990000  -> CHECK_OPEN  open_counter=6
+[A*]  @531690000  -> NB_CHECK_CLOSED_SCAN  nb=(6,1)  scan=0  closed_ctr=106
+[A*]  @533790000  -> NB_CHECK_CLOSED_SCAN  nb=(5,0)  scan=0  closed_ctr=106
+[A*]  @536210000  -> NB_CHECK_CLOSED_SCAN  nb=(7,0)  scan=0  closed_ctr=106
+[A*]  @538190000  -> CHECK_OPEN  open_counter=6
+[A*]  @538810000  -> NB_CHECK_CLOSED_SCAN  nb=(5,0)  scan=0  closed_ctr=107
+[A*]  @541230000  -> NB_CHECK_CLOSED_SCAN  nb=(5,2)  scan=0  closed_ctr=107
+[A*]  @543350000  -> NB_CHECK_CLOSED_SCAN  nb=(4,1)  scan=0  closed_ctr=107
+[A*]  @545790000  -> NB_CHECK_CLOSED_SCAN  nb=(6,1)  scan=0  closed_ctr=107
+[A*]  @547790000  -> CHECK_OPEN  open_counter=6
+[A*]  @548410000  -> NB_CHECK_CLOSED_SCAN  nb=(4,1)  scan=0  closed_ctr=108
+[A*]  @550850000  -> NB_CHECK_CLOSED_SCAN  nb=(4,3)  scan=0  closed_ctr=108
+[A*]  @552990000  -> NB_CHECK_CLOSED_SCAN  nb=(3,2)  scan=0  closed_ctr=108
+[A*]  @555450000  -> NB_CHECK_CLOSED_SCAN  nb=(5,2)  scan=0  closed_ctr=108
+[A*]  @557470000  -> CHECK_OPEN  open_counter=6
+[A*]  @558090000  -> NB_CHECK_CLOSED_SCAN  nb=(2,3)  scan=0  closed_ctr=109
+[A*]  @560570000  -> NB_CHECK_CLOSED_SCAN  nb=(2,5)  scan=0  closed_ctr=109
+[A*]  @562750000  -> NB_CHECK_CLOSED_SCAN  nb=(1,4)  scan=0  closed_ctr=109
+[A*]  @565250000  -> NB_CHECK_CLOSED_SCAN  nb=(3,4)  scan=0  closed_ctr=109
+[A*]  @567310000  -> CHECK_OPEN  open_counter=7
+[A*]  @567990000  -> NB_CHECK_CLOSED_SCAN  nb=(1,4)  scan=0  closed_ctr=110
+[A*]  @570490000  -> NB_CHECK_CLOSED_SCAN  nb=(1,6)  scan=0  closed_ctr=110
+[A*]  @572690000  -> NB_CHECK_CLOSED_SCAN  nb=(0,5)  scan=0  closed_ctr=110
+[A*]  @575210000  -> NB_CHECK_CLOSED_SCAN  nb=(2,5)  scan=0  closed_ctr=110
+[A*]  @577290000  -> CHECK_OPEN  open_counter=7
+[A*]  @577970000  -> NB_CHECK_CLOSED_SCAN  nb=(0,5)  scan=0  closed_ctr=111
+[A*]  @580490000  -> NB_CHECK_CLOSED_SCAN  nb=(0,7)  scan=0  closed_ctr=111
+[A*]  @582790000  -> NB_CHECK_CLOSED_SCAN  nb=(1,6)  scan=0  closed_ctr=111
+[A*]  @584890000  -> CHECK_OPEN  open_counter=6
+[A*]  @585590000  -> NB_CHECK_CLOSED_SCAN  nb=(5,1)  scan=0  closed_ctr=112
+[A*]  @587850000  -> NB_CHECK_CLOSED_SCAN  nb=(4,0)  scan=0  closed_ctr=112
+[A*]  @590390000  -> NB_CHECK_CLOSED_SCAN  nb=(6,0)  scan=0  closed_ctr=112
+[A*]  @592530000  -> CHECK_OPEN  open_counter=6
+[A*]  @593150000  -> NB_CHECK_CLOSED_SCAN  nb=(4,0)  scan=0  closed_ctr=113
+[A*]  @595690000  -> NB_CHECK_CLOSED_SCAN  nb=(4,2)  scan=0  closed_ctr=113
+[A*]  @598050000  -> NB_CHECK_CLOSED_SCAN  nb=(5,1)  scan=0  closed_ctr=113
+[A*]  @600210000  -> CHECK_OPEN  open_counter=5
+[A*]  @600930000  -> NB_CHECK_CLOSED_SCAN  nb=(2,2)  scan=0  closed_ctr=114
+[A*]  @603490000  -> NB_CHECK_CLOSED_SCAN  nb=(4,2)  scan=0  closed_ctr=114
+[A*]  @605670000  -> CHECK_OPEN  open_counter=5
+[A*]  @606230000  -> NB_CHECK_CLOSED_SCAN  nb=(2,2)  scan=0  closed_ctr=115
+[A*]  @608790000  -> NB_CHECK_CLOSED_SCAN  nb=(2,4)  scan=0  closed_ctr=115
+[A*]  @611090000  -> NB_CHECK_CLOSED_SCAN  nb=(1,3)  scan=0  closed_ctr=115
+[A*]  @613650000  -> CHECK_OPEN  open_counter=5
+[A*]  @614210000  -> NB_CHECK_CLOSED_SCAN  nb=(1,3)  scan=0  closed_ctr=116
+[A*]  @616790000  -> NB_CHECK_CLOSED_SCAN  nb=(1,5)  scan=0  closed_ctr=116
+[A*]  @619110000  -> NB_CHECK_CLOSED_SCAN  nb=(0,4)  scan=0  closed_ctr=116
+[A*]  @621710000  -> NB_CHECK_CLOSED_SCAN  nb=(2,4)  scan=0  closed_ctr=116
+[A*]  @623910000  -> CHECK_OPEN  open_counter=5
+[A*]  @624470000  -> NB_CHECK_CLOSED_SCAN  nb=(0,4)  scan=0  closed_ctr=117
+[A*]  @627070000  -> NB_CHECK_CLOSED_SCAN  nb=(0,6)  scan=0  closed_ctr=117
+[A*]  @629490000  -> NB_CHECK_CLOSED_SCAN  nb=(1,5)  scan=0  closed_ctr=117
+[A*]  @631710000  -> CHECK_OPEN  open_counter=4
+[A*]  @632290000  -> NB_CHECK_CLOSED_SCAN  nb=(4,1)  scan=0  closed_ctr=118
+[A*]  @634670000  -> NB_CHECK_CLOSED_SCAN  nb=(3,0)  scan=0  closed_ctr=118
+[A*]  @637290000  -> NB_CHECK_CLOSED_SCAN  nb=(5,0)  scan=0  closed_ctr=118
+[A*]  @639550000  -> CHECK_OPEN  open_counter=4
+[A*]  @640050000  -> NB_CHECK_CLOSED_SCAN  nb=(2,1)  scan=0  closed_ctr=119
+[A*]  @642690000  -> NB_CHECK_CLOSED_SCAN  nb=(2,3)  scan=0  closed_ctr=119
+[A*]  @645110000  -> NB_CHECK_CLOSED_SCAN  nb=(1,2)  scan=0  closed_ctr=119
+[A*]  @647770000  -> NB_CHECK_CLOSED_SCAN  nb=(3,2)  scan=0  closed_ctr=119
+[A*]  @650070000  -> CHECK_OPEN  open_counter=5
+[A*]  @650630000  -> NB_CHECK_CLOSED_SCAN  nb=(1,2)  scan=0  closed_ctr=120
+[A*]  @653290000  -> NB_CHECK_CLOSED_SCAN  nb=(1,4)  scan=0  closed_ctr=120
+[A*]  @655730000  -> NB_CHECK_CLOSED_SCAN  nb=(0,3)  scan=0  closed_ctr=120
+[A*]  @658410000  -> NB_CHECK_CLOSED_SCAN  nb=(2,3)  scan=0  closed_ctr=120
+[A*]  @660730000  -> CHECK_OPEN  open_counter=5
+[A*]  @661290000  -> NB_CHECK_CLOSED_SCAN  nb=(0,3)  scan=0  closed_ctr=121
+[A*]  @663970000  -> NB_CHECK_CLOSED_SCAN  nb=(0,5)  scan=0  closed_ctr=121
+[A*]  @666510000  -> NB_CHECK_CLOSED_SCAN  nb=(1,4)  scan=0  closed_ctr=121
+[A*]  @668850000  -> CHECK_OPEN  open_counter=4
+[A*]  @669510000  -> NB_CHECK_CLOSED_SCAN  nb=(2,0)  scan=0  closed_ctr=122
+[A*]  @672210000  -> NB_CHECK_CLOSED_SCAN  nb=(4,0)  scan=0  closed_ctr=122
+[A*]  @674590000  -> CHECK_OPEN  open_counter=4
+[A*]  @675090000  -> NB_CHECK_CLOSED_SCAN  nb=(2,0)  scan=0  closed_ctr=123
+[A*]  @677790000  -> NB_CHECK_CLOSED_SCAN  nb=(2,2)  scan=0  closed_ctr=123
+[A*]  @680290000  -> NB_CHECK_CLOSED_SCAN  nb=(1,1)  scan=0  closed_ctr=123
+[A*]  @682990000  -> CHECK_OPEN  open_counter=4
+[A*]  @683490000  -> NB_CHECK_CLOSED_SCAN  nb=(1,1)  scan=0  closed_ctr=124
+[A*]  @686210000  -> NB_CHECK_CLOSED_SCAN  nb=(1,3)  scan=0  closed_ctr=124
+[A*]  @688730000  -> NB_CHECK_CLOSED_SCAN  nb=(0,2)  scan=0  closed_ctr=124
+[A*]  @691470000  -> NB_CHECK_CLOSED_SCAN  nb=(2,2)  scan=0  closed_ctr=124
+[A*]  @693870000  -> CHECK_OPEN  open_counter=4
+[A*]  @694370000  -> NB_CHECK_CLOSED_SCAN  nb=(0,2)  scan=0  closed_ctr=125
+[A*]  @697110000  -> NB_CHECK_CLOSED_SCAN  nb=(0,4)  scan=0  closed_ctr=125
+[A*]  @699730000  -> NB_CHECK_CLOSED_SCAN  nb=(1,3)  scan=0  closed_ctr=125
+[A*]  @702150000  -> CHECK_OPEN  open_counter=3
+[A*]  @702670000  -> NB_CHECK_CLOSED_SCAN  nb=(2,1)  scan=0  closed_ctr=126
+[A*]  @705250000  -> NB_CHECK_CLOSED_SCAN  nb=(1,0)  scan=0  closed_ctr=126
+[A*]  @708010000  -> NB_CHECK_CLOSED_SCAN  nb=(3,0)  scan=0  closed_ctr=126
+[A*]  @710470000  -> CHECK_OPEN  open_counter=3
+[A*]  @710910000  -> NB_CHECK_CLOSED_SCAN  nb=(1,0)  scan=0  closed_ctr=127
+[A*]  @713670000  -> NB_CHECK_CLOSED_SCAN  nb=(1,2)  scan=0  closed_ctr=127
+[A*]  @716270000  -> NB_CHECK_CLOSED_SCAN  nb=(0,1)  scan=0  closed_ctr=127
+[A*]  @719050000  -> NB_CHECK_CLOSED_SCAN  nb=(2,1)  scan=0  closed_ctr=127
+[A*]  @721530000  -> CHECK_OPEN  open_counter=3
+[A*]  @721970000  -> NB_CHECK_CLOSED_SCAN  nb=(0,1)  scan=0  closed_ctr=128
+[A*]  @724750000  -> NB_CHECK_CLOSED_SCAN  nb=(0,3)  scan=0  closed_ctr=128
+[A*]  @727450000  -> NB_CHECK_CLOSED_SCAN  nb=(1,2)  scan=0  closed_ctr=128
+[A*]  @729950000  -> CHECK_OPEN  open_counter=2
+[A*]  @730410000  -> NB_CHECK_CLOSED_SCAN  nb=(1,1)  scan=0  closed_ctr=129
+[A*]  @733990000  -> DONE  path_valid=0  len=0
+[MUX] @734010000  as_valid=1  len=23 -> client 2
+[MUX] @734030000  state 2->0  c0p=1 c1p=0
+[MUX] @734050000  state 0->1  c0p=0 c1p=0
+[MUX] @734050000  as_update pulse -> A* starting
+[A*]  @734070000  -> RESET_2D
+[A*]  @739470000  -> SET_START  start=(0,0) goal=(2,1)
+[A*]  @739490000  -> CHECK_OPEN  open_counter=1
+[A*]  @739890000  -> NB_CHECK_CLOSED_SCAN  nb=(0,1)  scan=0  closed_ctr=1
+[A*]  @740190000  -> NB_CHECK_CLOSED_SCAN  nb=(1,0)  scan=0  closed_ctr=1
+[A*]  @740330000  -> CHECK_OPEN  open_counter=2
+[A*]  @740710000  -> NB_CHECK_CLOSED_SCAN  nb=(0,0)  scan=0  closed_ctr=2
+[A*]  @740850000  -> NB_CHECK_CLOSED_SCAN  nb=(0,2)  scan=0  closed_ctr=2
+[A*]  @741190000  -> NB_CHECK_CLOSED_SCAN  nb=(1,1)  scan=0  closed_ctr=2
+[A*]  @741370000  -> CHECK_OPEN  open_counter=3
+[A*]  @741890000  -> NB_CHECK_CLOSED_SCAN  nb=(1,1)  scan=0  closed_ctr=3
+[A*]  @742170000  -> NB_CHECK_CLOSED_SCAN  nb=(0,0)  scan=0  closed_ctr=3
+[A*]  @742310000  -> NB_CHECK_CLOSED_SCAN  nb=(2,0)  scan=0  closed_ctr=3
+[A*]  @742510000  -> CHECK_OPEN  open_counter=3
+[A*]  @742930000  -> NB_CHECK_CLOSED_SCAN  nb=(1,0)  scan=0  closed_ctr=4
+[A*]  @743110000  -> NB_CHECK_CLOSED_SCAN  nb=(1,2)  scan=0  closed_ctr=4
+[A*]  @743430000  -> NB_CHECK_CLOSED_SCAN  nb=(0,1)  scan=0  closed_ctr=4
+[A*]  @743750000  -> DONE  path_valid=0  len=23
+[MUX] @743770000  as_valid=1  len=4 -> client 1
+[MUX] @743790000  state 1->0  c0p=0 c1p=0
+[PASS] TEST 2: P1 path after 37184 cycles
+[INFO] Waiting for COMP path...
+[PASS] TEST 2: COMP path after 1 cycles
+[INFO] Watching P1 move to (2,1)...
+[MOVE] P1 TIMEOUT at (0,0), goal was (2,1)
+[FAIL] TEST 2: P1 x=2  expected=2  got=0
+[FAIL] TEST 2: P1 y=1  expected=1  got=0
+
+-- TEST 3: P1 click to (5,3) --
+[P1]  @1743870000  goal->(5,3)
+[PASS] TEST 3: P1 path after 1 cycles
+[MUX] @1743890000  C0 update  baw=1  start=(0,0)  goal=(5,3)
+[MUX] @1743930000  state 0->1  c0p=0 c1p=0
+[MUX] @1743930000  as_update pulse -> A* starting
+[A*]  @1743950000  -> RESET_2D
+[A*]  @1749350000  -> SET_START  start=(0,0) goal=(5,3)
+[A*]  @1749370000  -> CHECK_OPEN  open_counter=1
+[A*]  @1749770000  -> NB_CHECK_CLOSED_SCAN  nb=(0,1)  scan=0  closed_ctr=1
+[A*]  @1750070000  -> NB_CHECK_CLOSED_SCAN  nb=(1,0)  scan=0  closed_ctr=1
+[A*]  @1750210000  -> CHECK_OPEN  open_counter=2
+[A*]  @1750590000  -> NB_CHECK_CLOSED_SCAN  nb=(0,0)  scan=0  closed_ctr=2
+[A*]  @1750730000  -> NB_CHECK_CLOSED_SCAN  nb=(0,2)  scan=0  closed_ctr=2
+[A*]  @1751070000  -> NB_CHECK_CLOSED_SCAN  nb=(1,1)  scan=0  closed_ctr=2
+[A*]  @1751250000  -> CHECK_OPEN  open_counter=3
+[A*]  @1751770000  -> NB_CHECK_CLOSED_SCAN  nb=(1,1)  scan=0  closed_ctr=3
+[A*]  @1752050000  -> NB_CHECK_CLOSED_SCAN  nb=(0,0)  scan=0  closed_ctr=3
+[A*]  @1752190000  -> NB_CHECK_CLOSED_SCAN  nb=(2,0)  scan=0  closed_ctr=3
+[A*]  @1752390000  -> CHECK_OPEN  open_counter=3
+[A*]  @1752830000  -> NB_CHECK_CLOSED_SCAN  nb=(0,1)  scan=0  closed_ctr=4
+[A*]  @1752990000  -> NB_CHECK_CLOSED_SCAN  nb=(0,3)  scan=0  closed_ctr=4
+[A*]  @1753390000  -> NB_CHECK_CLOSED_SCAN  nb=(1,2)  scan=0  closed_ctr=4
+[A*]  @1753630000  -> CHECK_OPEN  open_counter=4
+[A*]  @1754130000  -> NB_CHECK_CLOSED_SCAN  nb=(1,0)  scan=0  closed_ctr=5
+[A*]  @1754310000  -> NB_CHECK_CLOSED_SCAN  nb=(1,2)  scan=0  closed_ctr=5
+[A*]  @1754650000  -> NB_CHECK_CLOSED_SCAN  nb=(0,1)  scan=0  closed_ctr=5
+[A*]  @1754810000  -> NB_CHECK_CLOSED_SCAN  nb=(2,1)  scan=0  closed_ctr=5
+[A*]  @1755070000  -> CHECK_OPEN  open_counter=4
+[A*]  @1755650000  -> NB_CHECK_CLOSED_SCAN  nb=(2,1)  scan=0  closed_ctr=6
+[A*]  @1756010000  -> NB_CHECK_CLOSED_SCAN  nb=(1,0)  scan=0  closed_ctr=6
+[A*]  @1756190000  -> NB_CHECK_CLOSED_SCAN  nb=(3,0)  scan=0  closed_ctr=6
+[A*]  @1756470000  -> CHECK_OPEN  open_counter=4
+[A*]  @1756970000  -> NB_CHECK_CLOSED_SCAN  nb=(0,2)  scan=0  closed_ctr=7
+[A*]  @1757170000  -> NB_CHECK_CLOSED_SCAN  nb=(0,4)  scan=0  closed_ctr=7
+[A*]  @1757650000  -> NB_CHECK_CLOSED_SCAN  nb=(1,3)  scan=0  closed_ctr=7
+[A*]  @1757970000  -> CHECK_OPEN  open_counter=5
+[A*]  @1758530000  -> NB_CHECK_CLOSED_SCAN  nb=(1,1)  scan=0  closed_ctr=8
+[A*]  @1758750000  -> NB_CHECK_CLOSED_SCAN  nb=(1,3)  scan=0  closed_ctr=8
+[A*]  @1759170000  -> NB_CHECK_CLOSED_SCAN  nb=(0,2)  scan=0  closed_ctr=8
+[A*]  @1759370000  -> NB_CHECK_CLOSED_SCAN  nb=(2,2)  scan=0  closed_ctr=8
+[A*]  @1759710000  -> CHECK_OPEN  open_counter=5
+[A*]  @1760270000  -> NB_CHECK_CLOSED_SCAN  nb=(2,0)  scan=0  closed_ctr=9
+[A*]  @1760510000  -> NB_CHECK_CLOSED_SCAN  nb=(2,2)  scan=0  closed_ctr=9
+[A*]  @1760950000  -> NB_CHECK_CLOSED_SCAN  nb=(1,1)  scan=0  closed_ctr=9
+[A*]  @1761150000  -> CHECK_OPEN  open_counter=4
+[A*]  @1761810000  -> NB_CHECK_CLOSED_SCAN  nb=(2,0)  scan=0  closed_ctr=10
+[A*]  @1762050000  -> NB_CHECK_CLOSED_SCAN  nb=(4,0)  scan=0  closed_ctr=10
+[A*]  @1762410000  -> CHECK_OPEN  open_counter=4
+[A*]  @1762890000  -> NB_CHECK_CLOSED_SCAN  nb=(1,2)  scan=0  closed_ctr=11
+[A*]  @1763170000  -> NB_CHECK_CLOSED_SCAN  nb=(1,4)  scan=0  closed_ctr=11
+[A*]  @1763650000  -> NB_CHECK_CLOSED_SCAN  nb=(0,3)  scan=0  closed_ctr=11
+[A*]  @1763910000  -> NB_CHECK_CLOSED_SCAN  nb=(2,3)  scan=0  closed_ctr=11
+[A*]  @1764310000  -> CHECK_OPEN  open_counter=5
+[A*]  @1764850000  -> NB_CHECK_CLOSED_SCAN  nb=(2,1)  scan=0  closed_ctr=12
+[A*]  @1765150000  -> NB_CHECK_CLOSED_SCAN  nb=(2,3)  scan=0  closed_ctr=12
+[A*]  @1765650000  -> NB_CHECK_CLOSED_SCAN  nb=(1,2)  scan=0  closed_ctr=12
+[A*]  @1765930000  -> NB_CHECK_CLOSED_SCAN  nb=(3,2)  scan=0  closed_ctr=12
+[A*]  @1766350000  -> CHECK_OPEN  open_counter=5
+[A*]  @1766970000  -> NB_CHECK_CLOSED_SCAN  nb=(4,1)  scan=0  closed_ctr=13
+[A*]  @1767510000  -> NB_CHECK_CLOSED_SCAN  nb=(3,0)  scan=0  closed_ctr=13
+[A*]  @1767830000  -> NB_CHECK_CLOSED_SCAN  nb=(5,0)  scan=0  closed_ctr=13
+[A*]  @1768290000  -> CHECK_OPEN  open_counter=6
+[A*]  @1768870000  -> NB_CHECK_CLOSED_SCAN  nb=(2,2)  scan=0  closed_ctr=14
+[A*]  @1769230000  -> NB_CHECK_CLOSED_SCAN  nb=(2,4)  scan=0  closed_ctr=14
+[A*]  @1769810000  -> NB_CHECK_CLOSED_SCAN  nb=(1,3)  scan=0  closed_ctr=14
+[A*]  @1770130000  -> CHECK_OPEN  open_counter=6
+[A*]  @1770870000  -> NB_CHECK_CLOSED_SCAN  nb=(2,2)  scan=0  closed_ctr=15
+[A*]  @1771230000  -> NB_CHECK_CLOSED_SCAN  nb=(4,2)  scan=0  closed_ctr=15
+[A*]  @1771730000  -> CHECK_OPEN  open_counter=6
+[A*]  @1772310000  -> NB_CHECK_CLOSED_SCAN  nb=(4,0)  scan=0  closed_ctr=16
+[A*]  @1772690000  -> NB_CHECK_CLOSED_SCAN  nb=(4,2)  scan=0  closed_ctr=16
+[A*]  @1773370000  -> NB_CHECK_CLOSED_SCAN  nb=(5,1)  scan=0  closed_ctr=16
+[A*]  @1773890000  -> CHECK_OPEN  open_counter=6
+[A*]  @1774550000  -> NB_CHECK_CLOSED_SCAN  nb=(5,1)  scan=0  closed_ctr=17
+[A*]  @1775170000  -> NB_CHECK_CLOSED_SCAN  nb=(4,0)  scan=0  closed_ctr=17
+[A*]  @1775550000  -> NB_CHECK_CLOSED_SCAN  nb=(6,0)  scan=0  closed_ctr=17
+[A*]  @1776090000  -> CHECK_OPEN  open_counter=6
+[A*]  @1776650000  -> NB_CHECK_CLOSED_SCAN  nb=(4,1)  scan=0  closed_ctr=18
+[A*]  @1777090000  -> NB_CHECK_CLOSED_SCAN  nb=(4,3)  scan=0  closed_ctr=18
+[A*]  @1777750000  -> NB_CHECK_CLOSED_SCAN  nb=(3,2)  scan=0  closed_ctr=18
+[A*]  @1778170000  -> NB_CHECK_CLOSED_SCAN  nb=(5,2)  scan=0  closed_ctr=18
+[A*]  @1778750000  -> CHECK_OPEN  open_counter=7
+[A*]  @1779370000  -> NB_CHECK_CLOSED_SCAN  nb=(5,0)  scan=0  closed_ctr=19
+[A*]  @1779830000  -> NB_CHECK_CLOSED_SCAN  nb=(5,2)  scan=0  closed_ctr=19
+[A*]  @1780510000  -> NB_CHECK_CLOSED_SCAN  nb=(4,1)  scan=0  closed_ctr=19
+[A*]  @1780950000  -> NB_CHECK_CLOSED_SCAN  nb=(6,1)  scan=0  closed_ctr=19
+[A*]  @1781550000  -> CHECK_OPEN  open_counter=7
+[A*]  @1782150000  -> NB_CHECK_CLOSED_SCAN  nb=(4,2)  scan=0  closed_ctr=20
+[A*]  @1782630000  -> NB_CHECK_CLOSED_SCAN  nb=(4,4)  scan=0  closed_ctr=20
+[A*]  @1783790000  -> DONE  path_valid=0  len=4
+[MUX] @1783810000  as_valid=1  len=9 -> client 1
+[MUX] @1783830000  state 1->0  c0p=0 c1p=0
+[MOVE] P1 TIMEOUT at (0,0), goal was (5,3)
+[FAIL] TEST 3: P1 x=5  expected=5  got=0
+[FAIL] TEST 3: P1 y=3  expected=3  got=0
+
+====================================================
+ RESULTS: 7 passed, 4 failed
+====================================================
+ SOME TESTS FAILED
+====================================================
+
+$finish called at time : 2744090 ns : File "C:/VivadoProjects/ee2026/FDP/FDP.srcs/sim_1/new/tb_a_star_mux.v" Line 328

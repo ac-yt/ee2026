@@ -1,0 +1,28 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../FDP.srcs/sources_1/new" \
+"../../../../FDP.srcs/sources_1/ip/blk_mem_gen_const/sim/blk_mem_gen_const.v" \
+"../../../../FDP.srcs/sources_1/ip/blk_mem_gen_img/sim/blk_mem_gen_img.v" \
+"../../../../FDP.srcs/sources_1/ip/blk_mem_gen_inter/sim/blk_mem_gen_inter.v" \
+"../../../../FDP.srcs/sources_1/ip/blk_mem_gen_0_1/sim/blk_mem_gen_0.v" \
+"../../../../FDP.srcs/sources_1/imports/Desktop/Oled_Display.v" \
+"../../../../FDP.srcs/sources_1/new/board_communication.v" \
+"../../../../FDP.srcs/sources_1/new/seven_segment.v" \
+"../../../../FDP.srcs/sources_1/new/uart.v" \
+"../../../../FDP.srcs/sources_1/new/variable_clock.v" \
+"../../../../FDP.srcs/sources_1/new/Top_Student.v" \
+"../../../../FDP.srcs/sources_1/new/bomb_controller.v" \
+"../../../../FDP.srcs/sources_1/new/player_controller.v" \
+"../../../../FDP.srcs/sources_1/new/a_star.v" \
+"../../../../FDP.srcs/sources_1/new/computer_controller.v" \
+"../../../../FDP.srcs/sources_1/new/movement_controller.v" \
+"../../../../FDP.srcs/sources_1/new/lfsr_rng.v" \
+"../../../../FDP.srcs/sources_1/new/a_star_mux.v" \
+"../../../../FDP.srcs/sim_1/new/uart_sim.v" \
+"../../../../FDP.srcs/sim_1/new/a_star_sim.v" \
+"../../../../FDP.srcs/sim_1/new/tb_a_star_mux.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

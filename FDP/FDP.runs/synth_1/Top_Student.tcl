@@ -47,6 +47,7 @@ read_verilog -library xil_defaultlib {
   C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/computer_controller.v
   C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/movement_controller.v
   C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/lfsr_rng.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star_mux.v
 }
 read_vhdl -library xil_defaultlib {
   C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/imports/Desktop/Mouse_Control.vhd

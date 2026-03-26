@@ -1,15 +1,16 @@
 Vivado Simulator 2018.2
 Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
-Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 7704de86ac2d4ff7903eb77661a8f1b7 --incr --debug typical --relax --mt 2 -L blk_mem_gen_v8_4_1 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_top_with_astar_behav xil_defaultlib.tb_top_with_astar xil_defaultlib.glbl -log elaborate.log 
+Running: C:/Xilinx/Vivado/2018.2/bin/unwrapped/win64.o/xelab.exe -wto 7704de86ac2d4ff7903eb77661a8f1b7 --incr --debug typical --relax --mt 2 -L blk_mem_gen_v8_4_1 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot a_star_mux_movement_tb_behav xil_defaultlib.a_star_mux_movement_tb xil_defaultlib.glbl -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
+WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 6 for port speed [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sim_1/new/tb_a_star_mux.v:63]
 Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.variable_clock(OUT_SPEED=5000000...
-Compiling module xil_defaultlib.a_star(CLOCK_SPEED=50000000)
-Compiling module xil_defaultlib.top_with_astar
-Compiling module xil_defaultlib.tb_top_with_astar
+Compiling module xil_defaultlib.movement_controller(MAX_MOVE_COU...
+Compiling module xil_defaultlib.a_star_default
+Compiling module xil_defaultlib.a_star_mux
+Compiling module xil_defaultlib.a_star_mux_movement_tb
 Compiling module xil_defaultlib.glbl
-Built simulation snapshot tb_top_with_astar_behav
+Built simulation snapshot a_star_mux_movement_tb_behav

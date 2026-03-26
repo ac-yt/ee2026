@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Wed Mar 25 10:47:55 2026
+# Process ID: 31752
+# Current directory: C:/VivadoProjects/ee2026/FDP/FDP.sim/sim_1/behav/xsim
+# Command line: wbtcv.exe -mode batch -source C:/VivadoProjects/ee2026/FDP/FDP.sim/sim_1/behav/xsim/xsim.dir/a_star_mux_movement_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: C:/VivadoProjects/ee2026/FDP/FDP.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: C:/VivadoProjects/ee2026/FDP/FDP.sim/sim_1/behav/xsim\webtalk.jou
+#-----------------------------------------------------------
+source C:/VivadoProjects/ee2026/FDP/FDP.sim/sim_1/behav/xsim/xsim.dir/a_star_mux_movement_tb_behav/webtalk/xsim_webtalk.tcl -notrace
