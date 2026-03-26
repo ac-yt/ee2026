@@ -97,18 +97,30 @@ module movement_controller (input clk,// output reg [15:0] led,
     end
     wire baw_changed = ~as_baw & as_baw_prev;
     
+    // update map
+    wire tile_aligned = (pos_x == `MIN_PIX_X + pos_tx * `TILE_SIZE + 1) &&
+                            (pos_y == `MIN_PIX_Y + pos_ty * `TILE_SIZE + 1);
+    reg update_pending = 0;
     always @ (posedge clk) begin
-//        if ((goal_changed || baw_changed || map_changed) && !blocked) as_update <= 1;
-        if (goal_changed || baw_changed || map_changed) as_update <= 1;
+        if (goal_changed || baw_changed || map_changed) update_pending <= 1;
+        
+        if (update_pending && tile_aligned) begin // only update when when the 
+            as_update <= 1;
+            update_pending <= 0;
+        end
         else as_update <= 0;
     end
+    
+//    always @ (posedge clk) begin
+////        if ((goal_changed || baw_changed || map_changed) && !blocked) as_update <= 1;
+//        if (goal_changed || baw_changed || map_changed) as_update <= 1;
+//        else as_update <= 0;
+//    end
     
     // update target based on map
     reg initialized = 0;
     reg new_path_pending = 0;
     reg [1:0] last_dir = 0;
-    wire tile_aligned = (pos_x == `MIN_PIX_X + pos_tx * `TILE_SIZE + 1) &&
-                        (pos_y == `MIN_PIX_Y + pos_ty * `TILE_SIZE + 1);
     always @(posedge clk) begin
         if (!initialized) begin
             pos_x <= `MIN_PIX_X + spawn_tx * `TILE_SIZE + 1;
