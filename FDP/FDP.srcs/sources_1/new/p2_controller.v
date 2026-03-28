@@ -14,42 +14,13 @@ module p2_controller(input clk,
                      output reg [6:0] p2_x,
                      output reg [5:0] p2_y,
                      output p2_dead,
-                                                 
-                     output place_bomb_req,
-                     output [3:0] place_bomb_tx,
-                     output [3:0] place_bomb_ty,
-                   
-                     output clear_bomb_req,
-                     output [3:0] clear_bomb_tx,
-                     output [3:0] clear_bomb_ty,
-                   
-                     output destroy_up_req,
-                     output [3:0] destroy_up_tx,
-                     output [3:0] destroy_up_ty,
-                 
-                     output destroy_down_req,
-                     output [3:0] destroy_down_tx,
-                     output [3:0] destroy_down_ty,
-                   
-                     output destroy_left_req,
-                     output [3:0] destroy_left_tx,
-                     output [3:0] destroy_left_ty,
-                   
-                     output destroy_right_req,
-                     output [3:0] destroy_right_tx,
-                     output [3:0] destroy_right_ty,
-                       
-                     output bomb_active,
-                     output [3:0] bomb_tx,
-                     output [3:0] bomb_ty,
-                     output bomb_red,
-                   
-                     output explosion_active,
-                     output [3:0] explosion_stage,
-                     output [3:0] explode_up_len,
-                     output [3:0] explode_down_len,
-                     output [3:0] explode_left_len,
-                     output [3:0] explode_right_len,
+                     
+                     output [`MAX_BOMBS-1:0] place_bomb_req, bomb_active, bomb_red, explosion_active,
+                     output [`MAX_BOMBS*4-1:0] bomb_tx_flat, bomb_ty_flat,
+                     output [`MAX_BOMBS*2-1:0] explosion_stage_flat,
+                                             
+                     input [1:0] bomb_count, // number of bombs that can be placed
+                     input [1:0] bomb_radius, // radius of bom
                        
                      output update, blocks_as_walls,
                      input [4*`MAX_PATH_LEN-1:0] path_flat_x, path_flat_y,
@@ -97,7 +68,7 @@ module p2_controller(input clk,
     reg bomb_trigger = 0;
     always @ (posedge clk) begin
         if (single_player) begin
-            bomb_trigger <= ~bomb_active & next_is_block; //((next_is_block & ~next_is_block_prev)); // | (near_player & ~near_player_prev)); 
+            bomb_trigger <= (next_is_block & ~next_is_block_prev); //~bomb_active & next_is_block; //((next_is_block & ~next_is_block_prev)); // | (near_player & ~near_player_prev)); 
         end
         else begin
             bomb_trigger <= mouse_right_pulse;
@@ -107,46 +78,22 @@ module p2_controller(input clk,
     // bomb controller
     wire bomb_passable;
     wire player_hit;
-         
-    bomb_controller bomb_ctrl_inst (
-        .clk(clk),
-        .trigger(bomb_trigger),
-        .tile_map_flat(tile_map_flat),
-        .player_x(p2_x),
-        .player_y(p2_y),
-        .player_tx(p2_tx),
-        .player_ty(p2_ty),
-        .player_dead(p2_dead),
-        .bomb_active(bomb_active),
-        .bomb_passable(bomb_passable),
-        .bomb_tx(bomb_tx),
-        .bomb_ty(bomb_ty),
-        .bomb_red(bomb_red),
-        .explosion_active(explosion_active),
-        .explosion_stage(explosion_stage),
-        .explode_up_len(explode_up_len),
-        .explode_down_len(explode_down_len),
-        .explode_left_len(explode_left_len),
-        .explode_right_len(explode_right_len),
-        .player_hit(player_hit),
-        .place_bomb_req(place_bomb_req),
-        .place_bomb_tx(place_bomb_tx),
-        .place_bomb_ty(place_bomb_ty),
-        .clear_bomb_req(clear_bomb_req),
-        .clear_bomb_tx(clear_bomb_tx),
-        .clear_bomb_ty(clear_bomb_ty),
-        .destroy_up_req(destroy_up_req),
-        .destroy_up_tx(destroy_up_tx),
-        .destroy_up_ty(destroy_up_ty),
-        .destroy_down_req(destroy_down_req),
-        .destroy_down_tx(destroy_down_tx),
-        .destroy_down_ty(destroy_down_ty),
-        .destroy_left_req(destroy_left_req),
-        .destroy_left_tx(destroy_left_tx),
-        .destroy_left_ty(destroy_left_ty),
-        .destroy_right_req(destroy_right_req),
-        .destroy_right_tx(destroy_right_tx),
-        .destroy_right_ty(destroy_right_ty)
-    );
+    
+//    bomb_controller p2_bomb_inst (
+//            .clk(clk),
+//            .trigger(bomb_trigger),
+//            .player_tx(p2_tx),
+//            .player_ty(p2_ty),
+//            .player_dead(p2_dead),
+//            .bomb_active(bomb_active),
+//            .bomb_tx_flat(bomb_tx_flat),
+//            .bomb_ty_flat(bomb_ty_flat),
+//            .bomb_red(bomb_red),
+//            .explosion_active(explosion_active),
+//            .explosion_stage_flat(explosion_stage_flat),
+//            .place_bomb_req(place_bomb_req),
+//            .bomb_count(bomb_count),
+//            .bomb_radius(bomb_radius)
+//    );
     
 endmodule

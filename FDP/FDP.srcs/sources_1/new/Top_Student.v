@@ -260,7 +260,7 @@ module Top_Student (
             `MAP_EMPTY:   expand_tile = `OLED_BLACK;
             `MAP_WALL:    expand_tile = WALL_COLOR;
             `MAP_BLOCK:   expand_tile = `OLED_GREY;
-            `MAP_BOMB:    expand_tile = (local_x >= 2 && local_x <= 3 && local_y >= 2 && local_y <= 3) ? `OLED_ORANGE : `OLED_BLACK;
+//            `MAP_BOMB:    expand_tile = (local_x >= 2 && local_x <= 3 && local_y >= 2 && local_y <= 3) ? `OLED_ORANGE : `OLED_BLACK;
             `MAP_POWERUP: expand_tile = `OLED_MAGENTA;
             default:      expand_tile = `OLED_BLACK;
         endcase
@@ -325,15 +325,17 @@ module Top_Student (
     wire [3:0] p1_tx, p1_ty;
     wire p1_dead;
     
-    wire p1_place_bomb_req, p1_clear_bomb_req, p1_destroy_up_req, p1_destroy_down_req, p1_destroy_left_req, p1_destroy_right_req;
-    wire [3:0] p1_place_bomb_tx, p1_place_bomb_ty, p1_clear_bomb_tx, p1_clear_bomb_ty, p1_destroy_up_tx, p1_destroy_up_ty,
-               p1_destroy_down_tx, p1_destroy_down_ty, p1_destroy_left_tx, p1_destroy_left_ty, p1_destroy_right_tx, p1_destroy_right_ty;
+    wire [`MAX_BOMBS-1:0] p1_place_bomb_req, p1_bomb_active, p1_bomb_red, p1_explosion_active;
+    wire [`MAX_BOMBS*4-1:0] p1_bomb_tx_flat, p1_bomb_ty_flat;
+    wire [`MAX_BOMBS*2-1:0] p1_explosion_stage_flat;
+       
+    wire [1:0] p1_bomb_count = sw[5:4];
+    wire [1:0] p1_bomb_radius = sw[3:2];
+    wire [1:0] p1_speed_mul = sw[1:0];
     
-    wire p1_bomb_active, p1_bomb_red;
-    wire [3:0] p1_bomb_tx, p1_bomb_ty;
-    
-    wire p1_explosion_active;
-    wire [3:0] p1_explosion_stage, p1_explode_up_len, p1_explode_down_len, p1_explode_left_len, p1_explode_right_len;
+    reg [`MAX_BOMBS-1:0] p1_explosion_active_prev = 0;
+    wire [`MAX_BOMBS-1:0] p1_explosion_start = p1_explosion_active & ~p1_explosion_active_prev;
+    wire [`MAX_BOMBS-1:0] p1_explosion_end = ~p1_explosion_active & p1_explosion_active_prev;
     
     wire p1_update, p1_baw, p1_valid;
     wire [4*`MAX_PATH_LEN-1:0] p1_pfx, p1_pfy;
@@ -342,6 +344,7 @@ module Top_Student (
     reg [3:0] p1_goal_tx = 0, p1_goal_ty = 0;
             
     always @ (posedge clk) begin
+        p1_explosion_active_prev <= p1_explosion_active;
         if (p1_left) begin //mouse_left_pulse) begin
             p1_goal_tx <= mouse_tx;
             p1_goal_ty <= mouse_ty;
@@ -356,45 +359,26 @@ module Top_Student (
         .mouse_right_pulse(p1_middle),//mouse_right_pulse),
         .mouse_middle_pulse(p1_right),//mouse_middle_pulse),
         .tile_map_flat(tile_map_flat),
-        .speed_multiplier(sw[1:0]),
+        .speed_multiplier(p1_speed_mul),
         .map_changed(map_changed),
         
         .p1_tx(p1_tx),
         .p1_ty(p1_ty),
         .p1_x(p1_x),
         .p1_y(p1_y),
-        .p1_dead(p1_dead),
+        .p1_dead(p1_dead),        
         
         .place_bomb_req(p1_place_bomb_req),
-        .place_bomb_tx(p1_place_bomb_tx),
-        .place_bomb_ty(p1_place_bomb_ty),
-        .clear_bomb_req(p1_clear_bomb_req),
-        .clear_bomb_tx(p1_clear_bomb_tx),
-        .clear_bomb_ty(p1_clear_bomb_ty),
-        .destroy_up_req(p1_destroy_up_req),
-        .destroy_up_tx(p1_destroy_up_tx),
-        .destroy_up_ty(p1_destroy_up_ty),
-        .destroy_down_req(p1_destroy_down_req),
-        .destroy_down_tx(p1_destroy_down_tx),
-        .destroy_down_ty(p1_destroy_down_ty),
-        .destroy_left_req(p1_destroy_left_req),
-        .destroy_left_tx(p1_destroy_left_tx),
-        .destroy_left_ty(p1_destroy_left_ty),
-        .destroy_right_req(p1_destroy_right_req),
-        .destroy_right_tx(p1_destroy_right_tx),
-        .destroy_right_ty(p1_destroy_right_ty),
-        
         .bomb_active(p1_bomb_active),
-        .bomb_tx(p1_bomb_tx),
-        .bomb_ty(p1_bomb_ty),
+        .bomb_tx_flat(p1_bomb_tx_flat),
+        .bomb_ty_flat(p1_bomb_ty_flat),
         .bomb_red(p1_bomb_red),
         
         .explosion_active(p1_explosion_active),
-        .explosion_stage(p1_explosion_stage),
-        .explode_up_len(p1_explode_up_len),
-        .explode_down_len(p1_explode_down_len),
-        .explode_left_len(p1_explode_left_len),
-        .explode_right_len(p1_explode_right_len),
+        .explosion_stage_flat(p1_explosion_stage_flat),
+        
+        .bomb_count(p1_bomb_count),
+        .bomb_radius(p1_bomb_radius),
         
         .update(p1_update),
         .blocks_as_walls(p1_baw),
@@ -409,15 +393,17 @@ module Top_Student (
     wire [3:0] p2_tx, p2_ty;
     wire p2_dead;
     
-    wire p2_place_bomb_req, p2_clear_bomb_req, p2_destroy_up_req, p2_destroy_down_req, p2_destroy_left_req, p2_destroy_right_req;
-    wire [3:0] p2_place_bomb_tx, p2_place_bomb_ty, p2_clear_bomb_tx, p2_clear_bomb_ty, p2_destroy_up_tx, p2_destroy_up_ty,
-               p2_destroy_down_tx, p2_destroy_down_ty, p2_destroy_left_tx, p2_destroy_left_ty, p2_destroy_right_tx, p2_destroy_right_ty;
+    wire [`MAX_BOMBS-1:0] p2_place_bomb_req, p2_bomb_active, p2_bomb_red, p2_explosion_active;
+    wire [`MAX_BOMBS*4-1:0] p2_bomb_tx_flat, p2_bomb_ty_flat;
+    wire [`MAX_BOMBS*2-1:0] p2_explosion_stage_flat;
     
-    wire p2_bomb_active, p2_bomb_red;
-    wire [3:0] p2_bomb_tx, p2_bomb_ty;
+    wire [1:0] p2_bomb_count = sw[11:10];
+    wire [1:0] p2_bomb_radius = sw[9:8];
+    wire [1:0] p2_speed_mul = sw[7:6];  
     
-    wire p2_explosion_active;
-    wire [3:0] p2_explosion_stage, p2_explode_up_len, p2_explode_down_len, p2_explode_left_len, p2_explode_right_len;
+    reg [`MAX_BOMBS-1:0] p2_explosion_active_prev = 0;
+    wire [`MAX_BOMBS-1:0] p2_explosion_start = p2_explosion_active & ~p2_explosion_active_prev;
+    wire [`MAX_BOMBS-1:0] p2_explosion_end = ~p2_explosion_active & p2_explosion_active_prev;
     
     wire p2_update, p2_baw, p2_valid;
     wire [4*`MAX_PATH_LEN-1:0] p2_pfx, p2_pfy;
@@ -429,6 +415,7 @@ module Top_Student (
     wire [3:0] p2_goal_ty = single_player ? p1_ty : p2_player_goal_ty; 
 //    assign led[0] = single_player;
     always @ (posedge clk) begin
+        p2_explosion_active_prev <= p2_explosion_active;
         if (rec_mouse_left_pulse) begin
             p2_player_goal_tx <= rec_mouse_tx;
             p2_player_goal_ty <= rec_mouse_ty;
@@ -437,14 +424,14 @@ module Top_Student (
     
     p2_controller p2_ctrl_inst (
         .clk(clk),
-        .single_player(1),
+        .single_player(1), // change this later on
         .goal_tx(p2_goal_tx),
         .goal_ty(p2_goal_ty),
         .mouse_left_pulse(p2_left),//rec_mouse_left_pulse),
         .mouse_right_pulse(p2_middle),//rec_mouse_right_pulse),
         .mouse_middle_pulse(p2_right),//rec_mouse_middle_pulse),
         .tile_map_flat(tile_map_flat),
-        .speed_multiplier(sw[1:0]),
+        .speed_multiplier(p2_speed_mul),
         .map_changed(map_changed),
         
         .p2_tx(p2_tx),
@@ -454,35 +441,16 @@ module Top_Student (
         .p2_dead(p2_dead),
 
         .place_bomb_req(p2_place_bomb_req),
-        .place_bomb_tx(p2_place_bomb_tx),
-        .place_bomb_ty(p2_place_bomb_ty),
-        .clear_bomb_req(p2_clear_bomb_req),
-        .clear_bomb_tx(p2_clear_bomb_tx),
-        .clear_bomb_ty(p2_clear_bomb_ty),
-        .destroy_up_req(p2_destroy_up_req),
-        .destroy_up_tx(p2_destroy_up_tx),
-        .destroy_up_ty(p2_destroy_up_ty),
-        .destroy_down_req(p2_destroy_down_req),
-        .destroy_down_tx(p2_destroy_down_tx),
-        .destroy_down_ty(p2_destroy_down_ty),
-        .destroy_left_req(p2_destroy_left_req),
-        .destroy_left_tx(p2_destroy_left_tx),
-        .destroy_left_ty(p2_destroy_left_ty),
-        .destroy_right_req(p2_destroy_right_req),
-        .destroy_right_tx(p2_destroy_right_tx),
-        .destroy_right_ty(p2_destroy_right_ty),
-        
         .bomb_active(p2_bomb_active),
-        .bomb_tx(p2_bomb_tx),
-        .bomb_ty(p2_bomb_ty),
+        .bomb_tx_flat(p2_bomb_tx_flat),
+        .bomb_ty_flat(p2_bomb_ty_flat),
         .bomb_red(p2_bomb_red),
         
         .explosion_active(p2_explosion_active),
-        .explosion_stage(p2_explosion_stage),
-        .explode_up_len(p2_explode_up_len),
-        .explode_down_len(p2_explode_down_len),
-        .explode_left_len(p2_explode_left_len),
-        .explode_right_len(p2_explode_right_len),
+        .explosion_stage_flat(p2_explosion_stage_flat),
+        
+        .bomb_count(p2_bomb_count),
+        .bomb_radius(p2_bomb_radius),
         
         .update(p2_update),
         .blocks_as_walls(p2_baw),
@@ -521,11 +489,144 @@ module Top_Student (
 
 
 
+    
+    // =========================================================
+    // REACH CALCULATION FOR P1/P2 BOMBS
+    // =========================================================
+    
+    wire [3:0] b_tx [0:1][0:`MAX_BOMBS-1];
+    wire [3:0] b_ty [0:1][0:`MAX_BOMBS-1];
+    wire [1:0] b_stage [0:1][0:`MAX_BOMBS-1];
+    wire [1:0] b_radius [0:1];
+    wire [`MAX_BOMBS-1:0] b_place_req [0:1];
+    wire [`MAX_BOMBS-1:0] b_bomb_active [0:1];
+    wire [`MAX_BOMBS-1:0] b_bomb_red [0:1];
+    wire [`MAX_BOMBS-1:0] b_explosion_active [0:1];
+    wire [`MAX_BOMBS-1:0] b_explosion_start [0:1];
+    wire [`MAX_BOMBS-1:0] b_explosion_end [0:1];
+    
+    assign b_radius[0] = p1_bomb_radius;
+    assign b_radius[1] = p2_bomb_radius;
+    assign b_bomb_active[0] = p1_bomb_active;
+    assign b_bomb_active[1] = p2_bomb_active;
+    assign b_place_req[0] = p1_place_bomb_req;
+    assign b_place_req[1] = p2_place_bomb_req;
+    assign b_bomb_red[0] = p1_bomb_red;
+    assign b_bomb_red[1] = p2_bomb_red;
+    assign b_explosion_active[0] = p1_explosion_active;
+    assign b_explosion_active[1] = p2_explosion_active;
+    assign b_explosion_start[0] = p1_explosion_start;
+    assign b_explosion_start[1] = p2_explosion_start;
+    assign b_explosion_end[0] = p1_explosion_end;
+    assign b_explosion_end[1] = p2_explosion_end;
+    
+    genvar pi, gi;
+    generate
+        for (pi = 0; pi < 2; pi = pi + 1) begin : player_unpack
+            for (gi = 0; gi < `MAX_BOMBS; gi = gi + 1) begin : bomb_unpack
+               assign b_tx[pi][gi] = (pi == 0) ? p1_bomb_tx_flat[gi*4 +: 4] : p2_bomb_tx_flat[gi*4 +: 4];
+               assign b_ty[pi][gi] = (pi == 0) ? p1_bomb_ty_flat[gi*4 +: 4] : p2_bomb_ty_flat[gi*4 +: 4];
+               assign b_stage[pi][gi] = (pi == 0) ? p1_explosion_stage_flat[gi*2 +: 2] : p2_explosion_stage_flat[gi*2 +: 2];
+           end
+        end
+    endgenerate
+    
+    reg [3:0] up_next    [0:1][0:2];
+    reg [3:0] down_next  [0:1][0:2];
+    reg [3:0] left_next  [0:1][0:2];
+    reg [3:0] right_next [0:1][0:2];
+    
+    integer player_i, bomb_i, rad_i;
+    reg stop = 0;
+    always @(*) begin
+        for (player_i = 0; player_i < 2; player_i = player_i + 1) begin
+            for (bomb_i = 0; bomb_i < `MAX_BOMBS; bomb_i = bomb_i + 1) begin // 3 bomb slots
+                up_next[player_i][bomb_i] = 0; // how far it reaches in each direction
+                down_next[player_i][bomb_i] = 0;
+                left_next[player_i][bomb_i] = 0;
+                right_next[player_i][bomb_i] = 0;
+                
+                // UP
+                stop = 0;
+                for (rad_i = 1; rad_i <= `MAX_RADIUS; rad_i = rad_i + 1) begin // for each step
+                    if (!stop && rad_i <= b_radius[player_i]) begin
+                        if (b_ty[player_i][bomb_i] < rad_i || tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] - rad_i] == `MAP_WALL) stop = 1;
+                        else begin
+                            up_next[player_i][bomb_i] = rad_i[3:0];
+                            if (tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] - rad_i] == `MAP_BLOCK) stop = 1;
+                        end
+                    end
+                end
+                
+                // DOWN
+                stop = 0;
+                for (rad_i = 1; rad_i <= `MAX_RADIUS; rad_i = rad_i + 1) begin
+                    if (!stop && rad_i <= b_radius[player_i]) begin
+                        if ((b_ty[player_i][bomb_i] + rad_i) >= `TILE_MAP_HEIGHT || tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] + rad_i] == `MAP_WALL) stop = 1;
+                        else begin
+                            down_next[player_i][bomb_i] = rad_i[3:0];
+                            if (tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] + rad_i] == `MAP_BLOCK) stop = 1;
+                        end
+                    end
+                end
+                
+                // LEFT
+                stop = 0;
+                for (rad_i = 1; rad_i <= `MAX_RADIUS; rad_i = rad_i + 1) begin
+                    if (!stop && rad_i <= b_radius[player_i]) begin
+                        if (b_tx[player_i][bomb_i] < rad_i || tile_map[b_tx[player_i][bomb_i] - rad_i][b_ty[player_i][bomb_i]] == `MAP_WALL) stop = 1;
+                        else begin
+                            left_next[player_i][bomb_i] = rad_i[3:0];
+                            if (tile_map[b_tx[player_i][bomb_i] - rad_i][b_ty[player_i][bomb_i]] == `MAP_BLOCK) stop = 1;
+                        end
+                    end
+                end
+                
+                // RIGHT
+                stop = 0;
+                for (rad_i = 1; rad_i <= `MAX_RADIUS; rad_i = rad_i + 1) begin
+                    if (!stop && rad_i <= b_radius[player_i]) begin
+                        if ((b_tx[player_i][bomb_i] + rad_i) >= `TILE_MAP_WIDTH || tile_map[b_tx[player_i][bomb_i] + rad_i][b_ty[player_i][bomb_i]] == `MAP_WALL) stop = 1;
+                        else begin
+                            right_next[player_i][bomb_i] = rad_i[3:0];
+                            if (tile_map[b_tx[player_i][bomb_i] + rad_i][b_ty[player_i][bomb_i]] == `MAP_BLOCK) stop = 1;
+                        end
+                    end
+                end
+            end
+        end
+    end
+    
+    // =========================================================
+    // P1 MULTI-BOMB: REACH LATCH (sequential, on placement only)
+    // =========================================================
+    
+    reg [3:0] up_len   [0:1][0:`MAX_BOMBS-1];
+    reg [3:0] down_len [0:1][0:`MAX_BOMBS-1];
+    reg [3:0] left_len [0:1][0:`MAX_BOMBS-1];
+    reg [3:0] right_len[0:1][0:`MAX_BOMBS-1];
+    
+    always @(posedge clk) begin
+        for (player_i = 0; player_i < 2; player_i = player_i + 1) begin
+            for (bomb_i = 0; bomb_i < `MAX_BOMBS; bomb_i = bomb_i + 1) begin
+                if (b_place_req[player_i][bomb_i]) begin
+                    up_len[player_i][bomb_i]    <= up_next[player_i][bomb_i];
+                    down_len[player_i][bomb_i]  <= down_next[player_i][bomb_i];
+                    left_len[player_i][bomb_i]  <= left_next[player_i][bomb_i];
+                    right_len[player_i][bomb_i] <= right_next[player_i][bomb_i];
+                end
+            end
+        end
+    end
+ 
+
+
+
 
     // =========================================================
     // TILE MAP UPDATES
     // =========================================================
-    
+
     always @(posedge clk) begin
         case (gen_state)
             `RESET: begin
@@ -552,50 +653,58 @@ module Top_Student (
             `GAMEPLAY: begin // PHASE: GAMEPLAY (One driver for all updates!), blocks generate powerups ~75% of the time
                 if (rst_game) gen_state <= `RESET;
                 
-                map_changed <= game_active &&
-                               (p1_place_bomb_req | p1_clear_bomb_req | p1_destroy_up_req | p1_destroy_down_req | p1_destroy_left_req | p1_destroy_right_req | 
-                                p2_place_bomb_req | p2_clear_bomb_req | p2_destroy_up_req | p2_destroy_down_req | p2_destroy_left_req | p2_destroy_right_req);                  
-                  
-                // player 1
-                if (p1_place_bomb_req) tile_map[p1_place_bomb_tx][p1_place_bomb_ty] <= `MAP_BOMB;
-                if (p1_clear_bomb_req) tile_map[p1_clear_bomb_tx][p1_clear_bomb_ty] <= `MAP_EMPTY;
-                    
-                if (p1_destroy_up_req && tile_map[p1_destroy_up_tx][p1_destroy_up_ty] == `MAP_BLOCK) begin
-                    if (random_seed[7:0] > three_quarter) tile_map[p1_destroy_up_tx][p1_destroy_up_ty] <= `MAP_EMPTY;
-                    else tile_map[p1_destroy_up_tx][p1_destroy_up_ty] <= `MAP_POWERUP;
+                map_changed <= game_active && (|p1_place_bomb_req | |p1_explosion_end |
+                                               |p2_place_bomb_req | |p2_explosion_end); 
+                 
+                // place bomb tiles for all slots
+                for (player_i = 0; player_i < 2; player_i = player_i + 1) begin
+                    for (bomb_i = 0; bomb_i < `MAX_BOMBS; bomb_i = bomb_i + 1) begin
+                        if (b_place_req[player_i][bomb_i]) tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i]] <= `MAP_BOMB;
+//                        else tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i]] <= `MAP_EMPTY;
+                    end
                 end
-                if (p1_destroy_down_req && tile_map[p1_destroy_down_tx][p1_destroy_down_ty] == `MAP_BLOCK) begin
-                    if (random_seed[7:0] > three_quarter) tile_map[p1_destroy_down_tx][p1_destroy_down_ty] <= `MAP_EMPTY;
-                    else tile_map[p1_destroy_down_tx][p1_destroy_down_ty] <= `MAP_POWERUP;
+ 
+                // clear bomb tile when explosion starts
+                for (player_i = 0; player_i < 2; player_i = player_i + 1) begin
+                    for (bomb_i = 0; bomb_i < `MAX_BOMBS; bomb_i = bomb_i + 1) begin
+                        if (b_explosion_start[player_i][bomb_i]) tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i]] <= `MAP_EMPTY;
+                    end
                 end
-                if (p1_destroy_left_req && tile_map[p1_destroy_left_tx][p1_destroy_left_ty] == `MAP_BLOCK) begin
-                    if (random_seed[7:0] > three_quarter) tile_map[p1_destroy_left_tx][p1_destroy_left_ty] <= `MAP_EMPTY;
-                    else tile_map[p1_destroy_left_tx][p1_destroy_left_ty] <= `MAP_POWERUP;
-                end
-                if (p1_destroy_right_req && tile_map[p1_destroy_right_tx][p1_destroy_right_ty] == `MAP_BLOCK) begin
-                    if (random_seed[7:0] > three_quarter) tile_map[p1_destroy_right_tx][p1_destroy_right_ty] <= `MAP_EMPTY;
-                    else tile_map[p1_destroy_right_tx][p1_destroy_right_ty] <= `MAP_POWERUP;
-                end
-                
-                // player 2
-                if (p2_place_bomb_req) tile_map[p2_place_bomb_tx][p2_place_bomb_ty] <= `MAP_BOMB;
-                if (p2_clear_bomb_req) tile_map[p2_clear_bomb_tx][p2_clear_bomb_ty] <= `MAP_EMPTY;
-                   
-                if (p2_destroy_up_req && tile_map[p2_destroy_up_tx][p2_destroy_up_ty] == `MAP_BLOCK) begin
-                    if (random_seed[7:0] > three_quarter) tile_map[p2_destroy_up_tx][p2_destroy_up_ty] <= `MAP_EMPTY;
-                    else tile_map[p2_destroy_up_tx][p2_destroy_up_ty] <= `MAP_POWERUP;
-                end
-                if (p2_destroy_down_req && tile_map[p2_destroy_down_tx][p2_destroy_down_ty] == `MAP_BLOCK) begin
-                    if (random_seed[7:0] > three_quarter) tile_map[p2_destroy_down_tx][p2_destroy_down_ty] <= `MAP_EMPTY;
-                    else tile_map[p2_destroy_down_tx][p2_destroy_down_ty] <= `MAP_POWERUP;
-                end
-                if (p2_destroy_left_req && tile_map[p2_destroy_left_tx][p2_destroy_left_ty] == `MAP_BLOCK) begin
-                    if (random_seed[7:0] > three_quarter) tile_map[p2_destroy_left_tx][p2_destroy_left_ty] <= `MAP_EMPTY;
-                    else tile_map[p2_destroy_left_tx][p2_destroy_left_ty] <= `MAP_POWERUP;
-                end
-                if (p2_destroy_right_req && tile_map[p2_destroy_right_tx][p2_destroy_right_ty] == `MAP_BLOCK) begin
-                    if (random_seed[7:0] > three_quarter) tile_map[p2_destroy_right_tx][p2_destroy_right_ty] <= `MAP_EMPTY;
-                    else tile_map[p2_destroy_right_tx][p2_destroy_right_ty] <= `MAP_POWERUP;
+ 
+                // destroy blocks
+                for (player_i = 0; player_i < 2; player_i = player_i + 1) begin
+                    for (bomb_i = 0; bomb_i < `MAX_BOMBS; bomb_i = bomb_i + 1) begin
+                        if (b_explosion_active[player_i][bomb_i]) begin
+                            // UP
+                            if (up_len[player_i][bomb_i] > 0 &&
+                                b_stage[player_i][bomb_i] == up_len[player_i][bomb_i] && 
+                                tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] - up_len[player_i][bomb_i]] == `MAP_BLOCK) begin
+                                if (random_seed[7:0] > three_quarter) tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] - up_len[player_i][bomb_i]] <= `MAP_EMPTY;
+                                else tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] - up_len[player_i][bomb_i]] <= `MAP_POWERUP;
+                            end
+                            // DOWN
+                            if (down_len[player_i][bomb_i] > 0 && 
+                                b_stage[player_i][bomb_i] == down_len[player_i][bomb_i] &&
+                                tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] + down_len[player_i][bomb_i]] == `MAP_BLOCK) begin
+                                if (random_seed[7:0] > three_quarter) tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] + down_len[player_i][bomb_i]] <= `MAP_EMPTY;
+                                else tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] + down_len[player_i][bomb_i]] <= `MAP_POWERUP;
+                            end
+                            // LEFT
+                            if (left_len[player_i][bomb_i] > 0 &&
+                                b_stage[player_i][bomb_i] == left_len[player_i][bomb_i] && 
+                                tile_map[b_tx[player_i][bomb_i] - left_len[player_i][bomb_i]][b_ty[player_i][bomb_i]] == `MAP_BLOCK) begin
+                                if (random_seed[7:0] > three_quarter) tile_map[b_tx[player_i][bomb_i] - left_len[player_i][bomb_i]][b_ty[player_i][bomb_i]] <= `MAP_EMPTY;
+                                else tile_map[b_tx[player_i][bomb_i] - left_len[player_i][bomb_i]][b_ty[player_i][bomb_i]] <= `MAP_POWERUP;
+                            end
+                            // RIGHT
+                            if (right_len[player_i][bomb_i] > 0 &&
+                                b_stage[player_i][bomb_i] == right_len[player_i][bomb_i] && 
+                                tile_map[b_tx[player_i][bomb_i] + right_len[player_i][bomb_i]][b_ty[player_i][bomb_i]] == `MAP_BLOCK) begin
+                                if (random_seed[7:0] > three_quarter) tile_map[b_tx[player_i][bomb_i] + right_len[player_i][bomb_i]][b_ty[player_i][bomb_i]] <= `MAP_EMPTY;
+                                else tile_map[b_tx[player_i][bomb_i] + right_len[player_i][bomb_i]][b_ty[player_i][bomb_i]] <= `MAP_POWERUP;
+                            end
+                        end
+                    end
                 end
             end
         endcase
@@ -625,60 +734,40 @@ module Top_Student (
         if (tile_x_of_pixel == 4'hF || tile_y_of_pixel == 4'hF) oled_data_single = `OLED_ORANGE;
         else oled_data_single = expand_tile(tile_map[tile_x_of_pixel][tile_y_of_pixel], local_x, local_y);
 
-        // player 1 bomb and explosion
-        if (p1_bomb_active) begin
-            if (tile_x_of_pixel == p1_bomb_tx && tile_y_of_pixel == p1_bomb_ty)
-                oled_data_single = p1_bomb_red ? `OLED_RED : `OLED_ORANGE;
+        for (player_i = 0; player_i < 2; player_i = player_i + 1) begin
+            for (bomb_i = 0; bomb_i < `MAX_BOMBS; bomb_i = bomb_i + 1) begin
+                // bomb rendering
+                if (b_bomb_active[player_i][bomb_i]) begin
+                    if (tile_x_of_pixel == b_tx[player_i][bomb_i] && tile_y_of_pixel == b_ty[player_i][bomb_i])
+                        oled_data_single = b_bomb_red[player_i][bomb_i] ? `OLED_RED : `OLED_ORANGE;
+                end
+                
+                // explosion rendering TO BE CHANGED TO EXPAND TILE
+                if (b_explosion_active[player_i][bomb_i]) begin
+                    if (tile_x_of_pixel == b_tx[player_i][bomb_i] && tile_y_of_pixel == b_ty[player_i][bomb_i]) oled_data_single = `OLED_YELLOW;
+     
+                    // UP
+                    if ((b_stage[player_i][bomb_i] <= up_len[player_i][bomb_i]) &&
+                        (tile_x_of_pixel == b_tx[player_i][bomb_i]) &&
+                        (tile_y_of_pixel == b_ty[player_i][bomb_i] - b_stage[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
+     
+                    // DOWN
+                    if ((b_stage[player_i][bomb_i] <= down_len[player_i][bomb_i]) &&
+                        (tile_x_of_pixel == b_tx[player_i][bomb_i]) &&
+                        (tile_y_of_pixel == b_ty[player_i][bomb_i] + b_stage[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
+     
+                    // LEFT
+                    if ((b_stage[player_i][bomb_i] <= left_len[player_i][bomb_i]) &&
+                        (tile_x_of_pixel == b_tx[player_i][bomb_i] - b_stage[player_i][bomb_i]) &&
+                        (tile_y_of_pixel == b_ty[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
+     
+                    // RIGHT
+                    if ((b_stage[player_i][bomb_i] <= right_len[player_i][bomb_i]) &&
+                        (tile_x_of_pixel == b_tx[player_i][bomb_i] + b_stage[player_i][bomb_i]) &&
+                        (tile_y_of_pixel == b_ty[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
+                end
+            end
         end
-
-        if (p1_explosion_active) begin
-            if (tile_x_of_pixel == p1_bomb_tx && tile_y_of_pixel == p1_bomb_ty)
-                oled_data_single = `OLED_YELLOW;
-
-            if ((p1_explosion_stage <= p1_explode_up_len) &&
-                tile_x_of_pixel == p1_bomb_tx && tile_y_of_pixel == p1_bomb_ty-p1_explosion_stage)
-                oled_data_single = `OLED_YELLOW;
-
-            if ((p1_explosion_stage <= p1_explode_down_len) &&
-                tile_x_of_pixel == p1_bomb_tx && tile_y_of_pixel == p1_bomb_ty+p1_explosion_stage)
-                oled_data_single = `OLED_YELLOW;
-
-            if ((p1_explosion_stage <= p1_explode_left_len) &&
-                tile_x_of_pixel == p1_bomb_tx-p1_explosion_stage && tile_y_of_pixel == p1_bomb_ty)
-                oled_data_single = `OLED_YELLOW;
-
-            if ((p1_explosion_stage <= p1_explode_right_len) &&
-                tile_x_of_pixel == p1_bomb_tx+p1_explosion_stage && tile_y_of_pixel == p1_bomb_ty)
-                oled_data_single = `OLED_YELLOW;
-        end
-        
-        // player 2 bomb and explosion
-        if (p2_bomb_active) begin
-            if (tile_x_of_pixel == p2_bomb_tx && tile_y_of_pixel == p2_bomb_ty)
-                oled_data_single = p2_bomb_red ? `OLED_RED : `OLED_ORANGE;
-        end
-
-        if (p2_explosion_active) begin
-            if (tile_x_of_pixel == p2_bomb_tx && tile_y_of_pixel == p2_bomb_ty)
-                oled_data_single = `OLED_YELLOW;
-
-            if ((p2_explosion_stage <= p2_explode_up_len) &&
-                tile_x_of_pixel == p2_bomb_tx && tile_y_of_pixel == p2_bomb_ty-p2_explosion_stage)
-                oled_data_single = `OLED_YELLOW;
-
-            if ((p2_explosion_stage <= p2_explode_down_len) &&
-                tile_x_of_pixel == p2_bomb_tx && tile_y_of_pixel == p2_bomb_ty+p2_explosion_stage)
-                oled_data_single = `OLED_YELLOW;
-
-            if ((p2_explosion_stage <= p2_explode_left_len) &&
-                tile_x_of_pixel == p2_bomb_tx-p2_explosion_stage && tile_y_of_pixel == p2_bomb_ty)
-                oled_data_single = `OLED_YELLOW;
-
-            if ((p2_explosion_stage <= p2_explode_right_len) &&
-                tile_x_of_pixel == p2_bomb_tx+p2_explosion_stage && tile_y_of_pixel == p2_bomb_ty)
-                oled_data_single = `OLED_YELLOW;
-        end
-
 
         // player
         if (p1_region) oled_data_single = `OLED_BLUE; //p1_dead ? `OLED_CYAN : `OLED_BLUE;

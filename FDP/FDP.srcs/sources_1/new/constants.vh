@@ -42,10 +42,14 @@
 `define MAP_BLOCK                   3'b010 // code for block tile/pixel
 `define MAP_BOMB                    3'b011 // code for bomb tile/pixel
 `define MAP_POWERUP                 3'b100 // code for powerup tile/pixel
+`define MAP_BLAST                   3'b101 // code for powerup tile/pixel
+
+// bomb controller
+`define MAX_BOMBS                   3
+`define MAX_RADIUS                  3
 
 // path parameters
 `define MAX_PATH_LEN                40 // 81
-//`define MAX_NUM_NODES               135//81 //40 // 81 // 107
 `define MAX_OPEN_NODES              40//81 //40 // 81 // 107
 `define MAX_CLOSED_NODES            135//81 //40 // 81 // 107
 

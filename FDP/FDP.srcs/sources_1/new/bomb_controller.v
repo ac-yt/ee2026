@@ -4,358 +4,190 @@
 
 module bomb_controller (
     input clk,
+    input [3:0] player_tx, player_ty,
     input trigger,
-    input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
-    input [6:0] player_x,
-    input [5:0] player_y,
-    input [3:0] player_tx,
-    input [3:0] player_ty,
     input player_dead,
 
-    output reg bomb_active = 0,
-    output reg bomb_passable = 0,
-    output reg [3:0] bomb_tx = 0,
-    output reg [3:0] bomb_ty = 0,
-    output reg bomb_red = 0,
+    output [`MAX_BOMBS-1:0] place_bomb_req, bomb_active, bomb_red, explosion_active,
+    output [`MAX_BOMBS*4-1:0] bomb_tx_flat, bomb_ty_flat,
+    output [`MAX_BOMBS*2-1:0] explosion_stage_flat,
 
-    output reg explosion_active = 0,
-    output reg [3:0] explosion_stage = 1,
-    output reg [3:0] explode_up_len = 0,
-    output reg [3:0] explode_down_len = 0,
-    output reg [3:0] explode_left_len = 0,
-    output reg [3:0] explode_right_len = 0,
-
-    output reg player_hit = 0,
-
-    output reg place_bomb_req = 0,
-    output reg [3:0] place_bomb_tx = 0,
-    output reg [3:0] place_bomb_ty = 0,
-
-    output reg clear_bomb_req = 0,
-    output reg [3:0] clear_bomb_tx = 0,
-    output reg [3:0] clear_bomb_ty = 0,
-
-    output reg destroy_up_req = 0,
-    output reg [3:0] destroy_up_tx = 0,
-    output reg [3:0] destroy_up_ty = 0,
-
-    output reg destroy_down_req = 0,
-    output reg [3:0] destroy_down_tx = 0,
-    output reg [3:0] destroy_down_ty = 0,
-
-    output reg destroy_left_req = 0,
-    output reg [3:0] destroy_left_tx = 0,
-    output reg [3:0] destroy_left_ty = 0,
-
-    output reg destroy_right_req = 0,
-    output reg [3:0] destroy_right_tx = 0,
-    output reg [3:0] destroy_right_ty = 0
+    input [1:0] bomb_count, // number of bombs that can be placed
+    input [1:0] bomb_radius
 );
+
+//    parameter integer BOMB_COUNTDOWN_TIME = 2 * `CLOCK_SPEED;
+//    parameter integer BOMB_BLINK_TIME = `CLOCK_SPEED / 2;
+//    parameter integer EXPLOSION_TIME = 1 * `CLOCK_SPEED;
+//    parameter integer EXPLOSION_STAGE_TIME = EXPLOSION_TIME / 3;
+    // replace old time parameters
+    parameter integer TICK_DIV               = `CLOCK_SPEED / 100;
+    parameter integer BOMB_COUNTDOWN_TICKS   = 200;
+    parameter integer BOMB_BLINK_TICKS       = 50;
+    parameter integer EXPLOSION_STAGE_TICKS  = 33;
     
-    // added this
-    reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
-    integer ux, uy; // unpack map
+    // shared tick counter
+    reg [$clog2(TICK_DIV)-1:0] tick_ctr = 0;
+//    wire game_tick = (tick_ctr == TICK_DIV -1);
+//    always @(posedge clk) begin
+//        if (tick_ctr == TICK_DIV - 1) tick_ctr  <= 0;
+//        else tick_ctr  <= tick_ctr + 1;
+//    end
+    reg game_tick = 0;
+    always @(posedge clk) begin
+        if (game_tick) begin
+            tick_ctr  <= TICK_DIV - 2; // reload to count down
+            game_tick <= 0;
+        end else if (tick_ctr == 0) begin
+            game_tick <= 1;
+            tick_ctr  <= TICK_DIV - 2;
+        end else begin
+            tick_ctr <= tick_ctr - 1;
+        end
+    end
+    
+//    reg [$clog2(BOMB_COUNTDOWN_TIME):0] countdown_r [0:`MAX_BOMBS-1];
+//    reg [$clog2(EXPLOSION_STAGE_TIME):0] explode_tick_r [0:`MAX_BOMBS-1];
+    reg [$clog2(BOMB_COUNTDOWN_TICKS):0] countdown_counter [0:`MAX_BOMBS-1];
+    reg [$clog2(EXPLOSION_STAGE_TICKS):0] explode_counter [0:`MAX_BOMBS-1];
+
+    parameter [1:0] ST_IDLE      = 2'd0;
+    parameter [1:0] ST_COUNTDOWN = 2'd1;
+    parameter [1:0] ST_EXPLODE   = 2'd2;
+
+    reg [1:0] state [0:`MAX_BOMBS-1];
+    reg [1:0] next_state [0:`MAX_BOMBS-1];
+    reg [3:0] bomb_tx_r [0:`MAX_BOMBS-1];
+    reg [3:0] bomb_ty_r [0:`MAX_BOMBS-1];
+    reg [1:0] stage_r   [0:`MAX_BOMBS-1];
+    reg [`MAX_BOMBS-1:0] place_bomb_req_r;
+    reg [`MAX_BOMBS-1:0] bomb_red_r;
+
+    integer i;
+//    integer alloc_idx;
+    reg [1:0] active_count_r;
+    reg found;
+    reg [1:0] alloc_idx;
+    
+    reg countdown_done [0:`MAX_BOMBS-1];
+    reg explode_done [0:`MAX_BOMBS-1];
+    always @(posedge clk) begin
+        for (i = 0; i < `MAX_BOMBS; i = i + 1) begin
+//            countdown_done[i] <= (countdown_r[i] >= BOMB_COUNTDOWN_TIME - 2);
+            countdown_done[i] <= (countdown_counter[i] >= BOMB_COUNTDOWN_TICKS - 2);
+//            explode_done[i]  <= (explode_tick_r[i] >= EXPLOSION_STAGE_TIME - 2);
+            explode_done[i]  <= (explode_counter[i] >= EXPLOSION_STAGE_TICKS - 2);
+        end
+    end
+    
     always @(*) begin
-        for (uy = 0; uy < `TILE_MAP_HEIGHT; uy = uy + 1)
-            for (ux = 0; ux < `TILE_MAP_WIDTH; ux = ux + 1)
-                tile_map[ux][uy] = tile_map_flat[(uy*`TILE_MAP_WIDTH + ux)*3 +: 3];
+        found = 0;
+        alloc_idx = 0;
+        active_count_r = 0;
+        for (i = 0; i < `MAX_BOMBS; i = i + 1) begin
+            if (!found && state[i] == ST_IDLE) begin
+                alloc_idx = i[1:0];
+                found = 1;
+            end
+            if (state[i] == ST_COUNTDOWN) active_count_r = active_count_r + 1'b1;
+        end
+        
+        // next state logic
+        for (i = 0; i < `MAX_BOMBS; i = i + 1) begin
+            next_state[i] = state[i];
+            case (state[i])
+                ST_IDLE:
+                    if (trigger && found && alloc_idx == i[1:0] && active_count_r < bomb_count)
+                        next_state[i] = ST_COUNTDOWN;
+                ST_COUNTDOWN:
+                    if (countdown_done[i])
+//                    if (countdown_r[i] >= BOMB_COUNTDOWN_TIME - 1)
+                        next_state[i] = ST_EXPLODE;
+                ST_EXPLODE:
+                    if (explode_done[i] && stage_r[i] >= bomb_radius)
+//                    if (explode_tick_r[i] >= EXPLOSION_STAGE_TIME - 1 && stage_r[i] >= bomb_radius)
+                        next_state[i] = ST_IDLE;
+                default:
+                    next_state[i] = ST_IDLE;
+            endcase
+        end
     end
-
-    parameter integer BOMB_COUNTDOWN_TIME  = 2 * `CLOCK_SPEED;
-    parameter integer BOMB_BLINK_TIME      = `CLOCK_SPEED / 2;
-    parameter integer EXPLOSION_TIME       = 1 * `CLOCK_SPEED;
-    parameter integer EXPLOSION_RADIUS     = 1;
-    parameter integer EXPLOSION_STAGE_TIME = EXPLOSION_TIME / EXPLOSION_RADIUS;
-
-    reg [$clog2(BOMB_COUNTDOWN_TIME):0] bomb_counter = 0;
-    reg [$clog2(BOMB_BLINK_TIME):0] blink_counter = 0;
-    reg [$clog2(EXPLOSION_STAGE_TIME):0] explosion_stage_counter = 0;
-
-    reg trigger_d = 0;
-    wire trigger_pressed = trigger & ~trigger_d;
-
+    
+    // separate block - only fires on placement, no other logic
     always @(posedge clk) begin
-        trigger_d <= trigger;
-    end
-
-    function [2:0] get_tile;
-        input [3:0] tx;
-        input [3:0] ty;
-    begin
-        get_tile = tile_map[tx][ty];
-    end
-    endfunction
-
-    function player_overlaps_tile;
-        input [3:0] tx_in;
-        input [3:0] ty_in;
-        reg [6:0] tile_left;
-        reg [6:0] tile_right;
-        reg [5:0] tile_top;
-        reg [5:0] tile_bottom;
-        reg [6:0] player_right;
-        reg [5:0] player_bottom;
-    begin
-        tile_left     = `MIN_PIX_X + tx_in * `TILE_SIZE;
-        tile_right    = tile_left + `TILE_SIZE - 1;
-        tile_top      = `MIN_PIX_Y + ty_in * `TILE_SIZE;
-        tile_bottom   = tile_top + `TILE_SIZE - 1;
-        player_right  = player_x + `PLAYER_WIDTH - 1;
-        player_bottom = player_y + `PLAYER_HEIGHT - 1;
-
-        player_overlaps_tile =
-            !(player_right  < tile_left  ||
-              player_x      > tile_right ||
-              player_bottom < tile_top   ||
-              player_y      > tile_bottom);
-    end
-    endfunction
-
-    function [3:0] compute_reach_up;
-        input [3:0] cx;
-        input [3:0] cy;
-        integer i;
-        reg stop;
-        reg [2:0] t;
-    begin
-        compute_reach_up = 0;
-        stop = 0;
-        for (i = 1; i <= EXPLOSION_RADIUS; i = i + 1) begin
-            if (!stop) begin
-                if (cy < i)
-                    stop = 1;
-                else begin
-                    t = get_tile(cx, cy - i);
-                    if (t == `MAP_WALL)
-                        stop = 1;
-                    else begin
-                        compute_reach_up = i[3:0];
-                        if (t == `MAP_BLOCK)
-                            stop = 1;
-                    end
-                end
+        for (i = 0; i < `MAX_BOMBS; i = i + 1) begin
+            if (state[i] == ST_IDLE && next_state[i] == ST_COUNTDOWN) begin
+                bomb_tx_r[i] <= player_tx;
+                bomb_ty_r[i] <= player_ty;
             end
         end
     end
-    endfunction
-
-    function [3:0] compute_reach_down;
-        input [3:0] cx;
-        input [3:0] cy;
-        integer i;
-        reg stop;
-        reg [2:0] t;
-    begin
-        compute_reach_down = 0;
-        stop = 0;
-        for (i = 1; i <= EXPLOSION_RADIUS; i = i + 1) begin
-            if (!stop) begin
-                if ((cy + i) >= `TILE_MAP_HEIGHT)
-                    stop = 1;
-                else begin
-                    t = get_tile(cx, cy + i);
-                    if (t == `MAP_WALL)
-                        stop = 1;
-                    else begin
-                        compute_reach_down = i[3:0];
-                        if (t == `MAP_BLOCK)
-                            stop = 1;
-                    end
-                end
-            end
-        end
-    end
-    endfunction
-
-    function [3:0] compute_reach_left;
-        input [3:0] cx;
-        input [3:0] cy;
-        integer i;
-        reg stop;
-        reg [2:0] t;
-    begin
-        compute_reach_left = 0;
-        stop = 0;
-        for (i = 1; i <= EXPLOSION_RADIUS; i = i + 1) begin
-            if (!stop) begin
-                if (cx < i)
-                    stop = 1;
-                else begin
-                    t = get_tile(cx - i, cy);
-                    if (t == `MAP_WALL)
-                        stop = 1;
-                    else begin
-                        compute_reach_left = i[3:0];
-                        if (t == `MAP_BLOCK)
-                            stop = 1;
-                    end
-                end
-            end
-        end
-    end
-    endfunction
-
-    function [3:0] compute_reach_right;
-        input [3:0] cx;
-        input [3:0] cy;
-        integer i;
-        reg stop;
-        reg [2:0] t;
-    begin
-        compute_reach_right = 0;
-        stop = 0;
-        for (i = 1; i <= EXPLOSION_RADIUS; i = i + 1) begin
-            if (!stop) begin
-                if ((cx + i) >= `TILE_MAP_WIDTH)
-                    stop = 1;
-                else begin
-                    t = get_tile(cx + i, cy);
-                    if (t == `MAP_WALL)
-                        stop = 1;
-                    else begin
-                        compute_reach_right = i[3:0];
-                        if (t == `MAP_BLOCK)
-                            stop = 1;
-                    end
-                end
-            end
-        end
-    end
-    endfunction
-
+    
     always @(posedge clk) begin
-        // default pulse outputs
-        place_bomb_req   <= 0;
-        clear_bomb_req   <= 0;
-        destroy_up_req   <= 0;
-        destroy_down_req <= 0;
-        destroy_left_req <= 0;
-        destroy_right_req<= 0;
-        player_hit       <= 0;
-
-        // allow player to step off own bomb once
-        if (bomb_active && bomb_passable) begin
-            if (!player_overlaps_tile(bomb_tx, bomb_ty))
-                bomb_passable <= 0;
-        end
-
-        // place bomb
-        if (!bomb_active && !explosion_active && !player_dead && trigger_pressed) begin
-            if (get_tile(player_tx, player_ty) == `MAP_EMPTY ||
-                get_tile(player_tx, player_ty) == `MAP_POWERUP) begin
-                bomb_active    <= 1;
-                bomb_passable  <= 1;
-                bomb_tx        <= player_tx;
-                bomb_ty        <= player_ty;
-                bomb_counter   <= 0;
-                blink_counter  <= 0;
-                bomb_red       <= 0;
-
-                place_bomb_req <= 1;
-                place_bomb_tx  <= player_tx;
-                place_bomb_ty  <= player_ty;
-            end
-        end
-
-        // countdown
-        if (bomb_active) begin
-            if (bomb_counter == BOMB_COUNTDOWN_TIME - 1) begin
-                bomb_active   <= 0;
-                bomb_passable <= 0;
-                bomb_counter  <= 0;
-                blink_counter <= 0;
-                bomb_red      <= 0;
-
-                clear_bomb_req <= 1;
-                clear_bomb_tx  <= bomb_tx;
-                clear_bomb_ty  <= bomb_ty;
-
-                explode_up_len    <= compute_reach_up(bomb_tx, bomb_ty);
-                explode_down_len  <= compute_reach_down(bomb_tx, bomb_ty);
-                explode_left_len  <= compute_reach_left(bomb_tx, bomb_ty);
-                explode_right_len <= compute_reach_right(bomb_tx, bomb_ty);
-
-                explosion_active        <= 1;
-                explosion_stage         <= 1;
-                explosion_stage_counter <= 0;
-            end
-            else begin
-                bomb_counter <= bomb_counter + 1;
-
-                if (blink_counter == BOMB_BLINK_TIME - 1) begin
-                    blink_counter <= 0;
-                    bomb_red <= ~bomb_red;
+        place_bomb_req_r <= 0;
+        
+        for (i = 0; i < `MAX_BOMBS; i = i + 1) begin
+            state[i] <= next_state[i];
+    
+            case (state[i])
+                ST_IDLE: begin
+                    if (next_state[i] == ST_COUNTDOWN) begin
+                        stage_r[i]        <= 0;
+//                        countdown_r[i]    <= 0;
+                        countdown_counter[i]    <= 0;
+//                        explode_tick_r[i] <= 0;
+                        explode_counter[i] <= 0;
+                        place_bomb_req_r[i] <= 1;
+                    end
                 end
-                else begin
-                    blink_counter <= blink_counter + 1;
+    
+                ST_COUNTDOWN: begin
+                    if (next_state[i] == ST_EXPLODE) begin
+//                        explode_tick_r[i] <= 0;
+                        explode_counter[i] <= 0;
+                        stage_r[i]        <= 2'd1;
+                        countdown_counter[i]    <= 0;
+                    end
+                    else if (game_tick) begin
+                        countdown_counter[i] <= countdown_counter[i] + 1;
+//                        countdown_r[i] <= countdown_r[i] + 1;
+                        bomb_red_r[i] <= countdown_counter[i][$clog2(BOMB_BLINK_TICKS)];
+//                        bomb_red_r <= countdown_r[i][$clog2(BOMB_BLINK_TIME)];
+                    end
                 end
-            end
-        end
-
-        // explosion
-        if (explosion_active) begin
-            // center tile
-            if (!player_dead && player_overlaps_tile(bomb_tx, bomb_ty))
-                player_hit <= 1;
-
-            // up
-            if (explosion_stage <= explode_up_len) begin
-                if (get_tile(bomb_tx, bomb_ty - explosion_stage) == `MAP_BLOCK) begin
-                    destroy_up_req <= 1;
-                    destroy_up_tx  <= bomb_tx;
-                    destroy_up_ty  <= bomb_ty - explosion_stage;
+    
+                ST_EXPLODE: begin
+                    if (next_state[i] == ST_IDLE) stage_r[i] <= 0;
+                    else if (game_tick) begin
+                        if (explode_counter[i] >= EXPLOSION_STAGE_TICKS - 1) begin
+                            explode_counter[i] <= 0;
+                            stage_r[i]        <= stage_r[i] + 1;
+                        end else begin
+                            explode_counter[i] <= explode_counter[i] + 1;
+                        end
+//                        // staying in explode
+//                        if (explode_tick_r[i] >= EXPLOSION_STAGE_TIME - 1) begin
+//                            explode_tick_r[i] <= 0;
+//                            stage_r[i]        <= stage_r[i] + 1;
+//                        end else begin
+//                            explode_tick_r[i] <= explode_tick_r[i] + 1;
+//                        end
+                    end
                 end
-                if (!player_dead && player_overlaps_tile(bomb_tx, bomb_ty - explosion_stage))
-                    player_hit <= 1;
-            end
-
-            // down
-            if (explosion_stage <= explode_down_len) begin
-                if (get_tile(bomb_tx, bomb_ty + explosion_stage) == `MAP_BLOCK) begin
-                    destroy_down_req <= 1;
-                    destroy_down_tx  <= bomb_tx;
-                    destroy_down_ty  <= bomb_ty + explosion_stage;
-                end
-                if (!player_dead && player_overlaps_tile(bomb_tx, bomb_ty + explosion_stage))
-                    player_hit <= 1;
-            end
-
-            // left
-            if (explosion_stage <= explode_left_len) begin
-                if (get_tile(bomb_tx - explosion_stage, bomb_ty) == `MAP_BLOCK) begin
-                    destroy_left_req <= 1;
-                    destroy_left_tx  <= bomb_tx - explosion_stage;
-                    destroy_left_ty  <= bomb_ty;
-                end
-                if (!player_dead && player_overlaps_tile(bomb_tx - explosion_stage, bomb_ty))
-                    player_hit <= 1;
-            end
-
-            // right
-            if (explosion_stage <= explode_right_len) begin
-                if (get_tile(bomb_tx + explosion_stage, bomb_ty) == `MAP_BLOCK) begin
-                    destroy_right_req <= 1;
-                    destroy_right_tx  <= bomb_tx + explosion_stage;
-                    destroy_right_ty  <= bomb_ty;
-                end
-                if (!player_dead && player_overlaps_tile(bomb_tx + explosion_stage, bomb_ty))
-                    player_hit <= 1;
-            end
-
-            if (explosion_stage_counter == EXPLOSION_STAGE_TIME - 1) begin
-                explosion_stage_counter <= 0;
-
-                if (explosion_stage == EXPLOSION_RADIUS) begin
-                    explosion_active <= 0;
-                end
-                else begin
-                    explosion_stage <= explosion_stage + 1;
-                end
-            end
-            else begin
-                explosion_stage_counter <= explosion_stage_counter + 1;
-            end
+            endcase
         end
     end
 
+    genvar k;
+    generate
+        for (k = 0; k < `MAX_BOMBS; k = k + 1) begin
+            assign bomb_active[k] = (state[k] == ST_COUNTDOWN);
+            assign explosion_active[k] = (state[k] == ST_EXPLODE);
+            assign bomb_tx_flat[k*4 +: 4] = bomb_tx_r[k];
+            assign bomb_ty_flat[k*4 +: 4] = bomb_ty_r[k];
+            assign explosion_stage_flat[k*2 +: 2] = stage_r[k];
+            assign place_bomb_req[k] = place_bomb_req_r[k];
+            assign bomb_red[k] = bomb_red_r[k];
+        end
+    endgenerate
 endmodule

@@ -160,10 +160,4 @@ module movement_controller (input clk,// output reg [15:0] led,
             end 
         end
     end
-    
-//    always @ (posedge clk) begin
-//        led[0] <= (path_len > 0);
-//        led[4:1] <= path_x[1];
-//        led[8:5] <= path_y[1];
-//    end
 endmodule

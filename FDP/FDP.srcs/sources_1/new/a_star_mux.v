@@ -18,72 +18,9 @@ module a_star_mux(input clk,
                   output reg c1_valid,
 //                  output c1_valid,
                   output reg [6:0] c1_len);
-        
-//    wire clk_a_star;
-//    variable_clock #(.CLOCK_SPEED(`CLOCK_SPEED), .OUT_SPEED(`PATH_SPEED)) clk_a_star_inst
-//                    (.clk(clk), .clk_out(clk_a_star));
-    
-    // latch map change for 6 cycles for slow domain to catch it
-//    parameter HOLD_CYCLES = 6;
-//    // reg map_changed_latch = 0;
-//    reg c0_update_latch   = 0;
-//    reg c1_update_latch   = 0;
-//    reg [2:0] map_hold = 0, c0_hold_req = 0, c1_hold_req = 0;
-//    always @ (posedge clk) begin
-////        if (map_changed) begin
-////            map_changed_latch <= 1;
-////            map_hold <= HOLD_CYCLES; 
-////        end
-////        else if (map_hold > 0) map_hold <= map_hold - 1;
-////        else map_changed_latch <= 0;
- 
-//        if (c0_update) begin 
-//            c0_update_latch <= 1; 
-//            c0_hold_req <= HOLD_CYCLES; 
-//        end
-//        else if (c0_hold_req > 0) c0_hold_req <= c0_hold_req - 1;
-//        else c0_update_latch <= 0;
- 
-//        if (c1_update) begin 
-//            c1_update_latch <= 1; 
-//            c1_hold_req <= HOLD_CYCLES; 
-//        end
-//        else if (c1_hold_req > 0) c1_hold_req <= c1_hold_req - 1;
-//        else c1_update_latch <= 0;
-//    end
-        
-//    reg c0_update_ff1 = 0, c0_update_ff2 = 0, c0_update_ff2_prev = 0;
-//    reg c1_update_ff1 = 0, c1_update_ff2 = 0, c1_update_ff2_prev = 0;
-//    always @ (posedge clk_a_star) begin
-//        c0_update_ff1      <= c0_update_latch;// | map_changed_latch;
-//        c0_update_ff2      <= c0_update_ff1;
-//        c0_update_ff2_prev <= c0_update_ff2;
- 
-//        c1_update_ff1      <= c1_update_latch;// | map_changed_latch;
-//        c1_update_ff2      <= c1_update_ff1;
-//        c1_update_ff2_prev <= c1_update_ff2;
-//    end
-//    wire c0_req = c0_update_ff2 & ~c0_update_ff2_prev; // slow domain, 1-cycle pulse
-//    wire c1_req = c1_update_ff2 & ~c1_update_ff2_prev;
+                  
     wire c0_req = c0_update;
     wire c1_req = c1_update;
-
-//parameter HOLD_CYCLES = 6;
-//reg c0_update_latch = 0, c1_update_latch = 0;
-//reg [2:0] c0_hold = 0, c1_hold = 0;
-
-//always @(posedge clk) begin
-//    if (c0_update) begin c0_update_latch <= 1; c0_hold <= HOLD_CYCLES; end
-//    else if (c0_hold > 0) c0_hold <= c0_hold - 1;
-//    else c0_update_latch <= 0;
-
-//    if (c1_update) begin c1_update_latch <= 1; c1_hold <= HOLD_CYCLES; end
-//    else if (c1_hold > 0) c1_hold <= c1_hold - 1;
-//    else c1_update_latch <= 0;
-//end
-
-//wire c0_req = c0_update_latch;
-//wire c1_req = c1_update_latch;
         
     // a star inputs/outputs
     reg as_update = 0, as_baw = 0;
@@ -114,8 +51,6 @@ module a_star_mux(input clk,
     reg [1:0] state = QUEUE;
     
     reg c0_pending = 0, c1_pending = 0;
-//    reg [2:0] c0_valid_latch = 0, c1_valid_latch = 0;
-//    reg c0_valid_slow = 0, c1_valid_slow = 0;
     always @ (posedge clk) begin //clk_a_star) begin
         if (c0_req) c0_pending <= 1;
         if (c1_req) c1_pending <= 1;
@@ -123,20 +58,7 @@ module a_star_mux(input clk,
         as_update <= 0;
         c0_valid <= 0;
         c1_valid <= 0;
- 
-//        // countdown latch timers
-//        if (c0_valid_latch > 0) begin 
-//            c0_valid_latch <= c0_valid_latch - 1; 
-//            c0_valid_slow <= 1; 
-//        end
-//        else c0_valid_slow <= 0;
-//        if (c1_valid_latch > 0) begin 
-//            c1_valid_latch <= c1_valid_latch - 1; 
-//            c1_valid_slow <= 1; 
-//        end
-//        else c1_valid_slow <= 0;
-//        wire c0_valid = as_valid;
-//        wire c1_valid = as_valid;
+        
         case (state)
             QUEUE: begin
                 if (c0_pending) begin
@@ -185,19 +107,4 @@ module a_star_mux(input clk,
             end
         endcase
     end
-
-//    reg c0_valid_ff1 = 0, c0_valid_ff2 = 0, c0_valid_ff2_prev = 0;
-//    reg c1_valid_ff1 = 0, c1_valid_ff2 = 0, c1_valid_ff2_prev = 0;
-//    always @ (posedge clk) begin
-//        c0_valid_ff1     <= c0_valid_slow;
-//        c0_valid_ff2     <= c0_valid_ff1;
-//        c0_valid_ff2_prev<= c0_valid_ff2;
- 
-//        c1_valid_ff1     <= c1_valid_slow;
-//        c1_valid_ff2     <= c1_valid_ff1;
-//        c1_valid_ff2_prev<= c1_valid_ff2;
-//    end
-    
-//    assign c0_valid = c0_valid_ff2 & ~c0_valid_ff2_prev;
-//    assign c1_valid = c1_valid_ff2 & ~c1_valid_ff2_prev;
 endmodule

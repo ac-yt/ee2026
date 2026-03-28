@@ -14,9 +14,9 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 65900 
+INFO: Helper process launched with PID 44248 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 388.141 ; gain = 101.195
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 388.781 ; gain = 102.453
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'Top_Student' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:5]
 	Parameter DISPLAY_TIME bound to: 150000000 - type: integer 
@@ -144,17 +144,30 @@ INFO: [Synth 8-6157] synthesizing module 'movement_controller' [C:/VivadoProject
 	Parameter MAX_MOVE_COUNT bound to: 2000000 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'movement_controller' (11#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/movement_controller.v:5]
 INFO: [Synth 8-6157] synthesizing module 'bomb_controller' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:5]
-	Parameter BOMB_COUNTDOWN_TIME bound to: 100000000 - type: integer 
-	Parameter BOMB_BLINK_TIME bound to: 25000000 - type: integer 
-	Parameter EXPLOSION_TIME bound to: 50000000 - type: integer 
-	Parameter EXPLOSION_RADIUS bound to: 1 - type: integer 
-	Parameter EXPLOSION_STAGE_TIME bound to: 50000000 - type: integer 
+	Parameter TICK_DIV bound to: 500000 - type: integer 
+	Parameter BOMB_COUNTDOWN_TICKS bound to: 200 - type: integer 
+	Parameter BOMB_BLINK_TICKS bound to: 50 - type: integer 
+	Parameter EXPLOSION_STAGE_TICKS bound to: 33 - type: integer 
+	Parameter ST_IDLE bound to: 2'b00 
+	Parameter ST_COUNTDOWN bound to: 2'b01 
+	Parameter ST_EXPLODE bound to: 2'b10 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:132]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:132]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:132]
 INFO: [Synth 8-6155] done synthesizing module 'bomb_controller' (12#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:5]
 WARNING: [Synth 8-3848] Net p1_dead in module/entity p1_controller does not have driver. [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p1_controller.v:15]
 INFO: [Synth 8-6155] done synthesizing module 'p1_controller' (13#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p1_controller.v:5]
 INFO: [Synth 8-6157] synthesizing module 'p2_controller' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:5]
-WARNING: [Synth 8-6014] Unused sequential element next_is_block_prev_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:66]
+WARNING: [Synth 8-6014] Unused sequential element next_is_block_prev_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:37]
+WARNING: [Synth 8-6014] Unused sequential element bomb_trigger_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:71]
 WARNING: [Synth 8-3848] Net p2_dead in module/entity p2_controller does not have driver. [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:16]
+WARNING: [Synth 8-3848] Net place_bomb_req in module/entity p2_controller does not have driver. [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:18]
+WARNING: [Synth 8-3848] Net bomb_active in module/entity p2_controller does not have driver. [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:18]
+WARNING: [Synth 8-3848] Net bomb_red in module/entity p2_controller does not have driver. [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:18]
+WARNING: [Synth 8-3848] Net explosion_active in module/entity p2_controller does not have driver. [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:18]
+WARNING: [Synth 8-3848] Net bomb_tx_flat in module/entity p2_controller does not have driver. [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:19]
+WARNING: [Synth 8-3848] Net bomb_ty_flat in module/entity p2_controller does not have driver. [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:19]
+WARNING: [Synth 8-3848] Net explosion_stage_flat in module/entity p2_controller does not have driver. [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:20]
 INFO: [Synth 8-6155] done synthesizing module 'p2_controller' (14#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:5]
 INFO: [Synth 8-6157] synthesizing module 'a_star_mux' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star_mux.v:3]
 	Parameter QUEUE bound to: 2'b00 
@@ -198,18 +211,66 @@ INFO: [Synth 8-5534] Detected attribute (* ram_style = "block" *) [C:/VivadoProj
 INFO: [Synth 8-155] case statement is not full and has no default [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:242]
 WARNING: [Synth 8-6014] Unused sequential element cost_goal_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:354]
 INFO: [Synth 8-6155] done synthesizing module 'a_star' (15#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:5]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star_mux.v:140]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star_mux.v:62]
 INFO: [Synth 8-6155] done synthesizing module 'a_star_mux' (16#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star_mux.v:3]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:530]
-INFO: [Synth 8-226] default block is never used [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:749]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:631]
+INFO: [Synth 8-226] default block is never used [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:838]
 INFO: [Synth 8-6157] synthesizing module 'seven_segment' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/seven_segment.v:3]
 	Parameter SWITCH_TIME bound to: 500000 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'seven_segment' (17#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/seven_segment.v:3]
 WARNING: [Synth 8-6014] Unused sequential element mouse_middle_prev_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:142]
 WARNING: [Synth 8-6014] Unused sequential element rec_mouse_middle_prev_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:146]
 INFO: [Synth 8-6155] done synthesizing module 'Top_Student' (18#1) [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:5]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port place_bomb_req[2]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port place_bomb_req[1]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port place_bomb_req[0]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_active[2]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_active[1]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_active[0]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_red[2]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_red[1]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_red[0]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port explosion_active[2]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port explosion_active[1]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port explosion_active[0]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_tx_flat[11]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_tx_flat[10]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_tx_flat[9]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_tx_flat[8]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_tx_flat[7]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_tx_flat[6]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_tx_flat[5]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_tx_flat[4]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_tx_flat[3]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_tx_flat[2]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_tx_flat[1]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_tx_flat[0]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_ty_flat[11]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_ty_flat[10]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_ty_flat[9]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_ty_flat[8]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_ty_flat[7]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_ty_flat[6]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_ty_flat[5]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_ty_flat[4]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_ty_flat[3]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_ty_flat[2]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_ty_flat[1]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_ty_flat[0]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port explosion_stage_flat[5]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port explosion_stage_flat[4]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port explosion_stage_flat[3]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port explosion_stage_flat[2]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port explosion_stage_flat[1]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port explosion_stage_flat[0]
 WARNING: [Synth 8-3331] design p2_controller has unconnected port mouse_left_pulse
+WARNING: [Synth 8-3331] design p2_controller has unconnected port mouse_right_pulse
 WARNING: [Synth 8-3331] design p2_controller has unconnected port mouse_middle_pulse
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_count[1]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_count[0]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_radius[1]
+WARNING: [Synth 8-3331] design p2_controller has unconnected port bomb_radius[0]
+WARNING: [Synth 8-3331] design bomb_controller has unconnected port player_dead
 WARNING: [Synth 8-3331] design p1_controller has unconnected port mouse_left_pulse
 WARNING: [Synth 8-3331] design p1_controller has unconnected port mouse_middle_pulse
 WARNING: [Synth 8-3331] design package_game_data has unconnected port player
@@ -217,18 +278,8 @@ WARNING: [Synth 8-3331] design Top_Student has unconnected port JC[2]
 WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[14]
 WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[13]
 WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[12]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[11]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[10]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[9]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[8]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[7]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[6]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[5]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[4]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[3]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[2]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 1050.719 ; gain = 763.773
+Finished RTL Elaboration : Time (s): cpu = 00:07:11 ; elapsed = 00:07:21 . Memory (MB): peak = 1727.055 ; gain = 1440.727
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -237,16 +288,14 @@ Report Check Netlist:
 +------+------------------+-------+---------+-------+------------------+
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
-WARNING: [Synth 8-3295] tying undriven pin bomb_ctrl_inst:player_dead to constant 0 [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p1_controller.v:95]
-WARNING: [Synth 8-3295] tying undriven pin bomb_ctrl_inst:player_dead to constant 0 [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v:111]
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:33 ; elapsed = 00:00:35 . Memory (MB): peak = 1050.719 ; gain = 763.773
+Finished Handling Custom Attributes : Time (s): cpu = 00:07:20 ; elapsed = 00:07:31 . Memory (MB): peak = 1727.055 ; gain = 1440.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:33 ; elapsed = 00:00:35 . Memory (MB): peak = 1050.719 ; gain = 763.773
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:07:20 ; elapsed = 00:07:31 . Memory (MB): peak = 1727.055 ; gain = 1440.727
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7a35tcpg236-1
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -264,18 +313,15 @@ Completed Processing XDC Constraints
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.040 . Memory (MB): peak = 1267.527 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.083 . Memory (MB): peak = 1798.535 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:51 ; elapsed = 00:00:55 . Memory (MB): peak = 1267.527 ; gain = 980.582
+Finished Constraint Validation : Time (s): cpu = 00:07:47 ; elapsed = 00:08:02 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5580] Multithreading enabled for synth_design using a maximum of 2 processes.
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcpg236-1
----------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:51 ; elapsed = 00:00:55 . Memory (MB): peak = 1267.527 ; gain = 980.582
----------------------------------------------------------------------------------
 INFO: [Synth 8-5545] ROM "count0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "clk_out0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'Ps2Interface'
@@ -364,20 +410,18 @@ INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'Oled_
 INFO: [Synth 8-5546] ROM "fsm_next_state0" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5544] ROM "fsm_next_state0" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-5546] ROM "fsm_next_state0" won't be mapped to RAM because it is too sparse
-INFO: [Synth 8-4471] merging register 'place_bomb_tx_reg[3:0]' into 'bomb_tx_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:255]
-INFO: [Synth 8-4471] merging register 'place_bomb_ty_reg[3:0]' into 'bomb_ty_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:256]
-WARNING: [Synth 8-6014] Unused sequential element place_bomb_tx_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:255]
-WARNING: [Synth 8-6014] Unused sequential element place_bomb_ty_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:256]
-INFO: [Synth 8-5545] ROM "clear_bomb_req" won't be mapped to RAM because address size (28) is larger than maximum supported(25)
-INFO: [Synth 8-5544] ROM "destroy_up_req" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "destroy_down_req" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "destroy_left_req" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "destroy_right_req" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "compute_reach_up" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5545] ROM "explode_up_len" won't be mapped to RAM because address size (28) is larger than maximum supported(25)
-INFO: [Synth 8-5544] ROM "compute_reach_down" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "compute_reach_left" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "compute_reach_right" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg[0]' in module 'bomb_controller'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg[1]' in module 'bomb_controller'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg[2]' in module 'bomb_controller'
+INFO: [Synth 8-5546] ROM "game_tick" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5544] ROM "stage_r" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "stage_r" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "stage_r" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "stage_r" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "stage_r" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "stage_r" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "found" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "active_count_r" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
 INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:242]
 INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:322]
 INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:437]
@@ -504,9 +548,8 @@ INFO: [Synth 8-5545] ROM "open_x_reg[22]" won't be mapped to RAM because address
 INFO: [Synth 8-5546] ROM "open_x_reg[22]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "open_x_reg[23]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "open_x_reg[23]" won't be mapped to RAM because it is too sparse
-INFO: [Synth 8-5545] ROM "open_x_reg[23]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-INFO: [Synth 8-5546] ROM "open_x_reg[23]" won't be mapped to RAM because it is too sparse
 INFO: [Common 17-14] Message 'Synth 8-5546' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-5545] ROM "open_x_reg[23]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "open_x_reg[24]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "open_x_reg[25]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "open_x_reg[26]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
@@ -529,15 +572,15 @@ INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'a_sta
 INFO: [Synth 8-5544] ROM "state" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "seg_state" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "tile_map_reg[0][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "tile_map_reg[0][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "tile_map_reg[0][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "tile_map_reg[0][1]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "tile_map_reg[0][1]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "tile_map_reg[0][1]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "tile_map_reg[0][2]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "tile_map_reg[0][2]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "tile_map_reg[0][2]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "tile_map_reg[0][3]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "tile_map_reg[0][4]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "tile_map_reg[0][5]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "tile_map_reg[0][6]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "tile_map_reg[0][7]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "tile_map_reg[0][8]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "display_text" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Common 17-14] Message 'Synth 8-5544' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Synth 8-5587] ROM size for "row" is below threshold of ROM address width. It will be mapped to LUTs
 INFO: [Synth 8-5587] ROM size for "row" is below threshold of ROM address width. It will be mapped to LUTs
@@ -673,6 +716,30 @@ INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 
                SendPixel | 00000000000000000010000000000000 |                            10000
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'Oled_Display'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 ST_IDLE |                              001 |                               00
+            ST_COUNTDOWN |                              100 |                               01
+              ST_EXPLODE |                              010 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg[2]' using encoding 'one-hot' in module 'bomb_controller'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 ST_IDLE |                              001 |                               00
+            ST_COUNTDOWN |                              010 |                               01
+              ST_EXPLODE |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg[0]' using encoding 'one-hot' in module 'bomb_controller'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 ST_IDLE |                              001 |                               00
+            ST_COUNTDOWN |                              100 |                               01
+              ST_EXPLODE |                              010 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg[1]' using encoding 'one-hot' in module 'bomb_controller'
 INFO: [Synth 8-6430] The Block RAM closed_y_reg may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
 INFO: [Synth 8-6430] The Block RAM closed_x_reg may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
 ---------------------------------------------------------------------------------------------------
@@ -692,7 +759,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'gen_state_reg' using encoding 'one-hot' in module 'Top_Student'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:33 ; elapsed = 00:01:41 . Memory (MB): peak = 1267.527 ; gain = 980.582
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:09:19 ; elapsed = 00:09:37 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
 RAM Pipeline Warning: Read Address Register Found For RAM closed_y_reg. We will not be able to pipeline it. This may degrade performance. 
 RAM Pipeline Warning: Read Address Register Found For RAM closed_x_reg. We will not be able to pipeline it. This may degrade performance. 
@@ -701,11 +768,14 @@ Report RTL Partitions:
 +------+-----------------+------------+----------+
 |      |RTL Partition    |Replication |Instances |
 +------+-----------------+------------+----------+
-|1     |Top_Student__GB0 |           1|     34471|
-|2     |p2_controller    |           1|     11512|
-|3     |Top_Student__GB2 |           1|     43941|
-|4     |Top_Student__GB3 |           1|      7669|
-|5     |Top_Student__GB4 |           1|     25844|
+|1     |Top_Student__GB0 |           1|     47199|
+|2     |Top_Student__GB1 |           1|     27447|
+|3     |Top_Student__GB2 |           1|     21768|
+|4     |Top_Student__GB3 |           1|     27109|
+|5     |Top_Student__GB4 |           1|     34265|
+|6     |Top_Student__GB5 |           1|     27015|
+|7     |Top_Student__GB6 |           1|     27811|
+|8     |Top_Student__GB7 |           1|     11741|
 +------+-----------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -714,30 +784,28 @@ Detailed RTL Component Info :
 +---Adders : 
 	   2 Input     32 Bit       Adders := 50    
 	   2 Input     29 Bit       Adders := 1     
-	   2 Input     28 Bit       Adders := 3     
-	   2 Input     27 Bit       Adders := 2     
-	   2 Input     26 Bit       Adders := 2     
+	   2 Input     28 Bit       Adders := 1     
 	   2 Input     25 Bit       Adders := 2     
 	   2 Input     23 Bit       Adders := 2     
-	   2 Input     19 Bit       Adders := 1     
+	   2 Input     19 Bit       Adders := 2     
 	   2 Input     17 Bit       Adders := 1     
 	   2 Input     12 Bit       Adders := 4     
 	   2 Input     11 Bit       Adders := 1     
 	   2 Input     10 Bit       Adders := 1     
-	   2 Input      9 Bit       Adders := 1     
-	   2 Input      8 Bit       Adders := 11    
+	   2 Input      9 Bit       Adders := 4     
 	   3 Input      8 Bit       Adders := 3     
-	   2 Input      7 Bit       Adders := 15    
+	   2 Input      8 Bit       Adders := 11    
 	   3 Input      7 Bit       Adders := 8     
-	   2 Input      6 Bit       Adders := 12    
+	   2 Input      7 Bit       Adders := 16    
 	   3 Input      6 Bit       Adders := 6     
-	   2 Input      5 Bit       Adders := 6     
+	   2 Input      6 Bit       Adders := 10    
+	   2 Input      5 Bit       Adders := 38    
 	   5 Input      5 Bit       Adders := 1     
-	   2 Input      4 Bit       Adders := 17    
-	   3 Input      4 Bit       Adders := 8     
-	   3 Input      3 Bit       Adders := 2     
+	   3 Input      4 Bit       Adders := 24    
+	   2 Input      4 Bit       Adders := 31    
 	   2 Input      3 Bit       Adders := 33    
-	   2 Input      2 Bit       Adders := 2     
+	   2 Input      2 Bit       Adders := 5     
+	   3 Input      2 Bit       Adders := 1     
 +---XORs : 
 	   4 Input      1 Bit         XORs := 1     
 +---Registers : 
@@ -745,26 +813,25 @@ Detailed RTL Component Info :
 	               40 Bit    Registers := 1     
 	               32 Bit    Registers := 2     
 	               29 Bit    Registers := 2     
-	               28 Bit    Registers := 4     
-	               27 Bit    Registers := 5     
-	               26 Bit    Registers := 2     
+	               28 Bit    Registers := 2     
+	               27 Bit    Registers := 3     
 	               25 Bit    Registers := 2     
 	               23 Bit    Registers := 2     
-	               19 Bit    Registers := 2     
+	               19 Bit    Registers := 3     
 	               17 Bit    Registers := 1     
 	               16 Bit    Registers := 4     
 	               12 Bit    Registers := 7     
 	               11 Bit    Registers := 2     
 	               10 Bit    Registers := 1     
-	                9 Bit    Registers := 1     
+	                9 Bit    Registers := 4     
 	                8 Bit    Registers := 152   
-	                7 Bit    Registers := 13    
+	                7 Bit    Registers := 16    
 	                6 Bit    Registers := 6     
 	                5 Bit    Registers := 4     
-	                4 Bit    Registers := 587   
-	                3 Bit    Registers := 271   
-	                2 Bit    Registers := 5     
-	                1 Bit    Registers := 102   
+	                4 Bit    Registers := 551   
+	                3 Bit    Registers := 275   
+	                2 Bit    Registers := 32    
+	                1 Bit    Registers := 84    
 +---Multipliers : 
 	                 6x32  Multipliers := 10    
 +---RAMs : 
@@ -777,70 +844,67 @@ Detailed RTL Component Info :
 	  32 Input     32 Bit        Muxes := 1     
 	   3 Input     29 Bit        Muxes := 1     
 	   2 Input     29 Bit        Muxes := 1     
-	   2 Input     28 Bit        Muxes := 7     
-	   3 Input     28 Bit        Muxes := 2     
+	   2 Input     28 Bit        Muxes := 5     
 	   7 Input     28 Bit        Muxes := 1     
-	   2 Input     27 Bit        Muxes := 2     
-	   2 Input     26 Bit        Muxes := 2     
+	   3 Input     28 Bit        Muxes := 2     
 	   2 Input     25 Bit        Muxes := 2     
 	   7 Input     25 Bit        Muxes := 1     
 	   2 Input     23 Bit        Muxes := 2     
 	   7 Input     23 Bit        Muxes := 1     
 	  32 Input     20 Bit        Muxes := 1     
-	   2 Input     19 Bit        Muxes := 1     
+	   2 Input     19 Bit        Muxes := 2     
 	   2 Input     17 Bit        Muxes := 19    
 	  17 Input     17 Bit        Muxes := 1     
-	   2 Input     16 Bit        Muxes := 19    
-	   3 Input     16 Bit        Muxes := 3     
-	   6 Input     16 Bit        Muxes := 1     
-	   7 Input     16 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 26    
+	   3 Input     16 Bit        Muxes := 7     
+	   6 Input     16 Bit        Muxes := 6     
 	   2 Input     12 Bit        Muxes := 12    
 	   2 Input     11 Bit        Muxes := 1     
 	   2 Input     10 Bit        Muxes := 1     
 	   3 Input     10 Bit        Muxes := 1     
-	   2 Input      9 Bit        Muxes := 5     
-	  27 Input      8 Bit        Muxes := 7     
+	   2 Input      9 Bit        Muxes := 8     
+	   3 Input      9 Bit        Muxes := 3     
 	   2 Input      8 Bit        Muxes := 4     
 	   4 Input      8 Bit        Muxes := 1     
 	   3 Input      8 Bit        Muxes := 1     
 	   7 Input      8 Bit        Muxes := 1     
 	  37 Input      8 Bit        Muxes := 3     
-	   2 Input      7 Bit        Muxes := 16    
-	   4 Input      7 Bit        Muxes := 2     
+	  27 Input      8 Bit        Muxes := 7     
+	   2 Input      7 Bit        Muxes := 19    
 	   7 Input      7 Bit        Muxes := 1     
-	   3 Input      7 Bit        Muxes := 1     
+	   3 Input      7 Bit        Muxes := 4     
+	   4 Input      7 Bit        Muxes := 2     
 	   2 Input      6 Bit        Muxes := 18    
-	   4 Input      6 Bit        Muxes := 2     
-	  27 Input      6 Bit        Muxes := 1     
 	   8 Input      6 Bit        Muxes := 6     
 	  32 Input      6 Bit        Muxes := 1     
+	   4 Input      6 Bit        Muxes := 2     
+	  27 Input      6 Bit        Muxes := 1     
 	   2 Input      5 Bit        Muxes := 10    
-	   3 Input      5 Bit        Muxes := 1     
 	  32 Input      5 Bit        Muxes := 1     
 	   7 Input      5 Bit        Muxes := 49    
-	   2 Input      4 Bit        Muxes := 191   
-	  27 Input      4 Bit        Muxes := 6     
-	   4 Input      4 Bit        Muxes := 3     
+	   3 Input      5 Bit        Muxes := 1     
 	   3 Input      4 Bit        Muxes := 3     
+	   2 Input      4 Bit        Muxes := 177   
+	   4 Input      4 Bit        Muxes := 3     
 	   7 Input      4 Bit        Muxes := 4     
 	  37 Input      4 Bit        Muxes := 1     
-	   2 Input      3 Bit        Muxes := 7026  
-	   9 Input      3 Bit        Muxes := 8     
-	   3 Input      3 Bit        Muxes := 136   
+	  27 Input      4 Bit        Muxes := 6     
+	   2 Input      3 Bit        Muxes := 19994 
+	   3 Input      3 Bit        Muxes := 140   
 	   7 Input      3 Bit        Muxes := 1     
-	   2 Input      2 Bit        Muxes := 560   
+	   2 Input      2 Bit        Muxes := 2721  
+	   5 Input      2 Bit        Muxes := 1     
+	   3 Input      2 Bit        Muxes := 17    
 	  27 Input      2 Bit        Muxes := 2     
 	   4 Input      2 Bit        Muxes := 2     
-	   3 Input      2 Bit        Muxes := 2     
-	   5 Input      2 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 5618  
-	   4 Input      1 Bit        Muxes := 2     
-	   3 Input      1 Bit        Muxes := 172   
-	  27 Input      1 Bit        Muxes := 289   
-	  29 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 16230 
+	   4 Input      1 Bit        Muxes := 26    
+	   3 Input      1 Bit        Muxes := 201   
 	   7 Input      1 Bit        Muxes := 9     
 	  17 Input      1 Bit        Muxes := 4     
 	  37 Input      1 Bit        Muxes := 20    
+	  27 Input      1 Bit        Muxes := 289   
+	  29 Input      1 Bit        Muxes := 1     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -854,13 +918,13 @@ Detailed RTL Component Info :
 	   2 Input     32 Bit       Adders := 6     
 	   2 Input     29 Bit       Adders := 1     
 	   3 Input      8 Bit       Adders := 2     
-	   2 Input      7 Bit       Adders := 4     
 	   3 Input      7 Bit       Adders := 8     
-	   2 Input      6 Bit       Adders := 4     
+	   2 Input      7 Bit       Adders := 4     
 	   3 Input      6 Bit       Adders := 6     
-	   2 Input      4 Bit       Adders := 6     
-	   3 Input      4 Bit       Adders := 4     
-	   3 Input      3 Bit       Adders := 2     
+	   2 Input      6 Bit       Adders := 4     
+	   2 Input      5 Bit       Adders := 36    
+	   3 Input      4 Bit       Adders := 24    
+	   2 Input      4 Bit       Adders := 26    
 	   2 Input      3 Bit       Adders := 6     
 +---Registers : 
 	               29 Bit    Registers := 1     
@@ -868,233 +932,36 @@ Detailed RTL Component Info :
 	               16 Bit    Registers := 2     
 	               12 Bit    Registers := 1     
 	                4 Bit    Registers := 5     
-	                3 Bit    Registers := 135   
-	                2 Bit    Registers := 1     
+	                3 Bit    Registers := 137   
+	                2 Bit    Registers := 25    
 	                1 Bit    Registers := 8     
 +---Multipliers : 
 	                 6x32  Multipliers := 6     
 +---Muxes : 
 	   3 Input     29 Bit        Muxes := 1     
-	   2 Input     16 Bit        Muxes := 11    
-	   3 Input     16 Bit        Muxes := 3     
-	   6 Input     16 Bit        Muxes := 1     
-	   7 Input     16 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 18    
+	   3 Input     16 Bit        Muxes := 7     
+	   6 Input     16 Bit        Muxes := 6     
 	   2 Input     12 Bit        Muxes := 2     
 	   2 Input      8 Bit        Muxes := 2     
 	   2 Input      7 Bit        Muxes := 4     
 	   2 Input      6 Bit        Muxes := 10    
 	   8 Input      6 Bit        Muxes := 6     
-	   2 Input      4 Bit        Muxes := 5     
 	   3 Input      4 Bit        Muxes := 2     
+	   2 Input      4 Bit        Muxes := 5     
+	   2 Input      3 Bit        Muxes := 19980 
 	   3 Input      3 Bit        Muxes := 136   
-	   2 Input      3 Bit        Muxes := 7022  
-	   2 Input      2 Bit        Muxes := 551   
+	   2 Input      2 Bit        Muxes := 2672  
 	   5 Input      2 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 4750  
-	   3 Input      1 Bit        Muxes := 141   
-Module movement_controller 
-Detailed RTL Component Info : 
-+---Adders : 
-	   2 Input     32 Bit       Adders := 4     
-	   2 Input      7 Bit       Adders := 3     
-	   2 Input      6 Bit       Adders := 2     
-+---Registers : 
-	                7 Bit    Registers := 2     
-	                6 Bit    Registers := 1     
-	                4 Bit    Registers := 82    
-	                2 Bit    Registers := 1     
-	                1 Bit    Registers := 7     
-+---Multipliers : 
-	                 6x32  Multipliers := 2     
-+---Muxes : 
-	   2 Input      7 Bit        Muxes := 4     
-	   4 Input      7 Bit        Muxes := 1     
-	   2 Input      6 Bit        Muxes := 3     
-	   4 Input      6 Bit        Muxes := 1     
-	   2 Input      4 Bit        Muxes := 82    
-	   2 Input      3 Bit        Muxes := 1     
-	   2 Input      2 Bit        Muxes := 3     
-	   2 Input      1 Bit        Muxes := 13    
-	   4 Input      1 Bit        Muxes := 1     
-Module bomb_controller 
-Detailed RTL Component Info : 
-+---Adders : 
-	   2 Input     28 Bit       Adders := 1     
-	   2 Input     27 Bit       Adders := 1     
-	   2 Input     26 Bit       Adders := 1     
-	   2 Input      7 Bit       Adders := 1     
-	   2 Input      6 Bit       Adders := 1     
-	   2 Input      5 Bit       Adders := 2     
-	   2 Input      4 Bit       Adders := 3     
-	   3 Input      4 Bit       Adders := 2     
-+---Registers : 
-	               28 Bit    Registers := 1     
-	               27 Bit    Registers := 1     
-	               26 Bit    Registers := 1     
-	                4 Bit    Registers := 21    
-	                1 Bit    Registers := 12    
-+---Muxes : 
-	   2 Input     28 Bit        Muxes := 1     
-	   2 Input     27 Bit        Muxes := 1     
-	   2 Input     26 Bit        Muxes := 1     
-	   2 Input      4 Bit        Muxes := 7     
-	   9 Input      3 Bit        Muxes := 4     
-	   2 Input      1 Bit        Muxes := 32    
-	   3 Input      1 Bit        Muxes := 5     
-Module p2_controller 
-Detailed RTL Component Info : 
-+---Registers : 
-	                7 Bit    Registers := 1     
-	                6 Bit    Registers := 1     
-	                4 Bit    Registers := 2     
-	                1 Bit    Registers := 1     
-+---Muxes : 
-	   2 Input      6 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 1     
-Module movement_controller__1 
-Detailed RTL Component Info : 
-+---Adders : 
-	   2 Input     32 Bit       Adders := 4     
-	   2 Input      7 Bit       Adders := 3     
-	   2 Input      6 Bit       Adders := 2     
-+---Registers : 
-	                7 Bit    Registers := 2     
-	                6 Bit    Registers := 1     
-	                4 Bit    Registers := 82    
-	                2 Bit    Registers := 1     
-	                1 Bit    Registers := 7     
-+---Multipliers : 
-	                 6x32  Multipliers := 2     
-+---Muxes : 
-	   2 Input      7 Bit        Muxes := 4     
-	   4 Input      7 Bit        Muxes := 1     
-	   2 Input      6 Bit        Muxes := 3     
-	   4 Input      6 Bit        Muxes := 1     
-	   2 Input      4 Bit        Muxes := 82    
-	   2 Input      3 Bit        Muxes := 1     
-	   2 Input      2 Bit        Muxes := 3     
-	   2 Input      1 Bit        Muxes := 13    
-	   4 Input      1 Bit        Muxes := 1     
-Module bomb_controller__1 
-Detailed RTL Component Info : 
-+---Adders : 
-	   2 Input     28 Bit       Adders := 1     
-	   2 Input     27 Bit       Adders := 1     
-	   2 Input     26 Bit       Adders := 1     
-	   2 Input      7 Bit       Adders := 1     
-	   2 Input      6 Bit       Adders := 1     
-	   2 Input      5 Bit       Adders := 2     
-	   2 Input      4 Bit       Adders := 3     
-	   3 Input      4 Bit       Adders := 2     
-+---Registers : 
-	               28 Bit    Registers := 1     
-	               27 Bit    Registers := 1     
-	               26 Bit    Registers := 1     
-	                4 Bit    Registers := 21    
-	                1 Bit    Registers := 12    
-+---Muxes : 
-	   2 Input     28 Bit        Muxes := 1     
-	   2 Input     27 Bit        Muxes := 1     
-	   2 Input     26 Bit        Muxes := 1     
-	   2 Input      4 Bit        Muxes := 7     
-	   9 Input      3 Bit        Muxes := 4     
-	   2 Input      1 Bit        Muxes := 32    
-	   3 Input      1 Bit        Muxes := 5     
-Module p1_controller 
-Detailed RTL Component Info : 
-+---Registers : 
-	                7 Bit    Registers := 1     
-	                6 Bit    Registers := 1     
-	                4 Bit    Registers := 2     
-Module a_star 
-Detailed RTL Component Info : 
-+---Adders : 
-	   2 Input     32 Bit       Adders := 1     
-	   2 Input      8 Bit       Adders := 10    
-	   3 Input      8 Bit       Adders := 1     
-	   2 Input      7 Bit       Adders := 2     
-	   2 Input      6 Bit       Adders := 1     
-	   5 Input      5 Bit       Adders := 1     
-	   2 Input      4 Bit       Adders := 2     
-	   2 Input      2 Bit       Adders := 1     
-+---Registers : 
-	              160 Bit    Registers := 2     
-	                8 Bit    Registers := 146   
-	                7 Bit    Registers := 4     
-	                6 Bit    Registers := 1     
-	                5 Bit    Registers := 2     
-	                4 Bit    Registers := 363   
-	                3 Bit    Registers := 136   
-	                2 Bit    Registers := 1     
-	                1 Bit    Registers := 3     
-+---RAMs : 
-	              540 Bit         RAMs := 2     
-+---Muxes : 
-	  27 Input      8 Bit        Muxes := 7     
-	   2 Input      8 Bit        Muxes := 1     
-	   2 Input      7 Bit        Muxes := 1     
-	  27 Input      6 Bit        Muxes := 1     
-	   2 Input      5 Bit        Muxes := 6     
-	  27 Input      4 Bit        Muxes := 6     
-	   2 Input      4 Bit        Muxes := 4     
-	   4 Input      4 Bit        Muxes := 2     
-	   3 Input      4 Bit        Muxes := 1     
-	   2 Input      3 Bit        Muxes := 2     
-	  27 Input      2 Bit        Muxes := 2     
-	   4 Input      2 Bit        Muxes := 2     
-	  27 Input      1 Bit        Muxes := 289   
-	   2 Input      1 Bit        Muxes := 736   
-	  29 Input      1 Bit        Muxes := 1     
-Module a_star_mux 
-Detailed RTL Component Info : 
-+---Registers : 
-	              160 Bit    Registers := 4     
-	                7 Bit    Registers := 2     
-	                4 Bit    Registers := 4     
-	                1 Bit    Registers := 6     
-+---Muxes : 
-	   2 Input      4 Bit        Muxes := 4     
-	   3 Input      2 Bit        Muxes := 1     
-	   2 Input      2 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 7     
-	   3 Input      1 Bit        Muxes := 11    
-Module variable_clock 
-Detailed RTL Component Info : 
-+---Adders : 
-	   2 Input     32 Bit       Adders := 1     
-+---Registers : 
-	               32 Bit    Registers := 1     
-	                1 Bit    Registers := 1     
-+---Muxes : 
-	   2 Input     32 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 15406 
+	   4 Input      1 Bit        Muxes := 24    
+	   3 Input      1 Bit        Muxes := 165   
 Module lfsr_rng 
 Detailed RTL Component Info : 
 +---XORs : 
 	   4 Input      1 Bit         XORs := 1     
 +---Registers : 
 	               16 Bit    Registers := 1     
-Module uart_rx 
-Detailed RTL Component Info : 
-+---Adders : 
-	   2 Input     10 Bit       Adders := 1     
-	   2 Input      5 Bit       Adders := 1     
-+---Registers : 
-	               28 Bit    Registers := 1     
-	               27 Bit    Registers := 1     
-	               10 Bit    Registers := 1     
-	                5 Bit    Registers := 1     
-	                1 Bit    Registers := 2     
-+---Muxes : 
-	   2 Input     28 Bit        Muxes := 1     
-	   3 Input     28 Bit        Muxes := 2     
-	   2 Input     10 Bit        Muxes := 1     
-	   3 Input     10 Bit        Muxes := 1     
-	   3 Input      5 Bit        Muxes := 1     
-	   3 Input      2 Bit        Muxes := 1     
-	   2 Input      2 Bit        Muxes := 2     
-	   2 Input      1 Bit        Muxes := 2     
-	   3 Input      1 Bit        Muxes := 8     
 Module seven_segment 
 Detailed RTL Component Info : 
 +---Adders : 
@@ -1109,6 +976,16 @@ Detailed RTL Component Info :
 	   2 Input     19 Bit        Muxes := 1     
 	   4 Input      8 Bit        Muxes := 1     
 	   4 Input      4 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+Module variable_clock 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
 	   2 Input      1 Bit        Muxes := 1     
 Module Oled_Display 
 Detailed RTL Component Info : 
@@ -1186,6 +1063,27 @@ Detailed RTL Component Info :
 	   2 Input      1 Bit        Muxes := 11    
 	   3 Input      1 Bit        Muxes := 1     
 	   7 Input      1 Bit        Muxes := 9     
+Module uart_rx 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     10 Bit       Adders := 1     
+	   2 Input      5 Bit       Adders := 1     
++---Registers : 
+	               28 Bit    Registers := 1     
+	               27 Bit    Registers := 1     
+	               10 Bit    Registers := 1     
+	                5 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input     28 Bit        Muxes := 1     
+	   3 Input     28 Bit        Muxes := 2     
+	   2 Input     10 Bit        Muxes := 1     
+	   3 Input     10 Bit        Muxes := 1     
+	   3 Input      5 Bit        Muxes := 1     
+	   3 Input      2 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 2     
+	   3 Input      1 Bit        Muxes := 8     
 Module uart_tx 
 Detailed RTL Component Info : 
 +---Adders : 
@@ -1245,6 +1143,148 @@ Detailed RTL Component Info :
 	  37 Input      4 Bit        Muxes := 1     
 	   2 Input      1 Bit        Muxes := 5     
 	  37 Input      1 Bit        Muxes := 20    
+Module movement_controller__1 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 4     
+	   2 Input      7 Bit       Adders := 3     
+	   2 Input      6 Bit       Adders := 2     
++---Registers : 
+	                7 Bit    Registers := 2     
+	                6 Bit    Registers := 1     
+	                4 Bit    Registers := 82    
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 7     
++---Multipliers : 
+	                 6x32  Multipliers := 2     
++---Muxes : 
+	   2 Input      7 Bit        Muxes := 4     
+	   4 Input      7 Bit        Muxes := 1     
+	   2 Input      6 Bit        Muxes := 3     
+	   4 Input      6 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 82    
+	   2 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 13    
+	   4 Input      1 Bit        Muxes := 1     
+Module p2_controller 
+Detailed RTL Component Info : 
++---Registers : 
+	                7 Bit    Registers := 1     
+	                6 Bit    Registers := 1     
+	                4 Bit    Registers := 2     
++---Muxes : 
+	   2 Input      6 Bit        Muxes := 1     
+Module a_star 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
+	   2 Input      8 Bit       Adders := 10    
+	   3 Input      8 Bit       Adders := 1     
+	   2 Input      7 Bit       Adders := 2     
+	   2 Input      6 Bit       Adders := 1     
+	   5 Input      5 Bit       Adders := 1     
+	   2 Input      4 Bit       Adders := 2     
+	   2 Input      2 Bit       Adders := 1     
++---Registers : 
+	              160 Bit    Registers := 2     
+	                8 Bit    Registers := 146   
+	                7 Bit    Registers := 4     
+	                6 Bit    Registers := 1     
+	                5 Bit    Registers := 2     
+	                4 Bit    Registers := 363   
+	                3 Bit    Registers := 136   
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---RAMs : 
+	              540 Bit         RAMs := 2     
++---Muxes : 
+	  27 Input      8 Bit        Muxes := 7     
+	   2 Input      8 Bit        Muxes := 1     
+	   2 Input      7 Bit        Muxes := 1     
+	  27 Input      6 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 6     
+	  27 Input      4 Bit        Muxes := 6     
+	   2 Input      4 Bit        Muxes := 4     
+	   4 Input      4 Bit        Muxes := 2     
+	   3 Input      4 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 2     
+	  27 Input      2 Bit        Muxes := 2     
+	   4 Input      2 Bit        Muxes := 2     
+	  27 Input      1 Bit        Muxes := 289   
+	   2 Input      1 Bit        Muxes := 736   
+	  29 Input      1 Bit        Muxes := 1     
+Module a_star_mux 
+Detailed RTL Component Info : 
++---Registers : 
+	              160 Bit    Registers := 4     
+	                7 Bit    Registers := 2     
+	                4 Bit    Registers := 4     
+	                1 Bit    Registers := 6     
++---Muxes : 
+	   2 Input      4 Bit        Muxes := 4     
+	   3 Input      2 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 7     
+	   3 Input      1 Bit        Muxes := 11    
+Module movement_controller 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 4     
+	   2 Input      7 Bit       Adders := 3     
+	   2 Input      6 Bit       Adders := 2     
++---Registers : 
+	                7 Bit    Registers := 2     
+	                6 Bit    Registers := 1     
+	                4 Bit    Registers := 82    
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 7     
++---Multipliers : 
+	                 6x32  Multipliers := 2     
++---Muxes : 
+	   2 Input      7 Bit        Muxes := 4     
+	   4 Input      7 Bit        Muxes := 1     
+	   2 Input      6 Bit        Muxes := 3     
+	   4 Input      6 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 82    
+	   2 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 13    
+	   4 Input      1 Bit        Muxes := 1     
+Module bomb_controller 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     19 Bit       Adders := 1     
+	   2 Input      9 Bit       Adders := 3     
+	   2 Input      7 Bit       Adders := 3     
+	   2 Input      2 Bit       Adders := 3     
+	   3 Input      2 Bit       Adders := 1     
++---Registers : 
+	               19 Bit    Registers := 1     
+	                9 Bit    Registers := 3     
+	                7 Bit    Registers := 3     
+	                4 Bit    Registers := 6     
+	                3 Bit    Registers := 2     
+	                2 Bit    Registers := 3     
+	                1 Bit    Registers := 7     
++---Muxes : 
+	   2 Input     19 Bit        Muxes := 1     
+	   2 Input      9 Bit        Muxes := 3     
+	   3 Input      9 Bit        Muxes := 3     
+	   2 Input      7 Bit        Muxes := 3     
+	   3 Input      7 Bit        Muxes := 3     
+	   3 Input      3 Bit        Muxes := 4     
+	   2 Input      3 Bit        Muxes := 10    
+	   2 Input      2 Bit        Muxes := 40    
+	   3 Input      2 Bit        Muxes := 15    
+	   2 Input      1 Bit        Muxes := 21    
+	   3 Input      1 Bit        Muxes := 15    
+Module p1_controller 
+Detailed RTL Component Info : 
++---Registers : 
+	                7 Bit    Registers := 1     
+	                6 Bit    Registers := 1     
+	                4 Bit    Registers := 2     
 ---------------------------------------------------------------------------------
 Finished RTL Hierarchical Component Statistics
 ---------------------------------------------------------------------------------
@@ -1260,33 +1300,88 @@ Finished Part Resource Summary
 ---------------------------------------------------------------------------------
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
-Warning: Parallel synthesis criteria is not met 
+WARNING: [Synth 8-3331] design Top_Student has unconnected port JC[2]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[14]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[13]
+WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[12]
+INFO: [Synth 8-5545] ROM "clk_inst/count0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "clk_inst/clk_out0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-3886] merging instance 'seg_inst/seg_reg[0]' (FD) to 'seg_inst/seg_reg[4]'
+INFO: [Synth 8-5545] ROM "clk_6p25m_inst/count0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "clk_6p25m_inst/clk_out0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+DSP Report: Generating DSP tile_x_of_pixel1, operation Mode is: A*(B:0x2b).
+DSP Report: operator tile_x_of_pixel1 is absorbed into DSP tile_x_of_pixel1.
+DSP Report: Generating DSP tile_y_of_pixel1, operation Mode is: A*(B:0x2b).
+DSP Report: operator tile_y_of_pixel1 is absorbed into DSP tile_y_of_pixel1.
+WARNING: [Synth 8-3331] design package_game_data has unconnected port player
+INFO: [Synth 8-3886] merging instance 'pair_oled_inst/oled_data_reg[0]' (FD) to 'pair_oled_inst/oled_data_reg[1]'
+INFO: [Synth 8-3886] merging instance 'pair_oled_inst/oled_data_reg[1]' (FD) to 'pair_oled_inst/oled_data_reg[2]'
+INFO: [Synth 8-3886] merging instance 'pair_oled_inst/oled_data_reg[2]' (FD) to 'pair_oled_inst/oled_data_reg[3]'
+INFO: [Synth 8-3886] merging instance 'pair_oled_inst/oled_data_reg[5]' (FD) to 'pair_oled_inst/oled_data_reg[6]'
+INFO: [Synth 8-3886] merging instance 'pair_oled_inst/oled_data_reg[6]' (FD) to 'pair_oled_inst/oled_data_reg[7]'
+INFO: [Synth 8-3886] merging instance 'pair_oled_inst/oled_data_reg[7]' (FD) to 'pair_oled_inst/oled_data_reg[8]'
+INFO: [Synth 8-3886] merging instance 'pair_oled_inst/oled_data_reg[8]' (FD) to 'pair_oled_inst/oled_data_reg[9]'
+INFO: [Synth 8-3886] merging instance 'pair_oled_inst/oled_data_reg[11]' (FD) to 'pair_oled_inst/oled_data_reg[12]'
+INFO: [Synth 8-3886] merging instance 'pair_oled_inst/oled_data_reg[12]' (FD) to 'pair_oled_inst/oled_data_reg[13]'
+INFO: [Synth 8-3886] merging instance 'game_inst/prev_data_reg[0]' (FDE) to 'game_inst/data_tx_game_reg[0]'
+INFO: [Synth 8-3886] merging instance 'game_inst/prev_data_reg[1]' (FDE) to 'game_inst/data_tx_game_reg[1]'
+INFO: [Synth 8-3886] merging instance 'game_inst/prev_data_reg[2]' (FDE) to 'game_inst/data_tx_game_reg[2]'
+INFO: [Synth 8-3886] merging instance 'pair_oled_inst/oled_data_reg[13]' (FD) to 'pair_oled_inst/oled_data_reg[14]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[18]' (FDE) to 'game_inst/prev_data_reg[18]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[17]' (FDE) to 'game_inst/prev_data_reg[17]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[16]' (FDE) to 'game_inst/prev_data_reg[16]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[15]' (FDE) to 'game_inst/prev_data_reg[15]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[14]' (FDE) to 'game_inst/prev_data_reg[14]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[13]' (FDE) to 'game_inst/prev_data_reg[13]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[12]' (FDE) to 'game_inst/prev_data_reg[12]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[11]' (FDE) to 'game_inst/prev_data_reg[11]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[10]' (FDE) to 'game_inst/prev_data_reg[10]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[9]' (FDE) to 'game_inst/prev_data_reg[9]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[8]' (FDE) to 'game_inst/prev_data_reg[8]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[7]' (FDE) to 'game_inst/prev_data_reg[7]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[6]' (FDE) to 'game_inst/prev_data_reg[6]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[5]' (FDE) to 'game_inst/prev_data_reg[5]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[4]' (FDE) to 'game_inst/prev_data_reg[4]'
+INFO: [Synth 8-3886] merging instance 'game_inst/data_tx_game_reg[3]' (FDE) to 'game_inst/prev_data_reg[3]'
+INFO: [Synth 8-3886] merging instance 'pair_inst/data_tx_code_reg[7]' (FDE) to 'pair_inst/data_tx_code_reg[3]'
+INFO: [Synth 8-3886] merging instance 'pair_inst/data_tx_code_reg[6]' (FDE) to 'pair_inst/data_tx_code_reg[2]'
+INFO: [Synth 8-3886] merging instance 'pair_inst/data_tx_code_reg[5]' (FDE) to 'pair_inst/data_tx_code_reg[1]'
+INFO: [Synth 8-3886] merging instance 'pair_inst/data_tx_code_reg[4]' (FDE) to 'pair_inst/data_tx_code_reg[0]'
+INFO: [Synth 8-3886] merging instance 'mouse_init_state_reg[0]' (FDE) to 'mouse_value_reg[6]'
+INFO: [Synth 8-3886] merging instance 'mouse_init_state_reg[1]' (FDE) to 'mouse_value_reg[5]'
+INFO: [Synth 8-3886] merging instance 'mouse_value_reg[0]' (FDE) to 'mouse_value_reg[4]'
+INFO: [Synth 8-3886] merging instance 'mouse_value_reg[1]' (FDE) to 'mouse_value_reg[4]'
+INFO: [Synth 8-3886] merging instance 'mouse_value_reg[2]' (FDE) to 'mouse_value_reg[4]'
+INFO: [Synth 8-3886] merging instance 'mouse_value_reg[3]' (FDE) to 'mouse_value_reg[4]'
+INFO: [Synth 8-3886] merging instance 'mouse_value_reg[7]' (FDE) to 'mouse_value_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse_value_reg[8]' (FDE) to 'mouse_value_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse_value_reg[9]' (FDE) to 'mouse_value_reg[11]'
+INFO: [Synth 8-3886] merging instance 'mouse_value_reg[10]' (FDE) to 'mouse_value_reg[11]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\mouse_value_reg[11] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (tx_inst/\packet_reg[0] )
+INFO: [Synth 8-3886] merging instance 'data_tx_reg[7]' (FD) to 'data_tx_reg[3]'
+INFO: [Synth 8-3886] merging instance 'data_tx_reg[6]' (FD) to 'data_tx_reg[2]'
+INFO: [Synth 8-3886] merging instance 'data_tx_reg[5]' (FD) to 'data_tx_reg[1]'
+INFO: [Synth 8-3886] merging instance 'data_tx_reg[4]' (FD) to 'data_tx_reg[0]'
+INFO: [Synth 8-3886] merging instance 'mouse_inst/x_max_reg[0]' (FDRE) to 'mouse_inst/x_max_reg[4]'
+INFO: [Synth 8-3886] merging instance 'mouse_inst/x_max_reg[1]' (FDRE) to 'mouse_inst/x_max_reg[4]'
+INFO: [Synth 8-3886] merging instance 'mouse_inst/x_max_reg[2]' (FDRE) to 'mouse_inst/x_max_reg[4]'
+INFO: [Synth 8-3886] merging instance 'mouse_inst/x_max_reg[3]' (FDRE) to 'mouse_inst/x_max_reg[4]'
+INFO: [Synth 8-3886] merging instance 'mouse_inst/x_max_reg[7]' (FDSE) to 'mouse_inst/x_max_reg[9]'
+INFO: [Synth 8-3886] merging instance 'mouse_inst/x_max_reg[8]' (FDSE) to 'mouse_inst/x_max_reg[9]'
+INFO: [Synth 8-3886] merging instance 'mouse_inst/y_max_reg[0]' (FDRE) to 'mouse_inst/y_max_reg[4]'
+INFO: [Synth 8-3886] merging instance 'mouse_inst/y_max_reg[1]' (FDRE) to 'mouse_inst/y_max_reg[4]'
+INFO: [Synth 8-3886] merging instance 'mouse_inst/y_max_reg[2]' (FDRE) to 'mouse_inst/y_max_reg[4]'
+INFO: [Synth 8-3886] merging instance 'mouse_inst/y_max_reg[3]' (FDRE) to 'mouse_inst/y_max_reg[4]'
+INFO: [Synth 8-3886] merging instance 'mouse_inst/y_max_reg[7]' (FDSE) to 'mouse_inst/y_max_reg[9]'
+INFO: [Synth 8-3886] merging instance 'tx_inst/packet_reg[8]' (FDCE) to 'tx_inst/packet_reg[4]'
+INFO: [Synth 8-3886] merging instance 'tx_inst/packet_reg[7]' (FDCE) to 'tx_inst/packet_reg[3]'
+INFO: [Synth 8-3886] merging instance 'tx_inst/packet_reg[6]' (FDCE) to 'tx_inst/packet_reg[2]'
+INFO: [Synth 8-3886] merging instance 'tx_inst/packet_reg[5]' (FDCE) to 'tx_inst/packet_reg[1]'
 DSP Report: Generating DSP pos_ty0, operation Mode is: A*(B:0x2b).
 DSP Report: operator pos_ty0 is absorbed into DSP pos_ty0.
 DSP Report: Generating DSP pos_tx0, operation Mode is: A*(B:0x2b).
 DSP Report: operator pos_tx0 is absorbed into DSP pos_tx0.
-INFO: [Synth 8-4471] merging register 'bomb_ty_reg[3:0]' into 'bomb_ty_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-INFO: [Synth 8-4471] merging register 'bomb_tx_reg[3:0]' into 'bomb_tx_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-INFO: [Synth 8-4471] merging register 'bomb_tx_reg[3:0]' into 'bomb_tx_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-INFO: [Synth 8-4471] merging register 'bomb_ty_reg[3:0]' into 'bomb_ty_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-WARNING: [Synth 8-6014] Unused sequential element bomb_ty_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-WARNING: [Synth 8-6014] Unused sequential element bomb_ty_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-WARNING: [Synth 8-6014] Unused sequential element bomb_tx_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-WARNING: [Synth 8-6014] Unused sequential element bomb_tx_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-INFO: [Synth 8-5545] ROM "clear_bomb_req" won't be mapped to RAM because address size (28) is larger than maximum supported(25)
-DSP Report: Generating DSP pos_ty0, operation Mode is: A*(B:0x2b).
-DSP Report: operator pos_ty0 is absorbed into DSP pos_ty0.
-DSP Report: Generating DSP pos_tx0, operation Mode is: A*(B:0x2b).
-DSP Report: operator pos_tx0 is absorbed into DSP pos_tx0.
-INFO: [Synth 8-4471] merging register 'bomb_ty_reg[3:0]' into 'bomb_ty_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-INFO: [Synth 8-4471] merging register 'bomb_tx_reg[3:0]' into 'bomb_tx_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-INFO: [Synth 8-4471] merging register 'bomb_tx_reg[3:0]' into 'bomb_tx_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-INFO: [Synth 8-4471] merging register 'bomb_ty_reg[3:0]' into 'bomb_ty_reg[3:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-WARNING: [Synth 8-6014] Unused sequential element bomb_ty_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-WARNING: [Synth 8-6014] Unused sequential element bomb_ty_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-WARNING: [Synth 8-6014] Unused sequential element bomb_tx_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-WARNING: [Synth 8-6014] Unused sequential element bomb_tx_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v:238]
-INFO: [Synth 8-5545] ROM "clear_bomb_req" won't be mapped to RAM because address size (28) is larger than maximum supported(25)
 INFO: [Synth 8-4471] merging register 'init_index_y_reg[7:0]' into 'init_index_y_reg[7:0]' [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:213]
 WARNING: [Synth 8-6014] Unused sequential element init_index_y_reg was removed.  [C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v:213]
 INFO: [Synth 8-5545] ROM "open_x_reg[1]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
@@ -1329,87 +1424,19 @@ INFO: [Synth 8-5545] ROM "open_x_reg[37]" won't be mapped to RAM because address
 INFO: [Synth 8-5545] ROM "open_x_reg[38]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "open_x_reg[39]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "open_x_reg[0]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-INFO: [Synth 8-5545] ROM "clk_inst/count0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-INFO: [Synth 8-5545] ROM "clk_inst/clk_out0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-INFO: [Synth 8-5545] ROM "clk_inst/count0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-INFO: [Synth 8-5545] ROM "clk_inst/clk_out0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-DSP Report: Generating DSP tile_x_of_pixel1, operation Mode is: A*(B:0x2b).
-DSP Report: operator tile_x_of_pixel1 is absorbed into DSP tile_x_of_pixel1.
-DSP Report: Generating DSP p1_goal_tx1, operation Mode is: A*(B:0x2b).
-DSP Report: operator p1_goal_tx1 is absorbed into DSP p1_goal_tx1.
-DSP Report: Generating DSP p1_goal_ty1, operation Mode is: A*(B:0x2b).
-DSP Report: operator p1_goal_ty1 is absorbed into DSP p1_goal_ty1.
-DSP Report: Generating DSP p2_player_goal_tx1, operation Mode is: A*(B:0x2b).
-DSP Report: operator p2_player_goal_tx1 is absorbed into DSP p2_player_goal_tx1.
-DSP Report: Generating DSP p2_player_goal_ty1, operation Mode is: A*(B:0x2b).
-DSP Report: operator p2_player_goal_ty1 is absorbed into DSP p2_player_goal_ty1.
-INFO: [Synth 8-5545] ROM "clk_6p25m_inst/count0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-INFO: [Synth 8-5545] ROM "clk_6p25m_inst/clk_out0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-DSP Report: Generating DSP tile_y_of_pixel1, operation Mode is: A*(B:0x2b).
-DSP Report: operator tile_y_of_pixel1 is absorbed into DSP tile_y_of_pixel1.
-WARNING: [Synth 8-3331] design Top_Student has unconnected port JC[2]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[14]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[13]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[12]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[11]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[10]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[9]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[8]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[7]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[6]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[5]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[4]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[3]
-WARNING: [Synth 8-3331] design Top_Student has unconnected port sw[2]
 INFO: [Synth 8-6430] The Block RAM closed_y_reg may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
 INFO: [Synth 8-6430] The Block RAM closed_x_reg may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
 RAM Pipeline Warning: Read Address Register Found For RAM closed_y_reg. We will not be able to pipeline it. This may degrade performance. 
 RAM Pipeline Warning: Read Address Register Found For RAM closed_x_reg. We will not be able to pipeline it. This may degrade performance. 
-INFO: [Synth 8-3886] merging instance 'p2_ctrl_inst/bomb_ctrl_inst/explode_right_len_reg[1]' (FDRE) to 'p2_ctrl_inst/bomb_ctrl_inst/explode_right_len_reg[2]'
-INFO: [Synth 8-3886] merging instance 'p2_ctrl_inst/bomb_ctrl_inst/explode_right_len_reg[2]' (FDRE) to 'p2_ctrl_inst/bomb_ctrl_inst/explode_right_len_reg[3]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (p2_ctrl_inst/bomb_ctrl_inst/\explode_right_len_reg[3] )
-INFO: [Synth 8-3886] merging instance 'p2_ctrl_inst/bomb_ctrl_inst/explode_left_len_reg[1]' (FDRE) to 'p2_ctrl_inst/bomb_ctrl_inst/explode_left_len_reg[2]'
-INFO: [Synth 8-3886] merging instance 'p2_ctrl_inst/bomb_ctrl_inst/explode_left_len_reg[2]' (FDRE) to 'p2_ctrl_inst/bomb_ctrl_inst/explode_left_len_reg[3]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (p2_ctrl_inst/bomb_ctrl_inst/\explode_left_len_reg[3] )
-INFO: [Synth 8-3886] merging instance 'p2_ctrl_inst/bomb_ctrl_inst/explode_down_len_reg[1]' (FDRE) to 'p2_ctrl_inst/bomb_ctrl_inst/explode_down_len_reg[2]'
-INFO: [Synth 8-3886] merging instance 'p2_ctrl_inst/bomb_ctrl_inst/explode_down_len_reg[2]' (FDRE) to 'p2_ctrl_inst/bomb_ctrl_inst/explode_down_len_reg[3]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (p2_ctrl_inst/bomb_ctrl_inst/\explode_down_len_reg[3] )
-INFO: [Synth 8-3886] merging instance 'p2_ctrl_inst/bomb_ctrl_inst/explode_up_len_reg[1]' (FDRE) to 'p2_ctrl_inst/bomb_ctrl_inst/explode_up_len_reg[2]'
-INFO: [Synth 8-3886] merging instance 'p2_ctrl_inst/bomb_ctrl_inst/explode_up_len_reg[2]' (FDRE) to 'p2_ctrl_inst/bomb_ctrl_inst/explode_up_len_reg[3]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (p2_ctrl_inst/bomb_ctrl_inst/\explode_up_len_reg[3] )
-WARNING: [Synth 8-3332] Sequential element (bomb_passable_reg) is unused and will be removed from module bomb_controller.
-WARNING: [Synth 8-3332] Sequential element (explode_up_len_reg[3]) is unused and will be removed from module bomb_controller.
-WARNING: [Synth 8-3332] Sequential element (explode_down_len_reg[3]) is unused and will be removed from module bomb_controller.
-WARNING: [Synth 8-3332] Sequential element (explode_left_len_reg[3]) is unused and will be removed from module bomb_controller.
-WARNING: [Synth 8-3332] Sequential element (explode_right_len_reg[3]) is unused and will be removed from module bomb_controller.
-WARNING: [Synth 8-3332] Sequential element (player_hit_reg) is unused and will be removed from module bomb_controller.
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\as_mux_inst/a_star_inst /\tile_base_cost_reg[2] )
-INFO: [Synth 8-3886] merging instance 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[0]__0' (FDRE) to 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[0]'
-INFO: [Synth 8-3886] merging instance 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[1]__0' (FDRE) to 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[1]'
-INFO: [Synth 8-3886] merging instance 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[2]__0' (FDRE) to 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[3]__0' (FDRE) to 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[3]'
-INFO: [Synth 8-3886] merging instance 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[4]__0' (FDRE) to 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[4]'
-INFO: [Synth 8-3886] merging instance 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[5]__0' (FDRE) to 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[5]'
-INFO: [Synth 8-3886] merging instance 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[6]__0' (FDRE) to 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[6]'
-INFO: [Synth 8-3886] merging instance 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[7]__0' (FDRE) to 'i_0/as_mux_inst/a_star_inst/init_index_x_reg[7]'
-INFO: [Synth 8-3886] merging instance 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_up_len_reg[1]' (FDRE) to 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_up_len_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_up_len_reg[2]' (FDRE) to 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_up_len_reg[3]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\p1_ctrl_inst/bomb_ctrl_inst /\explode_up_len_reg[3] )
-INFO: [Synth 8-3886] merging instance 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_down_len_reg[1]' (FDRE) to 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_down_len_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_down_len_reg[2]' (FDRE) to 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_down_len_reg[3]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\p1_ctrl_inst/bomb_ctrl_inst /\explode_down_len_reg[3] )
-INFO: [Synth 8-3886] merging instance 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_left_len_reg[1]' (FDRE) to 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_left_len_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_left_len_reg[2]' (FDRE) to 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_left_len_reg[3]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\p1_ctrl_inst/bomb_ctrl_inst /\explode_left_len_reg[3] )
-INFO: [Synth 8-3886] merging instance 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_right_len_reg[1]' (FDRE) to 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_right_len_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_right_len_reg[2]' (FDRE) to 'i_0/p1_ctrl_inst/bomb_ctrl_inst/explode_right_len_reg[3]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\p1_ctrl_inst/bomb_ctrl_inst /\explode_right_len_reg[3] )
-WARNING: [Synth 8-3332] Sequential element (bomb_passable_reg) is unused and will be removed from module bomb_controller__1.
-WARNING: [Synth 8-3332] Sequential element (explode_up_len_reg[3]) is unused and will be removed from module bomb_controller__1.
-WARNING: [Synth 8-3332] Sequential element (explode_down_len_reg[3]) is unused and will be removed from module bomb_controller__1.
-WARNING: [Synth 8-3332] Sequential element (explode_left_len_reg[3]) is unused and will be removed from module bomb_controller__1.
-WARNING: [Synth 8-3332] Sequential element (explode_right_len_reg[3]) is unused and will be removed from module bomb_controller__1.
-WARNING: [Synth 8-3332] Sequential element (player_hit_reg) is unused and will be removed from module bomb_controller__1.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\as_mux_inst/a_star_inst /\tile_base_cost_reg[2] )
+INFO: [Synth 8-3886] merging instance 'as_mux_inst/a_star_inst/init_index_x_reg[0]__0' (FDRE) to 'as_mux_inst/a_star_inst/init_index_x_reg[0]'
+INFO: [Synth 8-3886] merging instance 'as_mux_inst/a_star_inst/init_index_x_reg[1]__0' (FDRE) to 'as_mux_inst/a_star_inst/init_index_x_reg[1]'
+INFO: [Synth 8-3886] merging instance 'as_mux_inst/a_star_inst/init_index_x_reg[2]__0' (FDRE) to 'as_mux_inst/a_star_inst/init_index_x_reg[2]'
+INFO: [Synth 8-3886] merging instance 'as_mux_inst/a_star_inst/init_index_x_reg[3]__0' (FDRE) to 'as_mux_inst/a_star_inst/init_index_x_reg[3]'
+INFO: [Synth 8-3886] merging instance 'as_mux_inst/a_star_inst/init_index_x_reg[4]__0' (FDRE) to 'as_mux_inst/a_star_inst/init_index_x_reg[4]'
+INFO: [Synth 8-3886] merging instance 'as_mux_inst/a_star_inst/init_index_x_reg[5]__0' (FDRE) to 'as_mux_inst/a_star_inst/init_index_x_reg[5]'
+INFO: [Synth 8-3886] merging instance 'as_mux_inst/a_star_inst/init_index_x_reg[6]__0' (FDRE) to 'as_mux_inst/a_star_inst/init_index_x_reg[6]'
+INFO: [Synth 8-3886] merging instance 'as_mux_inst/a_star_inst/init_index_x_reg[7]__0' (FDRE) to 'as_mux_inst/a_star_inst/init_index_x_reg[7]'
 WARNING: [Synth 8-3332] Sequential element (tile_base_cost_reg[2]) is unused and will be removed from module a_star.
 WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][0][7]) is unused and will be removed from module a_star.
 WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][0][7]) is unused and will be removed from module a_star.
@@ -1498,84 +1525,36 @@ WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][5][7]) is unused a
 WARNING: [Synth 8-3332] Sequential element (cost_array_reg[10][5][7]) is unused and will be removed from module a_star.
 WARNING: [Synth 8-3332] Sequential element (cost_array_reg[11][5][7]) is unused and will be removed from module a_star.
 WARNING: [Synth 8-3332] Sequential element (cost_array_reg[12][5][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[13][5][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[14][5][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[0][6][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[1][6][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[2][6][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[3][6][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[4][6][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[5][6][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[6][6][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[7][6][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[8][6][7]) is unused and will be removed from module a_star.
+WARNING: [Synth 8-3332] Sequential element (cost_array_reg[9][6][7]) is unused and will be removed from module a_star.
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Synth 8-3886] merging instance 'i_3/pair_oled_inst/oled_data_reg[0]' (FD) to 'i_3/pair_oled_inst/oled_data_reg[1]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_oled_inst/oled_data_reg[1]' (FD) to 'i_3/pair_oled_inst/oled_data_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_oled_inst/oled_data_reg[2]' (FD) to 'i_3/pair_oled_inst/oled_data_reg[3]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_oled_inst/oled_data_reg[5]' (FD) to 'i_3/pair_oled_inst/oled_data_reg[6]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_oled_inst/oled_data_reg[6]' (FD) to 'i_3/pair_oled_inst/oled_data_reg[7]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_oled_inst/oled_data_reg[7]' (FD) to 'i_3/pair_oled_inst/oled_data_reg[8]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_oled_inst/oled_data_reg[8]' (FD) to 'i_3/pair_oled_inst/oled_data_reg[9]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_oled_inst/oled_data_reg[11]' (FD) to 'i_3/pair_oled_inst/oled_data_reg[12]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_oled_inst/oled_data_reg[12]' (FD) to 'i_3/pair_oled_inst/oled_data_reg[13]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/prev_data_reg[0]' (FDE) to 'i_3/game_inst/data_tx_game_reg[0]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/prev_data_reg[1]' (FDE) to 'i_3/game_inst/data_tx_game_reg[1]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/prev_data_reg[2]' (FDE) to 'i_3/game_inst/data_tx_game_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_oled_inst/oled_data_reg[13]' (FD) to 'i_3/pair_oled_inst/oled_data_reg[14]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[18]' (FDE) to 'i_3/game_inst/prev_data_reg[18]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[17]' (FDE) to 'i_3/game_inst/prev_data_reg[17]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[16]' (FDE) to 'i_3/game_inst/prev_data_reg[16]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[15]' (FDE) to 'i_3/game_inst/prev_data_reg[15]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[14]' (FDE) to 'i_3/game_inst/prev_data_reg[14]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[13]' (FDE) to 'i_3/game_inst/prev_data_reg[13]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[12]' (FDE) to 'i_3/game_inst/prev_data_reg[12]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[11]' (FDE) to 'i_3/game_inst/prev_data_reg[11]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[10]' (FDE) to 'i_3/game_inst/prev_data_reg[10]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[9]' (FDE) to 'i_3/game_inst/prev_data_reg[9]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[8]' (FDE) to 'i_3/game_inst/prev_data_reg[8]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[7]' (FDE) to 'i_3/game_inst/prev_data_reg[7]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[6]' (FDE) to 'i_3/game_inst/prev_data_reg[6]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[5]' (FDE) to 'i_3/game_inst/prev_data_reg[5]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[4]' (FDE) to 'i_3/game_inst/prev_data_reg[4]'
-INFO: [Synth 8-3886] merging instance 'i_3/game_inst/data_tx_game_reg[3]' (FDE) to 'i_3/game_inst/prev_data_reg[3]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_inst/data_tx_code_reg[7]' (FDE) to 'i_3/pair_inst/data_tx_code_reg[3]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_inst/data_tx_code_reg[6]' (FDE) to 'i_3/pair_inst/data_tx_code_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_inst/data_tx_code_reg[5]' (FDE) to 'i_3/pair_inst/data_tx_code_reg[1]'
-INFO: [Synth 8-3886] merging instance 'i_3/pair_inst/data_tx_code_reg[4]' (FDE) to 'i_3/pair_inst/data_tx_code_reg[0]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_init_state_reg[0]' (FDE) to 'i_3/mouse_value_reg[6]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_init_state_reg[1]' (FDE) to 'i_3/mouse_value_reg[5]'
-INFO: [Synth 8-3886] merging instance 'i_3/data_tx_reg[7]' (FD) to 'i_3/data_tx_reg[3]'
-INFO: [Synth 8-3886] merging instance 'i_3/data_tx_reg[6]' (FD) to 'i_3/data_tx_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_3/data_tx_reg[5]' (FD) to 'i_3/data_tx_reg[1]'
-INFO: [Synth 8-3886] merging instance 'i_3/data_tx_reg[4]' (FD) to 'i_3/data_tx_reg[0]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_value_reg[0]' (FDE) to 'i_3/mouse_value_reg[4]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_value_reg[1]' (FDE) to 'i_3/mouse_value_reg[4]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_value_reg[2]' (FDE) to 'i_3/mouse_value_reg[4]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_value_reg[3]' (FDE) to 'i_3/mouse_value_reg[4]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_value_reg[7]' (FDE) to 'i_3/mouse_value_reg[11]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_value_reg[8]' (FDE) to 'i_3/mouse_value_reg[11]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_value_reg[9]' (FDE) to 'i_3/mouse_value_reg[11]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_value_reg[10]' (FDE) to 'i_3/mouse_value_reg[11]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_3/\mouse_value_reg[11] )
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_inst/x_max_reg[0]' (FDRE) to 'i_3/mouse_inst/x_max_reg[1]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_inst/x_max_reg[1]' (FDRE) to 'i_3/mouse_inst/x_max_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_inst/x_max_reg[2]' (FDRE) to 'i_3/mouse_inst/x_max_reg[3]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_inst/x_max_reg[3]' (FDRE) to 'i_3/mouse_inst/x_max_reg[4]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_inst/x_max_reg[7]' (FDSE) to 'i_3/mouse_inst/x_max_reg[8]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_inst/x_max_reg[8]' (FDSE) to 'i_3/mouse_inst/x_max_reg[9]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_inst/x_max_reg[10]' (FDRE) to 'i_3/mouse_inst/x_max_reg[11]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_3/\tx_inst/packet_reg[0] )
-INFO: [Synth 8-3886] merging instance 'i_3/seg_inst/seg_reg[0]' (FD) to 'i_3/seg_inst/seg_reg[4]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_inst/y_max_reg[0]' (FDRE) to 'i_3/mouse_inst/y_max_reg[1]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_inst/y_max_reg[1]' (FDRE) to 'i_3/mouse_inst/y_max_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_inst/y_max_reg[2]' (FDRE) to 'i_3/mouse_inst/y_max_reg[3]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_inst/y_max_reg[3]' (FDRE) to 'i_3/mouse_inst/y_max_reg[4]'
-INFO: [Synth 8-3886] merging instance 'i_3/mouse_inst/y_max_reg[7]' (FDSE) to 'i_3/mouse_inst/y_max_reg[9]'
-INFO: [Synth 8-3886] merging instance 'i_3/tx_inst/packet_reg[8]' (FDCE) to 'i_3/tx_inst/packet_reg[4]'
-INFO: [Synth 8-3886] merging instance 'i_3/tx_inst/packet_reg[7]' (FDCE) to 'i_3/tx_inst/packet_reg[3]'
-INFO: [Synth 8-3886] merging instance 'i_3/tx_inst/packet_reg[6]' (FDCE) to 'i_3/tx_inst/packet_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_3/tx_inst/packet_reg[5]' (FDCE) to 'i_3/tx_inst/packet_reg[1]'
-INFO: [Synth 8-3886] merging instance 'i_3/oled_data_reg[0]' (FD) to 'i_3/oled_data_reg[1]'
-INFO: [Synth 8-3886] merging instance 'i_3/oled_data_reg[1]' (FD) to 'i_3/oled_data_reg[2]'
-INFO: [Synth 8-3886] merging instance 'i_3/oled_data_reg[2]' (FD) to 'i_3/oled_data_reg[3]'
-INFO: [Synth 8-3886] merging instance 'i_3/oled_data_reg[5]' (FD) to 'i_3/oled_data_reg[6]'
-INFO: [Synth 8-3886] merging instance 'i_3/oled_data_reg[7]' (FD) to 'i_3/oled_data_reg[8]'
-INFO: [Synth 8-3886] merging instance 'i_3/oled_data_reg[11]' (FD) to 'i_3/oled_data_reg[12]'
-INFO: [Synth 8-3886] merging instance 'i_3/oled_data_reg[13]' (FD) to 'i_3/oled_data_reg[14]'
-INFO: [Synth 8-3886] merging instance 'i_3/oled_data_reg[12]' (FD) to 'i_3/oled_data_reg[14]'
-INFO: [Synth 8-3333] propagating constant 1 across sequential element (i_3/\seg_inst/seg_reg[7] )
+INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+DSP Report: Generating DSP pos_ty0, operation Mode is: A*(B:0x2b).
+DSP Report: operator pos_ty0 is absorbed into DSP pos_ty0.
+DSP Report: Generating DSP pos_tx0, operation Mode is: A*(B:0x2b).
+DSP Report: operator pos_tx0 is absorbed into DSP pos_tx0.
+DSP Report: Generating DSP p2_player_goal_tx1, operation Mode is: A*(B:0x2b).
+DSP Report: operator p2_player_goal_tx1 is absorbed into DSP p2_player_goal_tx1.
+DSP Report: Generating DSP p2_player_goal_ty1, operation Mode is: A*(B:0x2b).
+DSP Report: operator p2_player_goal_ty1 is absorbed into DSP p2_player_goal_ty1.
+DSP Report: Generating DSP p1_goal_tx1, operation Mode is: A*(B:0x2b).
+DSP Report: operator p1_goal_tx1 is absorbed into DSP p1_goal_tx1.
+DSP Report: Generating DSP p1_goal_ty1, operation Mode is: A*(B:0x2b).
+DSP Report: operator p1_goal_ty1 is absorbed into DSP p1_goal_ty1.
+WARNING: [Synth 8-3331] design p1_controller has unconnected port mouse_left_pulse
+WARNING: [Synth 8-3331] design p1_controller has unconnected port mouse_middle_pulse
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:02:58 ; elapsed = 00:03:11 . Memory (MB): peak = 1272.555 ; gain = 985.609
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:11:55 ; elapsed = 00:13:36 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -1595,46 +1574,78 @@ DSP: Preliminary Mapping  Report (see note below)
 +--------------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
 |Module Name         | DSP Mapping | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
 +--------------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Top_Student__GB5    | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|Top_Student__GB5    | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
 |movement_controller | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
 |movement_controller | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
 |movement_controller | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
 |movement_controller | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-|Top_Student         | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-|Top_Student         | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-|Top_Student         | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-|Top_Student         | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-|Top_Student         | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-|Top_Student         | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|Top_Student__GB7    | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|Top_Student__GB7    | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|Top_Student__GB7    | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|Top_Student__GB7    | A*(B:0x2b)  | 12     | 6      | -      | -      | 18     | 0    | 0    | -    | -    | -     | 0    | 0    | 
 +--------------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
 
 Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
 ---------------------------------------------------------------------------------
 Finished ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-4480] The timing for the instance i_0/as_mux_inst/a_star_inst/i_180/closed_y_reg (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
-INFO: [Synth 8-4480] The timing for the instance i_0/as_mux_inst/a_star_inst/i_183/closed_x_reg (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-4480] The timing for the instance i_6/as_mux_inst/a_star_inst/i_180/closed_y_reg (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-4480] The timing for the instance i_6/as_mux_inst/a_star_inst/i_183/closed_x_reg (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
 
 Report RTL Partitions: 
 +------+-----------------+------------+----------+
 |      |RTL Partition    |Replication |Instances |
 +------+-----------------+------------+----------+
-|1     |Top_Student__GB0 |           1|     24128|
-|2     |p2_controller    |           1|      6791|
-|3     |Top_Student__GB2 |           1|      6619|
-|4     |Top_Student__GB3 |           1|      3107|
-|5     |Top_Student__GB4 |           1|      5218|
+|1     |Top_Student__GB0 |           1|      7630|
+|2     |Top_Student__GB1 |           1|     18609|
+|3     |Top_Student__GB2 |           1|      3505|
+|4     |Top_Student__GB3 |           1|      4471|
+|5     |Top_Student__GB4 |           1|      6050|
+|6     |Top_Student__GB5 |           1|      5503|
+|7     |Top_Student__GB6 |           1|     21049|
+|8     |Top_Student__GB7 |           1|      7659|
 +------+-----------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:03:06 ; elapsed = 00:03:21 . Memory (MB): peak = 1272.555 ; gain = 985.609
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:12:05 ; elapsed = 00:13:47 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-3886] merging instance 'i_1/right_len_reg[1][1][0]' (FDE) to 'i_1/right_len_reg[1][0][0]'
+INFO: [Synth 8-3886] merging instance 'i_1/right_len_reg[1][1][1]' (FDE) to 'i_1/right_len_reg[1][0][1]'
+INFO: [Synth 8-3886] merging instance 'i_1/left_len_reg[1][1][0]' (FDE) to 'i_1/up_len_reg[1][2][1]'
+INFO: [Synth 8-3886] merging instance 'i_1/left_len_reg[1][1][1]' (FDE) to 'i_1/up_len_reg[1][2][1]'
+INFO: [Synth 8-3886] merging instance 'i_1/up_len_reg[1][2][0]' (FDE) to 'i_1/up_len_reg[1][2][1]'
+INFO: [Synth 8-3886] merging instance 'i_1/up_len_reg[1][2][1]' (FDE) to 'i_1/left_len_reg[1][2][1]'
+INFO: [Synth 8-3886] merging instance 'i_1/down_len_reg[1][2][0]' (FDE) to 'i_1/down_len_reg[1][0][0]'
+INFO: [Synth 8-3886] merging instance 'i_1/down_len_reg[1][2][1]' (FDE) to 'i_1/down_len_reg[1][0][1]'
+INFO: [Synth 8-3886] merging instance 'i_1/left_len_reg[1][2][0]' (FDE) to 'i_1/left_len_reg[1][2][1]'
+INFO: [Synth 8-3886] merging instance 'i_1/left_len_reg[1][2][1]' (FDE) to 'i_1/up_len_reg[1][0][0]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_1/\right_len_reg[1][2][0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_1/\right_len_reg[1][2][1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_1/\right_len_reg[1][0][0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_1/\right_len_reg[1][0][1] )
+INFO: [Synth 8-3886] merging instance 'i_1/left_len_reg[1][0][0]' (FDE) to 'i_1/up_len_reg[1][0][0]'
+INFO: [Synth 8-3886] merging instance 'i_1/left_len_reg[1][0][1]' (FDE) to 'i_1/up_len_reg[1][0][0]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_1/\down_len_reg[1][0][0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_1/\down_len_reg[1][0][1] )
+INFO: [Synth 8-3886] merging instance 'i_1/up_len_reg[1][0][0]' (FDE) to 'i_1/up_len_reg[1][0][1]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_1/\up_len_reg[1][0][1] )
+INFO: [Synth 8-3886] merging instance 'i_4/p2_explosion_active_prev_reg[1]' (FD) to 'i_4/p2_explosion_active_prev_reg[2]'
+INFO: [Synth 8-3886] merging instance 'i_4/p2_explosion_active_prev_reg[0]' (FD) to 'i_4/p2_explosion_active_prev_reg[2]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_4/\p2_explosion_active_prev_reg[2] )
+INFO: [Synth 8-3886] merging instance 'i_5/oled_data_reg[0]' (FD) to 'i_5/oled_data_reg[1]'
+INFO: [Synth 8-3886] merging instance 'i_5/oled_data_reg[1]' (FD) to 'i_5/oled_data_reg[2]'
+INFO: [Synth 8-3886] merging instance 'i_5/oled_data_reg[2]' (FD) to 'i_5/oled_data_reg[3]'
+INFO: [Synth 8-3886] merging instance 'i_5/oled_data_reg[5]' (FD) to 'i_5/oled_data_reg[6]'
+INFO: [Synth 8-3886] merging instance 'i_5/oled_data_reg[11]' (FD) to 'i_5/oled_data_reg[12]'
+INFO: [Synth 8-3886] merging instance 'i_5/oled_data_reg[12]' (FD) to 'i_5/oled_data_reg[13]'
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:03:08 ; elapsed = 00:03:23 . Memory (MB): peak = 1272.555 ; gain = 985.609
+Finished Timing Optimization : Time (s): cpu = 00:12:09 ; elapsed = 00:13:51 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -1656,31 +1667,50 @@ Report RTL Partitions:
 +------+-----------------+------------+----------+
 |      |RTL Partition    |Replication |Instances |
 +------+-----------------+------------+----------+
-|1     |Top_Student__GB0 |           1|     24128|
-|2     |p2_controller    |           1|      6791|
-|3     |Top_Student__GB2 |           1|      6619|
-|4     |Top_Student__GB3 |           1|      3107|
-|5     |Top_Student__GB4 |           1|      5218|
+|1     |Top_Student__GB0 |           1|      3606|
+|2     |Top_Student__GB1 |           1|     10369|
+|3     |Top_Student__GB2 |           1|      1553|
+|4     |Top_Student__GB3 |           1|      1936|
+|5     |Top_Student__GB4 |           1|      2994|
+|6     |Top_Student__GB5 |           1|      5450|
+|7     |Top_Student__GB6 |           1|     21049|
+|8     |Top_Student__GB7 |           1|      5863|
 +------+-----------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-3886] merging instance 'as_mux_inst/i_8905' (FDRE) to 'as_mux_inst/i_8904'
-INFO: [Synth 8-3886] merging instance 'as_mux_inst/i_4435' (FDRE) to 'as_mux_inst/i_4450'
-INFO: [Synth 8-3886] merging instance 'as_mux_inst/i_4436' (FDRE) to 'as_mux_inst/i_4451'
-INFO: [Synth 8-3886] merging instance 'as_mux_inst/i_4437' (FDRE) to 'as_mux_inst/i_4452'
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (i_4/\seg_inst/seg_reg[7] )
+INFO: [Synth 8-3886] merging instance 'i_5/tx_inst/packet_reg[28]' (FDCE) to 'i_5/tx_inst/busy_reg'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_7/\p1_ctrl_inst/p1_bomb_inst/explode_counter_reg[0][6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_7/\p1_ctrl_inst/p1_bomb_inst/explode_counter_reg[1][6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_7/\p1_ctrl_inst/p1_bomb_inst/explode_counter_reg[2][6] )
+INFO: [Synth 8-3886] merging instance 'i_6/as_mux_inst/i_4513' (FDRE) to 'i_6/as_mux_inst/i_4512'
+INFO: [Synth 8-3886] merging instance 'i_6/as_mux_inst/i_42' (FDRE) to 'i_6/as_mux_inst/i_57'
+INFO: [Synth 8-3886] merging instance 'i_6/as_mux_inst/i_43' (FDRE) to 'i_6/as_mux_inst/i_58'
+INFO: [Synth 8-3886] merging instance 'i_6/as_mux_inst/i_44' (FDRE) to 'i_6/as_mux_inst/i_59'
+INFO: [Synth 8-3886] merging instance 'i_6/as_mux_inst/i_45' (FDRE) to 'i_6/as_mux_inst/i_60'
+INFO: [Synth 8-3886] merging instance 'i_6/as_mux_inst/i_46' (FDRE) to 'i_6/as_mux_inst/i_61'
+INFO: [Synth 8-3886] merging instance 'i_6/as_mux_inst/i_47' (FDRE) to 'i_6/as_mux_inst/i_62'
 INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Synth 8-4480] The timing for the instance as_mux_inst/a_star_inst/closed_y_reg (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
-INFO: [Synth 8-4480] The timing for the instance as_mux_inst/a_star_inst/closed_x_reg (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-4480] The timing for the instance i_6/as_mux_inst/a_star_inst/closed_y_reg (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-4480] The timing for the instance i_6/as_mux_inst/a_star_inst/closed_x_reg (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:03:18 ; elapsed = 00:03:33 . Memory (MB): peak = 1272.555 ; gain = 985.609
+Finished Technology Mapping : Time (s): cpu = 00:12:20 ; elapsed = 00:14:12 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
-+-+--------------+------------+----------+
-| |RTL Partition |Replication |Instances |
-+-+--------------+------------+----------+
-+-+--------------+------------+----------+
++------+-----------------+------------+----------+
+|      |RTL Partition    |Replication |Instances |
++------+-----------------+------------+----------+
+|1     |Top_Student__GB0 |           1|      1136|
+|2     |Top_Student__GB1 |           1|      4674|
+|3     |Top_Student__GB2 |           1|       444|
+|4     |Top_Student__GB3 |           1|       579|
+|5     |Top_Student__GB4 |           1|       994|
+|6     |Top_Student__GB5 |           1|      3809|
+|7     |Top_Student__GB6 |           1|     11092|
+|8     |Top_Student__GB7 |           1|      2426|
++------+-----------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start IO Insertion
 ---------------------------------------------------------------------------------
@@ -1693,13 +1723,15 @@ Finished Flattening Before IO Insertion
 ---------------------------------------------------------------------------------
 Start Final Netlist Cleanup
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-4480] The timing for the instance as_mux_inst/a_star_inst/closed_y_reg (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+INFO: [Synth 8-4480] The timing for the instance as_mux_inst/a_star_inst/closed_x_reg (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
 INFO: [Synth 8-5365] Flop mouse_inst/Inst_Ps2Interface/ps2_clk_h_reg is being inverted and renamed to mouse_inst/Inst_Ps2Interface/ps2_clk_h_reg_inv.
 INFO: [Synth 8-5365] Flop mouse_inst/Inst_Ps2Interface/ps2_data_h_reg is being inverted and renamed to mouse_inst/Inst_Ps2Interface/ps2_data_h_reg_inv.
 ---------------------------------------------------------------------------------
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:03:20 ; elapsed = 00:03:35 . Memory (MB): peak = 1272.555 ; gain = 985.609
+Finished IO Insertion : Time (s): cpu = 00:12:23 ; elapsed = 00:14:16 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1712,7 +1744,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:03:21 ; elapsed = 00:03:36 . Memory (MB): peak = 1272.555 ; gain = 985.609
+Finished Renaming Generated Instances : Time (s): cpu = 00:12:23 ; elapsed = 00:14:16 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1724,25 +1756,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:03:22 ; elapsed = 00:03:37 . Memory (MB): peak = 1272.555 ; gain = 985.609
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:12:25 ; elapsed = 00:14:17 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:03:22 ; elapsed = 00:03:37 . Memory (MB): peak = 1272.555 ; gain = 985.609
+Finished Renaming Generated Ports : Time (s): cpu = 00:12:25 ; elapsed = 00:14:17 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:03:23 ; elapsed = 00:03:38 . Memory (MB): peak = 1272.555 ; gain = 985.609
+Finished Handling Custom Attributes : Time (s): cpu = 00:12:25 ; elapsed = 00:14:18 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:03:23 ; elapsed = 00:03:38 . Memory (MB): peak = 1272.555 ; gain = 985.609
+Finished Renaming Generated Nets : Time (s): cpu = 00:12:25 ; elapsed = 00:14:18 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -1773,61 +1805,60 @@ Report Cell Usage:
 |      |Cell     |Count |
 +------+---------+------+
 |1     |BUFG     |     3|
-|2     |CARRY4   |   630|
+|2     |CARRY4   |   585|
 |3     |DSP48E1  |    10|
-|4     |LUT1     |   211|
-|5     |LUT2     |   929|
-|6     |LUT3     |  1239|
-|7     |LUT4     |  1540|
-|8     |LUT5     |  2394|
-|9     |LUT6     |  8463|
-|10    |MUXF7    |  1303|
-|11    |MUXF8    |   319|
+|4     |LUT1     |   194|
+|5     |LUT2     |  1088|
+|6     |LUT3     |  1303|
+|7     |LUT4     |  1158|
+|8     |LUT5     |  2984|
+|9     |LUT6     | 10095|
+|10    |MUXF7    |  1405|
+|11    |MUXF8    |   232|
 |12    |RAMB18E1 |     2|
 |13    |SRL16E   |     1|
 |14    |FDE_1    |    32|
-|15    |FDRE     |  4540|
-|16    |FDSE     |  1756|
-|17    |IBUF     |    10|
+|15    |FDRE     |  4381|
+|16    |FDSE     |  1770|
+|17    |IBUF     |    16|
 |18    |IOBUF    |     2|
-|19    |OBUF     |    36|
-|20    |OBUFT    |     1|
+|19    |OBUF     |    23|
+|20    |OBUFT    |    14|
 +------+---------+------+
 
 Report Instance Areas: 
 +------+----------------------+-------------------------------+------+
 |      |Instance              |Module                         |Cells |
 +------+----------------------+-------------------------------+------+
-|1     |top                   |                               | 23421|
-|2     |  as_mux_inst         |a_star_mux                     |  9734|
-|3     |    a_star_inst       |a_star                         |  8845|
+|1     |top                   |                               | 25298|
+|2     |  as_mux_inst         |a_star_mux                     |  9710|
+|3     |    a_star_inst       |a_star                         |  8843|
 |4     |  clk_6p25m_inst      |variable_clock__parameterized0 |    51|
 |5     |  clk_inst            |variable_clock                 |    52|
-|6     |  game_inst           |package_game_data              |    31|
-|7     |  mouse_inst          |MouseCtl                       |   825|
+|6     |  game_inst           |package_game_data              |    40|
+|7     |  mouse_inst          |MouseCtl                       |   849|
 |8     |    Inst_Ps2Interface |Ps2Interface                   |   290|
-|9     |  oled1               |Oled_Display                   |  2356|
-|10    |  p1_ctrl_inst        |p1_controller                  |  4078|
-|11    |    bomb_ctrl_inst    |bomb_controller_0              |  2594|
-|12    |    player_move       |movement_controller_1          |  1433|
-|13    |  p2_ctrl_inst        |p2_controller                  |  4303|
-|14    |    bomb_ctrl_inst    |bomb_controller                |  2756|
-|15    |    p2_move           |movement_controller            |  1503|
-|16    |  pair_inst           |pairing_fsm                    |   184|
-|17    |  pair_oled_inst      |pairing_oled                   |   178|
-|18    |  random_unit         |lfsr_rng                       |   138|
-|19    |  rx_inst             |uart_rx                        |   220|
-|20    |  seg_inst            |seven_segment                  |    53|
-|21    |  tx_inst             |uart_tx                        |    99|
+|9     |  oled1               |Oled_Display                   |   963|
+|10    |  p1_ctrl_inst        |p1_controller                  |  9274|
+|11    |    p1_bomb_inst      |bomb_controller                |  7755|
+|12    |    player_move       |movement_controller_0          |  1455|
+|13    |  p2_ctrl_inst        |p2_controller                  |  1541|
+|14    |    p2_move           |movement_controller            |  1493|
+|15    |  pair_inst           |pairing_fsm                    |   175|
+|16    |  pair_oled_inst      |pairing_oled                   |  1414|
+|17    |  random_unit         |lfsr_rng                       |    30|
+|18    |  rx_inst             |uart_rx                        |   189|
+|19    |  seg_inst            |seven_segment                  |    51|
+|20    |  tx_inst             |uart_tx                        |    98|
 +------+----------------------+-------------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:03:23 ; elapsed = 00:03:38 . Memory (MB): peak = 1272.555 ; gain = 985.609
+Finished Writing Synthesis Report : Time (s): cpu = 00:12:25 ; elapsed = 00:14:18 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 178 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:02:38 ; elapsed = 00:03:24 . Memory (MB): peak = 1272.555 ; gain = 768.801
-Synthesis Optimization Complete : Time (s): cpu = 00:03:23 ; elapsed = 00:03:39 . Memory (MB): peak = 1272.555 ; gain = 985.609
+Synthesis finished with 0 errors, 0 critical warnings and 108 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:04:47 ; elapsed = 00:13:58 . Memory (MB): peak = 1798.535 ; gain = 1440.727
+Synthesis Optimization Complete : Time (s): cpu = 00:12:26 ; elapsed = 00:14:19 . Memory (MB): peak = 1798.535 ; gain = 1512.207
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 2308 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 2284 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
@@ -1837,11 +1868,11 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   IOBUF => IOBUF (IBUF, OBUFT): 2 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-528 Infos, 158 Warnings, 0 Critical Warnings and 0 Errors encountered.
+527 Infos, 185 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:03:27 ; elapsed = 00:03:44 . Memory (MB): peak = 1272.555 ; gain = 997.105
+synth_design: Time (s): cpu = 00:12:30 ; elapsed = 00:14:25 . Memory (MB): peak = 1798.535 ; gain = 1523.688
 WARNING: [Constraints 18-5210] No constraint will be written out.
 INFO: [Common 17-1381] The checkpoint 'C:/VivadoProjects/ee2026/FDP/FDP.runs/synth_1/Top_Student.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file Top_Student_utilization_synth.rpt -pb Top_Student_utilization_synth.pb
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.154 . Memory (MB): peak = 1272.555 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Fri Mar 27 03:57:57 2026...
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.145 . Memory (MB): peak = 1798.535 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Sat Mar 28 12:26:39 2026...
