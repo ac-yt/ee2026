@@ -66,27 +66,22 @@ module p1_controller (input clk,
                                      .next_is_block(next_is_block), .pos_tx_out(mc_p1_tx), .pos_ty_out(mc_p1_ty), .pos_x(mc_p1_x), .pos_y(mc_p1_y),
                                      .as_update(update), .as_baw(blocks_as_walls), .path_flat_x(path_flat_x), .path_flat_y(path_flat_y),
                                      .path_valid(path_valid), .path_len(path_len));
-         
-    
-    // bomb controller
-    wire bomb_passable;
-    wire player_hit;
     
     bomb_controller p1_bomb_inst (
-            .clk(clk),
-            .trigger(mouse_right_pulse),
-            .player_tx(p1_tx),
-            .player_ty(p1_ty),
-            .player_dead(p1_dead),
-            .bomb_active(bomb_active),
-            .bomb_tx_flat(bomb_tx_flat),
-            .bomb_ty_flat(bomb_ty_flat),
-            .bomb_red(bomb_red),
-            .explosion_active(explosion_active),
-            .explosion_stage_flat(explosion_stage_flat),
-            .place_bomb_req(place_bomb_req),
-            .bomb_count(bomb_count),
-            .bomb_radius(bomb_radius)
+        .clk(clk),
+        .trigger(mouse_right_pulse),
+        .player_tx(p1_tx),
+        .player_ty(p1_ty),
+        .player_dead(p1_dead),
+        .bomb_active(bomb_active),
+        .bomb_tx_flat(bomb_tx_flat),
+        .bomb_ty_flat(bomb_ty_flat),
+        .bomb_red(bomb_red),
+        .explosion_active(explosion_active),
+        .explosion_stage_flat(explosion_stage_flat),
+        .place_bomb_req(place_bomb_req),
+        .bomb_count(bomb_count),
+        .bomb_radius(bomb_radius)
     );
     
 endmodule

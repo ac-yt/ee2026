@@ -46,7 +46,7 @@
 
 // bomb controller
 `define MAX_BOMBS                   2
-`define MAX_RADIUS                  3
+`define MAX_RADIUS                  2
 
 // path parameters
 `define MAX_PATH_LEN                40 // 81

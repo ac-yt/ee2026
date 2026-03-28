@@ -75,25 +75,21 @@ module p2_controller(input clk,
         end
     end
     
-    // bomb controller
-    wire bomb_passable;
-    wire player_hit;
-    
-//    bomb_controller p2_bomb_inst (
-//            .clk(clk),
-//            .trigger(bomb_trigger),
-//            .player_tx(p2_tx),
-//            .player_ty(p2_ty),
-//            .player_dead(p2_dead),
-//            .bomb_active(bomb_active),
-//            .bomb_tx_flat(bomb_tx_flat),
-//            .bomb_ty_flat(bomb_ty_flat),
-//            .bomb_red(bomb_red),
-//            .explosion_active(explosion_active),
-//            .explosion_stage_flat(explosion_stage_flat),
-//            .place_bomb_req(place_bomb_req),
-//            .bomb_count(bomb_count),
-//            .bomb_radius(bomb_radius)
-//    );
+    bomb_controller p2_bomb_inst (
+        .clk(clk),
+        .trigger(bomb_trigger),
+        .player_tx(p2_tx),
+        .player_ty(p2_ty),
+        .player_dead(p2_dead),
+        .bomb_active(bomb_active),
+        .bomb_tx_flat(bomb_tx_flat),
+        .bomb_ty_flat(bomb_ty_flat),
+        .bomb_red(bomb_red),
+        .explosion_active(explosion_active),
+        .explosion_stage_flat(explosion_stage_flat),
+        .place_bomb_req(place_bomb_req),
+        .bomb_count(bomb_count),
+        .bomb_radius(bomb_radius)
+    );
     
 endmodule
