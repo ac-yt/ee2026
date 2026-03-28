@@ -8,37 +8,23 @@ Week 8 Submission: https://nusu-my.sharepoint.com/:w:/g/personal/e1399074_u_nus_
 Report: https://nusu-my.sharepoint.com/:w:/g/personal/e1399074_u_nus_edu/IQBU9xSwJj5MQ6xbADAzMiu1AXfPLSG2szBlvLrRMgCU2-s?e=QDlhi6
 
 
-## Version History
-
-### Version 1 (pre-Git)
-
-Changes Made:
-* Map setup + initialization of different map objects (empty, wall, block, bomb, powerup)
-* Player movement (**need to fix)
-* Bomb placing + bomb explosion
-
-### Version 2.1 (20/3/26 3am)
-
-Changes Made:
-* Added A* path planning for computer player (not yet fully integrated)
-* Added A* into Top Student with map updates every 0.5s and screen drawing (to be removed later)
-* Removed pixel map to reduce LUT usage (expand each pixel at the rendering step instead, manually draw border)
- 
-### Version 2.2 (21/3/26)
-
-Changes Made:
-* Moved A* into computer_controller module
-* Changed tile_map_flat indexing to tile_map indexing in bomb/player controller
-
-### Version 3.1 (24/3/26, Ashlee)
-
-Changes Made:
-* Changed player controller to use mouse and A* (plans path around blocks if possible, if cannot will run up to the closest block then stop)
-* Created separate modules for player controller and computer controller (Movement controller is its own separate one now also)
-* Made pairing work (did not work in previous versions) 
+## Latest Version Changes (V3.4, 29/3)
+* Bomb controller updates
+  * Allows place multiple bombs and radius up to 2 (currently use switches to decide)
+  * Uses FSM now to switch between idle, countdown, explode
+  * Removed redundant counter for bomb red, used countdown counter to decide when bomb is red
+  * Maximum bomb count and radius is a constant in constants.vh
+* Integration of bomb controller
+  * Instantiated into p1/p2 controller
+  * Top Student
+    * Packed p1/p2 bomb parameters into a 2D array for indexing and for loop
+    * Added sequential block to calculate reach of bombs (nested for loop loops over each player and then each bomb slot for the player), triggered every time a bomb is placed (only calculates reach when a bomb is placed)
+    * Edited tile map update block to add for loop for updating of bombs on map
+    * Edited rendering block to add for loop for rendering of bombs
 
 ## Important To-dos
-* Player/bomb controller
-  * Make player dead work
-  * Edit bomb controller to accept power up inputs
-
+* Add MAP_BLAST to tile map for use in bot logic
+* Change bomb rendering to use MAP_BLAST and make bomb explosion fill
+* Fix player dead (change from output to input in p1/p2 and use MAP_BLAST to check)
+* Fix bug where player may run into explosion (using MAP_BLAST)
+* Add in power up collection and connect it to each player bomb count/radius/speed
