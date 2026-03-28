@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-| Date             : Sat Mar 28 12:29:18 2026
+| Date             : Sat Mar 28 17:00:51 2026
 | Host             : ac-yt running 64-bit major release  (build 9200)
 | Command          : report_power -file Top_Student_power_routed.rpt -pb Top_Student_power_summary_routed.pb -rpx Top_Student_power_routed.rpx
 | Design           : Top_Student
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.124        |
+| Total On-Chip Power (W)  | 0.123        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.052        |
+| Dynamic (W)              | 0.051        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 5.0          |
 | Max Ambient (C)          | 84.4         |
@@ -53,20 +53,20 @@ Table of Contents
 | On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
 +-------------------------+-----------+----------+-----------+-----------------+
 | Clocks                  |    <0.001 |        3 |       --- |             --- |
-| Slice Logic             |     0.024 |    25243 |       --- |             --- |
-|   LUT as Logic          |     0.022 |    15260 |     20800 |           73.37 |
-|   CARRY4                |    <0.001 |      585 |      8150 |            7.18 |
-|   F7/F8 Muxes           |    <0.001 |     1637 |     32600 |            5.02 |
-|   Register              |    <0.001 |     6184 |     41600 |           14.87 |
+| Slice Logic             |     0.024 |    22948 |       --- |             --- |
+|   LUT as Logic          |     0.022 |    13356 |     20800 |           64.21 |
+|   F7/F8 Muxes           |     0.001 |     1421 |     32600 |            4.36 |
+|   CARRY4                |    <0.001 |      593 |      8150 |            7.28 |
+|   Register              |    <0.001 |     6137 |     41600 |           14.75 |
 |   BUFG                  |    <0.001 |        2 |        32 |            6.25 |
 |   LUT as Shift Register |    <0.001 |        1 |      9600 |            0.01 |
 |   Others                |     0.000 |       47 |       --- |             --- |
-| Signals                 |     0.022 |    18882 |       --- |             --- |
+| Signals                 |     0.022 |    17052 |       --- |             --- |
 | Block RAM               |     0.000 |        1 |        50 |            2.00 |
-| DSPs                    |     0.001 |       10 |        90 |           11.11 |
+| DSPs                    |     0.000 |       10 |        90 |           11.11 |
 | I/O                     |     0.004 |       55 |       106 |           51.89 |
 | Static Power            |     0.072 |          |           |                 |
-| Total                   |     0.124 |          |           |                 |
+| Total                   |     0.123 |          |           |                 |
 +-------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -145,20 +145,20 @@ Table of Contents
 +-----------------------+-----------+
 | Name                  | Power (W) |
 +-----------------------+-----------+
-| Top_Student           |     0.052 |
-|   as_mux_inst         |     0.013 |
-|     a_star_inst       |     0.013 |
+| Top_Student           |     0.051 |
+|   as_mux_inst         |     0.012 |
+|     a_star_inst       |     0.012 |
 |   clk_6p25m_inst      |    <0.001 |
 |   clk_inst            |    <0.001 |
 |   game_inst           |     0.000 |
 |   mouse_inst          |    <0.001 |
 |     Inst_Ps2Interface |    <0.001 |
 |   oled1               |    <0.001 |
-|   p1_ctrl_inst        |     0.014 |
-|     p1_bomb_inst      |     0.003 |
-|     player_move       |     0.011 |
-|   p2_ctrl_inst        |     0.013 |
-|     p2_move           |     0.013 |
+|   p1_ctrl_inst        |     0.012 |
+|     p1_bomb_inst      |     0.005 |
+|     player_move       |     0.008 |
+|   p2_ctrl_inst        |     0.012 |
+|     p2_move           |     0.012 |
 |   pair_inst           |    <0.001 |
 |   pair_oled_inst      |     0.000 |
 |   ps2_clk_IOBUF_inst  |     0.000 |

@@ -45,7 +45,7 @@
 `define MAP_BLAST                   3'b101 // code for powerup tile/pixel
 
 // bomb controller
-`define MAX_BOMBS                   3
+`define MAX_BOMBS                   2
 `define MAX_RADIUS                  3
 
 // path parameters

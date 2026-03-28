@@ -496,7 +496,7 @@ module Top_Student (
     
     wire [3:0] b_tx [0:1][0:`MAX_BOMBS-1];
     wire [3:0] b_ty [0:1][0:`MAX_BOMBS-1];
-    wire [1:0] b_stage [0:1][0:`MAX_BOMBS-1];
+    wire [1:0] b_stage [0:1][0:`MAX_BOMBS-1]; //reg [1:0] b_stage_prev [0:1][0:`MAX_BOMBS-1];
     wire [1:0] b_radius [0:1];
     wire [`MAX_BOMBS-1:0] b_place_req [0:1];
     wire [`MAX_BOMBS-1:0] b_bomb_active [0:1];
@@ -531,7 +531,88 @@ module Top_Student (
         end
     endgenerate
     
-    reg [3:0] up_next    [0:1][0:2];
+    integer player_i, bomb_i, rad_i;
+    integer stop_u, stop_d, stop_l, stop_r;
+    reg [3:0] up_len   [0:1][0:`MAX_BOMBS-1];
+    reg [3:0] down_len [0:1][0:`MAX_BOMBS-1];
+    reg [3:0] left_len [0:1][0:`MAX_BOMBS-1];
+    reg [3:0] right_len[0:1][0:`MAX_BOMBS-1];
+        
+//    always @(posedge clk) begin
+//        for (player_i = 0; player_i < 2; player_i = player_i + 1)
+//            for (bomb_i = 0; bomb_i < `MAX_BOMBS; bomb_i = bomb_i + 1)
+//                b_stage_prev[player_i][bomb_i] <= b_stage[player_i][bomb_i];
+//    end
+    
+    always @(posedge clk) begin
+        for (player_i = 0; player_i < 2; player_i = player_i + 1) begin
+            for (bomb_i = 0; bomb_i < `MAX_BOMBS; bomb_i = bomb_i + 1) begin
+     
+                if (b_place_req[player_i][bomb_i]) begin// ||
+//                    (b_explosion_active[player_i][bomb_i] &&
+//                     b_stage[player_i][bomb_i] != b_stage_prev[player_i][bomb_i])) begin
+     
+                    stop_u = 0;
+                    stop_d = 0;
+                    stop_l = 0;
+                    stop_r = 0;
+     
+                    up_len   [player_i][bomb_i] <= 0;
+                    down_len [player_i][bomb_i] <= 0;
+                    left_len [player_i][bomb_i] <= 0;
+                    right_len[player_i][bomb_i] <= 0;
+     
+                    for (rad_i = 1; rad_i <= `MAX_RADIUS; rad_i = rad_i + 1) begin
+                        if (rad_i <= b_radius[player_i]) begin
+                            // UP
+                            if (!stop_u) begin
+                                if (b_ty[player_i][bomb_i] < rad_i ||
+                                    tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] - rad_i] == `MAP_WALL) stop_u = 1;
+                                else begin
+                                    up_len[player_i][bomb_i] <= rad_i[3:0];
+                                    if (tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] - rad_i] == `MAP_BLOCK) stop_u = 1;
+                                end
+                            end
+     
+                            // DOWN
+                            if (!stop_d) begin
+                                if ((b_ty[player_i][bomb_i] + rad_i) >= `TILE_MAP_HEIGHT ||
+                                    tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] + rad_i] == `MAP_WALL) stop_d = 1;
+                                else begin
+                                    down_len[player_i][bomb_i] <= rad_i[3:0];
+                                    if (tile_map[b_tx[player_i][bomb_i]][b_ty[player_i][bomb_i] + rad_i] == `MAP_BLOCK) stop_d = 1;
+                                end
+                            end
+     
+                            // LEFT
+                            if (!stop_l) begin
+                                if (b_tx[player_i][bomb_i] < rad_i ||
+                                    tile_map[b_tx[player_i][bomb_i] - rad_i][b_ty[player_i][bomb_i]] == `MAP_WALL) stop_l = 1;
+                                else begin
+                                    left_len[player_i][bomb_i] <= rad_i[3:0];
+                                    if (tile_map[b_tx[player_i][bomb_i] - rad_i][b_ty[player_i][bomb_i]] == `MAP_BLOCK) stop_l = 1;
+                                end
+                            end
+     
+                            // RIGHT
+                            if (!stop_r) begin
+                                if ((b_tx[player_i][bomb_i] + rad_i) >= `TILE_MAP_WIDTH ||
+                                    tile_map[b_tx[player_i][bomb_i] + rad_i][b_ty[player_i][bomb_i]] == `MAP_WALL) stop_r = 1;
+                                else begin
+                                    right_len[player_i][bomb_i] <= rad_i[3:0];
+                                    if (tile_map[b_tx[player_i][bomb_i] + rad_i][b_ty[player_i][bomb_i]] == `MAP_BLOCK)  stop_r = 1;
+                                end
+                            end
+     
+                        end
+                    end // rad_i
+                end // trigger
+     
+            end
+        end
+    end
+    
+    /*reg [3:0] up_next    [0:1][0:2];
     reg [3:0] down_next  [0:1][0:2];
     reg [3:0] left_next  [0:1][0:2];
     reg [3:0] right_next [0:1][0:2];
@@ -617,7 +698,7 @@ module Top_Student (
                 end
             end
         end
-    end
+    end*/
  
 
 

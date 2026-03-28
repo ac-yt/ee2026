@@ -69,18 +69,75 @@ module bomb_controller (
     reg found;
     reg [1:0] alloc_idx;
     
-    reg countdown_done [0:`MAX_BOMBS-1];
-    reg explode_done [0:`MAX_BOMBS-1];
+    reg [1:0] bomb_count_r, bomb_radius_r;
     always @(posedge clk) begin
-        for (i = 0; i < `MAX_BOMBS; i = i + 1) begin
-//            countdown_done[i] <= (countdown_r[i] >= BOMB_COUNTDOWN_TIME - 2);
-            countdown_done[i] <= (countdown_counter[i] >= BOMB_COUNTDOWN_TICKS - 2);
-//            explode_done[i]  <= (explode_tick_r[i] >= EXPLOSION_STAGE_TIME - 2);
-            explode_done[i]  <= (explode_counter[i] >= EXPLOSION_STAGE_TICKS - 2);
-        end
+        bomb_count_r  <= bomb_count;
+        bomb_radius_r <= bomb_radius;
     end
     
     always @(*) begin
+        found          = 0;
+        alloc_idx      = 0;
+        active_count_r = 0;
+        for (i = 0; i < `MAX_BOMBS; i = i + 1) begin
+            if (!found && state[i] == ST_IDLE) begin
+                alloc_idx = i[1:0];
+                found     = 1;
+            end
+            if (state[i] == ST_COUNTDOWN)
+                active_count_r = active_count_r + 1'b1;
+        end
+    end
+    
+    always @(posedge clk) begin
+        place_bomb_req_r <= 0;
+    
+        for (i = 0; i < `MAX_BOMBS; i = i + 1) begin
+            case (state[i])
+                ST_IDLE: begin
+                    if (trigger && found && alloc_idx == i[1:0] && active_count_r < bomb_count_r) begin
+                        state[i]             <= ST_COUNTDOWN;
+                        stage_r[i]           <= 0;
+                        countdown_counter[i] <= 0;
+                        explode_counter[i]   <= 0;
+                        place_bomb_req_r[i]  <= 1;
+                        bomb_tx_r[i]         <= player_tx;
+                        bomb_ty_r[i]         <= player_ty;
+                    end
+                end
+    
+                ST_COUNTDOWN: begin
+                    if (countdown_counter[i] >= BOMB_COUNTDOWN_TICKS-1) begin
+                        state[i]             <= ST_EXPLODE;
+                        explode_counter[i]   <= 0;
+                        stage_r[i]           <= 2'd1;
+                        countdown_counter[i] <= 0;
+                    end else if (game_tick) begin
+                        countdown_counter[i] <= countdown_counter[i] + 1;
+                        bomb_red_r[i]        <= countdown_counter[i][$clog2(BOMB_BLINK_TICKS)];
+                    end
+                end
+    
+                ST_EXPLODE: begin
+                    if (explode_counter[i] >= EXPLOSION_STAGE_TICKS-1 && stage_r[i] >= bomb_radius_r) begin
+                        state[i]   <= ST_IDLE;
+                        stage_r[i] <= 0;
+                    end else if (game_tick) begin
+                        if (explode_counter[i] >= EXPLOSION_STAGE_TICKS - 1) begin
+                            explode_counter[i] <= 0;
+                            stage_r[i]         <= stage_r[i] + 1;
+                        end else begin
+                            explode_counter[i] <= explode_counter[i] + 1;
+                        end
+                    end
+                end
+    
+                default: state[i] <= ST_IDLE;
+            endcase
+        end
+    end
+    
+    /*always @(*) begin
         found = 0;
         alloc_idx = 0;
         active_count_r = 0;
@@ -100,15 +157,13 @@ module bomb_controller (
                     if (trigger && found && alloc_idx == i[1:0] && active_count_r < bomb_count)
                         next_state[i] = ST_COUNTDOWN;
                 ST_COUNTDOWN:
-                    if (countdown_done[i])
+                    if (countdown_counter[i] >= BOMB_COUNTDOWN_TICKS-1)
 //                    if (countdown_r[i] >= BOMB_COUNTDOWN_TIME - 1)
                         next_state[i] = ST_EXPLODE;
                 ST_EXPLODE:
-                    if (explode_done[i] && stage_r[i] >= bomb_radius)
+                    if (explode_counter[i] >= EXPLOSION_STAGE_TICKS-1 && stage_r[i] >= bomb_radius)
 //                    if (explode_tick_r[i] >= EXPLOSION_STAGE_TIME - 1 && stage_r[i] >= bomb_radius)
                         next_state[i] = ST_IDLE;
-                default:
-                    next_state[i] = ST_IDLE;
             endcase
         end
     end
@@ -176,7 +231,7 @@ module bomb_controller (
                 end
             endcase
         end
-    end
+    end*/
 
     genvar k;
     generate

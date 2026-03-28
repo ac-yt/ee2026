@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-| Date         : Sat Mar 28 12:28:18 2026
+| Date         : Sat Mar 28 16:59:58 2026
 | Host         : ac-yt running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file Top_Student_control_sets_placed.rpt
 | Design       : Top_Student
@@ -23,8 +23,8 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Number of unique control sets                            |   485 |
-| Unused register locations in slices containing registers |   480 |
+| Number of unique control sets                            |   479 |
+| Unused register locations in slices containing registers |   462 |
 +----------------------------------------------------------+-------+
 
 
@@ -34,13 +34,13 @@ Table of Contents
 +--------+--------------+
 | Fanout | Control Sets |
 +--------+--------------+
-|      2 |            3 |
+|      2 |            2 |
 |      6 |            1 |
-|      8 |           15 |
+|      8 |           14 |
 |     10 |            3 |
 |     12 |            6 |
-|     14 |          144 |
-|    16+ |          313 |
+|     14 |          145 |
+|    16+ |          308 |
 +--------+--------------+
 
 
@@ -50,12 +50,12 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |            2324 |          444 |
+| No           | No                    | No                     |            2322 |          419 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |             540 |           82 |
-| Yes          | No                    | No                     |            3574 |          582 |
+| No           | Yes                   | No                     |             532 |           80 |
+| Yes          | No                    | No                     |            3470 |          547 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |            5930 |         1044 |
+| Yes          | Yes                   | No                     |            5950 |         1082 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
@@ -66,490 +66,484 @@ Table of Contents
 |     Clock Signal     |                       Enable Signal                       |                      Set/Reset Signal                     | Slice Load Count | Bel Load Count |
 +----------------------+-----------------------------------------------------------+-----------------------------------------------------------+------------------+----------------+
 | ~clk_6p25m_BUFG      |                                                           |                                                           |                1 |              2 |
-|  clk_BUFG            | map_changed                                               |                                                           |                1 |              2 |
 |  clk_BUFG            | tx_inst/tx_i_1_n_0                                        |                                                           |                1 |              2 |
 |  clk_BUFG            | pair_inst/E[0]                                            |                                                           |                3 |              6 |
-|  clk_BUFG            | pair_inst/tx_en_i_1_n_0                                   |                                                           |                2 |              8 |
-|  clk_BUFG            | mouse_inst/E[0]                                           | mouse_inst/p1_goal_ty_reg[0][0]                           |                1 |              8 |
-|  clk_BUFG            | rx_inst/E[0]                                              | rx_inst/p2_player_goal_ty_reg[0][0]                       |                1 |              8 |
-|  clk_BUFG            | rx_inst/E[0]                                              | rx_inst/SS[0]                                             |                1 |              8 |
-|  clk_BUFG            | mouse_setmax_x                                            |                                                           |                1 |              8 |
-|  clk_BUFG            | mouse_setmax_y                                            |                                                           |                3 |              8 |
-|  clk_BUFG            |                                                           | mouse_inst/Inst_Ps2Interface/data_inter0                  |                1 |              8 |
-|  clk_BUFG            |                                                           | mouse_inst/Inst_Ps2Interface/clk_inter0                   |                1 |              8 |
-|  clk_BUFG            | ty                                                        |                                                           |                1 |              8 |
-|  clk_BUFG            | tx[3]_i_1_n_0                                             |                                                           |                3 |              8 |
-|  clk_BUFG            | p1_ctrl_inst/player_move/pos_y[5]_i_1__0_n_0              | p1_ctrl_inst/player_move/pos_x[6]_i_1__0_n_0              |                3 |              8 |
-|  clk_BUFG            |                                                           | pair_inst/oled_data_reg[6]                                |                2 |              8 |
 |  clk_BUFG            | mouse_inst/Inst_Ps2Interface/shift_frame                  | mouse_inst/Inst_Ps2Interface/reset_bit_count              |                2 |              8 |
-|  clk_BUFG            | mouse_inst/E[0]                                           | mouse_inst/SS[0]                                          |                2 |              8 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/tile_base_cost[1]_i_1_n_0         |                                                           |                2 |              8 |
-|  clk_BUFG            | rx_inst/bit_index                                         |                                                           |                2 |             10 |
+|  clk_BUFG            |                                                           | mouse_inst/Inst_Ps2Interface/clk_inter0                   |                1 |              8 |
+|  clk_BUFG            |                                                           | mouse_inst/Inst_Ps2Interface/data_inter0                  |                1 |              8 |
+|  clk_BUFG            | pair_inst/tx_en_i_1_n_0                                   |                                                           |                1 |              8 |
+|  clk_BUFG            | p1_ctrl_inst/player_move/pos_y[5]_i_2_n_0                 | p1_ctrl_inst/player_move/pos_y[5]_i_1__0_n_0              |                3 |              8 |
+|  clk_BUFG            | mouse_setmax_x                                            |                                                           |                2 |              8 |
+|  clk_BUFG            | mouse_setmax_y                                            |                                                           |                1 |              8 |
+|  clk_BUFG            | tx[3]_i_2_n_0                                             | tx[3]_i_1_n_0                                             |                1 |              8 |
+|  clk_BUFG            | mouse_inst/E[0]                                           | mouse_inst/SS[0]                                          |                1 |              8 |
+|  clk_BUFG            | mouse_inst/E[0]                                           | mouse_inst/p1_goal_ty_reg[0][0]                           |                1 |              8 |
+|  clk_BUFG            | ty                                                        |                                                           |                1 |              8 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/tile_base_cost[1]_i_1_n_0         |                                                           |                1 |              8 |
+|  clk_BUFG            | rx_inst/E[0]                                              | rx_inst/SS[0]                                             |                1 |              8 |
+|  clk_BUFG            | rx_inst/E[0]                                              | rx_inst/p2_player_goal_ty_reg[0][0]                       |                2 |              8 |
 |  clk_BUFG            | tx_inst/bit_index[4]_i_1__0_n_0                           |                                                           |                2 |             10 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_counter[5]_i_2_n_0           | as_mux_inst/a_star_inst/open_counter[5]_i_1_n_0           |                1 |             10 |
-|  clk_BUFG            |                                                           | pair_inst/pair_state[0]                                   |                3 |             12 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_counter[5]_i_2_n_0           | as_mux_inst/a_star_inst/open_counter[5]_i_1_n_0           |                2 |             10 |
+|  clk_BUFG            | rx_inst/bit_index                                         |                                                           |                2 |             10 |
 |  clk_BUFG            | p2_ctrl_inst/p2_move/pos_y[5]_i_1_n_0                     |                                                           |                4 |             12 |
-|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/explode_counter                 |                                                           |                2 |             12 |
+|  clk_BUFG            |                                                           | pair_inst/pair_state[0]                                   |                2 |             12 |
+|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/countdown_counter[0][7]_i_2_n_0 | p1_ctrl_inst/p1_bomb_inst/countdown_counter[0][7]_i_1_n_0 |                2 |             12 |
+|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/countdown_counter[1][7]_i_2_n_0 | p1_ctrl_inst/p1_bomb_inst/countdown_counter[1][7]_i_1_n_0 |                2 |             12 |
+|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/explode_counter[0][5]_i_1_n_0   |                                                           |                3 |             12 |
 |  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/explode_counter[1][5]_i_1_n_0   |                                                           |                2 |             12 |
-|  clk_BUFG            | p1_ctrl_inst/player_move/pos_x[6]_i_2__0_n_0              | p1_ctrl_inst/player_move/pos_x[6]_i_1__0_n_0              |                3 |             12 |
-|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/explode_counter[2][5]_i_1_n_0   |                                                           |                2 |             12 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][6][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | p2_ctrl_inst/p2_move/path_step                            | p2_ctrl_inst/p2_move/path_step[6]_i_1_n_0                 |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/path_len[6]_i_2_n_0               | as_mux_inst/a_star_inst/path_len[6]_i_1_n_0               |                2 |             14 |
-|  clk_BUFG            | p2_ctrl_inst/p2_move/pos_x[6]_i_1_n_0                     |                                                           |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][8][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][0][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][1][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][3][6]_i_1_n_0       |                1 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][2][6]_i_1_n_0       |                1 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][4][6]_i_1_n_0       |                1 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][5][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][8][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][7][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][5][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][3][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][2][6]_i_1_n_0       |                5 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][6][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][4][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | p1_ctrl_inst/player_move/path_step                        | p1_ctrl_inst/player_move/path_step[6]_i_1__0_n_0          |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][8][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | mouse_inst/Inst_Ps2Interface/delay_63clk_count[6]_i_2_n_0 | mouse_inst/Inst_Ps2Interface/delay_63clk_count[6]_i_1_n_0 |                3 |             14 |
-|  clk_BUFG            | mouse_inst/Inst_Ps2Interface/right_down_reg               |                                                           |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][0][6]_i_1_n_0       |                2 |             14 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][4][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][1][6]_i_1_n_0       |                2 |             14 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][5][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][3][6]_i_1_n_0       |                1 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][6][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][2][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][7][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][0][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][2][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][4][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][6][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][5][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][1][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][8][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][3][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][7][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][8][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][0][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][3][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][1][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][2][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][4][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][5][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][6][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][7][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][2][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][0][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][5][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][4][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][8][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][6][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][1][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][3][6]_i_1_n_0       |                5 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][7][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][8][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][0][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][1][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | pair_inst/FSM_onehot_state[6]_i_2_n_0                     | rx_inst/SR[0]                                             |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/curr_path_x[3]_i_1_n_0            | as_mux_inst/a_star_inst/path_index[6]_i_1_n_0             |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][3][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][4][6]_i_1_n_0       |                5 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][2][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][7][6]_i_1_n_0       |                5 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][0][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][5][6]_i_1_n_0       |                5 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][8][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][6][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][1][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][8][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][8][6]_i_1_n_0      |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][6][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][6][6]_i_1_n_0      |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][8][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][7][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][0][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | mouse_inst/Inst_Ps2Interface/delay_63clk_count[6]_i_2_n_0 | mouse_inst/Inst_Ps2Interface/delay_63clk_count[6]_i_1_n_0 |                2 |             14 |
+|  clk_BUFG            | p2_ctrl_inst/p2_move/path_step                            | p2_ctrl_inst/p2_move/path_step[6]_i_1__0_n_0              |                3 |             14 |
+|  clk_BUFG            | mouse_inst/Inst_Ps2Interface/right_down_reg               |                                                           |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][6][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][7][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][8][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][2][6]_i_1_n_0       |                1 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][3][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][4][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][5][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | p1_ctrl_inst/player_move/pos_x[6]_i_1_n_0                 |                                                           |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][0][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][1][6]_i_1_n_0       |                4 |             14 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][1][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][1][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][3][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][0][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][0][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][2][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][2][6]_i_1_n_0      |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][3][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][3][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][2][6]_i_1_n_0       |                5 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][5][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][6][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][7][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][4][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[0][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[0][8][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][5][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][5][6]_i_1_n_0      |                3 |             14 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][4][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][4][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][3][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][3][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][7][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][7][6]_i_1_n_0      |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][5][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][5][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][0][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][0][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][2][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][2][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][8][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][8][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][6][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][6][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][5][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][5][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][0][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][0][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][2][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][2][6]_i_1_n_0      |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][8][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][8][6]_i_1_n_0      |                1 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][6][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][6][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][5][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][0][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][0][6]_i_1_n_0      |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][1][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][1][6]_i_1_n_0      |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][2][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][2][6]_i_1_n_0      |                2 |             14 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][3][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][3][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][7][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][7][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][1][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][1][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][4][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][4][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][3][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][3][6]_i_1_n_0      |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][5][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][5][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][2][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][2][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][4][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][4][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][6][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][6][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][7][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][7][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][1][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][1][6]_i_1_n_0      |                4 |             14 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][0][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][0][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][8][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][8][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][5][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][5][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][4][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][4][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][6][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][6][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][7][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][7][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][7][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][0][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][0][6]_i_1_n_0      |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][2][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][2][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][3][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][3][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][8][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][8][6]_i_1_n_0      |                5 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][6][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][6][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][5][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][5][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][1][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][1][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][7][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][7][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][4][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][4][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][0][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][0][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][3][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][3][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][2][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][2][6]_i_1_n_0      |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][3][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][2][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][1][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][8][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][8][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][4][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][0][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][6][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][8][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][8][6]_i_1_n_0      |                5 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][4][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][4][6]_i_1_n_0      |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][2][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][2][6]_i_1_n_0      |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][3][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][3][6]_i_1_n_0      |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][6][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][6][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][1][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][1][6]_i_1_n_0      |                5 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][7][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][7][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[11][5][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[11][5][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][0][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][0][6]_i_1_n_0      |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][8][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][8][6]_i_1_n_0      |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][7][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][7][6]_i_1_n_0      |                3 |             14 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][1][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][1][6]_i_1_n_0      |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][5][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][0][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][2][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][2][6]_i_1_n_0      |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][3][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][3][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][5][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][5][6]_i_1_n_0      |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][4][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][4][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[12][6][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[12][6][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][0][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][0][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][1][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][1][6]_i_1_n_0      |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][6][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][6][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][8][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][8][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][2][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][2][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][7][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][7][6]_i_1_n_0      |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][4][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][4][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[13][5][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[13][5][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][3][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][3][6]_i_1_n_0      |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][8][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][8][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][5][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][5][6]_i_1_n_0      |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][6][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][6][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][4][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][4][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[14][7][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[14][7][6]_i_1_n_0      |                1 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][4][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][7][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][2][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][6][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][3][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][0][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][5][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][1][6]_i_1_n_0       |                2 |             14 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][1][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][2][6]_i_1_n_0       |                5 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][8][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][4][6]_i_1_n_0       |                5 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][7][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][4][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][5][6]_i_1_n_0       |                3 |             14 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][8][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][3][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][2][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][4][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][5][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][2][6]_i_1_n_0       |                3 |             14 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][7][6]_i_1_n_0       |                2 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][6][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][0][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][3][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][0][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[1][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[1][8][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][6][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][2][6]_i_1_n_0       |                4 |             14 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][1][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][6][6]_i_1_n_0       |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][5][6]_i_1_n_0       |                1 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][7][6]_i_1_n_0       |                5 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_nb[6]_i_1_n_0                |                                                           |                3 |             14 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[2][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[2][3][6]_i_1_n_0       |                4 |             14 |
-|  clk_BUFG            | mouse_inst/write_data                                     |                                                           |                4 |             16 |
-|  clk_BUFG            | mouse_inst/Inst_Ps2Interface/load_rx_data                 |                                                           |                3 |             16 |
-|  clk_BUFG            | mouse_inst/Inst_Ps2Interface/y_inc_reg[0]                 |                                                           |                3 |             16 |
-|  clk_BUFG            | mouse_inst/Inst_Ps2Interface/x_inc_reg[0]                 |                                                           |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/closed_counter[7]_i_2_n_0         | as_mux_inst/a_star_inst/closed_counter[7]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][2][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][2][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][5][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][5][3]_i_1_n_0        |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][6][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][6][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][1][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][1][3]_i_1_n_0        |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][7][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][7][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][8][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][8][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][3][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][3][3]_i_1_n_0        |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][4][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][4][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][5][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][5][3]_i_1_n_0        |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][6][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][6][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][7][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/init_index_i[7]_i_1_n_0           | as_mux_inst/as_update_reg_n_0                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/init_index_x[0]_i_1_n_0           | as_mux_inst/as_update_reg_n_0                             |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][4][6]_i_1_n_0       |                5 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][0][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | p1_ctrl_inst/player_move/path_step                        | p1_ctrl_inst/player_move/path_step[6]_i_1_n_0             |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][6][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][7][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][8][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[3][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[3][3][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][8][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][1][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][3][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][7][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][5][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[10][7][6]_i_2_n_0      | as_mux_inst/a_star_inst/cost_array[10][7][6]_i_1_n_0      |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][2][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][4][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][0][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][6][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][3][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][1][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][8][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][2][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][4][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][5][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][7][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[5][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[5][0][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][7][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][2][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][0][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][5][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][6][6]_i_1_n_0       |                5 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][8][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][4][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][1][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[4][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[4][6][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][4][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][4][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][7][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][7][6]_i_1_n_0       |                5 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][5][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][5][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][3][6]_i_1_n_0       |                1 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][2][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][1][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][8][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][8][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][6][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[7][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[7][0][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][0][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][0][6]_i_1_n_0       |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][2][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][2][6]_i_1_n_0       |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][1][6]_i_1_n_0       |                1 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_nb[6]_i_1_n_0                |                                                           |                4 |             14 |
+|  clk_BUFG            | pair_inst/FSM_onehot_state[6]_i_2_n_0                     | rx_inst/SR[0]                                             |                2 |             14 |
+|  clk_BUFG            | p2_ctrl_inst/p2_move/pos_x[6]_i_1__0_n_0                  |                                                           |                3 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/curr_path_x[3]_i_1_n_0            | as_mux_inst/a_star_inst/path_index[6]_i_1_n_0             |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/path_len[6]_i_2_n_0               | as_mux_inst/a_star_inst/path_len[6]_i_1_n_0               |                2 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][3][6]_i_1_n_0       |                5 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[8][6][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[8][6][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[9][1][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[9][1][6]_i_1_n_0       |                5 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/cost_array[6][3][6]_i_2_n_0       | as_mux_inst/a_star_inst/cost_array[6][3][6]_i_1_n_0       |                4 |             14 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/init_index_i[7]_i_1_n_0           | as_mux_inst/as_update_reg_n_0                             |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/init_index_x[0]_i_1_n_0           | as_mux_inst/as_update_reg_n_0                             |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/init_index_y[7]_i_1_n_0           | as_mux_inst/as_update_reg_n_0                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[15][3]_i_1_n_0             |                                                           |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[13][3]_i_1_n_0             |                                                           |                4 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/open_y[0][3]_i_1_n_0              |                                                           |                4 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/open_y[10][3]_i_1_n_0             |                                                           |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[13][3]_i_1_n_0             |                                                           |                3 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/open_y[11][3]_i_1_n_0             |                                                           |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[12][3]_i_1_n_0             |                                                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[12][3]_i_1_n_0             |                                                           |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[18][3]_i_1_n_0             |                                                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[17][3]_i_1_n_0             |                                                           |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/open_y[14][3]_i_1_n_0             |                                                           |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[19][3]_i_1_n_0             |                                                           |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[16][3]_i_1_n_0             |                                                           |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[18][3]_i_1_n_0             |                                                           |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[17][3]_i_1_n_0             |                                                           |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[1][3]_i_1_n_0              |                                                           |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[21][3]_i_1_n_0             |                                                           |                7 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[20][3]_i_1_n_0             |                                                           |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[22][3]_i_1_n_0             |                                                           |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[23][3]_i_1_n_0             |                                                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[15][3]_i_1_n_0             |                                                           |                7 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[16][3]_i_1_n_0             |                                                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[19][3]_i_1_n_0             |                                                           |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[20][3]_i_1_n_0             |                                                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[1][3]_i_1_n_0              |                                                           |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[21][3]_i_1_n_0             |                                                           |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[22][3]_i_1_n_0             |                                                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[23][3]_i_1_n_0             |                                                           |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[31][3]_i_1_n_0             |                                                           |                6 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[30][3]_i_1_n_0             |                                                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[32][3]_i_1_n_0             |                                                           |                4 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/open_y[24][3]_i_1_n_0             |                                                           |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[28][3]_i_1_n_0             |                                                           |                3 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/open_y[25][3]_i_1_n_0             |                                                           |                3 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/open_y[27][3]_i_1_n_0             |                                                           |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[26][3]_i_1_n_0             |                                                           |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[2][3]_i_1_n_0              |                                                           |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[31][3]_i_1_n_0             |                                                           |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[29][3]_i_1_n_0             |                                                           |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[32][3]_i_1_n_0             |                                                           |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[30][3]_i_1_n_0             |                                                           |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[33][3]_i_1_n_0             |                                                           |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[28][3]_i_1_n_0             |                                                           |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[34][3]_i_1_n_0             |                                                           |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[4][3]_i_1_n_0              |                                                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[26][3]_i_1_n_0             |                                                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[29][3]_i_1_n_0             |                                                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[2][3]_i_1_n_0              |                                                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[37][3]_i_1_n_0             |                                                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[3][3]_i_1_n_0              |                                                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[4][3]_i_1_n_0              |                                                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[39][3]_i_1_n_0             |                                                           |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[33][3]_i_1_n_0             |                                                           |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[38][3]_i_1_n_0             |                                                           |                3 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/open_y[36][3]_i_1_n_0             |                                                           |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[3][3]_i_1_n_0              |                                                           |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[39][3]_i_1_n_0             |                                                           |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[5][3]_i_1_n_0              |                                                           |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[6][3]_i_1_n_0              |                                                           |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[35][3]_i_1_n_0             |                                                           |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[37][3]_i_1_n_0             |                                                           |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[38][3]_i_1_n_0             |                                                           |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[9][3]_i_1_n_0              |                                                           |                8 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[34][3]_i_1_n_0             |                                                           |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[35][3]_i_1_n_0             |                                                           |                6 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[5][3]_i_1_n_0              |                                                           |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[6][3]_i_1_n_0              |                                                           |                8 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/open_y[7][3]_i_1_n_0              |                                                           |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[8][3]_i_1_n_0              |                                                           |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[8][3]_i_1_n_0              |                                                           |                6 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/open_y[9][3]_i_1_n_0              |                                                           |                5 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/par_x_out[3]_i_1_n_0              |                                                           |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][1][3]_i_1_n_0         |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][2][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][3][3]_i_1_n_0         |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][8][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][5][3]_i_1_n_0         |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][6][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][1][3]_i_1_n_0         |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][3][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][4][3]_i_1_n_0         |                3 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][3][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][3][3]_i_1_n_0        |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][1][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][1][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][6][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][6][3]_i_1_n_0        |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][4][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][4][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][4][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][2][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][5][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][5][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][7][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][7][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][7][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][6][3]_i_1_n_0         |                1 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][2][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][2][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][6][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][6][3]_i_1_n_0        |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][7][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][7][3]_i_1_n_0        |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][3][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][3][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][2][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][2][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][5][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][5][3]_i_1_n_0        |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][4][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][4][3]_i_1_n_0        |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][1][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][1][3]_i_1_n_0        |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][5][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][5][3]_i_1_n_0        |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][5][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[0][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[0][8][3]_i_1_n_0         |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][2][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][2][3]_i_1_n_0        |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][1][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][1][3]_i_1_n_0        |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][1][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][1][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][4][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][4][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][5][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][5][3]_i_1_n_0        |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][6][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][6][3]_i_1_n_0        |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][7][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][7][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][8][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][8][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][8][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][8][3]_i_1_n_0        |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][2][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][2][3]_i_1_n_0        |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][3][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][3][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][1][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][1][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][3][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][3][3]_i_1_n_0        |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[11][8][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[11][8][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[10][8][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[10][8][3]_i_1_n_0        |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][2][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][2][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][1][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][1][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][7][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][7][3]_i_1_n_0        |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][6][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][6][3]_i_1_n_0        |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][8][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][8][3]_i_1_n_0        |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][3][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][3][3]_i_1_n_0        |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][3][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][3][3]_i_1_n_0        |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][5][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][5][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][4][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][4][3]_i_1_n_0        |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][4][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][4][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][1][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][1][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][2][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][2][3]_i_1_n_0        |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][5][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][5][3]_i_1_n_0        |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][6][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][6][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[12][2][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[12][2][3]_i_1_n_0        |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][7][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][7][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][5][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][5][3]_i_1_n_0        |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][8][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][8][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][8][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][8][3]_i_1_n_0        |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][7][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][7][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][4][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][4][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][1][3]_i_1_n_0         |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][3][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][3][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][3][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][5][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][7][3]_i_1_n_0         |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][1][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][3][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][4][3]_i_1_n_0         |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][2][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][6][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][1][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][1][3]_i_1_n_0        |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][7][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][7][3]_i_1_n_0        |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][5][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][5][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][4][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][4][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[13][6][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[13][6][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][6][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][6][3]_i_1_n_0        |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][2][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][2][3]_i_1_n_0        |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][8][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][2][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][6][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][7][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[14][8][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_x[14][8][3]_i_1_n_0        |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][4][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][5][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][1][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][5][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][2][3]_i_1_n_0         |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][4][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][8][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][5][3]_i_1_n_0         |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][3][3]_i_1_n_0         |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][2][3]_i_1_n_0         |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[1][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[1][1][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][1][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][4][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][6][3]_i_1_n_0         |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][7][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][2][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][3][3]_i_1_n_0         |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][8][3]_i_1_n_0         |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][5][3]_i_1_n_0         |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][2][3]_i_1_n_0         |                3 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][3][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][7][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][6][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[2][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[2][6][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][8][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][5][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][6][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][1][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][3][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][1][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][4][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][7][3]_i_1_n_0         |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][7][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][1][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][4][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][6][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][7][3]_i_1_n_0         |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][8][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][6][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][8][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][4][3]_i_1_n_0         |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][3][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][2][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][4][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][7][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][5][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][5][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][2][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][1][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[3][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[3][6][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][3][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][2][3]_i_1_n_0         |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][7][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][1][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][8][3]_i_1_n_0         |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[4][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[4][8][3]_i_1_n_0         |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][4][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][3][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][1][3]_i_1_n_0         |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][5][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][3][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][2][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][7][3]_i_1_n_0         |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][1][3]_i_1_n_0         |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][6][3]_i_1_n_0         |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][8][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[5][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[5][6][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][6][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][4][3]_i_1_n_0         |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][1][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][2][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][4][3]_i_1_n_0         |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][6][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][7][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][3][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][3][3]_i_1_n_0         |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][7][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][2][3]_i_1_n_0         |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][5][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][3][3]_i_1_n_0         |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][5][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][5][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][2][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][1][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][1][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][6][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][7][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][8][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][7][3]_i_1_n_0         |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][4][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][2][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][3][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][2][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][4][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[6][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[6][8][3]_i_1_n_0         |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][8][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][6][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][5][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[11][0][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_y[11][0][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][4][3]_i_1_n_0         |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][7][3]_i_1_n_0         |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][4][3]_i_1_n_0         |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][6][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][2][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][3][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][7][3]_i_1_n_0         |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][5][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][6][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][5][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[7][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[7][8][3]_i_1_n_0         |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[8][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[8][1][3]_i_1_n_0         |                3 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][8][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][8][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[0][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[0][0][3]_i_1_n_0         |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][3][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][3][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][6][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][6][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][1][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][1][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][5][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][5][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][7][3]_i_1_n_0         |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][2][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][2][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[0][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[0][0][3]_i_1_n_0         |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[10][0][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_y[10][0][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[12][0][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_y[12][0][3]_i_1_n_0        |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][7][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][7][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[3][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[3][0][3]_i_1_n_0         |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[4][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[4][0][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[1][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[1][0][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_x[9][4][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_x[9][4][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[11][0][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_y[11][0][3]_i_1_n_0        |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[1][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[1][0][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[3][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[3][0][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[6][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[6][0][3]_i_1_n_0         |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[2][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[2][0][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[13][0][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_y[13][0][3]_i_1_n_0        |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[5][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[5][0][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[2][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[2][0][3]_i_1_n_0         |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[13][0][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_y[13][0][3]_i_1_n_0        |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[6][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[6][0][3]_i_1_n_0         |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[7][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[7][0][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[12][0][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_y[12][0][3]_i_1_n_0        |                2 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[14][0][3]_i_2_n_0        | as_mux_inst/a_star_inst/parent_y[14][0][3]_i_1_n_0        |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[8][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[8][0][3]_i_1_n_0         |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[4][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[4][0][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[8][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[8][0][3]_i_1_n_0         |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[7][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[7][0][3]_i_1_n_0         |                3 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/parent_y[9][0][3]_i_2_n_0         | as_mux_inst/a_star_inst/parent_y[9][0][3]_i_1_n_0         |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/shift_index[7]_i_1_n_0            |                                                           |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[31][0]_0                           |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[15][0]_0                           |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[29][3]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[14][3]                             |                6 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[1][3]                              |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[21][3]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[39][3]                             |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[17][3]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[8][3]                              |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[13][3]                             |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[0][3]                              |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[11][3]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[20][3]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[16][3]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[25][3]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[27][3]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[2][3]                              |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[30][3]                             |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[34][3]                             |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[28][3]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[3][3]_0                            |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[10][3]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[6][3]                              |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[33][3]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[22][3]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[38][3]                             |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[4][3]                              |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[36][3]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[23][3]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[9][3]                              |                6 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[7][3]                              |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[35][3]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[18][3]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[37][3]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[19][3]                             |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[24][3]                             |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[12][3]                             |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[26][3]                             |                6 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[5][3]                              |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_y_reg[32][3]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[37][0]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[19][0]                             |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[24][0]                             |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[7][0]                              |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/shift_index[7]_i_1_n_0            |                                                           |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[12][0]                             |                4 |             16 |
 |  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[15][0]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[5][0]                              |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[9][0]                              |                6 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[25][0]                             |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[16][0]                             |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[23][0]                             |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[38][0]                             |                6 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[26][0]                             |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[27][0]                             |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[21][0]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[34][0]                             |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[4][0]                              |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[14][0]                             |                2 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[11][0]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[8][0]                              |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[35][0]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[10][0]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[17][0]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[33][0]                             |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[29][0]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[12][0]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[32][0]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[39][0]                             |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[0][0]                              |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[16][0]                             |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[13][0]                             |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[14][0]                             |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[0][0]                              |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[11][0]                             |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[17][0]                             |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[10][0]                             |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[28][0]                             |                6 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[7][0]                              |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[22][0]                             |                4 |             16 |
 |  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[31][0]                             |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[20][0]                             |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[19][0]                             |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[18][0]                             |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[39][0]                             |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[23][0]                             |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[37][0]                             |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[32][0]                             |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[4][0]                              |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[2][0]                              |                5 |             16 |
 |  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[6][0]                              |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[22][0]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[30][0]                             |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[18][0]                             |                5 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[1][0]                              |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[2][0]                              |                4 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[36][0]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[28][0]                             |                1 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[3][0]                              |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[13][0]                             |                3 |             16 |
-|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[20][0]                             |                2 |             16 |
-|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/Q[2]                            |                                                           |                5 |             16 |
-|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/Q[0]                            |                                                           |                6 |             16 |
-|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/Q[1]                            |                                                           |                4 |             16 |
-|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/countdown_counter[1][8]_i_1_n_0 |                                                           |                2 |             18 |
-|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/countdown_counter               |                                                           |                3 |             18 |
-|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/countdown_counter[2][8]_i_1_n_0 |                                                           |                2 |             18 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[38][0]                             |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[1][0]                              |                6 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[8][0]                              |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[21][0]                             |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[33][0]                             |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[25][0]                             |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[34][0]                             |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[29][0]                             |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[35][0]                             |                6 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[24][0]                             |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[26][0]                             |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[36][0]                             |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[30][0]                             |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[5][0]                              |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[9][0]                              |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[27][0]                             |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse                              | as_mux_inst/path_x_reg[3][0]                              |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[12][0]_0                           |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[13][0]_0                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[14][0]_0                           |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[15][0]_0                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[16][0]_0                           |                6 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[17][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[10][0]_0                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[11][0]_0                           |                1 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[0][0]_1                            |                6 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[5][0]_0                            |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[36][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[31][0]_0                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[21][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[23][0]_0                           |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[22][0]_0                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[37][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[1][0]_0                            |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[20][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[18][0]_0                           |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[35][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[38][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[4][0]_0                            |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[39][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[6][0]_0                            |                6 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[33][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[7][0]_0                            |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[29][0]_0                           |                6 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[28][0]_0                           |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[25][0]_0                           |                4 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[26][0]_0                           |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[30][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[24][0]_0                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[27][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[3][0]_1                            |                5 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[2][0]_0                            |                6 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[32][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[8][0]_0                            |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[9][0]_0                            |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[19][0]_0                           |                3 |             16 |
+|  clk_BUFG            | as_mux_inst/path_valid_pulse_0                            | as_mux_inst/path_x_reg[34][0]_0                           |                2 |             16 |
+|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/left_len_reg[0][1][0][0]        |                                                           |                6 |             16 |
+|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/left_len_reg[0][1][0][1]        |                                                           |                6 |             16 |
+|  clk_BUFG            | mouse_inst/write_data                                     |                                                           |                2 |             16 |
+|  clk_BUFG            | mouse_inst/Inst_Ps2Interface/load_rx_data                 |                                                           |                3 |             16 |
+|  clk_BUFG            | mouse_inst/Inst_Ps2Interface/x_inc_reg[0]                 |                                                           |                2 |             16 |
+|  clk_BUFG            | mouse_inst/Inst_Ps2Interface/y_inc_reg[0]                 |                                                           |                2 |             16 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/closed_counter[7]_i_2_n_0         | as_mux_inst/a_star_inst/closed_counter[7]_i_1_n_0         |                3 |             16 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/curr_path_x[3]_i_1_n_0            |                                                           |                2 |             20 |
+|  clk_BUFG            | mouse_inst/Inst_Ps2Interface/frame[9]_i_1_n_0             |                                                           |                3 |             20 |
 |  clk_BUFG            | rx_inst/counter                                           |                                                           |                4 |             20 |
-|  clk_BUFG            | mouse_inst/Inst_Ps2Interface/frame[9]_i_1_n_0             |                                                           |                2 |             20 |
 |  clk_BUFG            | mouse_inst/Inst_Ps2Interface/delay_20us_count[10]_i_2_n_0 | mouse_inst/Inst_Ps2Interface/delay_20us_count[10]_i_1_n_0 |                3 |             22 |
-|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/p_2_out_1                       |                                                           |                5 |             22 |
-|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/p_5_out                         |                                                           |                4 |             22 |
-|  clk_BUFG            | mouse_inst/y_new_reg_n_0                                  |                                                           |                6 |             24 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/nb_heuristic[4]_i_1_n_0           |                                                           |                7 |             24 |
+|  clk_BUFG            | mouse_inst/y_new_reg_n_0                                  |                                                           |                4 |             24 |
 |  clk_BUFG            | mouse_inst/x_new_reg_n_0                                  |                                                           |                4 |             24 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/nb_heuristic[4]_i_1_n_0           |                                                           |                6 |             24 |
+|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/bomb_tx_r                       |                                                           |                9 |             26 |
+|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/place_bomb_req_r[1]_i_1_n_0     |                                                           |                6 |             26 |
 |  clk_BUFG            | mouse_inst/Inst_Ps2Interface/delay_100us_count[0]_i_2_n_0 | mouse_inst/Inst_Ps2Interface/clear                        |                4 |             28 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/curr_x[3]_i_1_n_0                 |                                                           |                5 |             30 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/goal_y_loc[3]_i_1_n_0             |                                                           |                6 |             32 |
-|  basys_clk_IBUF_BUFG |                                                           |                                                           |                6 |             32 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/curr_x[3]_i_1_n_0                 |                                                           |                4 |             30 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/goal_y_loc[3]_i_1_n_0             |                                                           |                5 |             32 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/scan_index_reg[0]_3               | as_mux_inst/a_star_inst/scan_index_reg[0]_2               |                5 |             32 |
+|  basys_clk_IBUF_BUFG |                                                           |                                                           |                7 |             32 |
+|  clk_BUFG            | as_mux_inst/as_update                                     |                                                           |                7 |             34 |
 | ~clk_6p25m_BUFG      |                                                           | oled1/frame_counter[16]_i_1_n_0                           |                5 |             34 |
-|  clk_BUFG            | p1_ctrl_inst/p1_bomb_inst/p_8_out                         |                                                           |                7 |             34 |
-|  clk_BUFG            | as_mux_inst/as_update                                     |                                                           |                5 |             34 |
 |  clk_BUFG            |                                                           | seg_inst/seg_counter[18]_i_1_n_0                          |                5 |             36 |
-|  clk_BUFG            |                                                           | p1_ctrl_inst/p1_bomb_inst/game_tick                       |                8 |             38 |
+|  clk_BUFG            |                                                           | p1_ctrl_inst/p1_bomb_inst/game_tick                       |                7 |             38 |
 | ~clk_6p25m_BUFG      | oled1/delay[0]_i_1_n_0                                    |                                                           |                5 |             40 |
+|  clk_BUFG            |                                                           | p2_ctrl_inst/p2_move/CO[0]                                |                6 |             42 |
 |  clk_BUFG            |                                                           | p1_ctrl_inst/player_move/CO[0]                            |                6 |             42 |
-|  clk_BUFG            |                                                           | p2_ctrl_inst/p2_move/move_tick__10                        |                6 |             42 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/state[4]_i_1_n_0                  | as_mux_inst/as_update_reg_n_0                             |                8 |             44 |
 |  clk_BUFG            | pair_inst/hb_tx_counter[22]_i_2_n_0                       | pair_inst/hb_tx_counter[22]_i_1_n_0                       |                6 |             44 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/state[4]_i_1_n_0                  | as_mux_inst/as_update_reg_n_0                             |               10 |             44 |
 |  clk_BUFG            |                                                           | mouse_inst/reset_timeout_cnt_reg_n_0                      |                6 |             46 |
-|  clk_BUFG            | tx_inst/packet[27]_i_1__0_n_0                             |                                                           |                7 |             48 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/best_index[7]_i_2_n_0             | as_mux_inst/a_star_inst/best_index[7]_i_1_n_0             |                7 |             48 |
-|  clk_BUFG            |                                                           | mouse_inst/reset_periodic_check_cnt__0                    |                5 |             50 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/best_index[7]_i_2_n_0             | as_mux_inst/a_star_inst/best_index[7]_i_1_n_0             |               10 |             48 |
+|  clk_BUFG            | tx_inst/packet[27]_i_1__0_n_0                             |                                                           |                6 |             48 |
 |  clk_BUFG            | pair_inst/hb_tx_counter[22]_i_2_n_0                       | rx_inst/hb_rx_counter_reg[0]                              |                7 |             50 |
+|  clk_BUFG            |                                                           | mouse_inst/reset_periodic_check_cnt__0                    |                7 |             50 |
+|  clk_BUFG            | game_inst/p_0_in                                          |                                                           |                5 |             54 |
 |  clk_BUFG            | as_mux_inst/a_star_inst/nb_x[3]_i_1_n_0                   |                                                           |                9 |             54 |
-|  clk_BUFG            | game_inst/p_0_in                                          |                                                           |                6 |             54 |
-|  clk_BUFG            | rx_inst/data[26]_i_1_n_0                                  |                                                           |                8 |             54 |
+|  clk_BUFG            | rx_inst/data[26]_i_1_n_0                                  |                                                           |                7 |             54 |
 |  clk_BUFG            | pair_inst/hb_tx_counter[22]_i_2_n_0                       | pair_inst/pair_counter[27]_i_1_n_0                        |                8 |             56 |
-|  clk_BUFG            | pair_inst/display_counter_reg[0]                          | pair_inst/display_counter_reg[28]                         |                7 |             58 |
+|  clk_BUFG            | pair_inst/display_counter_reg[28]                         | pair_inst/display_counter_reg[28]_0                       |                8 |             58 |
 |  clk_BUFG            |                                                           | clk_6p25m_inst/count[31]_i_1__0_n_0                       |                8 |             62 |
+| ~clk_6p25m_BUFG      | oled1/state                                               |                                                           |                9 |             64 |
 |  basys_clk_IBUF_BUFG |                                                           | clk_inst/clk_out0                                         |                9 |             64 |
-| ~clk_6p25m_BUFG      | oled1/state                                               |                                                           |               10 |             64 |
 | ~clk_6p25m_BUFG      |                                                           | oled1/spi_word[39]_i_1_n_0                                |               17 |             90 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/path_flat_x[159]_i_1_n_0          |                                                           |               80 |            640 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/E[0]                              |                                                           |               90 |            654 |
-|  clk_BUFG            | as_mux_inst/a_star_inst/c1_len_reg[0][0]                  |                                                           |               85 |            654 |
-|  clk_BUFG            |                                                           |                                                           |              438 |           2292 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/path_flat_x[159]_i_1_n_0          |                                                           |               66 |            640 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/E[0]                              |                                                           |               92 |            654 |
+|  clk_BUFG            | as_mux_inst/a_star_inst/c1_len_reg[0][0]                  |                                                           |               81 |            654 |
+|  clk_BUFG            |                                                           |                                                           |              412 |           2290 |
 +----------------------+-----------------------------------------------------------+-----------------------------------------------------------+------------------+----------------+
 
 

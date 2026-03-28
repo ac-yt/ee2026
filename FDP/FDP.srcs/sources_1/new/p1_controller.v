@@ -26,16 +26,25 @@ module p1_controller (input clk,
                       input path_valid, 
                       input [6:0] path_len);
     
-    reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
-    integer ux, uy; // unpack map
-    always @(*) begin
-        for (uy = 0; uy < `TILE_MAP_HEIGHT; uy = uy + 1)
-            for (ux = 0; ux < `TILE_MAP_WIDTH; ux = ux + 1)
-                tile_map[ux][uy] = tile_map_flat[(uy*`TILE_MAP_WIDTH + ux)*3 +: 3];
-    end
+//    reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
+//    integer ux, uy; // unpack map
+//    always @(*) begin
+//        for (uy = 0; uy < `TILE_MAP_HEIGHT; uy = uy + 1)
+//            for (ux = 0; ux < `TILE_MAP_WIDTH; ux = ux + 1)
+//                tile_map[ux][uy] = tile_map_flat[(uy*`TILE_MAP_WIDTH + ux)*3 +: 3];
+//    end
     
     // variable speed based on power ups
     wire [$clog2(`PLAYER_MAX_SPEED)-1:0] speed = `PLAYER_DEFAULT_SPEED + speed_multiplier * `PLAYER_SPEED_INCREMENT;
+//    reg [$clog2(`PLAYER_MAX_SPEED)-1:0] speed;
+//    always @(*) begin
+//        case (speed_multiplier)
+//            2'd0: speed = `PLAYER_DEFAULT_SPEED;
+//            2'd1: speed = `PLAYER_DEFAULT_SPEED + `PLAYER_SPEED_INCREMENT;
+//            2'd2: speed = `PLAYER_DEFAULT_SPEED + 2*`PLAYER_SPEED_INCREMENT;
+//            2'd3: speed = `PLAYER_DEFAULT_SPEED + 3*`PLAYER_SPEED_INCREMENT;
+//        endcase
+//    end
     
     wire [3:0] mc_p1_tx, mc_p1_ty;
     wire [6:0] mc_p1_x;
