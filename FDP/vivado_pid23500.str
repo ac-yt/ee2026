@@ -1,0 +1,1874 @@
+/*
+
+Xilinx Vivado v2018.2 (64-bit) [Major: 2018, Minor: 2]
+SW Build: 2258646 on Thu Jun 14 20:03:12 MDT 2018
+IP Build: 2256618 on Thu Jun 14 22:10:49 MDT 2018
+
+Process ID: 23500
+License: Customer
+
+Current time: 	Tue Mar 31 20:28:14 SGT 2026
+Time zone: 	Singapore Time (Asia/Singapore)
+
+OS: Windows 10
+OS Version: 10.0
+OS Architecture: amd64
+Available processors (cores): 18
+
+Screen size: 1280x800
+Screen resolution (DPI): 96
+Available screens: 2
+Available disk space: 54 GB
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+
+Java version: 	1.8.0_112 64-bit
+Java home: 	C:/Xilinx/Vivado/2018.2/tps/win64/jre
+Java executable location: 	C:/Xilinx/Vivado/2018.2/tps/win64/jre/bin/java.exe
+Java initial memory (-Xms): 	128 MB
+Java maximum memory (-Xmx):	 2 GB
+
+
+User name: 	User
+User home directory: C:/Users/User
+User working directory: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP
+User country: 	SG
+User language: 	en
+User locale: 	en_SG
+
+RDI_BASEROOT: C:/Xilinx/Vivado
+HDI_APPROOT: C:/Xilinx/Vivado/2018.2
+RDI_DATADIR: C:/Xilinx/Vivado/2018.2/data
+RDI_BINDIR: C:/Xilinx/Vivado/2018.2/bin
+
+Vivado preferences file location: C:/Users/User/AppData/Roaming/Xilinx/Vivado/2018.2/vivado.xml
+Vivado preferences directory: C:/Users/User/AppData/Roaming/Xilinx/Vivado/2018.2/
+Vivado layouts directory: C:/Users/User/AppData/Roaming/Xilinx/Vivado/2018.2/layouts
+PlanAhead jar file location: 	C:/Xilinx/Vivado/2018.2/lib/classes/planAhead.jar
+Vivado log file location: 	C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/vivado.log
+Vivado journal file location: 	C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/vivado.jou
+Engine tmp dir: 	C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/.Xil/Vivado-23500-LAPTOP-23AELUGH
+
+Xilinx Environment Variables
+----------------------------
+XILINX: C:/Xilinx/Vivado/2018.2/ids_lite/ISE
+XILINX_DSP: C:/Xilinx/Vivado/2018.2/ids_lite/ISE
+XILINX_PLANAHEAD: C:/Xilinx/Vivado/2018.2
+XILINX_SDK: C:/Xilinx/SDK/2018.2
+XILINX_VIVADO: C:/Xilinx/Vivado/2018.2
+XILINX_VIVADO_HLS: C:/Xilinx/Vivado/2018.2
+
+
+GUI allocated memory:	137 MB
+GUI max memory:		3,052 MB
+Engine allocated memory: 535 MB
+
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// TclEventType: PROJECT_OPEN_DIALOG
+// [GUI Memory]: 68 MB (+68579kb) [00:00:09]
+// [Engine Memory]: 514 MB (+387525kb) [00:00:09]
+// Opening Vivado Project: C:\Users\User\OneDrive\Desktop\EE2026_Codes\EE2026_FDP_Live\ee2026\FDP\FDP.xpr. Version: Vivado v2018.2 
+// bx (ck):  Open Project : addNotify
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// Tcl Message: open_project C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.xpr 
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_COMPLETED
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_CURRENT
+// HMemoryUtils.trashcanNow. Engine heap size: 535 MB. GUI used memory: 33 MB. Current time: 3/31/26 8:28:16 PM SGT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_NEW
+// [Engine Memory]: 578 MB (+40378kb) [00:00:17]
+// [Engine Memory]: 609 MB (+1850kb) [00:00:20]
+// Tcl Message: open_project C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.xpr 
+// Tcl Message: INFO: [Project 1-313] Project file moved from 'C:/VivadoProjects/ee2026/FDP' since last save. 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.2/data/ip'. 
+// Tcl Message: open_project: Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 784.602 ; gain = 65.160 
+// Project name: FDP; location: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP; part: xc7a35tcpg236-1
+dismissDialog("Open Project"); // bx (ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// [GUI Memory]: 72 MB (+1133kb) [00:02:43]
+// [Engine Memory]: 649 MB (+10034kb) [00:03:54]
+// [GUI Memory]: 81 MB (+5295kb) [00:03:55]
+// Elapsed time: 212 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager]", 21, true); // u (O, ck) - Node
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HARDWARE_MANAGER
+// Tcl Command: 'rdi::info_commands get_hw_probes'
+// Tcl Command: 'load_features labtools'
+// TclEventType: LOAD_FEATURE
+// bx (ck):  Open Hardware Manager : addNotify
+// TclEventType: HW_SESSION_OPEN
+// Tcl Message: open_hw 
+dismissDialog("Open Hardware Manager"); // bx (ck)
+// HMemoryUtils.trashcanNow. Engine heap size: 649 MB. GUI used memory: 44 MB. Current time: 3/31/26 8:32:02 PM SGT
+selectButton(PAResourceOtoP.ProgramDebugTab_OPEN_TARGET, "Open target"); // h (cM, ck)
+selectMenuItem(PAResourceCommand.PACommandNames_AUTO_CONNECT_TARGET, "Auto Connect"); // ad (aj, ck)
+// Run Command: PAResourceCommand.PACommandNames_AUTO_CONNECT_TARGET
+// bx (ck):  Auto Connect : addNotify
+// Tcl Message: connect_hw_server 
+// Tcl Message: INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121 
+// Tcl Message: INFO: [Labtools 27-2222] Launching hw_server... 
+// TclEventType: HW_SERVER_UPDATE
+// Tcl Message: INFO: [Labtools 27-2221] Launch Output:  ****** Xilinx hw_server v2018.2   **** Build date : Jun 14 2018-20:42:52     ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.   
+// TclEventType: HW_TARGET_CHANGE
+// TclEventType: HW_TARGET_CLOSE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_ADD
+// TclEventType: HW_TARGET_UPDATE
+// [Engine Memory]: 1,277 MB (+624354kb) [00:04:05]
+// Tcl Message: open_hw_target 
+// Tcl Message: INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: current_hw_device [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+dismissDialog("Auto Connect"); // bx (ck)
+selectButton(PAResourceOtoP.ProgramDebugTab_PROGRAM_DEVICE, "Program device"); // h (cM, ck)
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+// bB (ck): Program Device: addNotify
+selectButton(PAResourceOtoP.ProgramFpgaDialog_PROGRAM, "Program"); // a (bB)
+// bx (ck):  Program Device : addNotify
+// TclEventType: HW_DEVICE_CHANGE
+dismissDialog("Program Device"); // bB (ck)
+// Tcl Message: set_property PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// Tcl Message: set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: program_hw_devices [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: INFO: [Labtools 27-3164] End of startup status: HIGH 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Tcl Message: refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+// [GUI Memory]: 85 MB (+467kb) [00:04:08]
+dismissDialog("Program Device"); // bx (ck)
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_TARGET_CLOSE
+// TclEventType: HW_SYSMON_DELETE
+// TclEventType: HW_TARGET_UPDATE
+// TclEventType: DEBUG_PROBE_DELETE
+// Tcl Message: ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA 
+// n (ck): Close Hardware Target: addNotify
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_SERVER_UPDATE
+// HMemoryUtils.trashcanNow. Engine heap size: 1,323 MB. GUI used memory: 45 MB. Current time: 3/31/26 8:32:52 PM SGT
+// Elapsed time: 44 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (n)
+dismissDialog("Close Hardware Target"); // n (ck)
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_SERVER_UPDATE
+// TclEventType: HW_TARGET_CHANGE
+// TclEventType: HW_TARGET_CLOSE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_ADD
+// TclEventType: HW_TARGET_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Elapsed time: 22 seconds
+selectButton(PAResourceOtoP.ProgramDebugTab_PROGRAM_DEVICE, "Program device"); // h (cM, ck)
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+// bB (ck): Program Device: addNotify
+selectButton(PAResourceOtoP.ProgramFpgaDialog_PROGRAM, "Program"); // a (bB)
+// bx (ck):  Program Device : addNotify
+dismissDialog("Program Device"); // bB (ck)
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// Tcl Message: set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: program_hw_devices [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: INFO: [Labtools 27-3164] End of startup status: HIGH 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Tcl Message: refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+// 'I' command handler elapsed time: 3 seconds
+dismissDialog("Program Device"); // bx (ck)
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_TARGET_CLOSE
+// TclEventType: HW_SYSMON_DELETE
+// TclEventType: HW_TARGET_UPDATE
+// TclEventType: DEBUG_PROBE_DELETE
+// Tcl Message: ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA 
+// n (ck): Close Hardware Target: addNotify
+// [GUI Memory]: 92 MB (+2432kb) [00:05:58]
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_SERVER_UPDATE
+// Elapsed time: 46 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (n)
+dismissDialog("Close Hardware Target"); // n (ck)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager]", 0, true); // u (O, ck) - Node
+// Run Command: PAResourceCommand.PACommandNames_GOTO_PROJECT_MANAGER
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager]", 0, true, false, false, false, false, true); // u (O, ck) - Double Click - Node
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v)]", 2); // B (D, ck)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), p1_ctrl_inst : p1_controller (p1_controller.v)]", 13); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), p1_ctrl_inst : p1_controller (p1_controller.v), p1_bomb_inst : bomb_controller (bomb_controller.v)]", 15, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), p1_ctrl_inst : p1_controller (p1_controller.v), p1_bomb_inst : bomb_controller (bomb_controller.v)]", 15, false, false, false, false, false, true); // B (D, ck) - Double Click
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Project Summary", 0); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "bomb_controller.v", 1); // k (j, ck)
+floatView(PAResourceOtoP.PAViews_CODE, "bomb_controller.v"); // aw (aE, ck)
+// PAResourceOtoP.PAViews_CODE: Code: float view
+// PAResourceOtoP.PAViews_CODE: Code: close view
+closeFrame(PAResourceOtoP.PAViews_CODE, "bomb_controller.v"); // aw (aE, aG)
+dockFrame(PAResourceOtoP.PAViews_CODE, "bomb_controller.v"); // aw (aE, aG)
+closeView(PAResourceOtoP.PAViews_CODE, "Code"); // B
+maximizeFrame(PAResourceOtoP.PAViews_DESIGN_RUNS, "Design Runs"); // aw (aE, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), clk_inst : variable_clock (variable_clock.v)]", 3, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), p1_ctrl_inst : p1_controller (p1_controller.v), p1_bomb_inst : bomb_controller (bomb_controller.v)]", 15, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), p1_ctrl_inst : p1_controller (p1_controller.v), p1_bomb_inst : bomb_controller (bomb_controller.v)]", 15, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), p1_ctrl_inst : p1_controller (p1_controller.v), p1_bomb_inst : bomb_controller (bomb_controller.v)]", 15, false, false, false, false, false, true); // B (D, ck) - Double Click
+selectCodeEditor("bomb_controller.v", 315, 532); // ce (w, ck)
+selectCodeEditor("bomb_controller.v", 220, 408); // ce (w, ck)
+// [GUI Memory]: 103 MB (+6509kb) [00:06:39]
+selectCodeEditor("bomb_controller.v", 186, 121); // ce (w, ck)
+selectCodeEditor("bomb_controller.v", 342, 582); // ce (w, ck)
+selectCodeEditor("bomb_controller.v", 156, 156); // ce (w, ck)
+selectCodeEditor("bomb_controller.v", 268, 501); // ce (w, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v)]", 2, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v)]", 2, true, false, false, false, false, true); // B (D, ck) - Double Click - Node
+// [GUI Memory]: 112 MB (+4208kb) [00:07:07]
+// Elapsed time: 26 seconds
+selectCodeEditor("Top_Student.v", 410, 305); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "B_STAGE", true); // l (aQ, ck)
+// Elapsed time: 41 seconds
+selectCodeEditor("Top_Student.v", 339, 343); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 506, 304); // ce (w, ck)
+// Elapsed time: 45 seconds
+selectCodeEditor("Top_Student.v", 273, 329); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 278, 316); // ce (w, ck)
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 271, 307); // ce (w, ck)
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 243, 224); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 370, 203); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 410, 177); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 19 seconds
+typeControlKey(null, null, 'z');
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "bomb_controller.v", 1); // k (j, ck)
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("bomb_controller.v", 481, 301); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage", true); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Top_Student.v", 2); // k (j, ck)
+selectCodeEditor("Top_Student.v", 342, 221); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_stage"); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 964, 298); // ce (w, ck)
+// Elapsed time: 10 seconds
+selectCodeEditor("Top_Student.v", 904, 196); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 263, 201); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 797, 194); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 223, 202); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 903, 195); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 275, 219); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+// [GUI Memory]: 122 MB (+4212kb) [00:10:19]
+selectCodeEditor("Top_Student.v", 607, 178); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 607, 178, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("Top_Student.v", 340, 244); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 347, 212); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 1002, 258); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 1003, 266); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 5, 212); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 224, 215); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 229, 215); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 285, 248); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 267, 263); // ce (w, ck)
+// [GUI Memory]: 128 MB (+623kb) [00:10:39]
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 17 seconds
+selectCodeEditor("Top_Student.v", 258, 198); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 290, 268); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+// Elapsed time: 16 seconds
+selectCodeEditor("Top_Student.v", 1043, 266); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+selectCodeEditor("Top_Student.v", 308, 288); // ce (w, ck)
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 10 seconds
+selectCodeEditor("Top_Student.v", 289, 229); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 739, 240); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 283, 226); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 430, 293); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 415, 286); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 16 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_len", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_len"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_len"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_len"); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_len", true); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_le", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_le"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_le"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_le"); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_len", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_len"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_len"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_len"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_len"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Up_len"); // l (aQ, ck)
+// Elapsed time: 146 seconds
+selectCodeEditor("Top_Student.v", 321, 110); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 422, 119); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 109, 110); // ce (w, ck)
+typeControlKey(null, null, 'z');
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 489, 118); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 506, 109); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 121, 103); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 111, 110); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 506, 277); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 561, 268); // ce (w, ck)
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 501, 134); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 629, 171); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 645, 164); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 288, 158); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 285, 159); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 10 seconds
+selectCodeEditor("Top_Student.v", 373, 165); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 434, 163); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 530, 168); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 524, 164); // ce (w, ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 12 seconds
+selectCodeEditor("Top_Student.v", 382, 217); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 182, 131); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 207, 160); // ce (w, ck)
+// Elapsed time: 19 seconds
+selectCodeEditor("Top_Student.v", 232, 258); // ce (w, ck)
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 198, 241); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+// Elapsed time: 30 seconds
+selectCodeEditor("Top_Student.v", 305, 276); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 192, 251); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 601, 99); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+// TclEventType: DG_ANALYSIS_MSG_RESET
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 367, 119, false, true, false, false, false); // ce (w, ck) - Control Key
+selectCodeEditor("Top_Student.v", 325, 133); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 321, 148); // ce (w, ck)
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("Top_Student.v", 370, 121); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 13, 145); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 4, 145); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 181, 148); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 217, 184); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 234, 130); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 257, 150); // ce (w, ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+selectCodeEditor("Top_Student.v", 236, 161); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 268, 141); // ce (w, ck)
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("Top_Student.v", 337, 207); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 342, 197); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 342, 197, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("Top_Student.v", 342, 197); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 308, 146); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 326, 141); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 383, 145); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 410, 141); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 378, 184); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+selectCodeEditor("Top_Student.v", 475, 138); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 462, 167); // ce (w, ck)
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("Top_Student.v", 585, 153); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 596, 149); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 599, 161); // ce (w, ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 26 seconds
+selectCodeEditor("Top_Student.v", 411, 263); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 224, 313); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 1005, 365); // ce (w, ck)
+// Elapsed time: 18 seconds
+selectCodeEditor("Top_Student.v", 591, 310); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 268, 165); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 604, 179); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 349, 330); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 893, 296); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 747, 56); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 502, 77); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 359, 124); // ce (w, ck)
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 271, 95); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 451, 152); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 26 seconds
+selectCodeEditor("Top_Student.v", 402, 191); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 406, 175); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 656, 113); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 650, 116); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 307, 129); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 673, 108); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 677, 108, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("Top_Student.v", 678, 117); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 728, 142); // ce (w, ck)
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 563, 111); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 309, 146); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 994, 146); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 993, 142, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("Top_Student.v", 457, 131); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 311, 146); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 728, 114); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 29, 126); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 34, 127); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 335, 138); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+selectCodeEditor("Top_Student.v", 98, 122); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 833, 182); // ce (w, ck)
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("Top_Student.v", 849, 146); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 623, 172); // ce (w, ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+selectCodeEditor("Top_Student.v", 427, 179); // ce (w, ck)
+// TclEventType: DG_GRAPH_GENERATED
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 431, 154); // ce (w, ck)
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 386, 154); // ce (w, ck)
+// Elapsed time: 26 seconds
+selectCodeEditor("Top_Student.v", 662, 106); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 662, 106, false, false, false, false, true); // ce (w, ck) - Double Click
+// Elapsed time: 66 seconds
+selectCodeEditor("Top_Student.v", 512, 98); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 604, 148); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 17 seconds
+selectCodeEditor("Top_Student.v", 693, 115); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("Top_Student.v", 248, 129); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 397, 175); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 462, 200); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 371, 103); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 446, 84); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 759, 127); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 685, 112); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 329, 186); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 252, 219); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 493, 144); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 484, 106); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 599, 129); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 275, 129); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 428, 117); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 852, 152); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("Top_Student.v", 1000, 128); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 640, 121); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 653, 243); // ce (w, ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("Top_Student.v", 404, 247); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 415, 162); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 255, 212); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 226, 211); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 226, 211, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("Top_Student.v", 262, 216); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 299, 195); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 316, 178); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 303, 130); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 400, 204); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 402, 197); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 990, 195); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 1103, 210); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 1102, 201); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 930, 231); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 1073, 202); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 1073, 202, false, false, false, false, true); // ce (w, ck) - Double Click
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+selectCodeEditor("Top_Student.v", 601, 144); // ce (w, ck)
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("Top_Student.v", 1148, 159); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 371, 158); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 338, 210); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 13 seconds
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 1029, 213); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 408, 232); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 0, 232); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 428, 251); // ce (w, ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "bomb_controller.v", 1); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Top_Student.v", 2); // k (j, ck)
+selectCodeEditor("Top_Student.v", 552, 224); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 692, 214); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 708, 197); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 708, 197, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("Top_Student.v", 708, 197); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 708, 197); // ce (w, ck)
+// Elapsed time: 31 seconds
+selectCodeEditor("Top_Student.v", 293, 129, false, true, false, false, false); // ce (w, ck) - Control Key
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 66 seconds
+selectCodeEditor("Top_Student.v", 286, 429); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 286, 429, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("Top_Student.v", 286, 429); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 257, 528); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 257, 528, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("Top_Student.v", 257, 528); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 257, 528); // ce (w, ck)
+// Elapsed time: 11 seconds
+selectCodeEditor("Top_Student.v", 332, 270); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "bomb_controller.v", 1); // k (j, ck)
+selectCodeEditor("bomb_controller.v", 322, 194); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "dead"); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "player_dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "player_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "player_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "player_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "player_dead"); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "player_dead"); // l (aQ, ck)
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_SERVER_UPDATE
+// TclEventType: HW_TARGET_CHANGE
+// TclEventType: HW_TARGET_CLOSE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_ADD
+// TclEventType: HW_TARGET_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager, Program Device]", 19, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+selectMenuItem((HResource) null, "xc7a35t_0"); // ad (aj, ck)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HARDWARE_MANAGER
+// Tcl Command: 'rdi::info_commands get_hw_probes'
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+// bB (ck): Program Device: addNotify
+selectButton(PAResourceOtoP.ProgramFpgaDialog_PROGRAM, "Program"); // a (bB)
+// bx (ck):  Program Device : addNotify
+dismissDialog("Program Device"); // bB (ck)
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// Tcl Message: set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: program_hw_devices [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: INFO: [Labtools 27-3164] End of startup status: HIGH 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Tcl Message: refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+dismissDialog("Program Device"); // bx (ck)
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_TARGET_CLOSE
+// TclEventType: HW_SYSMON_DELETE
+// TclEventType: HW_TARGET_UPDATE
+// TclEventType: DEBUG_PROBE_DELETE
+// Tcl Message: ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA 
+// n (ck): Close Hardware Target: addNotify
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_SERVER_UPDATE
+// Elapsed time: 32 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (n)
+dismissDialog("Close Hardware Target"); // n (ck)
+// Elapsed time: 115 seconds
+selectCodeEditor("bomb_controller.v", 321, 272); // ce (w, ck)
+selectCodeEditor("bomb_controller.v", 321, 272); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 321, 272); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 301, 222); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 227, 148); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "rendering", true); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "rendering"); // l (aQ, ck)
+// Elapsed time: 39 seconds
+selectCodeEditor("Top_Student.v", 556, 424); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "tile_x_of_pixel"); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 547, 385); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_tx", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "b_tx"); // l (aQ, ck)
+// Elapsed time: 34 seconds
+selectCodeEditor("Top_Student.v", 337, 176); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 333, 162); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+// [GUI Memory]: 135 MB (+372kb) [00:31:18]
+// Elapsed time: 136 seconds
+selectCodeEditor("Top_Student.v", 140, 175); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 136, 80); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 16, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// A (ck): Synthesis is Out-of-date: addNotify
+// TclEventType: DG_GRAPH_GENERATED
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a (A)
+// bx (ck):  Resetting Runs : addNotify
+dismissDialog("Synthesis is Out-of-date"); // A (ck)
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run blk_mem_gen_const_synth_1 
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run blk_mem_gen_img_synth_1 
+dismissDialog("Resetting Runs"); // bx (ck)
+// TclEventType: LOAD_FEATURE
+// bx (ck):  Generate Bitstream : addNotify
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 9 
+// Tcl Message: INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'blk_mem_gen_const'... 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// Tcl Message: INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'blk_mem_gen_img'... 
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Tue Mar 31 21:01:20 2026] Launched blk_mem_gen_const_synth_1, blk_mem_gen_img_synth_1, synth_1... Run output will be captured here: blk_mem_gen_const_synth_1: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/blk_mem_gen_const_synth_1/runme.log blk_mem_gen_img_synth_1: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/blk_mem_gen_img_synth_1/runme.log synth_1: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log [Tue Mar 31 21:01:20 2026] Launched impl_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log 
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1561.738 ; gain = 24.246 
+dismissDialog("Generate Bitstream"); // bx (ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_COMPLETED
+// HMemoryUtils.trashcanNow. Engine heap size: 1,323 MB. GUI used memory: 62 MB. Current time: 3/31/26 9:02:53 PM SGT
+// Elapsed time: 248 seconds
+selectCodeEditor("Top_Student.v", 328, 224); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 335, 205); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 343, 193); // ce (w, ck)
+// TclEventType: RUN_COMPLETED
+// WARNING: HTimer (ActiveMsgMonitor Process Messages Timer) is taking 662ms to process. Increasing delay to 2000 ms.
+// Elapsed time: 553 seconds
+selectCodeEditor("Top_Student.v", 371, 257); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "sw", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "sw"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "sw"); // l (aQ, ck)
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// ah (ck): Bitstream Generation Completed: addNotify
+// Elapsed time: 181 seconds
+dismissDialog("Bitstream Generation Completed"); // ah (ck)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager]", 0, true); // u (O, ck) - Node
+// Run Command: PAResourceCommand.PACommandNames_GOTO_PROJECT_MANAGER
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager]", 0, true, false, false, false, false, true); // u (O, ck) - Double Click - Node
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Project Summary", 0); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "bomb_controller.v", 1); // k (j, ck)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager, Open Target]", 22, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HW_TARGET
+selectMenuItem(PAResourceCommand.PACommandNames_AUTO_CONNECT_TARGET, "Auto Connect"); // ad (aj, ck)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HARDWARE_MANAGER
+// Tcl Command: 'rdi::info_commands get_hw_probes'
+// Run Command: PAResourceCommand.PACommandNames_AUTO_CONNECT_TARGET
+// TclEventType: HW_OBJECT_DELETE
+// TclEventType: HW_SERVER_CLOSE
+// Tcl Message: disconnect_hw_server localhost:3121 
+// TclEventType: HW_SERVER_UPDATE
+// Tcl Message: connect_hw_server 
+// Tcl Message: INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121 
+// Tcl Message: ERROR: [Labtoolstcl 44-494] There is no active target available for server at localhost.  Targets(s) ", jsn-Basys3-210183BCBC0BA" may be locked by another hw_server. 
+// CommandFailedException: ERROR: [Common 17-69] Command failed: ERROR: [Labtoolstcl 44-494] There is no active target available for server at localhost.  Targets(s) ", jsn-Basys3-210183BCBC0BA" may be locked by another hw_server.  
+// a (ck): Critical Messages: addNotify
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (a)
+dismissDialog("Critical Messages"); // a (ck)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager, Open Target]", 22, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HW_TARGET
+selectMenuItem(PAResourceCommand.PACommandNames_AUTO_CONNECT_TARGET, "Auto Connect"); // ad (aj, ck)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HARDWARE_MANAGER
+// Tcl Command: 'rdi::info_commands get_hw_probes'
+// Run Command: PAResourceCommand.PACommandNames_AUTO_CONNECT_TARGET
+// TclEventType: HW_OBJECT_DELETE
+// TclEventType: HW_SERVER_CLOSE
+// Tcl Message: disconnect_hw_server localhost:3121 
+// TclEventType: HW_SERVER_UPDATE
+// Tcl Message: connect_hw_server 
+// Tcl Message: INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121 
+// TclEventType: HW_TARGET_CHANGE
+// TclEventType: HW_TARGET_CLOSE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_ADD
+// bx (ck):  Auto Connect : addNotify
+// TclEventType: HW_SYSMON_ADD
+// TclEventType: HW_TARGET_UPDATE
+// Tcl Message: open_hw_target 
+// Tcl Message: INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: current_hw_device [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+dismissDialog("Auto Connect"); // bx (ck)
+selectButton(PAResourceOtoP.ProgramDebugTab_PROGRAM_DEVICE, "Program device"); // h (cM, ck)
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+// bB (ck): Program Device: addNotify
+selectButton(PAResourceOtoP.ProgramFpgaDialog_PROGRAM, "Program"); // a (bB)
+// bx (ck):  Program Device : addNotify
+dismissDialog("Program Device"); // bB (ck)
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// Tcl Message: set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: program_hw_devices [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: INFO: [Labtools 27-3164] End of startup status: HIGH 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Tcl Message: refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+// 'I' command handler elapsed time: 5 seconds
+dismissDialog("Program Device"); // bx (ck)
+// Elapsed time: 91 seconds
+selectCodeEditor("Top_Student.v", 640, 291); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 663, 297); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 885, 289); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 902, 293); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+// Elapsed time: 171 seconds
+selectCodeEditor("Top_Student.v", 977, 98); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 963, 94); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 47 seconds
+selectCodeEditor("Top_Student.v", 141, 164); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 120, 255); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 108, 241); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 83, 228); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 49 seconds
+selectCodeEditor("Top_Student.v", 509, 373); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 3, 63); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 312, 231); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 513, 185); // ce (w, ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "genvar", true); // l (aQ, ck)
+// TclEventType: DG_GRAPH_GENERATED
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "genvar"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "genvar"); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 124, 79); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 302, 175); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 138, 60); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 12 seconds
+selectCodeEditor("Top_Student.v", 132, 157); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 14 seconds
+selectCodeEditor("Top_Student.v", 306, 232); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 13 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// A (ck): Synthesis is Out-of-date: addNotify
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a (A)
+// bx (ck):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+dismissDialog("Synthesis is Out-of-date"); // A (ck)
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+dismissDialog("Resetting Runs"); // bx (ck)
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 9 
+// Tcl Message: INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date 
+// Tcl Message: [Tue Mar 31 21:25:37 2026] Launched synth_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log [Tue Mar 31 21:25:37 2026] Launched impl_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log 
+// Elapsed time: 28 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Implementation, Run Implementation]", 17, false); // u (O, ck)
+typeControlKey(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, (String) null, 'a'); // u (O, ck)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,323 MB. GUI used memory: 63 MB. Current time: 3/31/26 9:32:53 PM SGT
+// TclEventType: RUN_COMPLETED
+// WARNING: HTimer (ActiveMsgMonitor Process Messages Timer) is taking 649ms to process. Increasing delay to 2000 ms.
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// ah (ck): Bitstream Generation Completed: addNotify
+// Elapsed time: 989 seconds
+dismissDialog("Bitstream Generation Completed"); // ah (ck)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager, Open Target]", 22, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HW_TARGET
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager, Program Device]", 23, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+selectMenuItem((HResource) null, "xc7a35t_0"); // ad (aj, ck)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HARDWARE_MANAGER
+// Tcl Command: 'rdi::info_commands get_hw_probes'
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+// bB (ck): Program Device: addNotify
+selectButton(PAResourceOtoP.ProgramFpgaDialog_PROGRAM, "Program"); // a (bB)
+// bx (ck):  Program Device : addNotify
+dismissDialog("Program Device"); // bB (ck)
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// Tcl Message: set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: program_hw_devices [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: INFO: [Labtools 27-3164] End of startup status: HIGH 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Tcl Message: refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+dismissDialog("Program Device"); // bx (ck)
+// Elapsed time: 35 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager]", 0, true); // u (O, ck) - Node
+// Run Command: PAResourceCommand.PACommandNames_GOTO_PROJECT_MANAGER
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager]", 0, true, false, false, false, false, true); // u (O, ck) - Double Click - Node
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Project Summary", 0); // k (j, ck)
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_TARGET_CLOSE
+// TclEventType: HW_SYSMON_DELETE
+// TclEventType: HW_TARGET_UPDATE
+// TclEventType: DEBUG_PROBE_DELETE
+// Tcl Message: ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA 
+// n (ck): Close Hardware Target: addNotify
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_SERVER_UPDATE
+// Elapsed time: 13 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (n)
+dismissDialog("Close Hardware Target"); // n (ck)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,323 MB. GUI used memory: 62 MB. Current time: 3/31/26 10:30:07 PM SGT
+// Elapsed time: 3465 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v)]", 2, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), clk_inst : variable_clock (variable_clock.v)]", 3, false, false, false, false, false, true); // B (D, ck) - Double Click
+// Elapsed time: 73 seconds
+selectCodeEditor("Top_Student.v", 283, 306, false, false, true, false, false); // ce (w, ck) - Alt Key
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_data_single"); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 537, 333, false, false, true, false, false); // ce (w, ck) - Alt Key
+selectCodeEditor("Top_Student.v", 601, 257); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "basys_clok", true); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "basys_clk"); // l (aQ, ck)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Verilog Header]", 1); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Verilog Header, constants.vh]", 2, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Verilog Header, constants.vh]", 2, false, false, false, false, false, true); // B (D, ck) - Double Click
+selectCodeEditor("constants.vh", 415, 153); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "clock_speed", true); // l (aQ, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Top_Student.v", 2); // k (j, ck)
+selectCodeEditor("Top_Student.v", 408, 289); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 364, 344); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead\", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead\"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead\"); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 40, 37); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 40, 37, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("Top_Student.v", 43, 29); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 43, 29, false, false, false, false, true); // ce (w, ck) - Double Click
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p2_dead", true); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 52, 18); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 52, 18, false, false, false, false, true); // ce (w, ck) - Double Click
+// Elapsed time: 15 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p2_dead"); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 463, 367); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "rst_game", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "rst_game"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "rst_game"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "rst_game"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "rst_game"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "rst_game"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "rst_game"); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 312, 399); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 16 seconds
+selectCodeEditor("Top_Student.v", 194, 421); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 262, 391); // ce (w, ck)
+// Elapsed time: 33 seconds
+selectCodeEditor("Top_Student.v", 212, 339); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "basys_clk", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "basys_clk"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "basys_clk"); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "basys_clk\", true); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "basys_clk", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "basys_clk"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "basys_clk"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "basys_clk"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "basys_clk"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "basys_clk"); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "clk", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "clk"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "clk"); // l (aQ, ck)
+// Elapsed time: 12 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), clk_inst : variable_clock (variable_clock.v)]", 4, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), clk_inst : variable_clock (variable_clock.v)]", 4, false, false, false, false, false, true); // B (D, ck) - Double Click
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Top_Student.v", 2); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "variable_clock.v", 4); // k (j, ck)
+selectCodeEditor("variable_clock.v", 196, 126); // ce (w, ck)
+typeControlKey(null, null, 'z');
+closeView(PAResourceOtoP.PAViews_CODE, "Code"); // B
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Top_Student.v", 2); // k (j, ck)
+selectCodeEditor("Top_Student.v", 31, 201); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 206, 223); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 178, 187); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 124, 563); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 200, 318); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 208, 213); // ce (w, ck)
+typeControlKey(null, null, 'z');
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("Top_Student.v", 161, 279); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 158, 298); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 751, 419); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 748, 437); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 531, 230); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 198, 110); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 515, 334); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 565, 157); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 503, 296); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 531, 382); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 546, 226); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 541, 312); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 519, 312); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 547, 311); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 544, 316); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 546, 396); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 553, 400); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 552, 334); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 665, 280); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 14 seconds
+selectCodeEditor("Top_Student.v", 221, 116); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 215, 75); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 78, 75); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 367, 345); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 234, 304); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 84, 349); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 61, 351); // ce (w, ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+selectCodeEditor("Top_Student.v", 41, 352); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 41, 352, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("Top_Student.v", 41, 352); // ce (w, ck)
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files]", 3); // B (D, ck)
+// TclEventType: DG_GRAPH_GENERATED
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files, Top_Student.v]", 4, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files, Top_Student.v]", 4, false, false, false, false, false, true); // B (D, ck) - Double Click
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v)]", 3); // B (D, ck)
+selectCodeEditor("Top_Student.v", 553, 385); // ce (w, ck)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 16, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// A (ck): Synthesis is Out-of-date: addNotify
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a (A)
+// bx (ck):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+dismissDialog("Synthesis is Out-of-date"); // A (ck)
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+dismissDialog("Resetting Runs"); // bx (ck)
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 9 
+// Tcl Message: INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date 
+// Tcl Message: [Tue Mar 31 22:47:19 2026] Launched synth_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log [Tue Mar 31 22:47:19 2026] Launched impl_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log 
+// TclEventType: RUN_FAILED
+// ah (ck): Synthesis Failed: addNotify
+// Elapsed time: 32 seconds
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (ah)
+// Run Command: PAResourceCommand.PACommandNames_MESSAGE_WINDOW
+dismissDialog("Synthesis Failed"); // ah (ck)
+selectCheckBox(PAResourceItoN.MsgView_INFORMATION_MESSAGES, (String) null, true); // g (aQ, ck): TRUE
+selectCodeEditor("Top_Student.v", 189, 317); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+// Elapsed time: 11 seconds
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+// Elapsed time: 19 seconds
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Synthesis, synth_1, [Synth 8-685] variable 'p1_dead' should not be used in output port connection [C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:369]. ]", 26, false); // ah (O, ck)
+messagesViewCrossProbe(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "src;-;C:\Users\User\OneDrive\Desktop\EE2026_Codes\EE2026_FDP_Live\ee2026\FDP\FDP.srcs\sources_1\new\Top_Student.v;-;;-;16;-;line;-;369;-;;-;16;-;"); // ah (O, ck)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Synthesis, synth_1, [Synth 8-685] variable 'p1_dead' should not be used in output port connection [C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:369]. ]", 26, false); // ah (O, ck)
+messagesViewCrossProbe(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "src;-;C:\Users\User\OneDrive\Desktop\EE2026_Codes\EE2026_FDP_Live\ee2026\FDP\FDP.srcs\sources_1\new\Top_Student.v;-;;-;16;-;line;-;369;-;;-;16;-;"); // ah (O, ck)
+// Elapsed time: 11 seconds
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Synthesis, synth_1, [Synth 8-685] variable 'p1_dead' should not be used in output port connection [C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:369]. ]", 26, false); // ah (O, ck)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Synthesis, synth_1, [Synth 8-685] variable 'p1_dead' should not be used in output port connection [C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v:369]. ]", 26, false, false, false, false, true, false); // ah (O, ck) - Popup Trigger
+// Elapsed time: 146 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v)]", 3); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), p1_ctrl_inst : p1_controller (p1_controller.v)]", 14, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), p1_ctrl_inst : p1_controller (p1_controller.v)]", 14, true, false, false, false, false, true); // B (D, ck) - Double Click - Node
+selectCodeEditor("p1_controller.v", 510, 263); // ce (w, ck)
+selectCodeEditor("p1_controller.v", 181, 200); // ce (w, ck)
+selectCodeEditor("p1_controller.v", 186, 190); // ce (w, ck)
+selectCodeEditor("p1_controller.v", 186, 190, false, false, false, false, true); // ce (w, ck) - Double Click
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead", true); // l (aQ, ck)
+// TclEventType: DG_GRAPH_GENERATED
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+selectCodeEditor("p1_controller.v", 273, 276); // ce (w, ck)
+// Elapsed time: 31 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), p1_ctrl_inst : p1_controller (p1_controller.v), p1_bomb_inst : bomb_controller (bomb_controller.v)]", 16, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), p1_ctrl_inst : p1_controller (p1_controller.v), p1_bomb_inst : bomb_controller (bomb_controller.v)]", 16, false, false, false, false, false, true); // B (D, ck) - Double Click
+selectCodeEditor("bomb_controller.v", 474, 58); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "player_dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "player_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "player_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "player_dead"); // l (aQ, ck)
+// Elapsed time: 17 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "constants.vh", 3); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "p1_controller.v", 4); // k (j, ck)
+selectCodeEditor("p1_controller.v", 400, 124); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+selectCodeEditor("p1_controller.v", 275, 141); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "mc_pl", true); // l (aQ, ck)
+selectCodeEditor("p1_controller.v", 177, 247); // ce (w, ck)
+selectCodeEditor("p1_controller.v", 147, 249); // ce (w, ck)
+selectCodeEditor("p1_controller.v", 147, 249, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("p1_controller.v", 147, 249); // ce (w, ck)
+selectCodeEditor("p1_controller.v", 147, 249); // ce (w, ck)
+selectCodeEditor("p1_controller.v", 295, 192); // ce (w, ck)
+selectCodeEditor("p1_controller.v", 201, 248); // ce (w, ck)
+typeControlKey((HResource) null, "p1_controller.v", 'c'); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "mc_p1_tx", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "mc_p1_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "mc_p1_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "mc_p1_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "mc_p1_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "mc_p1_tx"); // l (aQ, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "constants.vh", 3); // k (j, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), p2_ctrl_inst : p2_controller (p2_controller.v)]", 17, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Top_Student (Top_Student.v), p2_ctrl_inst : p2_controller (p2_controller.v)]", 17, true, false, false, false, false, true); // B (D, ck) - Double Click - Node
+selectCodeEditor("p2_controller.v", 161, 250); // ce (w, ck)
+selectCodeEditor("p2_controller.v", 161, 257); // ce (w, ck)
+selectCodeEditor("p2_controller.v", 161, 257, false, false, false, false, true); // ce (w, ck) - Double Click
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 16, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// A (ck): No Implementation Results Available: addNotify
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a (A)
+// bx (ck):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+dismissDialog("No Implementation Results Available"); // A (ck)
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+dismissDialog("Resetting Runs"); // bx (ck)
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 9 
+// Tcl Message: INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date 
+// Tcl Message: [Tue Mar 31 22:53:21 2026] Launched synth_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log [Tue Mar 31 22:53:21 2026] Launched impl_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log 
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Top_Student.v", 2); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "constants.vh", 3); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "p2_controller.v", 5); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Top_Student.v", 2); // k (j, ck)
+// Elapsed time: 24 seconds
+selectCodeEditor("Top_Student.v", 281, 238); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 351, 288, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectCodeEditor("Top_Student.v", 104, 136); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 193, 232); // ce (w, ck)
+selectButton(PAResourceQtoS.SyntheticaStateMonitor_CANCEL, "Cancel"); // h (Q, ck)
+// bx (ck):  Resetting Runs : addNotify
+selectButton("PAResourceQtoS.StateMonitor_OK_TO_CANCEL_YOUR_RUNNING_SYNTHESIS_Cancel Process", "Cancel Process"); // JButton (A, G)
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// Tcl Message: reset_run synth_1 
+// TclEventType: RUN_FAILED
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+dismissDialog("Resetting Runs"); // bx (ck)
+selectCodeEditor("Top_Student.v", 77, 86); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 28, 75); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 330, 357); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 16, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// A (ck): No Implementation Results Available: addNotify
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a (A)
+// bx (ck):  Resetting Runs : addNotify
+dismissDialog("No Implementation Results Available"); // A (ck)
+dismissDialog("Resetting Runs"); // bx (ck)
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 9 
+// Tcl Message: INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date 
+// Tcl Message: [Tue Mar 31 22:54:14 2026] Launched synth_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log [Tue Mar 31 22:54:14 2026] Launched impl_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log 
+// Elapsed time: 83 seconds
+selectCodeEditor("Top_Student.v", 392, 226); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 361, 253); // ce (w, ck)
+// Elapsed time: 11 seconds
+selectCodeEditor("Top_Student.v", 327, 224); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 338, 167); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 420, 146); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_tx", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_tx"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_tx"); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 535, 137); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 554, 143); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 500, 255); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 538, 256); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 453, 230); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 529, 249); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+// Elapsed time: 84 seconds
+selectCodeEditor("Top_Student.v", 188, 324); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,323 MB. GUI used memory: 64 MB. Current time: 3/31/26 11:00:07 PM SGT
+// TclEventType: RUN_COMPLETED
+// WARNING: HTimer (ActiveMsgMonitor Process Messages Timer) is taking 399ms to process. Increasing delay to 2000 ms.
+// TclEventType: RUN_FAILED
+// TclEventType: RUN_STEP_COMPLETED
+// ah (ck): Implementation Failed: addNotify
+// Elapsed time: 771 seconds
+selectRadioButton(PAResourceCommand.PACommandNames_LOG_WINDOW, "View Log"); // a (Q, ah)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (ah)
+// Run Command: PAResourceCommand.PACommandNames_LOG_WINDOW
+dismissDialog("Implementation Failed"); // ah (ck)
+selectCodeEditor("Top_Student.v", 200, 351); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 262, 314); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead", true); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 254, 191); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 18 seconds
+selectCodeEditor("Top_Student.v", 253, 217); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "death detec"); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 222, 96); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 276, 173); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 282, 165); // ce (w, ck)
+// Elapsed time: 14 seconds
+selectCodeEditor("Top_Student.v", 242, 47); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'v'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 26, 112); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 207, 97); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 155, 79); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 162, 80); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 162, 91); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 168, 117); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 36, 126); // ce (w, ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("Top_Student.v", 236, 153); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("Top_Student.v", 119, 284); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 200, 285); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 177, 159); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 555, 134); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 250, 173); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 132, 54); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 199, 199); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 188, 208); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 513, 84); // ce (w, ck)
+// Elapsed time: 19 seconds
+selectCodeEditor("Top_Student.v", 139, 109); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 553, 163); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 592, 163); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 237, 275); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 200, 160); // ce (w, ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 16, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// A (ck): Synthesis is Out-of-date: addNotify
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a (A)
+// bx (ck):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+dismissDialog("Synthesis is Out-of-date"); // A (ck)
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+dismissDialog("Resetting Runs"); // bx (ck)
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 9 
+// Tcl Message: INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date 
+// Tcl Message: [Tue Mar 31 23:12:31 2026] Launched synth_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log [Tue Mar 31 23:12:31 2026] Launched impl_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log 
+selectCodeEditor("Top_Student.v", 259, 224); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// ah (ck): Bitstream Generation Completed: addNotify
+// Elapsed time: 1040 seconds
+dismissDialog("Bitstream Generation Completed"); // ah (ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Project Summary", 0); // k (j, ck)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,323 MB. GUI used memory: 65 MB. Current time: 3/31/26 11:30:08 PM SGT
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager, Open Target]", 18, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HW_TARGET
+selectMenuItem(PAResourceCommand.PACommandNames_AUTO_CONNECT_TARGET, "Auto Connect"); // ad (aj, ck)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HARDWARE_MANAGER
+// Tcl Command: 'rdi::info_commands get_hw_probes'
+// Run Command: PAResourceCommand.PACommandNames_AUTO_CONNECT_TARGET
+// TclEventType: HW_OBJECT_DELETE
+// TclEventType: HW_SERVER_CLOSE
+// Tcl Message: disconnect_hw_server localhost:3121 
+// TclEventType: HW_SERVER_UPDATE
+// Tcl Message: connect_hw_server 
+// Tcl Message: INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121 
+// TclEventType: HW_TARGET_CHANGE
+// bx (ck):  Auto Connect : addNotify
+// TclEventType: HW_TARGET_CHANGE
+// TclEventType: HW_TARGET_CLOSE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_ADD
+// TclEventType: HW_TARGET_UPDATE
+// Tcl Message: open_hw_target 
+// Tcl Message: INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: current_hw_device [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+dismissDialog("Auto Connect"); // bx (ck)
+selectButton(PAResourceOtoP.ProgramDebugTab_PROGRAM_DEVICE, "Program device"); // h (cM, ck)
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+// bB (ck): Program Device: addNotify
+selectButton(PAResourceOtoP.ProgramFpgaDialog_PROGRAM, "Program"); // a (bB)
+// bx (ck):  Program Device : addNotify
+dismissDialog("Program Device"); // bB (ck)
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// Tcl Message: set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: program_hw_devices [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: INFO: [Labtools 27-3164] End of startup status: HIGH 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Tcl Message: refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+dismissDialog("Program Device"); // bx (ck)
+// Elapsed time: 31 seconds
+selectButton(PAResourceOtoP.ProgramDebugTab_PROGRAM_DEVICE, "Program device"); // h (cM, ck)
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+// bB (ck): Program Device: addNotify
+selectButton(PAResourceOtoP.ProgramFpgaDialog_PROGRAM, "Program"); // a (bB)
+// bx (ck):  Program Device : addNotify
+dismissDialog("Program Device"); // bB (ck)
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// Tcl Message: set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: program_hw_devices [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: INFO: [Labtools 27-3164] End of startup status: HIGH 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Tcl Message: refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+dismissDialog("Program Device"); // bx (ck)
+// Elapsed time: 17 seconds
+selectButton(PAResourceOtoP.ProgramDebugTab_PROGRAM_DEVICE, "Program device"); // h (cM, ck)
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+// bB (ck): Program Device: addNotify
+selectButton(PAResourceOtoP.ProgramFpgaDialog_PROGRAM, "Program"); // a (bB)
+// bx (ck):  Program Device : addNotify
+dismissDialog("Program Device"); // bB (ck)
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// Tcl Message: set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: program_hw_devices [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: INFO: [Labtools 27-3164] End of startup status: HIGH 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Tcl Message: refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+dismissDialog("Program Device"); // bx (ck)
+// Elapsed time: 22 seconds
+selectCodeEditor("Top_Student.v", 534, 340); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "p1_controller.v", 3); // k (j, ck)
+selectCodeEditor("p1_controller.v", 414, 188); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "o1)dead", true); // l (aQ, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "p1_dead"); // l (aQ, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Top_Student.v", 1); // k (j, ck)
+selectCodeEditor("Top_Student.v", 371, 273); // ce (w, ck)
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "color", true); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "color"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "color"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "color"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "color"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "color"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "color"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "color"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "color"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "color"); // l (aQ, ck)
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "color"); // l (aQ, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "constants.vh", 2); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Top_Student.v", 1); // k (j, ck)
+selectCodeEditor("Top_Student.v", 363, 140); // ce (w, ck)
+// Elapsed time: 31 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "oled_blue"); // l (aQ, ck)
+selectCodeEditor("Top_Student.v", 391, 145); // ce (w, ck)
+typeControlKey((HResource) null, "Top_Student.v", 'c'); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 393, 146); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 292, 158); // ce (w, ck)
+typeControlKey(null, null, 'z');
+selectCodeEditor("Top_Student.v", 390, 163); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 411, 160); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("Top_Student.v", 369, 136); // ce (w, ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 16, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// A (ck): Synthesis is Out-of-date: addNotify
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a (A)
+// bx (ck):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+dismissDialog("Synthesis is Out-of-date"); // A (ck)
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+dismissDialog("Resetting Runs"); // bx (ck)
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 9 
+// Tcl Message: INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date 
+// Tcl Message: [Tue Mar 31 23:32:58 2026] Launched synth_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log [Tue Mar 31 23:32:58 2026] Launched impl_1... Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log 
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "bomb_controller.v", 0); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "p1_controller.v", 3); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "constants.vh", 2); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "p1_controller.v", 3); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Top_Student.v", 1); // k (j, ck)
+// Elapsed time: 11 seconds
+selectCodeEditor("Top_Student.v", 204, 155); // ce (w, ck)
+selectCodeEditor("Top_Student.v", 403, 307); // ce (w, ck)
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// ah (ck): Bitstream Generation Completed: addNotify
+// Elapsed time: 1080 seconds
+dismissDialog("Bitstream Generation Completed"); // ah (ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "bomb_controller.v", 0); // k (j, ck)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager]", 0, true); // u (O, ck) - Node
+// Run Command: PAResourceCommand.PACommandNames_GOTO_PROJECT_MANAGER
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager]", 0, true, false, false, false, false, true); // u (O, ck) - Double Click - Node
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager, Program Device]", 23, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+selectMenuItem((HResource) null, "xc7a35t_0"); // ad (aj, ck)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HARDWARE_MANAGER
+// Tcl Command: 'rdi::info_commands get_hw_probes'
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+// bB (ck): Program Device: addNotify
+selectButton(PAResourceOtoP.ProgramFpgaDialog_PROGRAM, "Program"); // a (bB)
+// bx (ck):  Program Device : addNotify
+dismissDialog("Program Device"); // bB (ck)
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// Tcl Message: set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: program_hw_devices [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: INFO: [Labtools 27-3164] End of startup status: HIGH 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Tcl Message: refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+// 'I' command handler elapsed time: 5 seconds
+dismissDialog("Program Device"); // bx (ck)
+selectButton(PAResourceOtoP.ProgramDebugTab_PROGRAM_DEVICE, "Program device"); // h (cM, ck)
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+// bB (ck): Program Device: addNotify
+selectButton(PAResourceOtoP.ProgramFpgaDialog_PROGRAM, "Program"); // a (bB)
+// bx (ck):  Program Device : addNotify
+dismissDialog("Program Device"); // bB (ck)
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// Tcl Message: set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0] 
+// Tcl Message: program_hw_devices [get_hw_devices xc7a35t_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: INFO: [Labtools 27-3164] End of startup status: HIGH 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Tcl Message: refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+dismissDialog("Program Device"); // bx (ck)
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_TARGET_CLOSE
+// TclEventType: HW_SYSMON_DELETE
+// TclEventType: HW_TARGET_UPDATE
+// TclEventType: DEBUG_PROBE_DELETE
+// Tcl Message: ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA 
+// n (ck): Close Hardware Target: addNotify
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_SERVER_UPDATE
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_SERVER_UPDATE
+// TclEventType: HW_TARGET_CHANGE
+// TclEventType: HW_TARGET_CLOSE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_ADD
+// TclEventType: HW_TARGET_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Elapsed time: 58 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (n)
+dismissDialog("Close Hardware Target"); // n (ck)

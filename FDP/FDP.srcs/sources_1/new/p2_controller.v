@@ -13,7 +13,7 @@ module p2_controller(input clk,
                      output reg [3:0] p2_tx, p2_ty,
                      output reg [6:0] p2_x,
                      output reg [5:0] p2_y,
-                     output p2_dead,
+                     input p2_dead,
                      
                      output [`MAX_BOMBS-1:0] place_bomb_req, bomb_active, bomb_red, explosion_active,
                      output [`MAX_BOMBS*4-1:0] bomb_tx_flat, bomb_ty_flat,

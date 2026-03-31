@@ -323,7 +323,7 @@ module Top_Student (
     wire [6:0] p1_x;
     wire [5:0] p1_y;
     wire [3:0] p1_tx, p1_ty;
-    wire p1_dead;
+    reg p1_dead;
     
     wire [`MAX_BOMBS-1:0] p1_place_bomb_req, p1_bomb_active, p1_bomb_red, p1_explosion_active;
     wire [`MAX_BOMBS*4-1:0] p1_bomb_tx_flat, p1_bomb_ty_flat;
@@ -391,7 +391,7 @@ module Top_Student (
     wire [6:0] p2_x;
     wire [5:0] p2_y;
     wire [3:0] p2_tx, p2_ty;
-    wire p2_dead;
+    reg p2_dead;
     
     wire [`MAX_BOMBS-1:0] p2_place_bomb_req, p2_bomb_active, p2_bomb_red, p2_explosion_active;
     wire [`MAX_BOMBS*4-1:0] p2_bomb_tx_flat, p2_bomb_ty_flat;
@@ -613,9 +613,71 @@ module Top_Student (
     end
     
  
-
-
-
+    // =========================================================
+    // DEATH DETECTION
+    // =========================================================
+    
+    always @(posedge clk) begin
+        if (rst_game) begin
+            p1_dead <= 0;
+            p2_dead <= 0;
+        end else begin
+            for (player_i = 0; player_i < 2; player_i = player_i + 1) begin
+                for (bomb_i = 0; bomb_i < `MAX_BOMBS; bomb_i = bomb_i + 1) begin
+                    if (b_explosion_active[player_i][bomb_i]) begin
+                        
+                        // centre tile
+                        if (p1_tx == b_tx[player_i][bomb_i] && p1_ty == b_ty[player_i][bomb_i]) p1_dead <= 1;
+                        if (p2_tx == b_tx[player_i][bomb_i] && p2_ty == b_ty[player_i][bomb_i]) p2_dead <= 1;
+                        
+                        // UP
+                        if ((p1_tx == b_tx[player_i][bomb_i]) &&
+                            (p1_ty >= up_bound[player_i][bomb_i]) &&
+                            (p1_ty < b_ty[player_i][bomb_i]) &&
+                            (p1_ty >= up_tip[player_i][bomb_i])) p1_dead <= 1;
+                            
+                        if ((p2_tx == b_tx[player_i][bomb_i]) &&
+                            (p2_ty >= up_bound[player_i][bomb_i]) &&
+                            (p2_ty < b_ty[player_i][bomb_i]) &&
+                            (p2_ty >= up_tip[player_i][bomb_i])) p2_dead <= 1;
+                        
+                        // DOWN
+                        if ((p1_tx == b_tx[player_i][bomb_i]) &&
+                            (p1_ty <= down_bound[player_i][bomb_i]) &&
+                            (p1_ty > b_ty[player_i][bomb_i]) &&
+                            (p1_ty <= down_tip[player_i][bomb_i])) p1_dead <= 1;
+                            
+                        if ((p2_tx == b_tx[player_i][bomb_i]) &&
+                            (p2_ty <= down_bound[player_i][bomb_i]) &&
+                            (p2_ty > b_ty[player_i][bomb_i]) &&
+                            (p2_ty <= down_tip[player_i][bomb_i])) p2_dead <= 1;
+                        
+                        // LEFT
+                        if ((p1_ty == b_ty[player_i][bomb_i]) &&
+                            (p1_tx >= left_bound[player_i][bomb_i]) &&
+                            (p1_tx < b_tx[player_i][bomb_i]) &&
+                            (p1_tx >= left_tip[player_i][bomb_i])) p1_dead <= 1;
+                            
+                        if ((p2_ty == b_ty[player_i][bomb_i]) &&
+                            (p2_tx >= left_bound[player_i][bomb_i]) &&
+                            (p2_tx < b_tx[player_i][bomb_i]) &&
+                            (p2_tx >= left_tip[player_i][bomb_i])) p2_dead <= 1;
+                        
+                        // RIGHT
+                        if ((p1_ty == b_ty[player_i][bomb_i]) &&
+                            (p1_tx <= right_bound[player_i][bomb_i]) &&
+                            (p1_tx > b_tx[player_i][bomb_i]) &&
+                            (p1_tx <= right_tip[player_i][bomb_i])) p1_dead <= 1;
+                            
+                        if ((p2_ty == b_ty[player_i][bomb_i]) &&
+                            (p2_tx <= right_bound[player_i][bomb_i]) &&
+                            (p2_tx > b_tx[player_i][bomb_i]) &&
+                            (p2_tx <= right_tip[player_i][bomb_i])) p2_dead <= 1;
+                    end
+                end
+            end
+        end
+    end
 
     // =========================================================
     // TILE MAP UPDATES
@@ -723,6 +785,35 @@ module Top_Student (
     wire [2:0] local_x = (tile_x_of_pixel == 4'hF) ? 0 : (x - `MIN_PIX_X - tile_x_of_pixel * 6);
     wire [2:0] local_y = (tile_y_of_pixel == 4'hF) ? 0 : (y - `MIN_PIX_Y - tile_y_of_pixel * 6);
     
+    wire [3:0] up_bound    [0:1][0:`MAX_BOMBS-1];
+    wire [3:0] down_bound  [0:1][0:`MAX_BOMBS-1];
+    wire [3:0] left_bound  [0:1][0:`MAX_BOMBS-1];
+    wire [3:0] right_bound [0:1][0:`MAX_BOMBS-1];
+    
+    wire [3:0] up_tip    [0:1][0:`MAX_BOMBS-1];
+    wire [3:0] down_tip  [0:1][0:`MAX_BOMBS-1];
+    wire [3:0] left_tip  [0:1][0:`MAX_BOMBS-1];
+    wire [3:0] right_tip [0:1][0:`MAX_BOMBS-1];
+    
+    // precompute explosion boundaries per bomb instead of per pixel
+    
+    genvar pb, gb;
+        generate
+            for (pb = 0; pb < 2; pb = pb + 1) begin : exp_bound_player
+                for (gb = 0; gb < `MAX_BOMBS; gb = gb + 1) begin : exp_bound_bomb
+                    assign up_bound[pb][gb]    = b_ty[pb][gb] - b_stage[pb][gb];
+                    assign down_bound[pb][gb]  = b_ty[pb][gb] + b_stage[pb][gb];
+                    assign left_bound[pb][gb]  = b_tx[pb][gb] - b_stage[pb][gb];
+                    assign right_bound[pb][gb] = b_tx[pb][gb] + b_stage[pb][gb];
+        
+                    assign up_tip[pb][gb]    = b_ty[pb][gb] - up_len[pb][gb];
+                    assign down_tip[pb][gb]  = b_ty[pb][gb] + down_len[pb][gb];
+                    assign left_tip[pb][gb]  = b_tx[pb][gb] - left_len[pb][gb];
+                    assign right_tip[pb][gb] = b_tx[pb][gb] + right_len[pb][gb];
+                end
+            end
+        endgenerate
+    
     always @(*) begin
         if (tile_x_of_pixel == 4'hF || tile_y_of_pixel == 4'hF) oled_data_single = `OLED_ORANGE;
         else oled_data_single = expand_tile(tile_map[tile_x_of_pixel][tile_y_of_pixel], local_x, local_y);
@@ -737,34 +828,58 @@ module Top_Student (
                 
                 // explosion rendering TO BE CHANGED TO EXPAND TILE
                 if (b_explosion_active[player_i][bomb_i]) begin
-                    if (tile_x_of_pixel == b_tx[player_i][bomb_i] && tile_y_of_pixel == b_ty[player_i][bomb_i]) oled_data_single = `OLED_YELLOW;
+                    if (tile_x_of_pixel == b_tx[player_i][bomb_i] && tile_y_of_pixel == b_ty[player_i][bomb_i]) oled_data_single = `OLED_ORANGE; //  centre bomb explosion
      
                     // UP
-                    if ((b_stage[player_i][bomb_i] <= up_len[player_i][bomb_i]) &&
-                        (tile_x_of_pixel == b_tx[player_i][bomb_i]) &&
-                        (tile_y_of_pixel == b_ty[player_i][bomb_i] - b_stage[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
-     
+                    if ((tile_x_of_pixel == b_tx[player_i][bomb_i]) &&
+                        (tile_y_of_pixel >= up_bound[player_i][bomb_i]) &&
+                        (tile_y_of_pixel < b_ty[player_i][bomb_i]) &&
+                        (tile_y_of_pixel >= up_tip[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
+                    
                     // DOWN
-                    if ((b_stage[player_i][bomb_i] <= down_len[player_i][bomb_i]) &&
-                        (tile_x_of_pixel == b_tx[player_i][bomb_i]) &&
-                        (tile_y_of_pixel == b_ty[player_i][bomb_i] + b_stage[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
-     
+                    if ((tile_x_of_pixel == b_tx[player_i][bomb_i]) &&
+                        (tile_y_of_pixel <= down_bound[player_i][bomb_i]) &&
+                        (tile_y_of_pixel > b_ty[player_i][bomb_i]) &&
+                        (tile_y_of_pixel <= down_tip[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
+                    
                     // LEFT
-                    if ((b_stage[player_i][bomb_i] <= left_len[player_i][bomb_i]) &&
-                        (tile_x_of_pixel == b_tx[player_i][bomb_i] - b_stage[player_i][bomb_i]) &&
-                        (tile_y_of_pixel == b_ty[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
-     
+                    if ((tile_y_of_pixel == b_ty[player_i][bomb_i]) &&
+                        (tile_x_of_pixel >= left_bound[player_i][bomb_i]) &&
+                        (tile_x_of_pixel < b_tx[player_i][bomb_i]) &&
+                        (tile_x_of_pixel >= left_tip[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
+                    
                     // RIGHT
-                    if ((b_stage[player_i][bomb_i] <= right_len[player_i][bomb_i]) &&
-                        (tile_x_of_pixel == b_tx[player_i][bomb_i] + b_stage[player_i][bomb_i]) &&
-                        (tile_y_of_pixel == b_ty[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
+                    if ((tile_y_of_pixel == b_ty[player_i][bomb_i]) &&
+                        (tile_x_of_pixel <= right_bound[player_i][bomb_i]) &&
+                        (tile_x_of_pixel > b_tx[player_i][bomb_i]) &&
+                        (tile_x_of_pixel <= right_tip[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
+                    
+//                    // UP
+//                    if ((b_stage[player_i][bomb_i] <= up_len[player_i][bomb_i]) &&
+//                        (tile_x_of_pixel == b_tx[player_i][bomb_i]) &&
+//                        (tile_y_of_pixel == b_ty[player_i][bomb_i] - b_stage[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
+     
+//                    // DOWN
+//                    if ((b_stage[player_i][bomb_i] <= down_len[player_i][bomb_i]) &&
+//                        (tile_x_of_pixel == b_tx[player_i][bomb_i]) &&
+//                        (tile_y_of_pixel == b_ty[player_i][bomb_i] + b_stage[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
+     
+//                    // LEFT
+//                    if ((b_stage[player_i][bomb_i] <= left_len[player_i][bomb_i]) &&
+//                        (tile_x_of_pixel == b_tx[player_i][bomb_i] - b_stage[player_i][bomb_i]) &&
+//                        (tile_y_of_pixel == b_ty[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
+     
+//                    // RIGHT
+//                    if ((b_stage[player_i][bomb_i] <= right_len[player_i][bomb_i]) &&
+//                        (tile_x_of_pixel == b_tx[player_i][bomb_i] + b_stage[player_i][bomb_i]) &&
+//                        (tile_y_of_pixel == b_ty[player_i][bomb_i])) oled_data_single = `OLED_YELLOW;
                 end
             end
         end
 
         // player
-        if (p1_region) oled_data_single = `OLED_BLUE; //p1_dead ? `OLED_CYAN : `OLED_BLUE;
-        if (p2_region) oled_data_single = `OLED_RED; //comp_dead ? `OLED_PINK : `OLED_RED;
+        if (p1_region) oled_data_single = p1_dead ? `OLED_CYAN : `OLED_BLUE;
+        if (p2_region) oled_data_single = p2_dead ? `OLED_PINK : `OLED_RED;
 
         // draw walls
         if (x < `MIN_PIX_X || x > `MAX_PIX_X || y < `MIN_PIX_Y || y > `MAX_PIX_Y) oled_data_single = WALL_COLOR;

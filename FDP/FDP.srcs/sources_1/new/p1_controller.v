@@ -12,7 +12,7 @@ module p1_controller (input clk,
                       output reg [3:0] p1_tx, p1_ty,
                       output reg [6:0] p1_x,
                       output reg [5:0] p1_y,
-                      output p1_dead, 
+                      input p1_dead, 
                       
                       output [`MAX_BOMBS-1:0] place_bomb_req, bomb_active, bomb_red, explosion_active,
                       output [`MAX_BOMBS*4-1:0] bomb_tx_flat, bomb_ty_flat,
