@@ -114,8 +114,8 @@ module Top_Student (
 
     package_game_data game_inst (
         .clk(clk), 
-        .mouse_x(mouse_xpos), 
-        .mouse_y(mouse_ypos), 
+        .mouse_cx(mouse_cx), 
+        .mouse_cy(mouse_cy), 
         .mouse_left(mouse_left), 
         .mouse_middle(mouse_middle), 
         .mouse_right(mouse_right), 
@@ -125,15 +125,23 @@ module Top_Student (
     );
     
     // received from other player
-    wire [11:0] rec_mouse_xpos, rec_mouse_ypos;
+//    wire [11:0] rec_mouse_xpos, rec_mouse_ypos;
+//    wire rec_mouse_left, rec_mouse_middle, rec_mouse_right;
+//    assign {rec_mouse_xpos, rec_mouse_ypos, rec_mouse_left, rec_mouse_middle, rec_mouse_right} = data_rx_game;
+    
+    wire [6:0] rec_mouse_cx;
+    wire [5:0] rec_mouse_cy;
     wire rec_mouse_left, rec_mouse_middle, rec_mouse_right;
-    assign {rec_mouse_xpos, rec_mouse_ypos, rec_mouse_left, rec_mouse_middle, rec_mouse_right} = data_rx_game;
+    assign {rec_mouse_cx, rec_mouse_cy, rec_mouse_left, rec_mouse_middle, rec_mouse_right} = data_rx_game;
     
-    wire [3:0] rec_mouse_tx = (rec_mouse_xpos >= `MIN_PIX_X && rec_mouse_xpos <= `MAX_PIX_X) ? ((rec_mouse_xpos - `MIN_PIX_X) * 7'd43) >> 8 : 4'hF;
-    wire [3:0] rec_mouse_ty = (rec_mouse_ypos >= `MIN_PIX_Y && rec_mouse_ypos <= `MAX_PIX_Y) ? ((rec_mouse_ypos - `MIN_PIX_Y) * 7'd43) >> 8 : 4'hF;
+    wire [3:0] rec_mouse_tx = (rec_mouse_cx >= `MIN_PIX_X && rec_mouse_cx <= `MAX_PIX_X) ? ((rec_mouse_cx - `MIN_PIX_X) * 7'd43) >> 8 : 4'hF;
+    wire [3:0] rec_mouse_ty = (rec_mouse_cy >= `MIN_PIX_Y && rec_mouse_cy <= `MAX_PIX_Y) ? ((rec_mouse_cy - `MIN_PIX_Y) * 7'd43) >> 8 : 4'hF;
     
-    wire [6:0] rec_mouse_cx = (rec_mouse_xpos[6:0] < 1) ? 1 : (rec_mouse_xpos[6:0] > 94) ? 94 : rec_mouse_xpos[6:0];
-    wire [5:0] rec_mouse_cy = (rec_mouse_ypos[5:0] < 1) ? 1 : (rec_mouse_ypos[5:0] > 62) ? 62 : rec_mouse_ypos[5:0];
+//    wire [3:0] rec_mouse_tx = (rec_mouse_xpos >= `MIN_PIX_X && rec_mouse_xpos <= `MAX_PIX_X) ? ((rec_mouse_xpos - `MIN_PIX_X) * 7'd43) >> 8 : 4'hF;
+//    wire [3:0] rec_mouse_ty = (rec_mouse_ypos >= `MIN_PIX_Y && rec_mouse_ypos <= `MAX_PIX_Y) ? ((rec_mouse_ypos - `MIN_PIX_Y) * 7'd43) >> 8 : 4'hF;
+    
+//    wire [6:0] rec_mouse_cx = (rec_mouse_xpos[6:0] < 1) ? 1 : (rec_mouse_xpos[6:0] > 94) ? 94 : rec_mouse_xpos[6:0];
+//    wire [5:0] rec_mouse_cy = (rec_mouse_ypos[5:0] < 1) ? 1 : (rec_mouse_ypos[5:0] > 62) ? 62 : rec_mouse_ypos[5:0];
     
     // register pulses
     reg mouse_left_prev = 0, mouse_right_prev = 0, mouse_middle_prev = 0;
@@ -424,7 +432,7 @@ module Top_Student (
     
     p2_controller p2_ctrl_inst (
         .clk(clk),
-        .single_player(1), // change this later on
+        .single_player(single_player), // change this later on
         .goal_tx(p2_goal_tx),
         .goal_ty(p2_goal_ty),
         .mouse_left_pulse(p2_left),//rec_mouse_left_pulse),
@@ -620,8 +628,13 @@ module Top_Student (
     // =========================================================
     // TILE MAP UPDATES
     // =========================================================
-
+    
+    reg single_player_prev = 0;
     always @(posedge clk) begin
+        single_player_prev <= single_player;
+        if (single_player != single_player_prev)
+            gen_state <= `RESET;
+            
         case (gen_state)
             `RESET: begin
                 if (rst_game) begin
@@ -809,7 +822,9 @@ module Top_Student (
                 if (display_text)
                     oled_data <= oled_data_pair;
                 else
-                    oled_data <= oled_data_multi;
+                    if (player == `PLAYER_1) oled_data <= oled_data_single;
+                    else oled_data <= `OLED_BLACK;
+//                    oled_data <= oled_data_multi;
             end
 
             default: begin

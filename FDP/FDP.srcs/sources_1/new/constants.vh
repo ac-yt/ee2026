@@ -2,9 +2,9 @@
 `define BASYS_CLOCK_SPEED           100_000_000 //100_000_000
 `define CLOCK_SPEED                 50_000_000 //100_000_000
 `define BAUD_RATE                   115_200
-`define DATA_BITS                   27 // 16 // 12 for mouse x, 12 for mouse y, 3 for mouse clicks
 `define CODE_BITS                   8
-`define GAME_BITS                   (`DATA_BITS - `CODE_BITS)
+`define GAME_BITS                   16 // 7 + 6 + 3
+`define DATA_BITS                   (`GAME_BITS + `CODE_BITS)
 
 `define PLAYER_1                    0
 `define PLAYER_2                    1
