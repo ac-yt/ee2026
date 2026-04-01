@@ -20,7 +20,7 @@ Changes:
 * Moved the player goal position calculation inside the respective player controllers
 * Made multiplayer mode show the game instead of a white screen
 
-To do:
+## Important To-dos
 * Powerup OLED
 * Integrate user interface
 * Fix bot escape logic
