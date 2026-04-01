@@ -67,7 +67,7 @@ module a_star_mux_movement_tb;
         .path_flat_x(p1_pfx), .path_flat_y(p1_pfy),
         .path_valid(p1_valid), .path_len(p1_len)
     );
-    defparam uut_p1.MAX_MOVE_COUNT = 500 / `COMPUTER_DEFAULT_SPEED;
+    defparam uut_p1.MAX_MOVE_COUNT = 500 / `BOT_DEFAULT_SPEED;
 
     movement_controller uut_comp (
         .clk(clk), .led(comp_led), .map_changed(map_changed),
@@ -80,7 +80,7 @@ module a_star_mux_movement_tb;
         .path_flat_x(comp_pfx), .path_flat_y(comp_pfy),
         .path_valid(comp_valid), .path_len(comp_len)
     );
-    defparam uut_comp.MAX_MOVE_COUNT = 500 / `COMPUTER_DEFAULT_SPEED;
+    defparam uut_comp.MAX_MOVE_COUNT = 500 / `BOT_DEFAULT_SPEED;
 
     a_star_mux uut_mux (
         .clk(clk),

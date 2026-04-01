@@ -3,12 +3,13 @@
 `include "constants.vh"
 
 module p1_controller (input clk,
-                      input [3:0] goal_tx, goal_ty,
+                      input [3:0] mouse_tx, mouse_ty, //goal_tx, goal_ty,
                       input mouse_left_pulse, mouse_right_pulse, mouse_middle_pulse,
                       input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
                       input [1:0] speed_multiplier,
                       input map_changed,
                       
+                      output reg [3:0] goal_tx, goal_ty,
                       output reg [3:0] p1_tx, p1_ty,
                       output reg [6:0] p1_x,
                       output reg [5:0] p1_y,
@@ -25,6 +26,13 @@ module p1_controller (input clk,
                       input [4*`MAX_PATH_LEN-1:0] path_flat_x, path_flat_y,
                       input path_valid, 
                       input [6:0] path_len);
+      
+    always @ (posedge clk) begin
+        if (mouse_left_pulse) begin
+            goal_tx <= mouse_tx;
+            goal_ty <= mouse_ty;
+        end
+    end
     
 //    reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
 //    integer ux, uy; // unpack map
@@ -67,12 +75,14 @@ module p1_controller (input clk,
                                      .as_update(update), .as_baw(blocks_as_walls), .path_flat_x(path_flat_x), .path_flat_y(path_flat_y),
                                      .path_valid(path_valid), .path_len(path_len));
     
+    wire bomb_trigger = p1_dead ? 0 : mouse_right_pulse;
+    
     bomb_controller p1_bomb_inst (
         .clk(clk),
-        .trigger(mouse_right_pulse),
+        .trigger(bomb_trigger),
         .player_tx(p1_tx),
         .player_ty(p1_ty),
-        .player_dead(p1_dead),
+//        .player_dead(p1_dead),
         .bomb_active(bomb_active),
         .bomb_tx_flat(bomb_tx_flat),
         .bomb_ty_flat(bomb_ty_flat),

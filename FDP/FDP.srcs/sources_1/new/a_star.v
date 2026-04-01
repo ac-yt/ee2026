@@ -36,6 +36,8 @@ module a_star (input clk, update, blocks_as_walls,
     reg [3:0] par_y_out = 0;
     reg [2:0] nb_is_wall = 0; // read in NB_BRAM_WAIT to use in NB_CHECK_VALID
     reg [2:0] nb_is_block = 0; // read in NB_BRAM_WAIT to use in NB_CHECK_VALID
+    reg [2:0] nb_is_bomb = 0;
+    
     reg [2:0] tile_base_cost = 0; // read in NB_BRAM_WAIT to use in NB_CHECK_OPEN/CLOSED
     reg [$clog2(MAX_F)-1:0] nb_heuristic = 0;
     
@@ -151,7 +153,8 @@ module a_star (input clk, update, blocks_as_walls,
                 end
                 NB_CHECK_VALID: begin // check if neighbor is within bounds and is not a wall
                     if (nb_x != 4'hF && nb_x < `TILE_MAP_WIDTH && nb_y != 4'hF && nb_y < `TILE_MAP_HEIGHT)
-                        if (!nb_is_wall && (!blocks_as_walls || !nb_is_block)) next_state = NB_CHECK_GOAL;
+                        if (!nb_is_wall && !nb_is_bomb && (!blocks_as_walls || !nb_is_block)) next_state = NB_CHECK_GOAL;
+//                        if (!nb_is_wall && (!blocks_as_walls || !nb_is_block)) next_state = NB_CHECK_GOAL;
 //                        if (tile_map[nb_x][nb_y] != `MAP_WALL && (!blocks_as_walls && tile_map[nb_x][nb_y] != `MAP_BLOCK)) next_state = NB_CHECK_GOAL;
 //                        if (tile_map[nb_x][nb_y] != `MAP_WALL && (!blocks_as_walls || tile_map[nb_x][nb_y] != `MAP_BLOCK)) next_state = NB_CHECK_GOAL;
                         else next_state = NB_NEXT;
@@ -343,6 +346,7 @@ module a_star (input clk, update, blocks_as_walls,
                 NB_BRAM_WAIT: begin
                     nb_is_wall <= (tile_map[nb_x][nb_y] == `MAP_WALL);
                     nb_is_block <= (tile_map[nb_x][nb_y] == `MAP_BLOCK);
+                    nb_is_bomb <= (tile_map[nb_x][nb_y] == `MAP_BLAST);
                     tile_base_cost <= (tile_map[nb_x][nb_y] == `MAP_BLOCK) ? BLOCK_COST : EMPTY_COST;
                 end
                 NB_CHECK_VALID: begin end // nothing done here

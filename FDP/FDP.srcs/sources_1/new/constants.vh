@@ -9,6 +9,9 @@
 `define PLAYER_1                    0
 `define PLAYER_2                    1
 
+// power up
+`define POWER_UP_SPAWN_RATE         128 // 192 (3 quarter)
+
 // pairing states
 `define SINGLE                      3'b000
 `define REQUEST                     3'b001
@@ -47,6 +50,7 @@
 // bomb controller
 `define MAX_BOMBS                   2
 `define MAX_RADIUS                  2
+`define MAX_SPEED_INCR              3
 
 // path parameters
 `define MAX_PATH_LEN                40 // 81
@@ -58,16 +62,15 @@
 `define PLAYER_HEIGHT               3'b100
 `define PLAYER_DEFAULT_SPEED        35
 `define PLAYER_SPEED_INCREMENT      8
-`define PLAYER_MAX_SPEED            (`PLAYER_DEFAULT_SPEED + 2 * `PLAYER_SPEED_INCREMENT)
+`define PLAYER_MAX_SPEED            (`PLAYER_DEFAULT_SPEED + `MAX_SPEED_INCR * `PLAYER_SPEED_INCREMENT)
 
 // single player
 `define PATH_SPEED                  25_000_000
-`define COMPUTER_DEFAULT_SPEED      25
-`define COMPUTER_SPEED_INCREMENT    5
-`define COMPUTER_MAX_SPEED          (`COMPUTER_DEFAULT_SPEED + 2 * `COMPUTER_SPEED_INCREMENT)
+`define BOT_DEFAULT_SPEED           20
+`define BOT_SPEED_INCREMENT         5
+`define BOT_MAX_SPEED               (`BOT_DEFAULT_SPEED + `MAX_SPEED_INCR * `BOT_SPEED_INCREMENT)
 //`define PLAYER_UPDATE_TIME          (15 * `PATH_SPEED * `TILE_SIZE) / (10 * `PLAYER_DEFAULT_TIME) // 1.2 times the time taken to travel between tiles
 //`define UPDATE_TIME                 (12 * `PATH_SPEED * `TILE_SIZE) / (10 * `COMPUTER_DEFAULT_SPEED) // 1.2 times the time taken to travel between tiles
-
 
 // colors
 `define OLED_RED          16'hF800

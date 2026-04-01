@@ -30,7 +30,7 @@ module movement_controller (input clk,// output reg [15:0] led,
     wire path_valid_pulse = path_valid & ~path_valid_prev; // single-cycle pulse in fast domain when path_valid safely rises
     
     // move tick
-    parameter integer MAX_MOVE_COUNT = `CLOCK_SPEED / `COMPUTER_DEFAULT_SPEED;
+    parameter integer MAX_MOVE_COUNT = `CLOCK_SPEED / `BOT_DEFAULT_SPEED;
     wire [31:0] move_count_thresh = `CLOCK_SPEED / speed; // changes based on speed
     reg [$clog2(MAX_MOVE_COUNT)-1:0] move_counter = 0;
     wire move_tick = (move_counter == move_count_thresh - 1);
@@ -98,8 +98,7 @@ module movement_controller (input clk,// output reg [15:0] led,
     wire baw_changed = ~as_baw & as_baw_prev;
     
     // update map
-    wire tile_aligned = (pos_x == `MIN_PIX_X + pos_tx * `TILE_SIZE + 1) &&
-                            (pos_y == `MIN_PIX_Y + pos_ty * `TILE_SIZE + 1);
+    wire tile_aligned = (pos_x == `MIN_PIX_X + pos_tx * `TILE_SIZE + 1) && (pos_y == `MIN_PIX_Y + pos_ty * `TILE_SIZE + 1);
     reg update_pending = 0;
     always @ (posedge clk) begin
         if (goal_changed || baw_changed || map_changed) update_pending <= 1;

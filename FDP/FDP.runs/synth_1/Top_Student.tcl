@@ -24,46 +24,46 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.cache/wt [current_project]
-set_property parent.project_path C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.xpr [current_project]
+set_property webtalk.parent_dir C:/VivadoProjects/ee2026/FDP/FDP.cache/wt [current_project]
+set_property parent.project_path C:/VivadoProjects/ee2026/FDP/FDP.xpr [current_project]
 set_property XPM_LIBRARIES XPM_MEMORY [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo c:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.cache/ip [current_project]
+set_property ip_output_repo c:/VivadoProjects/ee2026/FDP/FDP.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
-add_files C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/imports/res/weights.coe
-add_files C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/imports/res/00.coe
-read_verilog C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/constants.vh
+add_files C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/imports/res/weights.coe
+add_files C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/imports/res/00.coe
+read_verilog C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/constants.vh
 read_verilog -library xil_defaultlib {
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/imports/Desktop/Oled_Display.v
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/board_communication.v
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/seven_segment.v
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/uart.v
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/variable_clock.v
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/movement_controller.v
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/lfsr_rng.v
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/a_star_mux.v
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/p1_controller.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/imports/Desktop/Oled_Display.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/board_communication.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/seven_segment.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/uart.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/variable_clock.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/Top_Student.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bomb_controller.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/movement_controller.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/lfsr_rng.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/a_star_mux.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p2_controller.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/p1_controller.v
 }
 read_vhdl -library xil_defaultlib {
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/imports/Desktop/Mouse_Control.vhd
-  C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/imports/Desktop/Ps2Interface.vhd
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/imports/Desktop/Mouse_Control.vhd
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/imports/Desktop/Ps2Interface.vhd
 }
-read_ip -quiet C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci
-set_property used_in_implementation false [get_files -all c:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter_ooc.xdc]
+read_ip -quiet C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci
+set_property used_in_implementation false [get_files -all c:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter_ooc.xdc]
 
-read_ip -quiet C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci
-set_property used_in_implementation false [get_files -all c:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0_ooc.xdc]
+read_ip -quiet C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci
+set_property used_in_implementation false [get_files -all c:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0_ooc.xdc]
 
-read_ip -quiet C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_const/blk_mem_gen_const.xci
-set_property used_in_implementation false [get_files -all c:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_const/blk_mem_gen_const_ooc.xdc]
+read_ip -quiet C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_const/blk_mem_gen_const.xci
+set_property used_in_implementation false [get_files -all c:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_const/blk_mem_gen_const_ooc.xdc]
 
-read_ip -quiet C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_img/blk_mem_gen_img.xci
-set_property used_in_implementation false [get_files -all c:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_img/blk_mem_gen_img_ooc.xdc]
+read_ip -quiet C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_img/blk_mem_gen_img.xci
+set_property used_in_implementation false [get_files -all c:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_img/blk_mem_gen_img_ooc.xdc]
 
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -73,8 +73,8 @@ set_property used_in_implementation false [get_files -all c:/Users/User/OneDrive
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/constrs_1/new/Basys3_Master.xdc
-set_property used_in_implementation false [get_files C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/constrs_1/new/Basys3_Master.xdc]
+read_xdc C:/VivadoProjects/ee2026/FDP/FDP.srcs/constrs_1/new/Basys3_Master.xdc
+set_property used_in_implementation false [get_files C:/VivadoProjects/ee2026/FDP/FDP.srcs/constrs_1/new/Basys3_Master.xdc]
 
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]

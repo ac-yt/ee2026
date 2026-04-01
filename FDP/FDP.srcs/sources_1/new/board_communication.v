@@ -4,13 +4,14 @@
 
 module package_game_data (input clk,
                           input player,
-                          input [11:0] mouse_x, mouse_y,
+                          input [6:0] mouse_cx, 
+                          input [5:0] mouse_cy,
                           input mouse_left, mouse_middle, mouse_right,
                           // to add number of power ups
                           output reg tx_en,
                           output reg [`GAME_BITS-1:0] data_tx_game=0);
                           
-    wire [`DATA_BITS-1:0] data = {mouse_x, mouse_y, mouse_left, mouse_middle, mouse_right};
+    wire [`DATA_BITS-1:0] data = {mouse_cx, mouse_cy, mouse_left, mouse_middle, mouse_right};
     reg [`DATA_BITS-1:0] prev_data = 0;
     
     always @ (posedge clk) begin
