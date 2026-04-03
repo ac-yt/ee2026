@@ -8,20 +8,19 @@ Week 8 Submission: https://nusu-my.sharepoint.com/:w:/g/personal/e1399074_u_nus_
 Report: https://nusu-my.sharepoint.com/:w:/g/personal/e1399074_u_nus_edu/IQBU9xSwJj5MQ6xbADAzMiu1AXfPLSG2szBlvLrRMgCU2-s?e=QDlhi6
 
 
-## Latest Version Changes (V3.4, 29/3)
+## Latest Version Changes (V3.6, 4/4)
 Changes:
-* Added power up collection
-  * Made power up spawn rate a constant, made spawn rate 50%
-* Added MAP_BLAST, made bomb explosion fill, changed bomb rendering to use expand tile
-  * Changed to use FSM queue request instead of for loop to reduce LUT usage
-* Added player dead
-* Added MAP_BLAST as obstacle in A*
-* Slowed down mouse movement to half the speed
-* Moved the player goal position calculation inside the respective player controllers
-* Made multiplayer mode show the game instead of a white screen
+* Integrated UI
+  * Made pairing use a button, automatically unpair if leave game etc.
+  * Added resetting based on UI to generate new map
+* Added power up OLED as a module
+
 
 ## Important To-dos
-* Powerup OLED
-* Integrate user interface
-* Fix bot escape logic
-* Add bot bomb player logic
+* Fix power up bug
+* Add sending power up data from P1/P2 or show both on P1
+* Fix bot following player if there is safe path while bomb is exploding
+* Save state (save tile map, player positions, player stats) only for single state (do not do for multi-state because too many variables already)
+* Only show resume button when there is already a saved game (for single) or during the game (multi)
+* Make pairing FSM use debounced buttons (move debounce to separate module for organisation)
+* Add start game display (freeze players for short while) + game over display when someone dies
