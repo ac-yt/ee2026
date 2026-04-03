@@ -7,25 +7,25 @@ module Top_Student (
     input btnC, btnL, btnR, btnU, btnD, UART_RX,
     inout ps2_clk, ps2_data,
     input [15:0] sw,
+    output [7:0] JA,
     output [7:0] JC,
     output UART_TX,
-    output reg [15:0] led,
+    output [1:0] led2,
+    output reg [15:2] led,
     output [7:0] seg,
     output [3:0] an
 );
-    
-    wire game_active = sw[15];
 
     wire clk;
     variable_clock #(.CLOCK_SPEED(`BASYS_CLOCK_SPEED), .OUT_SPEED(`CLOCK_SPEED)) clk_inst
                     (.clk(basys_clk), .clk_out(clk));
 
 
-
+    
 
 
     // =========================================================
-    // MOUSE AND COMMUNICATION
+    // MOUSE
     // =========================================================
     
     // own mouse
@@ -63,16 +63,6 @@ module Top_Student (
                 mouse_setmax_y <= 1;
                 mouse_init_state <= 2;
             end
-            /*2: begin
-                mouse_value <= 0;
-                mouse_setx <= 1;
-                mouse_init_state <= 3;
-            end
-            3: begin
-                mouse_value <= 0;
-                mouse_sety <= 1;
-                mouse_init_state <= 4;
-            end*/
             default: begin end              // stay here forever
         endcase
     end
@@ -100,13 +90,16 @@ module Top_Student (
     wire [2:0] pair_state;
     wire single_player = (pair_state == `SINGLE);
 
-    reg [`DATA_BITS-1:0] data_tx = 0;
     wire [`CODE_BITS-1:0] data_tx_code;
     wire [`GAME_BITS-1:0] data_tx_game;
+    reg [`DATA_BITS-1:0] data_tx = 0;
+//    wire [`DATA_BITS-1:0] data_tx = {data_tx_game, data_tx_code};
+
     wire [`DATA_BITS-1:0] data_rx;
     wire [`CODE_BITS-1:0] data_rx_code = data_rx[`CODE_BITS-1:0];
     wire [`GAME_BITS-1:0] data_rx_game = data_rx[`DATA_BITS-1:`CODE_BITS];
     wire tx_en = tx_en_code | (tx_en_game && pair_state == `PAIRED); //tx_en_game;
+    wire send_pair_req, send_unpair_req;
 
     uart_tx tx_inst (.clk(clk), .rst(0), .tx_en(tx_en), .data(data_tx), .tx(UART_TX), .busy(busy_tx));
 
@@ -118,8 +111,10 @@ module Top_Student (
         .busy_tx(busy_tx), 
         .btn_accept(btnU), 
         .btn_cancel(btnD), 
-        .btn_pair_one(btnL), 
-        .btn_pair_two(btnR),
+        .send_pair_req(send_pair_req),
+        .send_unpair_req(send_unpair_req),
+//        .btn_pair_one(btnL), 
+//        .btn_pair_two(btnR),
         .data_rx_code(data_rx_code), 
         .tx_en(tx_en_code), 
         .data_tx_code(data_tx_code), 
@@ -127,6 +122,8 @@ module Top_Student (
         .player(player)
     );
 
+    reg [1:0] p2_bomb_radius = 1, p2_bomb_count = 1, p2_speed_incr = 0;
+    
     package_game_data game_inst (
         .clk(clk), 
         .mouse_cx(mouse_cx), 
@@ -134,6 +131,9 @@ module Top_Student (
         .mouse_left(mouse_left), 
         .mouse_middle(mouse_middle), 
         .mouse_right(mouse_right), 
+//        .bomb_count(2'b00),//p2_bomb_count),
+//        .bomb_radius(2'b00),//p2_bomb_radius),
+//        .speed_incr(2'b00),//p2_speed_incr),
         .tx_en(tx_en_game), 
         .player(player), 
         .data_tx_game(data_tx_game)
@@ -143,7 +143,10 @@ module Top_Student (
     wire [6:0] rec_mouse_cx;
     wire [5:0] rec_mouse_cy;
     wire rec_mouse_left, rec_mouse_middle, rec_mouse_right;
+    wire [1:0] rec_bomb_count, rec_bomb_radius, rec_speed_incr;
+    
     assign {rec_mouse_cx, rec_mouse_cy, rec_mouse_left, rec_mouse_middle, rec_mouse_right} = data_rx_game;
+//    assign {rec_mouse_cx, rec_mouse_cy, rec_mouse_left, rec_mouse_middle, rec_mouse_right, rec_bomb_count, rec_bomb_radius, rec_speed_incr} = data_rx_game;
     
     wire [3:0] rec_mouse_tx = (rec_mouse_cx >= `MIN_PIX_X && rec_mouse_cx <= `MAX_PIX_X) ? ((rec_mouse_cx - `MIN_PIX_X) * 7'd43) >> 8 : 4'hF;
     wire [3:0] rec_mouse_ty = (rec_mouse_cy >= `MIN_PIX_Y && rec_mouse_cy <= `MAX_PIX_Y) ? ((rec_mouse_cy - `MIN_PIX_Y) * 7'd43) >> 8 : 4'hF;
@@ -166,13 +169,8 @@ module Top_Student (
         rec_mouse_right_prev <= rec_mouse_right;
         rec_mouse_middle_prev <= rec_mouse_middle;
     end
-    
-    wire p1_left = mouse_left_pulse & game_active;
-    wire p1_middle = mouse_right_pulse & game_active;
-    wire p1_right = mouse_right_pulse & game_active;
-    wire p2_left = rec_mouse_left_pulse & game_active;
-    wire p2_middle = rec_mouse_right_pulse & game_active;
-    wire p2_right = rec_mouse_right_pulse & game_active;
+
+
 
 
 
@@ -181,22 +179,25 @@ module Top_Student (
     // =========================================================
     
     wire clk_6p25m;
-    wire frame_begin, sending_pixels, sample_pixel;
-    wire [12:0] pixel_index;
 
     reg [15:0] oled_data = 16'h0000;
     wire [15:0] oled_data_pair;
     reg [15:0] oled_data_single = 16'h0000;
-    reg [15:0] oled_data_multi  = 16'hFFFF;
+    reg [15:0] oled_data_multi = 16'hFFFF;
+    wire [15:0] oled_data_powerup;
+    
+    // game oled
+    wire frame_begin, sending_pixels, sample_pixel;
+    wire [12:0] pixel_index;
 
     wire [6:0] x = pixel_index % `PIX_WIDTH;
     wire [5:0] y = pixel_index / `PIX_WIDTH;
 
     variable_clock #(.CLOCK_SPEED(`CLOCK_SPEED), .OUT_SPEED(6_250_000)) clk_6p25m_inst (.clk(clk), .clk_out(clk_6p25m));
 
-    pairing_oled pair_oled_inst (.clk(clk), .pair_state(pair_state), .x(x), .y(y), .oled_data(oled_data_pair));
+//    pairing_oled pair_oled_inst (.clk(clk), .pair_state(pair_state), .x(x), .y(y), .oled_data(oled_data_pair)); // replaced with ui interface
 
-    Oled_Display oled1 (
+    Oled_Display oled_game (
         .clk(clk_6p25m),
         .reset(1'b0),
         .frame_begin(frame_begin),
@@ -212,24 +213,83 @@ module Top_Student (
         .vccen(JC[6]),
         .pmoden(JC[7])
     );
+    
+    // power up oled
+    wire frame_begin_pu, sending_pixels_pu, sample_pixel_pu;
+    wire [12:0] pixel_index_pu;
+    
+    wire [6:0] pu_x_raw = pixel_index_pu % `PIX_WIDTH;
+    wire [5:0] pu_y_raw = pixel_index_pu / `PIX_WIDTH;
+    
+    // flip both axes to correct for 180° physical rotation bc oled on other side
+    wire [6:0] pu_x = (`PIX_WIDTH  - 1) - pu_x_raw;   // 95 - raw_x
+    wire [5:0] pu_y = (`PIX_HEIGHT - 1) - pu_y_raw;   // 63 - raw_y
+    
+    Oled_Display oled_powerup (
+        .clk(clk_6p25m),
+        .reset(1'b0),
+        .frame_begin(frame_begin_pu),        // separate wire
+        .sending_pixels(sending_pixels_pu),  // separate wire
+        .sample_pixel(sample_pixel_pu),      // separate wire
+        .pixel_index(pixel_index_pu),        // separate wire
+        .pixel_data(oled_data_powerup),
+        .cs(JA[0]),
+        .sdin(JA[1]),
+        .sclk(JA[3]),
+        .d_cn(JA[4]),
+        .resn(JA[5]),
+        .vccen(JA[6]),
+        .pmoden(JA[7])
+    );
+    
+    
+    
+    
+    
+    // =========================================================
+    // INTERFACE
+    // =========================================================
 
-    parameter DISPLAY_TIME = 3 * `CLOCK_SPEED; // for the displaying of PAIRED
-    reg [$clog2(DISPLAY_TIME):0] display_counter = 0;
-    reg display_text = 0;
-    
-    
-    
-    
-    
+    wire [15:0] oled_data_ui;
+    wire [2:0] ui_state;
+    reg [1:0] gen_state = `RESET; 
+   
+    wire game_active; // from interface fsm, true when in game state
+    wire rst_game;
+    parameter integer FREEZE_TIME = 3 * `CLOCK_SPEED; // do not allow movement until 3 seconds after reset
+    reg [$clog2(FREEZE_TIME)-1:0] freeze_counter = 0;
+    reg game_ready = 0;
+
+    always @ (posedge clk) begin
+        if (!game_active || rst_game) begin
+            game_ready <= 0;
+//            freeze_counter <= 0;
+          end
+          else if (!game_ready && gen_state == `GAMEPLAY) begin
+            game_ready <= 1;
+//            if (freeze_counter >= FREEZE_TIME-1) begin
+//                game_ready <= 1;
+//                freeze_counter <= 0;
+//            end
+//            else freeze_counter <= freeze_counter + 1;
+        end
+    end
+
+    interface_fsm ui_inst (.clk(clk), .btnL(btnL), .btnR(btnR), .btnC(btnC), .btnU(btnU), .btnD(btnD), .sw(sw[8:0]), .pair_state(pair_state), .player(player),
+                           .send_pair_req(send_pair_req), .send_unpair_req(send_unpair_req), 
+                           .x(x), .y(y), .oled_data(oled_data_ui), .state(ui_state), .rst_game(rst_game), .game_active(game_active));
+
+
+
+
+
     // =========================================================
     // RANDOM SEED & GENERATION
     // =========================================================
     
     wire [15:0] random_seed;
-    wire rst_game = btnC; // connect to switch
     lfsr_rng random_unit(.clk(basys_clk), .rnd(random_seed), .reset(1'b0));
     
-    reg [1:0] gen_state = `RESET; 
     reg [3:0] tx = 0, ty = 0;
     parameter WALL_COLOR = `OLED_WHITE;
         
@@ -327,13 +387,17 @@ module Top_Student (
     // =========================================================
     
     reg map_changed = 0;
+        
+    wire p1_left = mouse_left_pulse & game_ready;
+    wire p1_middle = mouse_right_pulse & game_ready;
+    wire p1_right = mouse_right_pulse & game_ready;
                               
     wire [6:0] p1_x;
     wire [5:0] p1_y;
     wire [3:0] p1_tx, p1_ty;
     reg p1_dead;
     
-    reg[1:0] p1_bomb_radius = 1, p1_bomb_count = 1, p1_speed_incr = 1;
+    reg [1:0] p1_bomb_radius = 1, p1_bomb_count = 1, p1_speed_incr = 0;
     
     wire [`MAX_BOMBS-1:0] p1_place_bomb_req, p1_bomb_active, p1_bomb_red, p1_explosion_active;
     wire [`MAX_BOMBS*4-1:0] p1_bomb_tx_flat, p1_bomb_ty_flat;
@@ -345,6 +409,7 @@ module Top_Student (
     always @ (posedge clk) p1_explosion_active_prev <= p1_explosion_active;
     
     wire p1_update, p1_baw, p1_valid;
+//    wire p1_bmaw;
     wire [4*`MAX_PATH_LEN-1:0] p1_pfx, p1_pfy;
     wire [6:0] p1_len;
     
@@ -352,6 +417,8 @@ module Top_Student (
     
     p1_controller p1_ctrl_inst (
         .clk(clk),
+        .rst_game(rst_game),
+        .game_ready(game_ready),
         .goal_tx(p1_goal_tx),
         .goal_ty(p1_goal_ty),
         .mouse_tx(mouse_tx),
@@ -383,18 +450,21 @@ module Top_Student (
         
         .update(p1_update),
         .blocks_as_walls(p1_baw),
+//        .bombs_as_walls(p1_bmaw),
         .path_flat_x(p1_pfx),
         .path_flat_y(p1_pfy),
         .path_valid(p1_valid),
         .path_len(p1_len)
     );
     
+    wire p2_left = rec_mouse_left_pulse & game_ready;
+    wire p2_middle = rec_mouse_right_pulse & game_ready;
+    wire p2_right = rec_mouse_right_pulse & game_ready;
+    
     wire [6:0] p2_x;
     wire [5:0] p2_y;
     wire [3:0] p2_tx, p2_ty;
     reg p2_dead;
-    
-    reg [1:0] p2_bomb_radius = 1, p2_bomb_count = 1, p2_speed_incr = 1;
     
     wire [`MAX_BOMBS-1:0] p2_place_bomb_req, p2_bomb_active, p2_bomb_red, p2_explosion_active;
     wire [`MAX_BOMBS*4-1:0] p2_bomb_tx_flat, p2_bomb_ty_flat;
@@ -406,16 +476,22 @@ module Top_Student (
     always @ (posedge clk) p2_explosion_active_prev <= p2_explosion_active;
     
     wire p2_update, p2_baw, p2_valid;
+    wire p2_bmaw;
     wire [4*`MAX_PATH_LEN-1:0] p2_pfx, p2_pfy;
     wire [6:0] p2_len;
           
     wire [3:0] p2_goal_tx, p2_goal_ty;
     
     p2_controller p2_ctrl_inst (
+        .led(led2),
         .clk(clk),
-        .single_player(1), // change this later on
+        .rst_game(rst_game),
+        .game_ready(game_ready),
+        .single_player(single_player), // change this later on
         .p1_tx(p1_tx),
         .p1_ty(p1_ty),
+        .p1_goal_tx(p1_goal_tx),
+        .p1_goal_ty(p1_goal_ty),
         .goal_tx(p2_goal_tx),
         .goal_ty(p2_goal_ty),
         .mouse_tx(rec_mouse_tx),
@@ -445,8 +521,14 @@ module Top_Student (
         .bomb_count(p2_bomb_count),
         .bomb_radius(p2_bomb_radius),
         
+        .p1_bomb_tx_flat(p1_bomb_tx_flat),
+        .p1_bomb_ty_flat(p1_bomb_ty_flat),
+        .p1_bomb_active(p1_bomb_active),
+        .p1_explosion_active(p1_explosion_active),
+        
         .update(p2_update),
         .blocks_as_walls(p2_baw),
+        .bombs_as_walls(p2_bmaw),
         .path_flat_x(p2_pfx),
         .path_flat_y(p2_pfy),
         .path_valid(p2_valid),
@@ -456,8 +538,9 @@ module Top_Student (
     a_star_mux as_mux_inst (
         .clk(clk),
         .tile_map_flat(tile_map_flat),
-        .c0_update(p1_update & game_active), 
+        .c0_update(p1_update & game_ready), 
         .c0_baw(p1_baw), 
+        .c0_bmaw(0), 
         .c0_stx(p1_tx), 
         .c0_sty(p1_ty), 
         .c0_gtx(p1_goal_tx), 
@@ -467,8 +550,9 @@ module Top_Student (
         .c0_valid(p1_valid), 
         .c0_len(p1_len),
        
-        .c1_update(p2_update & game_active), 
+        .c1_update(p2_update & game_ready), 
         .c1_baw(p2_baw),
+        .c1_bmaw(p2_bmaw),
         .c1_stx(p2_tx), 
         .c1_sty(p2_ty), 
         .c1_gtx(p2_goal_tx), 
@@ -641,6 +725,10 @@ module Top_Student (
         end
     endgenerate
     
+    
+    
+    
+    
     // =========================================================
     // BLAST FSM DECLARATIONS
     // =========================================================
@@ -662,29 +750,30 @@ module Top_Student (
     
     parameter STORE_DATA = 0;
     parameter UPDATE = 1;
-    
-//    always @ (posedge clk) begin
-//    end
-
-    // latch pending flags
-//    always @(posedge clk) begin
-        
-//        if (p1_collecting) tile_map[p1_tx][p1_ty] <= `MAP_EMPTY;
-//        if (p2_collecting) tile_map[p2_tx][p2_ty] <= `MAP_EMPTY;
-        
-//        if (gen_state == `GAMEPLAY) begin
-            
-//        end
-//    end
 
     always @(posedge clk) begin
+        if (rst_game) begin
+            bomb_state <= STORE_DATA;
+            place_pending[0][0] <= 0;
+            place_pending[0][1] <= 0;
+            place_pending[1][0] <= 0;
+            place_pending[1][1] <= 0;
+            blast_stage_pending[0][0] <= 0;
+            blast_stage_pending[0][1] <= 0;
+            blast_stage_pending[1][0] <= 0;
+            blast_stage_pending[1][1] <= 0;
+            end_pending[0][0] <= 0;
+            end_pending[0][1] <= 0;
+            end_pending[1][0] <= 0;
+            end_pending[1][1] <= 0;
+        end
+        
         case (gen_state)
             `RESET: begin
-                if (rst_game) begin
-                    tx <= 0;
-                    ty <= 0;
-                    gen_state <= `GENERATION;
-                end
+                tx <= 0;
+                ty <= 0;
+                
+                gen_state <= `GENERATION;
             end
             `GENERATION: begin // PHASE: GENERATION
                 if ((tx % 2 == 1) && (ty % 2 == 1)) tile_map[tx][ty] <= `MAP_WALL;
@@ -703,147 +792,150 @@ module Top_Student (
             `GAMEPLAY: begin // PHASE: GAMEPLAY (One driver for all updates!), blocks generate powerups ~75% of the time
                 if (rst_game) gen_state <= `RESET;
                 
-                map_changed <= game_active && (|p1_place_bomb_req | |p1_explosion_start | |p1_explosion_end |
-                                               |p2_place_bomb_req | |p2_explosion_start | |p2_explosion_end |
-                                               p1_collecting | p2_collecting);
-                
-                if (p1_collecting) tile_map[p1_tx][p1_ty] <= `MAP_EMPTY;
-                if (p2_collecting) tile_map[p2_tx][p2_ty] <= `MAP_EMPTY;
-                                               
-                if (b_place_req[0][0]) place_pending[0][0] <= 1;
-                if (b_place_req[0][1]) place_pending[0][1] <= 1;
-                if (b_place_req[1][0]) place_pending[1][0] <= 1;
-                if (b_place_req[1][1]) place_pending[1][1] <= 1;
-                
-                if (b_explosion_active[0][0] && b_stage_changed[0][0]) blast_stage_pending[0][0] <= 1;
-                if (b_explosion_active[0][1] && b_stage_changed[0][1]) blast_stage_pending[0][1] <= 1;
-                if (b_explosion_active[1][0] && b_stage_changed[1][0]) blast_stage_pending[1][0] <= 1;
-                if (b_explosion_active[1][1] && b_stage_changed[1][1]) blast_stage_pending[1][1] <= 1;
-                
-                if (b_explosion_end[0][0]) end_pending[0][0] <= 1;
-                if (b_explosion_end[0][1]) end_pending[0][1] <= 1;
-                if (b_explosion_end[1][0]) end_pending[1][0] <= 1;
-                if (b_explosion_end[1][1]) end_pending[1][1] <= 1;
-                
-                case (bomb_state)
-                    STORE_DATA: begin
-                        if (place_pending[0][0] || blast_stage_pending[0][0] || end_pending[0][0]) begin
-                            curr_pi <= 0;
-                            curr_bi <= 0;
-                            curr_tx <= b_tx[0][0];
-                            curr_ty <= b_ty[0][0];
-                            curr_up_len <= up_len[0][0];
-                            curr_down_len <= down_len[0][0];
-                            curr_left_len <= left_len[0][0];
-                            curr_right_len <= right_len[0][0];
-                            curr_stage <= b_stage[0][0];
-                            curr_mode <= place_pending[0][0] ? 2'd0 : (blast_stage_pending[0][0] ? 2'd1 : 2'd2);
-                           
-                            bomb_state <= UPDATE;
-                        end
-                        else if (place_pending[0][1] || blast_stage_pending[0][1] || end_pending[0][1]) begin
-                            curr_pi <= 0;
-                            curr_bi <= 1;
-                            curr_tx <= b_tx[0][1];
-                            curr_ty <= b_ty[0][1];
-                            curr_up_len <= up_len[0][1];
-                            curr_down_len <= down_len[0][1];
-                            curr_left_len <= left_len[0][1];
-                            curr_right_len <= right_len[0][1];
-                            curr_stage <= b_stage[0][1];
-                            curr_mode <= place_pending[0][1] ? 2'd0 : (blast_stage_pending[0][1] ? 2'd1 : 2'd2);
-                            
-                            bomb_state <= UPDATE;
-                        end
-                        else if (place_pending[1][0] || blast_stage_pending[1][0] || end_pending[1][0]) begin
-                            curr_pi <= 1;
-                            curr_bi <= 0;
-                            curr_tx <= b_tx[1][0];
-                            curr_ty <= b_ty[1][0];
-                            curr_up_len <= up_len[1][0];
-                            curr_down_len <= down_len[1][0];
-                            curr_left_len <= left_len[1][0];
-                            curr_right_len <= right_len[1][0];
-                            curr_stage <= b_stage[1][0];
-                            curr_mode <= place_pending[1][0] ? 2'd0 : (blast_stage_pending[1][0] ? 2'd1 : 2'd2);
-                            
-                            bomb_state <= UPDATE;
-                        end
-                        else if (place_pending[1][1] || blast_stage_pending[1][1] || end_pending[1][1]) begin
-                            curr_pi <= 1;
-                            curr_bi <= 1;
-                            curr_tx <= b_tx[1][1];
-                            curr_ty <= b_ty[1][1];
-                            curr_up_len <= up_len[1][1];
-                            curr_down_len <= down_len[1][1];
-                            curr_left_len <= left_len[1][1];
-                            curr_right_len <= right_len[1][1];
-                            curr_stage <= b_stage[1][1];
-                            curr_mode <= place_pending[1][1] ? 2'd0 : (blast_stage_pending[1][1] ? 2'd1 : 2'd2);
-                            
-                            bomb_state <= UPDATE;
-                        end
-                    end
-                    UPDATE: begin
-                        bomb_state <= STORE_DATA;
-                       
-                        if (curr_mode == 2'd0) begin
-                            tile_map[curr_tx][curr_ty] <= `MAP_BOMB;
-                           
-                            place_pending[curr_pi][curr_bi] <= 0;
-                        end
-                        else if (curr_mode == 2'd1) begin
-                            if (curr_stage == 1) begin
-                                tile_map[curr_tx][curr_ty] <= `MAP_BLAST;
-                            
-                                if (curr_up_len >= 1) tile_map[curr_tx][curr_ty-1] <= `MAP_BLAST;
-                                if (curr_down_len >= 1) tile_map[curr_tx][curr_ty+1] <= `MAP_BLAST;
-                                if (curr_left_len >= 1) tile_map[curr_tx-1][curr_ty] <= `MAP_BLAST;
-                                if (curr_right_len >= 1) tile_map[curr_tx+1][curr_ty] <= `MAP_BLAST;
+                if (game_ready) begin
+                    map_changed <= game_ready && (|p1_place_bomb_req | |p1_explosion_start | |p1_explosion_end |
+                                                   |p2_place_bomb_req | |p2_explosion_start | |p2_explosion_end |
+                                                   p1_collecting | p2_collecting);
+                    
+                    if (p1_collecting) tile_map[p1_tx][p1_ty] <= `MAP_EMPTY;
+                    if (p2_collecting) tile_map[p2_tx][p2_ty] <= `MAP_EMPTY;
+                                                   
+                    if (b_place_req[0][0]) place_pending[0][0] <= 1;
+                    if (b_place_req[0][1]) place_pending[0][1] <= 1;
+                    if (b_place_req[1][0]) place_pending[1][0] <= 1;
+                    if (b_place_req[1][1]) place_pending[1][1] <= 1;
+                    
+                    if (b_explosion_active[0][0] && b_stage_changed[0][0]) blast_stage_pending[0][0] <= 1;
+                    if (b_explosion_active[0][1] && b_stage_changed[0][1]) blast_stage_pending[0][1] <= 1;
+                    if (b_explosion_active[1][0] && b_stage_changed[1][0]) blast_stage_pending[1][0] <= 1;
+                    if (b_explosion_active[1][1] && b_stage_changed[1][1]) blast_stage_pending[1][1] <= 1;
+                    
+                    if (b_explosion_end[0][0]) end_pending[0][0] <= 1;
+                    if (b_explosion_end[0][1]) end_pending[0][1] <= 1;
+                    if (b_explosion_end[1][0]) end_pending[1][0] <= 1;
+                    if (b_explosion_end[1][1]) end_pending[1][1] <= 1;
+                    
+                    case (bomb_state)
+                        STORE_DATA: begin
+                            if (place_pending[0][0] || blast_stage_pending[0][0] || end_pending[0][0]) begin
+                                curr_pi <= 0;
+                                curr_bi <= 0;
+                                curr_tx <= b_tx[0][0];
+                                curr_ty <= b_ty[0][0];
+                                curr_up_len <= up_len[0][0];
+                                curr_down_len <= down_len[0][0];
+                                curr_left_len <= left_len[0][0];
+                                curr_right_len <= right_len[0][0];
+                                curr_stage <= b_stage[0][0];
+                                curr_mode <= place_pending[0][0] ? 2'd0 : (blast_stage_pending[0][0] ? 2'd1 : 2'd2);
+                               
+                                bomb_state <= UPDATE;
+                            end
+                            else if (place_pending[0][1] || blast_stage_pending[0][1] || end_pending[0][1]) begin
+                                curr_pi <= 0;
+                                curr_bi <= 1;
+                                curr_tx <= b_tx[0][1];
+                                curr_ty <= b_ty[0][1];
+                                curr_up_len <= up_len[0][1];
+                                curr_down_len <= down_len[0][1];
+                                curr_left_len <= left_len[0][1];
+                                curr_right_len <= right_len[0][1];
+                                curr_stage <= b_stage[0][1];
+                                curr_mode <= place_pending[0][1] ? 2'd0 : (blast_stage_pending[0][1] ? 2'd1 : 2'd2);
                                 
-                                // check bomb destroy
-                                destroy_up[curr_pi][curr_bi] <= (tile_map[curr_tx][curr_ty-curr_up_len] == `MAP_BLOCK);
-                                destroy_down[curr_pi][curr_bi] <= (tile_map[curr_tx][curr_ty+curr_down_len] == `MAP_BLOCK);
-                                destroy_left[curr_pi][curr_bi] <= (tile_map[curr_tx-curr_left_len][curr_ty] == `MAP_BLOCK);
-                                destroy_right[curr_pi][curr_bi] <= (tile_map[curr_tx+curr_right_len][curr_ty] == `MAP_BLOCK);
+                                bomb_state <= UPDATE;
                             end
-                            else if (curr_stage == 2) begin
-                                if (curr_up_len >= 2) tile_map[curr_tx][curr_ty-2] <= `MAP_BLAST;
-                                if (curr_down_len >= 2) tile_map[curr_tx][curr_ty+2] <= `MAP_BLAST;
-                                if (curr_left_len >= 2) tile_map[curr_tx-2][curr_ty] <= `MAP_BLAST;
-                                if (curr_right_len >= 2) tile_map[curr_tx+2][curr_ty] <= `MAP_BLAST;
+                            else if (place_pending[1][0] || blast_stage_pending[1][0] || end_pending[1][0]) begin
+                                curr_pi <= 1;
+                                curr_bi <= 0;
+                                curr_tx <= b_tx[1][0];
+                                curr_ty <= b_ty[1][0];
+                                curr_up_len <= up_len[1][0];
+                                curr_down_len <= down_len[1][0];
+                                curr_left_len <= left_len[1][0];
+                                curr_right_len <= right_len[1][0];
+                                curr_stage <= b_stage[1][0];
+                                curr_mode <= place_pending[1][0] ? 2'd0 : (blast_stage_pending[1][0] ? 2'd1 : 2'd2);
+                                
+                                bomb_state <= UPDATE;
                             end
-                            
-                            blast_stage_pending[curr_pi][curr_bi] <= 0;
+                            else if (place_pending[1][1] || blast_stage_pending[1][1] || end_pending[1][1]) begin
+                                curr_pi <= 1;
+                                curr_bi <= 1;
+                                curr_tx <= b_tx[1][1];
+                                curr_ty <= b_ty[1][1];
+                                curr_up_len <= up_len[1][1];
+                                curr_down_len <= down_len[1][1];
+                                curr_left_len <= left_len[1][1];
+                                curr_right_len <= right_len[1][1];
+                                curr_stage <= b_stage[1][1];
+                                curr_mode <= place_pending[1][1] ? 2'd0 : (blast_stage_pending[1][1] ? 2'd1 : 2'd2);
+                                
+                                bomb_state <= UPDATE;
+                            end
                         end
-                        else begin
-                            // clear current bomb tiles
-                            tile_map[curr_tx][curr_ty] <= `MAP_EMPTY;
-                            if (curr_up_len >= 1) tile_map[curr_tx][curr_ty-1] <= `MAP_EMPTY; 
-                            if (curr_up_len >= 2) tile_map[curr_tx][curr_ty-2] <= `MAP_EMPTY; 
-                            if (curr_down_len >= 1) tile_map[curr_tx][curr_ty+1] <= `MAP_EMPTY; 
-                            if (curr_down_len >= 2) tile_map[curr_tx][curr_ty+2] <= `MAP_EMPTY; 
-                            if (curr_left_len >= 1) tile_map[curr_tx-1][curr_ty] <= `MAP_EMPTY; 
-                            if (curr_left_len >= 2) tile_map[curr_tx-2][curr_ty] <= `MAP_EMPTY; 
-                            if (curr_right_len >= 1) tile_map[curr_tx+1][curr_ty] <= `MAP_EMPTY; 
-                            if (curr_right_len >= 2) tile_map[curr_tx+2][curr_ty] <= `MAP_EMPTY;
-                            
-                            if (destroy_up[curr_pi][curr_bi] && random_seed[7:0] < `POWER_UP_SPAWN_RATE) tile_map[curr_tx][curr_ty-curr_up_len] <= `MAP_POWERUP;
-                            if (destroy_down[curr_pi][curr_bi] && random_seed[7:0] < `POWER_UP_SPAWN_RATE) tile_map[curr_tx][curr_ty+curr_down_len] <= `MAP_POWERUP;
-                            if (destroy_left[curr_pi][curr_bi] && random_seed[7:0] < `POWER_UP_SPAWN_RATE) tile_map[curr_tx-curr_left_len][curr_ty] <= `MAP_POWERUP;
-                            if (destroy_right[curr_pi][curr_bi] && random_seed[7:0] < `POWER_UP_SPAWN_RATE) tile_map[curr_tx+curr_right_len][curr_ty] <= `MAP_POWERUP;
-                            
-                            // check other bombs to make sure their blast didnt get overwritten
-                            // re-queue other active bombs to restore their blast tiles
-                            if (b_explosion_active[0][0] && !(curr_pi == 0 && curr_bi==0)) blast_stage_pending[0][0] <= 1;
-                            if (b_explosion_active[0][1] && !(curr_pi == 0 && curr_bi == 1)) blast_stage_pending[0][1] <= 1;
-                            if (b_explosion_active[1][0] && !(curr_pi == 1 && curr_bi == 0)) blast_stage_pending[1][0] <= 1;
-                            if (b_explosion_active[1][1] && !(curr_pi == 1 && curr_bi == 1)) blast_stage_pending[1][1] <= 1;
-                            
-                            end_pending[curr_pi][curr_bi] <= 0;
-                        end            
-                    end
-                endcase
+                        UPDATE: begin
+                            bomb_state <= STORE_DATA;
+                           
+                            if (curr_mode == 2'd0) begin
+                                tile_map[curr_tx][curr_ty] <= `MAP_BOMB;
+                               
+                                place_pending[curr_pi][curr_bi] <= 0;
+                            end
+                            else if (curr_mode == 2'd1) begin
+                                if (curr_stage >= 1) begin
+                                    tile_map[curr_tx][curr_ty] <= `MAP_BLAST;
+                                
+                                    if (curr_up_len >= 1) tile_map[curr_tx][curr_ty-1] <= `MAP_BLAST;
+                                    if (curr_down_len >= 1) tile_map[curr_tx][curr_ty+1] <= `MAP_BLAST;
+                                    if (curr_left_len >= 1) tile_map[curr_tx-1][curr_ty] <= `MAP_BLAST;
+                                    if (curr_right_len >= 1) tile_map[curr_tx+1][curr_ty] <= `MAP_BLAST;
+                                    
+                                    // check bomb destroy
+                                    destroy_up[curr_pi][curr_bi] <= (tile_map[curr_tx][curr_ty-curr_up_len] == `MAP_BLOCK);
+                                    destroy_down[curr_pi][curr_bi] <= (tile_map[curr_tx][curr_ty+curr_down_len] == `MAP_BLOCK);
+                                    destroy_left[curr_pi][curr_bi] <= (tile_map[curr_tx-curr_left_len][curr_ty] == `MAP_BLOCK);
+                                    destroy_right[curr_pi][curr_bi] <= (tile_map[curr_tx+curr_right_len][curr_ty] == `MAP_BLOCK);
+                                end
+                                
+                                if (curr_stage >= 2) begin
+                                    if (curr_up_len >= 2) tile_map[curr_tx][curr_ty-2] <= `MAP_BLAST;
+                                    if (curr_down_len >= 2) tile_map[curr_tx][curr_ty+2] <= `MAP_BLAST;
+                                    if (curr_left_len >= 2) tile_map[curr_tx-2][curr_ty] <= `MAP_BLAST;
+                                    if (curr_right_len >= 2) tile_map[curr_tx+2][curr_ty] <= `MAP_BLAST;
+                                end
+                                
+                                blast_stage_pending[curr_pi][curr_bi] <= 0;
+                            end
+                            else begin
+                                // clear current bomb tiles
+                                tile_map[curr_tx][curr_ty] <= `MAP_EMPTY;
+                                if (curr_up_len >= 1) tile_map[curr_tx][curr_ty-1] <= `MAP_EMPTY; 
+                                if (curr_up_len >= 2) tile_map[curr_tx][curr_ty-2] <= `MAP_EMPTY; 
+                                if (curr_down_len >= 1) tile_map[curr_tx][curr_ty+1] <= `MAP_EMPTY; 
+                                if (curr_down_len >= 2) tile_map[curr_tx][curr_ty+2] <= `MAP_EMPTY; 
+                                if (curr_left_len >= 1) tile_map[curr_tx-1][curr_ty] <= `MAP_EMPTY; 
+                                if (curr_left_len >= 2) tile_map[curr_tx-2][curr_ty] <= `MAP_EMPTY; 
+                                if (curr_right_len >= 1) tile_map[curr_tx+1][curr_ty] <= `MAP_EMPTY; 
+                                if (curr_right_len >= 2) tile_map[curr_tx+2][curr_ty] <= `MAP_EMPTY;
+                                
+                                if (destroy_up[curr_pi][curr_bi] && random_seed[7:0] < `POWER_UP_SPAWN_RATE) tile_map[curr_tx][curr_ty-curr_up_len] <= `MAP_POWERUP;
+                                if (destroy_down[curr_pi][curr_bi] && random_seed[7:0] < `POWER_UP_SPAWN_RATE) tile_map[curr_tx][curr_ty+curr_down_len] <= `MAP_POWERUP;
+                                if (destroy_left[curr_pi][curr_bi] && random_seed[7:0] < `POWER_UP_SPAWN_RATE) tile_map[curr_tx-curr_left_len][curr_ty] <= `MAP_POWERUP;
+                                if (destroy_right[curr_pi][curr_bi] && random_seed[7:0] < `POWER_UP_SPAWN_RATE) tile_map[curr_tx+curr_right_len][curr_ty] <= `MAP_POWERUP;
+                                
+                                // check other bombs to make sure their blast didnt get overwritten
+                                // re-queue other active bombs to restore their blast tiles
+                                if (b_explosion_active[0][0] && !(curr_pi == 0 && curr_bi == 0)) blast_stage_pending[0][0] <= 1;
+                                if (b_explosion_active[0][1] && !(curr_pi == 0 && curr_bi == 1)) blast_stage_pending[0][1] <= 1;
+                                if (b_explosion_active[1][0] && !(curr_pi == 1 && curr_bi == 0)) blast_stage_pending[1][0] <= 1;
+                                if (b_explosion_active[1][1] && !(curr_pi == 1 && curr_bi == 1)) blast_stage_pending[1][1] <= 1;
+                                
+                                end_pending[curr_pi][curr_bi] <= 0;
+                            end            
+                        end
+                    endcase
+                end
             end
         endcase
     end
@@ -859,7 +951,7 @@ module Top_Student (
     parameter two_third = 170;
     
     always @ (posedge clk) begin
-        if (game_active && gen_state == `GAMEPLAY) begin
+        if (game_ready && gen_state == `GAMEPLAY) begin
             led[15:14] <= p1_bomb_radius;
             led[13:12] <= p1_bomb_count;
             led[11:10] <= p1_speed_incr;
@@ -908,6 +1000,15 @@ module Top_Student (
                 end    
             end
         end
+        
+        if (rst_game) begin
+            p1_speed_incr <= 0;
+            p1_bomb_count <= 1;
+            p1_bomb_radius <= 1;
+            p2_speed_incr <= 0;
+            p2_bomb_count <= 1;
+            p2_bomb_radius <= 1;
+        end
     end 
     
    
@@ -953,49 +1054,91 @@ module Top_Student (
         if (!single_player && p2_mouse_region) oled_data_single = `OLED_MAROON;
         if (!single_player && p2_mouse_border) oled_data_single = `OLED_LIGHT_RED;
     end
-
-
-
-
-
+    
+    
+    
+    
+    
+    // =========================================================
+    // POWER-UP DISPLAY
+    // =========================================================
+    
+    wire [1:0] disp_bomb_count = (pair_state == `PAIRED) ? ((player == `PLAYER_1) ? p1_bomb_count : rec_bomb_count) : p1_bomb_count;
+    wire [1:0] disp_bomb_radius = (pair_state == `PAIRED) ? ((player == `PLAYER_1) ? p1_bomb_radius : rec_bomb_radius) : p1_bomb_radius;
+    wire [1:0] disp_speed_incr = (pair_state == `PAIRED) ? ((player == `PLAYER_1) ? p1_speed_incr : rec_speed_incr) : p1_speed_incr;
+    powerup_oled pu_oled_inst (.player(player), .pu_x(pu_x), .pu_y(pu_y),
+                               .disp_bomb_radius(disp_bomb_radius), .disp_bomb_count(disp_bomb_count), .disp_speed_incr(disp_speed_incr),
+                               .oled_data_powerup(oled_data_powerup));
+    
+    
+    
+    
+    
     // =========================================================
     // MAIN LOOP
     // =========================================================
     always @(posedge clk) begin
         data_tx <= {data_tx_game, data_tx_code};
-
-        case (pair_state)
-            `SINGLE: begin
-                display_counter <= 0;
-                display_text <= 0;
-                oled_data <= oled_data_single;
+        
+        case (player)
+            `PLAYER_1: begin
+                if (ui_state == `SINGLE_GAME || ui_state == `MULTI_GAME) oled_data <= oled_data_single;
+                else oled_data <= oled_data_ui;
             end
-
-            `PAIRED: begin
-                led[0] <= rec_mouse_right;
-                led[1] <= rec_mouse_middle;
-                led[2] <= rec_mouse_left;
-            
-                if (display_counter >= DISPLAY_TIME - 1) begin
-                    display_text <= 0;
-                end
-                else begin
-                    display_counter <= display_counter + 1;
-                    display_text <= 1;
-                end
-
-                if (display_text)
-                    oled_data <= oled_data_pair;
-                else
-                    if (player == `PLAYER_1) oled_data <= oled_data_single;
-                    else oled_data <= `OLED_BLACK;
-//                    oled_data <= oled_data_multi;
+            `PLAYER_2: begin
+                if (ui_state == `MULTI_GAME) oled_data <= `OLED_BLACK;
+                else oled_data <= oled_data_ui;
             end
-
-            default: begin
-                oled_data <= oled_data_pair;
-            end
+            default: oled_data <= `OLED_BLACK;
         endcase
+        
+//        case (ui_state)
+//            `SINGLE_GAME, `MULTI_GAME: begin
+//                display_counter <= 0;
+//                display_text <= 0;
+//                oled_data <= oled_data_single;
+                
+//                if (player == `PLAYER_1) oled_data <= oled_data_single;
+//                else oled_data <= `OLED_BLACK;
+//                //                    oled_data <= oled_data_multi;
+//            end
+//            default: begin
+//                oled_data <= oled_data_ui;
+//            end
+            
+//        endcase
+//        case (pair_state)
+//            `SINGLE: begin
+//                display_counter <= 0;
+//                display_text <= 0;
+//                oled_data <= oled_data_single;
+//            end
+
+//            `PAIRED: begin
+////                led[0] <= rec_mouse_right;
+////                led[1] <= rec_mouse_middle;
+////                led[2] <= rec_mouse_left;
+            
+//                if (display_counter >= DISPLAY_TIME - 1) begin
+//                    display_text <= 0;
+//                end
+//                else begin
+//                    display_counter <= display_counter + 1;
+//                    display_text <= 1;
+//                end
+
+//                if (display_text)
+//                    oled_data <= oled_data_pair;
+//                else
+//                    if (player == `PLAYER_1) oled_data <= oled_data_single;
+//                    else oled_data <= `OLED_BLACK;
+////                    oled_data <= oled_data_multi;
+//            end
+
+//            default: begin
+//                oled_data <= oled_data_pair;
+//            end
+//        endcase
     end
 
 

@@ -2,7 +2,7 @@
 
 `include "constants.vh"
 
-module p1_controller (input clk,
+module p1_controller (input clk, rst_game, game_ready,
                       input [3:0] mouse_tx, mouse_ty, //goal_tx, goal_ty,
                       input mouse_left_pulse, mouse_right_pulse, mouse_middle_pulse,
                       input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
@@ -22,37 +22,25 @@ module p1_controller (input clk,
                       input [1:0] bomb_count, // number of bombs that can be placed
                       input [1:0] bomb_radius, // radius of bom
                       
-                      output update, blocks_as_walls,
+                      output update, blocks_as_walls, //bombs_as_walls,
                       input [4*`MAX_PATH_LEN-1:0] path_flat_x, path_flat_y,
                       input path_valid, 
                       input [6:0] path_len);
       
     always @ (posedge clk) begin
+        if (rst_game) begin
+            goal_tx <= p1_tx;
+            goal_ty <= p1_ty;
+        end
+        
         if (mouse_left_pulse) begin
             goal_tx <= mouse_tx;
             goal_ty <= mouse_ty;
         end
     end
     
-//    reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
-//    integer ux, uy; // unpack map
-//    always @(*) begin
-//        for (uy = 0; uy < `TILE_MAP_HEIGHT; uy = uy + 1)
-//            for (ux = 0; ux < `TILE_MAP_WIDTH; ux = ux + 1)
-//                tile_map[ux][uy] = tile_map_flat[(uy*`TILE_MAP_WIDTH + ux)*3 +: 3];
-//    end
-    
     // variable speed based on power ups
     wire [$clog2(`PLAYER_MAX_SPEED)-1:0] speed = `PLAYER_DEFAULT_SPEED + speed_multiplier * `PLAYER_SPEED_INCREMENT;
-//    reg [$clog2(`PLAYER_MAX_SPEED)-1:0] speed;
-//    always @(*) begin
-//        case (speed_multiplier)
-//            2'd0: speed = `PLAYER_DEFAULT_SPEED;
-//            2'd1: speed = `PLAYER_DEFAULT_SPEED + `PLAYER_SPEED_INCREMENT;
-//            2'd2: speed = `PLAYER_DEFAULT_SPEED + 2*`PLAYER_SPEED_INCREMENT;
-//            2'd3: speed = `PLAYER_DEFAULT_SPEED + 3*`PLAYER_SPEED_INCREMENT;
-//        endcase
-//    end
     
     wire [3:0] mc_p1_tx, mc_p1_ty;
     wire [6:0] mc_p1_x;
@@ -69,16 +57,19 @@ module p1_controller (input clk,
     
     wire next_is_block;
    
-    movement_controller player_move (.clk(clk), .map_changed(map_changed), .spawn_tx(0), .spawn_ty(0),
+    movement_controller player_move (.clk(clk), .map_changed(map_changed), .spawn_tx(0), .spawn_ty(0), .rst_game(rst_game), .game_ready(game_ready),
                                      .goal_tx(goal_tx), .goal_ty(goal_ty), .tile_map_flat(tile_map_flat), .speed(speed), .is_player(1),
                                      .next_is_block(next_is_block), .pos_tx_out(mc_p1_tx), .pos_ty_out(mc_p1_ty), .pos_x(mc_p1_x), .pos_y(mc_p1_y),
                                      .as_update(update), .as_baw(blocks_as_walls), .path_flat_x(path_flat_x), .path_flat_y(path_flat_y),
                                      .path_valid(path_valid), .path_len(path_len));
+//                                     .force_baw(0), .force_bmaw(0), .as_bmaw(bombs_as_walls));
     
     wire bomb_trigger = p1_dead ? 0 : mouse_right_pulse;
     
     bomb_controller p1_bomb_inst (
         .clk(clk),
+        .rst_game(rst_game),
+        .game_ready(game_ready),
         .trigger(bomb_trigger),
         .player_tx(p1_tx),
         .player_ty(p1_ty),

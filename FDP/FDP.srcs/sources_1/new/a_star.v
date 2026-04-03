@@ -2,7 +2,7 @@
 
 `include "constants.vh"
 
-module a_star (input clk, update, blocks_as_walls,
+module a_star (input clk, update, blocks_as_walls, bombs_as_walls,
                input [3:0] start_x, start_y, goal_x, goal_y,
                input [3*`TILE_MAP_SIZE-1:0] tile_map_flat,
                output reg [4*`MAX_PATH_LEN-1:0] path_flat_x=0, path_flat_y=0,
@@ -346,7 +346,9 @@ module a_star (input clk, update, blocks_as_walls,
                 NB_BRAM_WAIT: begin
                     nb_is_wall <= (tile_map[nb_x][nb_y] == `MAP_WALL);
                     nb_is_block <= (tile_map[nb_x][nb_y] == `MAP_BLOCK);
-                    nb_is_bomb <= (tile_map[nb_x][nb_y] == `MAP_BLAST);
+//                    nb_is_bomb <= (tile_map[nb_x][nb_y] == `MAP_BLAST || tile_map[nb_x][nb_y] == `MAP_BOMB);
+                    nb_is_bomb <= (tile_map[nb_x][nb_y] == `MAP_BLAST) || (bombs_as_walls && tile_map[nb_x][nb_y] == `MAP_BOMB);
+//                    nb_is_bomb <= (tile_map[nb_x][nb_y] == `MAP_BLAST);
                     tile_base_cost <= (tile_map[nb_x][nb_y] == `MAP_BLOCK) ? BLOCK_COST : EMPTY_COST;
                 end
                 NB_CHECK_VALID: begin end // nothing done here

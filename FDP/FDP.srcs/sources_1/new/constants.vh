@@ -1,8 +1,17 @@
 // constants.vh
+//`define BASYS_CLOCK_SPEED           100_000_000 //100_000_000
+//`define CLOCK_SPEED                 50_000_000 //100_000_000
+//`define BAUD_RATE                   38_400 //115_200
+//`define CODE_BITS                   8
+//`define GAME_BITS                   22 // 7 for mouse cx, 6 cy, 3 clicks, 2*3 for powerups
+//`define DATA_BITS                   (`GAME_BITS + `CODE_BITS)
+//`define TOTAL_BITS                  (`DATA_BITS + 2) // includes start and stop bits
+
+// constants.vh
 `define BASYS_CLOCK_SPEED           100_000_000 //100_000_000
 `define CLOCK_SPEED                 50_000_000 //100_000_000
 `define BAUD_RATE                   115_200
-`define DATA_BITS                   27 // 16 // 12 for mouse x, 12 for mouse y, 3 for mouse clicks
+`define DATA_BITS                   24 // 16 // 12 for mouse x, 12 for mouse y, 3 for mouse clicks
 `define CODE_BITS                   8
 `define GAME_BITS                   (`DATA_BITS - `CODE_BITS)
 
@@ -71,6 +80,16 @@
 `define BOT_MAX_SPEED               (`BOT_DEFAULT_SPEED + `MAX_SPEED_INCR * `BOT_SPEED_INCREMENT)
 //`define PLAYER_UPDATE_TIME          (15 * `PATH_SPEED * `TILE_SIZE) / (10 * `PLAYER_DEFAULT_TIME) // 1.2 times the time taken to travel between tiles
 //`define UPDATE_TIME                 (12 * `PATH_SPEED * `TILE_SIZE) / (10 * `COMPUTER_DEFAULT_SPEED) // 1.2 times the time taken to travel between tiles
+
+// ui states
+`define HOME                        3'b000
+`define SINGLE_HOME                 3'b001
+`define MULTI_WAIT_PAIR             3'b010
+`define MULTI_HOME                  3'b011
+//`define PAUSE                       3'b011
+`define SINGLE_GAME                 3'b100
+`define MULTI_GAME                  3'b101
+`define MULTI_HOME_P2               3'b110
 
 // colors
 `define OLED_RED          16'hF800

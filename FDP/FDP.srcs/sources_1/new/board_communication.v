@@ -2,6 +2,7 @@
 
 `include "constants.vh"
 
+
 module package_game_data (input clk,
                           input player,
                           input [6:0] mouse_cx, 
@@ -33,7 +34,355 @@ module package_game_data (input clk,
     end   
 endmodule
 
-module pairing_fsm (input clk, received, busy_tx, btn_accept, btn_cancel, btn_pair_one, btn_pair_two,
+module pairing_fsm (input clk, received, busy_tx, btn_accept, btn_cancel, send_pair_req, send_unpair_req,//btn_pair_one, btn_pair_two,
+                    input [`CODE_BITS-1:0] data_rx_code,
+                    output reg tx_en=0,
+                    output reg [`CODE_BITS-1:0] data_tx_code=0,
+                    output reg [2:0] state=0,
+                    output reg player=0);
+
+    reg [2:0] next_state = 0;
+    
+    parameter REQ_CODE = 8'hAA;
+    parameter ACK_CODE = 8'hBB;
+    parameter CONFIRM_CODE = 8'hCC;
+    parameter CANCEL_CODE = 8'hDD;
+    parameter HEARTBEAT_CODE = 8'hEE;
+    reg ack_accepted = 1'b0;
+    reg cancel_pair = 1'b0;
+    
+//    parameter PAIR_TIME = 3 * `CLOCK_SPEED;
+    parameter HB_INTERVAL = `CLOCK_SPEED / 10; // change this
+    parameter HB_TIMEOUT = (`CLOCK_SPEED / 10) * 5;
+    reg [$clog2(HB_INTERVAL)-1:0] hb_tx_counter = 0;
+    reg [$clog2(HB_TIMEOUT)-1:0] hb_rx_counter = 0;
+//    reg [$clog2(PAIR_TIME)-1:0] pair_counter = 0;
+    
+    always @ (*) begin
+        next_state = state;
+        if (received && data_rx_code == CANCEL_CODE) next_state = `SINGLE;
+        else begin
+            case (state)
+                `SINGLE: begin
+                    if (send_pair_req) next_state = `REQUEST;
+//                    if (pair_counter >= PAIR_TIME - 1) next_state = `REQUEST;
+                    else if (received && data_rx_code == REQ_CODE) next_state = `ACKNOWLEDGE;
+                end
+                `REQUEST: if (!busy_tx) next_state = `WAIT_ACK;
+                `WAIT_ACK: begin
+                    if ((btn_cancel | cancel_pair) && !busy_tx) next_state = `SINGLE;
+                    if (received) begin
+                        if (data_rx_code == CANCEL_CODE) next_state = `SINGLE;
+                        else if (data_rx_code == ACK_CODE) next_state = `CONFIRM;
+                    end
+                end
+                `CONFIRM: if (!busy_tx) next_state = `PAIRED;
+                `ACKNOWLEDGE: begin
+                    if (!busy_tx) begin
+                        if (btn_cancel | cancel_pair) next_state = `SINGLE;
+                        else if (btn_accept | ack_accepted) next_state = `WAIT_CONFIRM;
+                    end
+                end
+                `WAIT_CONFIRM: if (received && data_rx_code == CONFIRM_CODE) next_state = `PAIRED;
+                `PAIRED: begin
+                    if ((hb_rx_counter >= HB_TIMEOUT - 1) ||
+                        (!busy_tx && cancel_pair)) next_state = `SINGLE;
+                end
+                default: next_state = `SINGLE;
+            endcase
+        end
+    end
+    
+    always @ (posedge clk) begin
+        tx_en <= 1'b0;
+//        if (received && data_rx_code == CANCEL_CODE) state <= `SINGLE; // reset
+        state <= next_state;
+
+        case (state)
+            `SINGLE: begin
+                hb_tx_counter <= 0;
+                hb_rx_counter <= 0;
+                ack_accepted <= 0;
+                cancel_pair <= 0;
+                player <= `PLAYER_1;
+                
+                // pairing
+//                if (btn_pair_one & btn_pair_two) begin
+////                    pair_counter <= pair_counter + 1;
+//                    pair_counter <= (pair_counter >= PAIR_TIME-1) ? 0 : pair_counter + 1;
+//                end
+//                else pair_counter <= 0;
+                
+//                if (pair_counter >= PAIR_TIME - 1) begin
+//                    pair_counter <= 0;
+//                    state <= `REQUEST;
+//                end
+//                else if (received && data_rx_code == REQ_CODE) state <= `ACKNOWLEDGE;
+            end
+            `REQUEST: begin
+                player <= `PLAYER_2;
+                if (!busy_tx) begin
+                    data_tx_code <= REQ_CODE;
+                    tx_en <= 1'b1;
+//                    state <= `WAIT_ACK;
+                end
+            end
+            `WAIT_ACK: begin
+                if (btn_cancel) cancel_pair <= 1'b1;
+                
+                if ((btn_cancel | cancel_pair) && !busy_tx) begin
+                    data_tx_code <= CANCEL_CODE;
+                    tx_en   <= 1'b1;
+//                    state <= `SINGLE;
+                end
+                
+//                if (received) begin
+//                    if (data_rx_code == CANCEL_CODE) state <= `SINGLE;
+//                    else if (data_rx_code == ACK_CODE) state <= `CONFIRM;
+//                end
+            end
+            `CONFIRM: begin
+                if (!busy_tx) begin
+                    data_tx_code <= CONFIRM_CODE;
+                    tx_en <= 1'b1;
+//                    state <= `PAIRED;
+                end
+            end
+            `ACKNOWLEDGE: begin
+                if (btn_cancel) cancel_pair <= 1'b1;
+                else if (btn_accept) ack_accepted <= 1'b1;
+                
+                if (!busy_tx) begin
+                    if (btn_cancel | cancel_pair) begin
+                        data_tx_code <= CANCEL_CODE;
+                        tx_en   <= 1'b1;
+//                        state <= `SINGLE;
+                    end
+                    else 
+                    if (btn_accept | ack_accepted) begin
+                        data_tx_code <= ACK_CODE;
+                        tx_en <= 1'b1;
+//                        state <= `WAIT_CONFIRM;
+                    end
+                end
+                
+//                if (received && data_rx_code == CANCEL_CODE) state <= `SINGLE;
+            end
+//            `WAIT_CONFIRM: begin
+//                if (received && data_rx_code == CONFIRM_CODE) begin
+//                    state <= `PAIRED;
+//                end
+//            end
+            `PAIRED: begin
+                if (hb_tx_counter == HB_INTERVAL - 1) begin
+                    hb_tx_counter <= 0;
+                    if (!busy_tx) begin
+                        data_tx_code <= HEARTBEAT_CODE;
+                        tx_en   <= 1'b1;
+                    end
+                end else hb_tx_counter <= hb_tx_counter + 1;
+                
+                if (received && data_rx_code == HEARTBEAT_CODE) hb_rx_counter <= 0;
+                else hb_rx_counter <= hb_rx_counter + 1;
+        
+//                if (hb_rx_counter >= HB_TIMEOUT - 1) state <= `SINGLE;
+                
+                // unpairing
+//                if (btn_pair_one & btn_pair_two) pair_counter <= pair_counter + 1;
+//                else pair_counter <= 0;
+                        
+//                if (pair_counter >= PAIR_TIME - 1) begin
+//                    pair_counter <= 0;
+//                    cancel_pair <= 1'b1;
+//                end
+                if (send_unpair_req) cancel_pair <= 1'b1;
+                
+                if (!busy_tx) begin
+                    if (send_unpair_req || cancel_pair) begin
+                        data_tx_code <= CANCEL_CODE;
+                        tx_en   <= 1'b1;
+//                        state <= `SINGLE;
+                    end
+                end
+            end
+        endcase
+        
+//        paired <= (pair_state == PAIRED) ? 1 : 0;
+    end
+endmodule
+
+/*module package_game_data (input clk,
+                          input player,
+                          input [6:0] mouse_cx, 
+                          input [5:0] mouse_cy,
+                          input mouse_left, mouse_middle, mouse_right,
+                          input [1:0] bomb_count,
+                          input [1:0] bomb_radius,
+                          input [1:0] speed_incr,
+                          // to add number of power ups
+                          output reg tx_en,
+                          output reg [`GAME_BITS-1:0] data_tx_game=0);
+                          
+    wire [`GAME_BITS-1:0] data = {mouse_cx, mouse_cy, mouse_left, mouse_middle, mouse_right, bomb_count, bomb_radius, speed_incr};
+    reg [`GAME_BITS-1:0] prev_data = 0;
+    
+    always @ (posedge clk) begin
+        tx_en <= 1'b0;
+        if (player == `PLAYER_2) begin
+            if (data != prev_data) begin
+                tx_en <= 1'b1;
+                data_tx_game <= data; // header + 5 bits
+                prev_data <= data;
+            end
+        end
+        else begin
+            if (data != prev_data) begin
+                tx_en <= 1'b1;
+                data_tx_game <= data;
+                prev_data <= data;
+            end
+        end
+    end   
+endmodule*/
+
+/*module pairing_fsm (input clk, received, busy_tx, btn_accept, btn_cancel, send_pair_req, send_unpair_req,
+                    input [`CODE_BITS-1:0] data_rx_code,
+                    output reg tx_en=0,
+                    output reg [`CODE_BITS-1:0] data_tx_code=0,
+                    output reg [2:0] state=0,
+                    output reg player=0);
+    
+    wire pulse_btn_accept, pulse_btn_cancel;
+    debounce db_accept (.clk(clk), .btn_in(btn_accept), .btn_out(pulse_btn_accept));
+    debounce db_cancel (.clk(clk), .btn_in(btn_cancel), .btn_out(pulse_btn_cancel));
+
+    reg [2:0] next_state = 0;
+    
+    parameter REQ_CODE = 8'hAA;
+    parameter ACK_CODE = 8'hBB;
+    parameter CONFIRM_CODE = 8'hCC;
+    parameter CANCEL_CODE = 8'hDD;
+    parameter HEARTBEAT_CODE = 8'hEE;
+    reg ack_accepted = 1'b0;
+    reg cancel_pair = 1'b0;
+    
+    parameter HB_INTERVAL = `CLOCK_SPEED / 10; // change this
+    parameter HB_TIMEOUT = (`CLOCK_SPEED / 10) * 5;
+    reg [$clog2(HB_INTERVAL)-1:0] hb_tx_counter = 0;
+    reg [$clog2(HB_TIMEOUT)-1:0] hb_rx_counter = 0;
+    
+    always @ (*) begin
+        next_state = state;
+        if (received && data_rx_code == CANCEL_CODE) next_state = `SINGLE;
+        else begin
+            case (state)
+                `SINGLE: begin
+                    if (send_pair_req) next_state = `REQUEST;
+                    else if (received && data_rx_code == REQ_CODE) next_state = `ACKNOWLEDGE;
+                end
+                `REQUEST: if (!busy_tx) next_state = `WAIT_ACK;
+                `WAIT_ACK: begin
+                    if ((pulse_btn_cancel | cancel_pair) && !busy_tx) next_state = `SINGLE;
+                    if (received) begin
+                        if (data_rx_code == CANCEL_CODE) next_state = `SINGLE;
+                        else if (data_rx_code == ACK_CODE) next_state = `CONFIRM;
+                    end
+                end
+                `CONFIRM: if (!busy_tx) next_state = `PAIRED;
+                `ACKNOWLEDGE: begin
+                    if (!busy_tx) begin
+                        if (pulse_btn_cancel | cancel_pair) next_state = `SINGLE;
+                        else if (pulse_btn_accept | ack_accepted) next_state = `WAIT_CONFIRM;
+                    end
+                end
+                `WAIT_CONFIRM: if (received && data_rx_code == CONFIRM_CODE) next_state = `PAIRED;
+                `PAIRED: begin
+                    if ((hb_rx_counter >= HB_TIMEOUT - 1) ||
+                        (!busy_tx && cancel_pair)) next_state = `SINGLE;
+                end
+                default: next_state = `SINGLE;
+            endcase
+        end
+    end
+    
+    always @ (posedge clk) begin
+        tx_en <= 1'b0;
+//        if (received && data_rx_code == CANCEL_CODE) state <= `SINGLE; // reset
+        state <= next_state;
+
+        case (state)
+            `SINGLE: begin
+                hb_tx_counter <= 0;
+                hb_rx_counter <= 0;
+                ack_accepted <= 0;
+                cancel_pair <= 0;
+                player <= `PLAYER_1;
+            end
+            `REQUEST: begin
+                player <= `PLAYER_2;
+                if (!busy_tx) begin
+                    data_tx_code <= REQ_CODE;
+                    tx_en <= 1'b1;
+//                    state <= `WAIT_ACK;
+                end
+            end
+            `WAIT_ACK: begin
+                if (pulse_btn_cancel) cancel_pair <= 1'b1;
+                
+                if ((pulse_btn_cancel | cancel_pair) && !busy_tx) begin
+                    data_tx_code <= CANCEL_CODE;
+                    tx_en   <= 1'b1;
+                end
+            end
+            `CONFIRM: begin
+                if (!busy_tx) begin
+                    data_tx_code <= CONFIRM_CODE;
+                    tx_en <= 1'b1;
+                end
+            end
+            `ACKNOWLEDGE: begin
+                if (pulse_btn_cancel) cancel_pair <= 1'b1;
+                else if (pulse_btn_accept) ack_accepted <= 1'b1;
+                
+                if (!busy_tx) begin
+                    if (pulse_btn_cancel | cancel_pair) begin
+                        data_tx_code <= CANCEL_CODE;
+                        tx_en   <= 1'b1;
+                    end
+                    else 
+                    if (pulse_btn_accept | ack_accepted) begin
+                        data_tx_code <= ACK_CODE;
+                        tx_en <= 1'b1;
+                    end
+                end
+            end
+            `PAIRED: begin
+                if (hb_tx_counter == HB_INTERVAL - 1) begin
+                    hb_tx_counter <= 0;
+                    if (!busy_tx) begin
+                        data_tx_code <= HEARTBEAT_CODE;
+                        tx_en   <= 1'b1;
+                    end
+                end else hb_tx_counter <= hb_tx_counter + 1;
+                
+                if (received && data_rx_code == HEARTBEAT_CODE) hb_rx_counter <= 0;
+                else hb_rx_counter <= hb_rx_counter + 1;
+                
+                // unpairing
+                if (send_unpair_req) cancel_pair <= 1'b1;
+                
+                if (!busy_tx) begin
+                    if (cancel_pair) begin
+                        data_tx_code <= CANCEL_CODE;
+                        tx_en   <= 1'b1;
+                    end
+                end
+            end
+        endcase
+    end
+endmodule*/
+
+/*module pairing_fsm (input clk, received, busy_tx, btn_accept, btn_cancel, btn_pair_one, btn_pair_two,
                     input [`CODE_BITS-1:0] data_rx_code,
                     output reg tx_en=0,
                     output reg [`CODE_BITS-1:0] data_tx_code=0,
@@ -206,9 +555,9 @@ module pairing_fsm (input clk, received, busy_tx, btn_accept, btn_cancel, btn_pa
         
 //        paired <= (pair_state == PAIRED) ? 1 : 0;
     end
-endmodule
+endmodule*/
 
-module pairing_oled(
+/*module pairing_oled(
     input clk,
     input [2:0] pair_state,
     input [6:0] x, input [5:0] y,
@@ -648,4 +997,4 @@ module pairing_oled(
             end
         end
     endfunction
-endmodule
+endmodule*/

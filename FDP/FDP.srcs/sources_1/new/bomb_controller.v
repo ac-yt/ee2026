@@ -3,7 +3,7 @@
 `include "constants.vh"
 
 module bomb_controller (
-    input clk,
+    input clk, rst_game, game_ready,
     input [3:0] player_tx, player_ty,
     input trigger,
 //    input player_dead,
@@ -65,49 +65,60 @@ module bomb_controller (
         place_bomb_req_r <= 0;
     
         for (i = 0; i < `MAX_BOMBS; i = i + 1) begin
-            case (state[i])
-                ST_IDLE: begin
-                    if (trigger && found && alloc_idx == i[1:0] && active_count_r < bomb_count_r) begin
-                        state[i]             <= ST_COUNTDOWN;
-                        stage_r[i]           <= 0;
-                        countdown_counter[i] <= 0;
-                        explode_counter[i]   <= 0;
-                        place_bomb_req_r[i]  <= 1;
-                        bomb_tx_r[i]         <= player_tx;
-                        bomb_ty_r[i]         <= player_ty;
-                    end
-                end
-    
-                ST_COUNTDOWN: begin
-                    if (countdown_counter[i] == BOMB_COUNTDOWN_TIME-1) begin
-                        state[i]             <= ST_EXPLODE;
-                        explode_counter[i]   <= 0;
-                        stage_r[i]           <= 2'd1;
-                        countdown_counter[i] <= 0;
-                    end 
-                    else begin
-                        countdown_counter[i] <= countdown_counter[i] + 1;
-                        bomb_red_r[i]        <= countdown_counter[i][$clog2(BOMB_BLINK_TIME)];
-                    end
-                end
-    
-                ST_EXPLODE: begin
-                    if (explode_counter[i] == EXPLOSION_STAGE_TIME-1 && stage_r[i] >= bomb_radius_r) begin
-                        state[i]   <= ST_IDLE;
-                        stage_r[i] <= 0;
-                    end
-                    else begin
-                        if (explode_counter[i] == EXPLOSION_STAGE_TIME - 1) begin
-                            explode_counter[i] <= 0;
-                            stage_r[i]         <= stage_r[i] + 1;
-                        end else begin
-                            explode_counter[i] <= explode_counter[i] + 1;
+            if (rst_game) begin
+                state[i]             <= ST_IDLE;
+                stage_r[i]           <= 0;
+                countdown_counter[i] <= 0;
+                explode_counter[i]   <= 0;
+                bomb_red_r[i]        <= 0;
+            end 
+            else begin
+                case (state[i])
+                    ST_IDLE: begin
+                        if (trigger && found && alloc_idx == i[1:0] && active_count_r < bomb_count_r) begin
+                            state[i]             <= ST_COUNTDOWN;
+                            stage_r[i]           <= 0;
+                            countdown_counter[i] <= 0;
+                            explode_counter[i]   <= 0;
+                            place_bomb_req_r[i]  <= 1;
+                            bomb_tx_r[i]         <= player_tx;
+                            bomb_ty_r[i]         <= player_ty;
                         end
                     end
-                end
-    
-                default: state[i] <= ST_IDLE;
-            endcase
+        
+                    ST_COUNTDOWN: begin
+                        if (countdown_counter[i] == BOMB_COUNTDOWN_TIME-1) begin
+                            state[i]             <= ST_EXPLODE;
+                            explode_counter[i]   <= 0;
+                            stage_r[i]           <= 2'd1;
+                            countdown_counter[i] <= 0;
+                        end 
+//                        else begin
+                        else if (game_ready) begin
+                            countdown_counter[i] <= countdown_counter[i] + 1;
+                            bomb_red_r[i]        <= countdown_counter[i][$clog2(BOMB_BLINK_TIME)];
+                        end
+                    end
+        
+                    ST_EXPLODE: begin
+                        if (explode_counter[i] == EXPLOSION_STAGE_TIME-1 && stage_r[i] >= bomb_radius_r) begin
+                            state[i]   <= ST_IDLE;
+                            stage_r[i] <= 0;
+                        end
+//                        else begin
+                        else if (game_ready) begin
+                            if (explode_counter[i] == EXPLOSION_STAGE_TIME - 1) begin
+                                explode_counter[i] <= 0;
+                                stage_r[i]         <= stage_r[i] + 1;
+                            end else begin
+                                explode_counter[i] <= explode_counter[i] + 1;
+                            end
+                        end
+                    end
+        
+                    default: state[i] <= ST_IDLE;
+                endcase
+            end
         end
     end
 

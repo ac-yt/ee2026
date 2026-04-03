@@ -2,13 +2,15 @@
 
 `include "constants.vh"
 
-module p2_controller(input clk,
+module p2_controller(input clk, rst_game, game_ready,
                      input single_player,
-                     input [3:0] p1_tx, p1_ty, mouse_tx, mouse_ty,  // done in top student
+                     input [3:0] p1_tx, p1_ty, p1_goal_tx, p1_goal_ty, mouse_tx, mouse_ty,  // done in top student
                      input mouse_left_pulse, mouse_right_pulse, mouse_middle_pulse,
                      input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
                      input [1:0] speed_multiplier,
                      input map_changed,
+                     
+                     output reg [1:0] led,
                      
                      output [3:0] goal_tx, goal_ty,
                      output reg [3:0] p2_tx, p2_ty,
@@ -22,8 +24,12 @@ module p2_controller(input clk,
                                              
                      input [1:0] bomb_count, // number of bombs that can be placed
                      input [1:0] bomb_radius, // radius of bom
+                     
+                     input [`MAX_BOMBS*4-1:0] p1_bomb_tx_flat, p1_bomb_ty_flat,
+                     input [`MAX_BOMBS-1:0] p1_bomb_active, p1_explosion_active,
                        
-                     output update, blocks_as_walls,
+                     output update, blocks_as_walls, 
+                     output reg bombs_as_walls,
                      input [4*`MAX_PATH_LEN-1:0] path_flat_x, path_flat_y,
                      input path_valid, 
                      input [6:0] path_len);
@@ -37,37 +43,169 @@ module p2_controller(input clk,
     wire [3:0] escape_tx, escape_ty;
     bot_escape bot_escape_inst (.clk(clk), .rst(0), .bot_tx(p2_tx), .bot_ty(p2_ty), .tile_map_flat(tile_map_flat),
                                 .in_danger(in_danger), .escape_tx(escape_tx), .escape_ty(escape_ty));
-                                
-    /*parameter BOT_HUNT = 0;
-    parameter BOT_PLACED = 1;
-    parameter BOT_ESCAPE = 2;
-    
-    reg [1:0] bot_state = BOT_HUNT;
-    
-    parameter integer BOMB_COOLDOWN = `CLOCK_SPEED; // wait 1s in between placing bombs
-    reg [$clog2(BOMB_COOLDOWN)-1:0] bomb_cooldown_ctr = 0;
-    wire bomb_ready = (bomb_cooldown_ctr == 0);*/
                                     
     // GOAL
     reg [3:0] bot_goal_tx = 0, bot_goal_ty = 0, player_goal_tx = 0, player_goal_ty = 0;
-    always @ (posedge clk) begin
-        if (mouse_left_pulse) begin
-            player_goal_tx <= mouse_tx;
-            player_goal_ty <= mouse_ty;
-        end
-        
-        bot_goal_tx <= in_danger ? escape_tx : p1_tx;
-        bot_goal_ty <= in_danger ? escape_ty : p1_ty;
-    end
+    reg in_danger_latch = 0;
     
-    assign goal_tx = single_player ? bot_goal_tx : player_goal_tx; 
-    assign goal_ty = single_player ? bot_goal_ty : player_goal_ty;
+    reg [3:0] bot_default_goal_tx = 0, bot_default_goal_ty = 0;
     
-    // BOT 
+    wire [4:0] p1_bomb_dist [0:`MAX_BOMBS-1];
+    wire [4:0] p2_bomb_dist [0:`MAX_BOMBS-1];
+    reg bomb_player = 0;
+    reg bomb_number = 0;
+    
+    parameter BOT_HUNT = 3'b000; // normal chase
+    parameter BOT_ESCAPE = 3'b001; // escape if bomb
+    parameter BOT_ESCAPE_PATH = 3'b010;
+    parameter BOT_ESCAPE_HUNT = 3'b011;
+    parameter BOT_BOMB = 3'b100;
+    reg [2:0] bot_state = BOT_HUNT;
+    
+    reg bot_trigger = 0;
     wire next_is_block;
     reg next_is_block_prev = 0;
     always @(posedge clk) next_is_block_prev <= next_is_block;
     
+    wire at_escape = (p2_tx == escape_tx) && (p2_ty == escape_ty);
+    
+    // dist from player to every bomb
+    genvar bi;
+    generate
+        for (bi = 0; bi < `MAX_BOMBS; bi = bi + 1) begin : bomb_unpack
+            assign p1_bomb_dist[bi] = manhattan_dist(p2_tx, p2_ty, p1_bomb_tx_flat[bi*4 +: 4], p1_bomb_ty_flat[bi*4 +: 4]);
+            assign p2_bomb_dist[bi] = manhattan_dist(p2_tx, p2_ty, bomb_tx_flat[bi*4 +: 4], bomb_ty_flat[bi*4 +: 4]);
+        end
+    endgenerate
+    
+    always @ (posedge clk) begin
+        bot_trigger <= 0;
+        bombs_as_walls <= 0;
+        led <= bot_state;
+        
+        if (rst_game) begin
+            bot_state    <= BOT_HUNT;
+            bot_goal_tx  <= p2_tx;
+            bot_goal_ty  <= p2_ty;
+            bomb_player  <= 0;
+            bomb_number  <= 0;
+        end
+        else begin
+            case (bot_state)
+                BOT_HUNT: begin
+                    // go to p1 goal if closer to it than p1, else chase p1
+    //                bot_goal_tx <= p1_tx;
+    //                bot_goal_ty <= p1_ty;
+                    if (manhattan_dist(p1_tx, p1_ty, p1_goal_tx, p1_goal_ty) <= manhattan_dist(p2_tx, p2_ty, p1_goal_tx, p1_goal_ty)) begin // p1 closer
+                        bot_goal_tx <= p1_tx;
+                        bot_goal_ty <= p1_ty;
+                    end
+                    else begin // bot closer
+                        bot_goal_tx <= p1_goal_tx;
+                        bot_goal_ty <= p1_goal_ty;
+                    end
+                    
+                    if (next_is_block & ~next_is_block_prev) bot_state <= BOT_BOMB; // place bomb if block on path
+                    if (p2_tx == p1_goal_tx && p2_ty == p1_goal_ty) bot_state <= BOT_BOMB; // at p1s goal
+                    if (manhattan_dist(p2_tx, p2_ty, p1_tx, p1_ty) <= bomb_radius && (p2_tx == p1_tx || p2_ty == p1_ty)) bot_state <= BOT_BOMB; // close to p1
+                    
+                    if (in_danger) begin
+                        bot_state <= BOT_ESCAPE;
+                        
+                        // figure out which bomb is the danger on the first cycle
+                        if ((p1_bomb_active[0] || p1_explosion_active[0]) && p1_bomb_dist[0] <= p1_bomb_dist[1] && p1_bomb_dist[0] <= p2_bomb_dist[0] && p1_bomb_dist[0] <= p2_bomb_dist[1]) begin
+                            bomb_player <= 0;
+                            bomb_number <= 0;
+                        end
+                        else if ((p1_bomb_active[1] || p1_explosion_active[1]) && p1_bomb_dist[1] <= p2_bomb_dist[0] && p1_bomb_dist[1] <= p2_bomb_dist[1]) begin
+                            bomb_player <= 0;
+                            bomb_number <= 1;
+                        end
+                        else if ((bomb_active[0] || explosion_active[0]) && p2_bomb_dist[0] <= p2_bomb_dist[1]) begin
+                            bomb_player <= 1;
+                            bomb_number <= 0;
+                        end
+                        else if ((bomb_active[0] || explosion_active[0])) begin
+                            bomb_player <= 1;
+                            bomb_number <= 1;
+                        end
+                        
+                        bot_goal_tx <= escape_tx;
+                        bot_goal_ty <= escape_ty;
+                    end
+                end
+                BOT_ESCAPE: begin
+                    // figure out which bomb is the danger
+                    if ((p1_bomb_active[0] || p1_explosion_active[0]) && p1_bomb_dist[0] <= p1_bomb_dist[1] && p1_bomb_dist[0] <= p2_bomb_dist[0] && p1_bomb_dist[0] <= p2_bomb_dist[1]) begin
+                        bomb_player <= 0;
+                        bomb_number <= 0;
+                    end
+                    else if ((p1_bomb_active[1] || p1_explosion_active[1]) && p1_bomb_dist[1] <= p2_bomb_dist[0] && p1_bomb_dist[1] <= p2_bomb_dist[1]) begin
+                        bomb_player <= 0;
+                        bomb_number <= 1;
+                    end
+                    else if ((bomb_active[0] || explosion_active[0]) && p2_bomb_dist[0] <= p2_bomb_dist[1]) begin
+                        bomb_player <= 1;
+                        bomb_number <= 0;
+                    end
+                    else if ((bomb_active[0] || explosion_active[0])) begin
+                        bomb_player <= 1;
+                        bomb_number <= 1;
+                    end
+                    
+                    bot_goal_tx <= escape_tx;
+                    bot_goal_ty <= escape_ty;
+                    
+                    if (bomb_player == 0 && !p1_bomb_active[bomb_number] && !p1_explosion_active[bomb_number]) bot_state <= BOT_HUNT;
+                    else if (bomb_player == 1 && !bomb_active[bomb_number] && !explosion_active[bomb_number]) bot_state <= BOT_HUNT;
+                    
+    //                if (at_escape) bot_state <= BOT_ESCAPE_HUNT;
+                end
+                BOT_ESCAPE_PATH: begin // see if there is empty path
+                    // take bombs as walls
+                    bombs_as_walls <= 1;
+                    
+                    bot_goal_tx <= p1_tx; // update req will be sent when new goal is set
+                    bot_goal_ty <= p1_ty;
+                    
+                    if (path_valid) bot_state <= (path_len == 0) ? BOT_ESCAPE : BOT_ESCAPE_HUNT;
+                end
+                BOT_ESCAPE_HUNT: begin
+                    // take bombs as walls
+                    bombs_as_walls <= 1;
+                    
+                    bot_goal_tx <= p1_tx; // update req will be sent when new goal is set
+                    bot_goal_ty <= p1_ty;
+                    
+                    if (bomb_player == 0 && !p1_bomb_active[bomb_number] && !p1_explosion_active[bomb_number]) bot_state <= BOT_HUNT;
+                    else if (bomb_player == 1 && !bomb_active[bomb_number] && !explosion_active[bomb_number]) bot_state <= BOT_HUNT;
+                end
+                BOT_BOMB: begin
+                    bot_trigger <= game_ready; // prevent placement when not ready
+                    bot_state <= BOT_HUNT;
+                end
+            endcase
+        end
+    end
+        
+    always @ (posedge clk) begin
+        if (rst_game) begin
+            player_goal_tx <= p2_tx;
+            player_goal_ty <= p2_ty;
+        end
+        
+        if (mouse_left_pulse) begin
+            player_goal_tx <= mouse_tx;
+            player_goal_ty <= mouse_ty;
+        end
+    end
+    
+    assign goal_tx = single_player ? bot_goal_tx : player_goal_tx; 
+    assign goal_ty = single_player ? bot_goal_ty : player_goal_ty;
+
+    wire player_trigger = mouse_right_pulse;
+    wire bomb_trigger = p2_dead ? 0 : (single_player ? bot_trigger : player_trigger);
+        
     // BOTH
     wire [3:0] mc_p2_tx, mc_p2_ty;
     wire [6:0] mc_p2_x;
@@ -82,20 +220,17 @@ module p2_controller(input clk,
         end
     end
     
-    movement_controller p2_move (.clk(clk), .map_changed(map_changed), .spawn_tx(14), .spawn_ty(8),
+    movement_controller p2_move (.clk(clk), .map_changed(map_changed), .spawn_tx(14), .spawn_ty(8), .rst_game(rst_game), .game_ready(game_ready),
                                    .goal_tx(goal_tx), .goal_ty(goal_ty), .tile_map_flat(tile_map_flat), .speed(speed), .is_player(!single_player),
                                    .next_is_block(next_is_block), .pos_tx_out(mc_p2_tx), .pos_ty_out(mc_p2_ty), .pos_x(mc_p2_x), .pos_y(mc_p2_y),
                                    .as_update(update), .as_baw(blocks_as_walls), .path_flat_x(path_flat_x), .path_flat_y(path_flat_y),
                                    .path_valid(path_valid), .path_len(path_len));
-    
-    reg bomb_trigger = 0;
-    always @ (posedge clk) begin
-        if (p2_dead) bomb_trigger <= 0;
-        else bomb_trigger <= single_player ? (next_is_block & ~next_is_block_prev) : mouse_right_pulse;
-    end
+//                                   .force_baw(in_danger_latch), .force_bmaw(checking_player_path), .as_bmaw(bombs_as_walls));
     
     bomb_controller p2_bomb_inst (
         .clk(clk),
+        .rst_game(rst_game),
+        .game_ready(game_ready),
         .trigger(bomb_trigger),
         .player_tx(p2_tx),
         .player_ty(p2_ty),
@@ -111,6 +246,14 @@ module p2_controller(input clk,
         .bomb_radius(bomb_radius)
     );
     
+    function [4:0] manhattan_dist;
+        input [3:0] x, y;
+        input [3:0] goal_x, goal_y;
+    begin
+        // use manhattan distance as a heuristic
+        manhattan_dist = (x > goal_x ? x - goal_x : goal_x - x) + (y > goal_y ? y - goal_y : goal_y - y);
+    end
+    endfunction
 endmodule
 
 
@@ -210,10 +353,10 @@ module bot_escape(
     // COMBINATIONAL SCORING
     // =========================================================
     
-    wire signed [3:0] score_up    = score_tile(bot_tx,     bot_ty - 1);
-    wire signed [3:0] score_down  = score_tile(bot_tx,     bot_ty + 1);
-    wire signed [3:0] score_left  = score_tile(bot_tx - 1, bot_ty    );
-    wire signed [3:0] score_right = score_tile(bot_tx + 1, bot_ty    );
+    wire signed [3:0] score_up    = score_tile(bot_tx, bot_ty - 1);
+    wire signed [3:0] score_down  = score_tile(bot_tx, bot_ty + 1);
+    wire signed [3:0] score_left  = score_tile(bot_tx - 1, bot_ty);
+    wire signed [3:0] score_right = score_tile(bot_tx + 1, bot_ty);
     
     // =========================================================
     // REGISTERED OUTPUT
@@ -226,11 +369,14 @@ module bot_escape(
             escape_ty <= bot_ty;
         end 
         else begin
-            in_danger <= is_dangerous(bot_tx, bot_ty);
+            in_danger <= is_dangerous(bot_tx, bot_ty) || is_dangerous(bot_tx-1, bot_ty) || is_dangerous(bot_tx+1, bot_ty) || is_dangerous(bot_tx, bot_ty-1) || is_dangerous(bot_tx, bot_ty+1);// ||
+//                         is_dangerous(bot_tx-2, bot_ty) || is_dangerous(bot_tx+2, bot_ty) || is_dangerous(bot_tx, bot_ty-2) || is_dangerous(bot_tx, bot_ty+2);
+            
             escape_tx <= bot_tx;
             escape_ty <= bot_ty;
     
-            if (is_dangerous(bot_tx, bot_ty) || is_dangerous(bot_tx-1, bot_ty) || is_dangerous(bot_tx+1, bot_ty) || is_dangerous(bot_tx, bot_ty-1) || is_dangerous(bot_tx, bot_ty+1)) begin
+            if (is_dangerous(bot_tx, bot_ty) || is_dangerous(bot_tx-1, bot_ty) || is_dangerous(bot_tx+1, bot_ty) || is_dangerous(bot_tx, bot_ty-1) || is_dangerous(bot_tx, bot_ty+1)) begin// ||
+//                is_dangerous(bot_tx-2, bot_ty) || is_dangerous(bot_tx+2, bot_ty) || is_dangerous(bot_tx, bot_ty-2) || is_dangerous(bot_tx, bot_ty+2)) begin
                 // normal path: pick best non-hard-blocked direction
                 if (score_up >= score_down && score_up >= score_left && score_up >= score_right && score_up > -4'sd8) escape_ty <= bot_ty - 1;
                 else if (score_down >= score_left && score_down >= score_right && score_down > -4'sd8) escape_ty <= bot_ty + 1;
