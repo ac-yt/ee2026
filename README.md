@@ -9,18 +9,19 @@ Report: https://nusu-my.sharepoint.com/:w:/g/personal/e1399074_u_nus_edu/IQBU9xS
 
 
 ## Latest Version Changes (V3.6, 4/4)
-Changes:
-* Integrated UI
-  * Made pairing use a button, automatically unpair if leave game etc.
-  * Added resetting based on UI to generate new map
-* Added power up OLED as a module
+LUT Usage: 84%
+* Added only show resume button during game for multi
+* Added countdown and start game and game over display
+* Added check all four corners for player dead
+* Fixed bug where players sometimes did not get revived when game restarted
+* Fixed bug where in multiplayer when one player clicks the other auto moves to its old path from previous game
 
 
 ## Important To-dos
 * Fix power up bug
-* Add sending power up data from P1/P2 or show both on P1
-* Fix bot following player if there is safe path while bomb is exploding
+* Add show both powerups on P1
+* (KIV) Fix bot following player if there is safe path while bomb is exploding
 * Save state (save tile map, player positions, player stats) only for single state (do not do for multi-state because too many variables already)
-* Only show resume button when there is already a saved game (for single) or during the game (multi)
 * Make pairing FSM use debounced buttons (move debounce to separate module for organisation)
-* Add start game display (freeze players for short while) + game over display when someone dies
+* Add dash/extra thing when the player runs out of bombs
+* (KIV) Add second difficulty/toggle for only see certain radius around player in single mode
