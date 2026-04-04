@@ -1,7 +1,6 @@
 `timescale 1ns / 1ps
 
-module powerup_oled(input player,
-                    input [6:0] pu_x, input [5:0] pu_y,
+module powerup_oled(input [6:0] pu_x, input [5:0] pu_y,
                     input [1:0] disp_bomb_radius, disp_bomb_count, disp_speed_incr,
                     output reg [15:0] oled_data_powerup);
     // Layout (96x64 px OLED, coordinates after 180° flip):
@@ -63,8 +62,8 @@ module powerup_oled(input player,
                                        (pu_y - (ROW2_CY - 3));
  
     // Active digit value for the current row
-    wire [1:0] dig_val = in_dig_row0 ? disp_bomb_radius :
-                         in_dig_row1 ? disp_bomb_count   :
+    wire [1:0] dig_val = in_dig_row0 ? disp_bomb_count:
+                         in_dig_row1 ? disp_bomb_radius :
                                        disp_speed_incr;
  
     // ----------------------------------------------------------------

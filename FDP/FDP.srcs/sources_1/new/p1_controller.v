@@ -29,13 +29,14 @@ module p1_controller (input clk, rst_game, game_ready,
       
     always @ (posedge clk) begin
         if (rst_game) begin
-            goal_tx <= p1_tx;
-            goal_ty <= p1_ty;
+            goal_tx <= 0;
+            goal_ty <= 0;
         end
-        
-        if (mouse_left_pulse) begin
-            goal_tx <= mouse_tx;
-            goal_ty <= mouse_ty;
+        else if (game_ready) begin
+            if (mouse_left_pulse) begin
+                goal_tx <= mouse_tx;
+                goal_ty <= mouse_ty;
+            end
         end
     end
     

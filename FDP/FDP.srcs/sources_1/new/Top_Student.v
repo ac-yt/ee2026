@@ -15,6 +15,7 @@ module Top_Student (
     output [7:0] seg,
     output [3:0] an
 );
+    `include "font.vh"
 
     wire clk;
     variable_clock #(.CLOCK_SPEED(`BASYS_CLOCK_SPEED), .OUT_SPEED(`CLOCK_SPEED)) clk_inst
@@ -37,11 +38,6 @@ module Top_Student (
     reg [11:0] mouse_value = 0;
     reg [1:0] mouse_init_state = 0;
     
-//    wire [3:0] mouse_tx = (mouse_xpos >= `MIN_PIX_X && mouse_xpos <= `MAX_PIX_X) ? ((mouse_xpos - `MIN_PIX_X) * 7'd43) >> 8 : 4'hF;
-//    wire [3:0] mouse_ty = (mouse_ypos >= `MIN_PIX_Y && mouse_ypos <= `MAX_PIX_Y) ? ((mouse_ypos - `MIN_PIX_Y) * 7'd43) >> 8 : 4'hF;
-    
-//    wire [6:0] mouse_cx = (mouse_xpos[6:0] < 1) ? 1 : (mouse_xpos[6:0] > 94) ? 94 : mouse_xpos[6:0];
-//    wire [5:0] mouse_cy = (mouse_ypos[5:0] < 1) ? 1 : (mouse_ypos[5:0] > 62) ? 62 : mouse_ypos[5:0];
     wire [6:0] mouse_cx = (mouse_xpos[7:1] < 1) ? 1 : (mouse_xpos[7:1] > 94) ? 94 : mouse_xpos[7:1];
     wire [5:0] mouse_cy = (mouse_ypos[6:1] < 1) ? 1 : (mouse_ypos[6:1] > 62) ? 62 : mouse_ypos[6:1];
     
@@ -256,28 +252,48 @@ module Top_Student (
    
     wire game_active; // from interface fsm, true when in game state
     wire rst_game;
-    parameter integer FREEZE_TIME = 3 * `CLOCK_SPEED; // do not allow movement until 3 seconds after reset
-    reg [$clog2(FREEZE_TIME)-1:0] freeze_counter = 0;
     reg game_ready = 0;
 
+//    always @ (posedge clk) begin
+//        if (!game_active || rst_game) begin
+//            game_ready <= 0;
+//          end
+//          else if (!game_ready && gen_state == `GAMEPLAY) begin
+//            game_ready <= 1;
+//        end
+//    end
+    
+    parameter integer COUNTDOWN_TIME = 1 * `CLOCK_SPEED; // 1 sec per count
+    reg [1:0] countdown = 3; // 3,2,1,0=GO
+    reg [$clog2(COUNTDOWN_TIME)-1:0] countdown_counter = 0;
+    wire game_start;
+    wire game_over;
+    reg go_showing = 0;
+    
     always @ (posedge clk) begin
-        if (!game_active || rst_game) begin
+        if (!game_active || rst_game || game_start || game_over) begin
             game_ready <= 0;
-//            freeze_counter <= 0;
-          end
-          else if (!game_ready && gen_state == `GAMEPLAY) begin
-            game_ready <= 1;
-//            if (freeze_counter >= FREEZE_TIME-1) begin
-//                game_ready <= 1;
-//                freeze_counter <= 0;
-//            end
-//            else freeze_counter <= freeze_counter + 1;
+            countdown <= 3;
+            countdown_counter <= 0;
+            go_showing <= 0;
+        end
+        else if (!game_ready && gen_state == `GAMEPLAY) begin
+            if (countdown_counter >= COUNTDOWN_TIME - 1) begin
+                countdown_counter <= 0;
+                if (go_showing) game_ready <= 1;
+                else if (countdown == 1) go_showing <= 1;
+                else countdown <= countdown - 1;
+//                if (countdown == 0) game_ready <= 1;
+//                else countdown <= countdown - 1;
+            end
+            else countdown_counter <= countdown_counter + 1;
         end
     end
-
+    
+    reg p1_dead, p2_dead; // declare here for use in ui
     interface_fsm ui_inst (.clk(clk), .btnL(btnL), .btnR(btnR), .btnC(btnC), .btnU(btnU), .btnD(btnD), .sw(sw[8:0]), .pair_state(pair_state), .player(player),
-                           .send_pair_req(send_pair_req), .send_unpair_req(send_unpair_req), 
-                           .x(x), .y(y), .oled_data(oled_data_ui), .state(ui_state), .rst_game(rst_game), .game_active(game_active));
+                           .send_pair_req(send_pair_req), .send_unpair_req(send_unpair_req), .p1_dead(p1_dead), .p2_dead(p2_dead), .game_over(game_over),
+                           .x(x), .y(y), .oled_data(oled_data_ui), .state(ui_state), .rst_game(rst_game), .game_active(game_active), .game_start(game_start));
 
 
 
@@ -395,7 +411,6 @@ module Top_Student (
     wire [6:0] p1_x;
     wire [5:0] p1_y;
     wire [3:0] p1_tx, p1_ty;
-    reg p1_dead;
     
     reg [1:0] p1_bomb_radius = 1, p1_bomb_count = 1, p1_speed_incr = 0;
     
@@ -464,7 +479,6 @@ module Top_Student (
     wire [6:0] p2_x;
     wire [5:0] p2_y;
     wire [3:0] p2_tx, p2_ty;
-    reg p2_dead;
     
     wire [`MAX_BOMBS-1:0] p2_place_bomb_req, p2_bomb_active, p2_bomb_red, p2_explosion_active;
     wire [`MAX_BOMBS*4-1:0] p2_bomb_tx_flat, p2_bomb_ty_flat;
@@ -686,14 +700,32 @@ module Top_Student (
     // DEATH DETECTION
     // =========================================================
     
+    wire [3:0] p1_tx_r = ((p1_x + 2) - `MIN_PIX_X) * 7'd43 >> 8;
+    wire [3:0] p1_ty_b = ((p1_y + 2) - `MIN_PIX_Y) * 7'd43 >> 8;
+    wire [3:0] p2_tx_r = ((p2_x + 2) - `MIN_PIX_X) * 7'd43 >> 8;
+    wire [3:0] p2_ty_b = ((p2_y + 2) - `MIN_PIX_Y) * 7'd43 >> 8;
+    
     always @(posedge clk) begin
         if (rst_game) begin
             p1_dead <= 0;
             p2_dead <= 0;
         end 
-        else begin
+        else if (game_ready) begin
+            // top left corner
             if (tile_map[p1_tx][p1_ty] == `MAP_BLAST) p1_dead <= 1;
             if (tile_map[p2_tx][p2_ty] == `MAP_BLAST) p2_dead <= 1;
+            
+            // top right corner
+            if (tile_map[p1_tx_r][p1_ty] == `MAP_BLAST) p1_dead <= 1;
+            if (tile_map[p2_tx_r][p2_ty] == `MAP_BLAST) p2_dead <= 1;
+            
+            // bottom left corner
+            if (tile_map[p1_tx][p1_ty_b] == `MAP_BLAST) p1_dead <= 1;
+            if (tile_map[p2_tx][p2_ty_b] == `MAP_BLAST) p2_dead <= 1;
+            
+            // bottom right corner
+            if (tile_map[p1_tx_r][p1_ty_b] == `MAP_BLAST) p1_dead <= 1;
+            if (tile_map[p2_tx_r][p2_ty_b] == `MAP_BLAST) p2_dead <= 1;
         end
     end
     
@@ -725,13 +757,7 @@ module Top_Student (
         end
     endgenerate
     
-    
-    
-    
-    
-    // =========================================================
-    // BLAST FSM DECLARATIONS
-    // =========================================================
+    // blast fsm
     reg [1:0] bomb_state = 0;
     reg [3:0] curr_tx = 0, curr_ty = 0;
     reg [3:0] curr_up_len = 0, curr_down_len = 0, curr_left_len = 0, curr_right_len = 0;
@@ -743,7 +769,7 @@ module Top_Student (
     reg destroy_down [0:1][0:`MAX_BOMBS-1];
     reg destroy_left [0:1][0:`MAX_BOMBS-1];
     reg destroy_right[0:1][0:`MAX_BOMBS-1];
-
+    
     reg blast_stage_pending [0:1][0:`MAX_BOMBS-1];
     reg end_pending [0:1][0:`MAX_BOMBS-1];
     reg place_pending [0:1][0:`MAX_BOMBS-1];
@@ -877,12 +903,12 @@ module Top_Student (
                         UPDATE: begin
                             bomb_state <= STORE_DATA;
                            
-                            if (curr_mode == 2'd0) begin
+                            if (curr_mode == 2'd0) begin // place bomb
                                 tile_map[curr_tx][curr_ty] <= `MAP_BOMB;
                                
                                 place_pending[curr_pi][curr_bi] <= 0;
                             end
-                            else if (curr_mode == 2'd1) begin
+                            else if (curr_mode == 2'd1) begin // blast
                                 if (curr_stage >= 1) begin
                                     tile_map[curr_tx][curr_ty] <= `MAP_BLAST;
                                 
@@ -907,7 +933,7 @@ module Top_Student (
                                 
                                 blast_stage_pending[curr_pi][curr_bi] <= 0;
                             end
-                            else begin
+                            else begin // ending
                                 // clear current bomb tiles
                                 tile_map[curr_tx][curr_ty] <= `MAP_EMPTY;
                                 if (curr_up_len >= 1) tile_map[curr_tx][curr_ty-1] <= `MAP_EMPTY; 
@@ -960,45 +986,45 @@ module Top_Student (
             led[5:4] <= p2_speed_incr;
             
             if (p1_collecting) begin
-                if (random_seed[7:0] < one_third) begin
+//                if (random_seed[7:0] < one_third) begin
                     // preference - bomb_radius -> bomb_count -> player_speed
                     if (p1_bomb_radius < `MAX_RADIUS) p1_bomb_radius <= p1_bomb_radius + 1;
                     else if (p1_bomb_count < `MAX_BOMBS) p1_bomb_count <= p1_bomb_count + 1;
                     else if (p1_speed_incr < `MAX_SPEED_INCR) p1_speed_incr <= p1_speed_incr + 1;
-                end
-                else if (random_seed[7:0] < two_third) begin
+//                end
+//                else if (random_seed[7:0] < two_third) begin
                     // preference - bomb_count -> player_speed -> bomb_radius
-                    if (p1_bomb_count < `MAX_BOMBS) p1_bomb_count <= p1_bomb_count + 1;
-                    else if (p1_speed_incr < `MAX_SPEED_INCR) p1_speed_incr <= p1_speed_incr + 1;
-                    else if (p1_bomb_radius < `MAX_RADIUS) p1_bomb_radius <= p1_bomb_radius + 1;
-                end
-                else begin
+//                    if (p1_bomb_count < `MAX_BOMBS) p1_bomb_count <= p1_bomb_count + 1;
+//                    else if (p1_speed_incr < `MAX_SPEED_INCR) p1_speed_incr <= p1_speed_incr + 1;
+//                    else if (p1_bomb_radius < `MAX_RADIUS) p1_bomb_radius <= p1_bomb_radius + 1;
+//                end
+//                else begin
                     // preference -player_speed -> bomb_radius -> bomb_count             
-                    if (p1_speed_incr < `MAX_SPEED_INCR) p1_speed_incr <= p1_speed_incr + 1;
-                    else if (p1_bomb_radius < `MAX_RADIUS) p1_bomb_radius <= p1_bomb_radius + 1;   
-                    else if (p1_bomb_count < `MAX_BOMBS) p1_bomb_count <= p1_bomb_count + 1;             
+//                    if (p1_speed_incr < `MAX_SPEED_INCR) p1_speed_incr <= p1_speed_incr + 1;
+//                    else if (p1_bomb_radius < `MAX_RADIUS) p1_bomb_radius <= p1_bomb_radius + 1;   
+//                    else if (p1_bomb_count < `MAX_BOMBS) p1_bomb_count <= p1_bomb_count + 1;             
                 end
-            end        
+            end
             if (p2_collecting) begin
-                if (random_seed[7:0] < one_third) begin
+//                if (random_seed[7:0] < one_third) begin
                     // preference - bomb_radius -> bomb_count -> player_speed
-                    if (p2_bomb_radius < `MAX_RADIUS) p2_bomb_radius <= p2_bomb_radius + 1;
-                    else if (p2_bomb_count < 2'b11) p2_bomb_count <= p2_bomb_count + 1;
-                    else if (p2_speed_incr < `MAX_SPEED_INCR) p2_speed_incr <= p2_speed_incr + 1;
-                end
-                else if (random_seed[7:0] < two_third) begin
+//                    if (p2_bomb_radius < `MAX_RADIUS) p2_bomb_radius <= p2_bomb_radius + 1;
+//                    else if (p2_bomb_count < `MAX_BOMBS) p2_bomb_count <= p2_bomb_count + 1;
+//                    else if (p2_speed_incr < `MAX_SPEED_INCR) p2_speed_incr <= p2_speed_incr + 1;
+//                end
+//                else if (random_seed[7:0] < two_third) begin
                     // preference - bomb_count -> player_speed -> bomb_radius
                     if (p2_bomb_count < `MAX_BOMBS) p2_bomb_count <= p2_bomb_count + 1;
                     else if (p2_speed_incr < `MAX_SPEED_INCR) p2_speed_incr <= p2_speed_incr + 1;
                     else if (p2_bomb_radius < `MAX_RADIUS) p2_bomb_radius <= p2_bomb_radius+1;
-                end
-                else begin
+//                end
+//                else begin
                     // preference -player_speed -> bomb_radius -> bomb_count             
-                    if (p2_speed_incr < `MAX_SPEED_INCR) p2_speed_incr <= p2_speed_incr + 1;
-                    else if (p2_bomb_radius < `MAX_RADIUS) p2_bomb_radius <= p2_bomb_radius + 1;   
-                    else if (p2_bomb_count < `MAX_BOMBS) p2_bomb_count <= p2_bomb_count + 1;             
-                end    
-            end
+//                    if (p2_speed_incr < `MAX_SPEED_INCR) p2_speed_incr <= p2_speed_incr + 1;
+//                    else if (p2_bomb_radius < `MAX_RADIUS) p2_bomb_radius <= p2_bomb_radius + 1;   
+//                    else if (p2_bomb_count < `MAX_BOMBS) p2_bomb_count <= p2_bomb_count + 1;             
+//                end    
+//            end
         end
         
         if (rst_game) begin
@@ -1053,8 +1079,34 @@ module Top_Student (
         if (p1_mouse_border) oled_data_single = `OLED_LIGHT_BLUE;
         if (!single_player && p2_mouse_region) oled_data_single = `OLED_MAROON;
         if (!single_player && p2_mouse_border) oled_data_single = `OLED_LIGHT_RED;
+        
+        // overlay game countdown
+        if (!go_showing) begin
+            case (countdown)
+                2'd3: begin
+                    if (y >= 31-10 && y <= 31+10) oled_data_single = `OLED_RED;
+                    if (draw_letter_big(x, y, 47, 31, "3") || y == 31-10 || y == 31+10) oled_data_single = `OLED_WHITE;
+                end
+                2'd2: begin
+                    if (y >= 31-10 && y <= 31+10) oled_data_single = `OLED_DARK_ORANGE;
+                    if (draw_letter_big(x, y, 47, 31, "2") || y == 31-10 || y == 31+10) oled_data_single = `OLED_WHITE;
+                end
+                2'd1: begin
+                    if (y >= 31-10 && y <= 31+10) oled_data_single = `OLED_DARK_YELLOW;
+                    if (draw_letter_big(x, y, 47, 31, "1") || y == 31-10 || y == 31+10) oled_data_single = `OLED_WHITE;
+                end
+                2'd0: begin
+                    if (y >= 31-10 && y <= 31+10) oled_data_single = `OLED_DARK_GREEN;
+                    if (draw_letter_big(x, y, 47-5, 31, "G") || draw_letter_big(x, y, 47+5, 31, "0") || y == 31-10 || y == 31+10) oled_data_single = `OLED_WHITE;
+                end
+            endcase
+        end
+        else if (go_showing && !game_ready) begin
+            if (y >= 31-10 && y <= 31+10) oled_data_single = `OLED_DARK_GREEN;
+            if (draw_letter_big(x, y, 47-5, 31, "G") || draw_letter_big(x, y, 47+5, 31, "0") || y == 31-10 || y == 31+10) oled_data_single = `OLED_WHITE;
+        end
     end
-    
+
     
     
     
@@ -1066,7 +1118,7 @@ module Top_Student (
     wire [1:0] disp_bomb_count = (pair_state == `PAIRED) ? ((player == `PLAYER_1) ? p1_bomb_count : rec_bomb_count) : p1_bomb_count;
     wire [1:0] disp_bomb_radius = (pair_state == `PAIRED) ? ((player == `PLAYER_1) ? p1_bomb_radius : rec_bomb_radius) : p1_bomb_radius;
     wire [1:0] disp_speed_incr = (pair_state == `PAIRED) ? ((player == `PLAYER_1) ? p1_speed_incr : rec_speed_incr) : p1_speed_incr;
-    powerup_oled pu_oled_inst (.player(player), .pu_x(pu_x), .pu_y(pu_y),
+    powerup_oled pu_oled_inst (.pu_x(pu_x), .pu_y(pu_y),
                                .disp_bomb_radius(disp_bomb_radius), .disp_bomb_count(disp_bomb_count), .disp_speed_incr(disp_speed_incr),
                                .oled_data_powerup(oled_data_powerup));
     
@@ -1082,7 +1134,7 @@ module Top_Student (
         
         case (player)
             `PLAYER_1: begin
-                if (ui_state == `SINGLE_GAME || ui_state == `MULTI_GAME) oled_data <= oled_data_single;
+                if (ui_state == `SINGLE_GAME || ui_state == `MULTI_GAME || ui_state == `DEATH_PAUSE) oled_data <= oled_data_single;
                 else oled_data <= oled_data_ui;
             end
             `PLAYER_2: begin
@@ -1091,54 +1143,6 @@ module Top_Student (
             end
             default: oled_data <= `OLED_BLACK;
         endcase
-        
-//        case (ui_state)
-//            `SINGLE_GAME, `MULTI_GAME: begin
-//                display_counter <= 0;
-//                display_text <= 0;
-//                oled_data <= oled_data_single;
-                
-//                if (player == `PLAYER_1) oled_data <= oled_data_single;
-//                else oled_data <= `OLED_BLACK;
-//                //                    oled_data <= oled_data_multi;
-//            end
-//            default: begin
-//                oled_data <= oled_data_ui;
-//            end
-            
-//        endcase
-//        case (pair_state)
-//            `SINGLE: begin
-//                display_counter <= 0;
-//                display_text <= 0;
-//                oled_data <= oled_data_single;
-//            end
-
-//            `PAIRED: begin
-////                led[0] <= rec_mouse_right;
-////                led[1] <= rec_mouse_middle;
-////                led[2] <= rec_mouse_left;
-            
-//                if (display_counter >= DISPLAY_TIME - 1) begin
-//                    display_text <= 0;
-//                end
-//                else begin
-//                    display_counter <= display_counter + 1;
-//                    display_text <= 1;
-//                end
-
-//                if (display_text)
-//                    oled_data <= oled_data_pair;
-//                else
-//                    if (player == `PLAYER_1) oled_data <= oled_data_single;
-//                    else oled_data <= `OLED_BLACK;
-////                    oled_data <= oled_data_multi;
-//            end
-
-//            default: begin
-//                oled_data <= oled_data_pair;
-//            end
-//        endcase
     end
 
 

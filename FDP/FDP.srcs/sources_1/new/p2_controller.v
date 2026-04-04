@@ -84,13 +84,13 @@ module p2_controller(input clk, rst_game, game_ready,
         led <= bot_state;
         
         if (rst_game) begin
-            bot_state    <= BOT_HUNT;
-            bot_goal_tx  <= p2_tx;
-            bot_goal_ty  <= p2_ty;
-            bomb_player  <= 0;
-            bomb_number  <= 0;
+            bot_state <= BOT_HUNT;
+            bot_goal_tx <= 14;
+            bot_goal_ty <= 8;
+            bomb_player <= 0;
+            bomb_number <= 0;
         end
-        else begin
+        else if (game_ready) begin
             case (bot_state)
                 BOT_HUNT: begin
                     // go to p1 goal if closer to it than p1, else chase p1
@@ -148,13 +148,19 @@ module p2_controller(input clk, rst_game, game_ready,
                         bomb_player <= 1;
                         bomb_number <= 0;
                     end
-                    else if ((bomb_active[0] || explosion_active[0])) begin
+                    else if ((bomb_active[1] || explosion_active[1])) begin
                         bomb_player <= 1;
                         bomb_number <= 1;
                     end
+                    else bot_state <= BOT_HUNT; // no bombs, shouldnt happen
                     
-                    bot_goal_tx <= escape_tx;
-                    bot_goal_ty <= escape_ty;
+//                    bot_goal_tx <= escape_tx;
+//                    bot_goal_ty <= escape_ty;
+                    
+                    if (escape_tx != bot_goal_tx || escape_ty != bot_goal_ty) begin
+                        bot_goal_tx <= escape_tx;
+                        bot_goal_ty <= escape_ty;
+                    end
                     
                     if (bomb_player == 0 && !p1_bomb_active[bomb_number] && !p1_explosion_active[bomb_number]) bot_state <= BOT_HUNT;
                     else if (bomb_player == 1 && !bomb_active[bomb_number] && !explosion_active[bomb_number]) bot_state <= BOT_HUNT;
@@ -190,13 +196,14 @@ module p2_controller(input clk, rst_game, game_ready,
         
     always @ (posedge clk) begin
         if (rst_game) begin
-            player_goal_tx <= p2_tx;
-            player_goal_ty <= p2_ty;
+            player_goal_tx <= 14;
+            player_goal_ty <= 8;
         end
-        
-        if (mouse_left_pulse) begin
-            player_goal_tx <= mouse_tx;
-            player_goal_ty <= mouse_ty;
+        else if (game_ready) begin
+            if (mouse_left_pulse) begin
+                player_goal_tx <= mouse_tx;
+                player_goal_ty <= mouse_ty;
+            end
         end
     end
     
