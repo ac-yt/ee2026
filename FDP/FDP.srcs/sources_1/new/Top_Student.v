@@ -304,7 +304,7 @@ module Top_Student (
     // =========================================================
     
     wire [15:0] random_seed;
-    lfsr_rng random_unit(.clk(basys_clk), .rnd(random_seed), .reset(1'b0));
+    lfsr_rng random_unit(.clk(clk), .rnd(random_seed), .reset(1'b0));
     
     reg [3:0] tx = 0, ty = 0;
     parameter WALL_COLOR = `OLED_WHITE;
@@ -430,6 +430,21 @@ module Top_Student (
     
     wire [3:0] p1_goal_tx, p1_goal_ty;
     
+    wire [1:0] p1_facing, p2_facing;
+    
+    // Stun trigger: right mouse click when all bombs are already active (can't place more)
+    wire [1:0] p1_active_bombs = p1_bomb_active[0] + p1_bomb_active[1];
+    wire p1_bombs_full = (p1_active_bombs >= p1_bomb_count);
+    wire [1:0] p2_active_bombs = p2_bomb_active[0] + p2_bomb_active[1];
+    wire p2_bombs_full = (p2_active_bombs >= p2_bomb_count);
+    wire p1_stun_trigger = mouse_right_pulse & game_ready & p1_bombs_full & ~p1_dead;
+    wire p2_stun_trigger = rec_mouse_right_pulse & game_ready & p2_bombs_full & ~p2_dead;
+    
+    wire        p1_stun_active, p2_stun_active;
+    wire [6:0]  p1_stun_x0, p1_stun_x1, p2_stun_x0, p2_stun_x1;
+    wire [5:0]  p1_stun_y0, p1_stun_y1, p2_stun_y0, p2_stun_y1;
+    wire        p1_stunned, p2_stunned;   // is THIS player stunned by the other
+    
     p1_controller p1_ctrl_inst (
         .clk(clk),
         .rst_game(rst_game),
@@ -449,7 +464,9 @@ module Top_Student (
         .p1_ty(p1_ty),
         .p1_x(p1_x),
         .p1_y(p1_y),
-        .p1_dead(p1_dead),        
+        .p1_dead(p1_dead), 
+        .p1_stunned(p1_stunned),
+        .facing(p1_facing),      
         
         .place_bomb_req(p1_place_bomb_req),
         .bomb_active(p1_bomb_active),
@@ -522,6 +539,8 @@ module Top_Student (
         .p2_x(p2_x),
         .p2_y(p2_y),
         .p2_dead(p2_dead),
+        .p2_stunned(p2_stunned),
+        .facing(p2_facing),
 
         .place_bomb_req(p2_place_bomb_req),
         .bomb_active(p2_bomb_active),
@@ -1057,6 +1076,14 @@ module Top_Student (
     wire [3:0] tile_y_of_pixel = (y >= `MIN_PIX_Y && y <= `MAX_PIX_Y) ? ((y - `MIN_PIX_Y) * 7'd43) >> 8 : 4'hF;
     wire [2:0] local_x = (tile_x_of_pixel == 4'hF) ? 0 : (x - `MIN_PIX_X - tile_x_of_pixel * 6);
     wire [2:0] local_y = (tile_y_of_pixel == 4'hF) ? 0 : (y - `MIN_PIX_Y - tile_y_of_pixel * 6);
+    // Brown stun range indicators
+    `define OLED_BROWN 16'hA145   // RGB565 approx for brown
+    wire p1_stun_region = p1_stun_active &&
+        (x >= p1_stun_x0) && (x <= p1_stun_x1) &&
+        (y >= p1_stun_y0) && (y <= p1_stun_y1);
+    wire p2_stun_region = p2_stun_active &&
+        (x >= p2_stun_x0) && (x <= p2_stun_x1) &&
+        (y >= p2_stun_y0) && (y <= p2_stun_y1);
     
     always @(*) begin
         if (tile_x_of_pixel == 4'hF || tile_y_of_pixel == 4'hF) oled_data_single = `OLED_ORANGE;
@@ -1068,8 +1095,12 @@ module Top_Student (
         if (b_bomb_active[1][1] && tile_x_of_pixel == b_tx[1][1] && tile_y_of_pixel == b_ty[1][1]) oled_data_single = b_bomb_red[1][1] ? `OLED_RED : `OLED_ORANGE;
 
         // player
-        if (p1_region) oled_data_single = p1_dead ? `OLED_CYAN : `OLED_BLUE;
-        if (p2_region) oled_data_single = p2_dead ? `OLED_PINK : `OLED_RED;
+        if (p1_region) oled_data_single = p1_dead ? `OLED_CYAN : p1_stunned ? `OLED_GREEN : `OLED_BLUE;
+        if (p2_region) oled_data_single = p2_dead ? `OLED_PINK : p2_stunned ? `OLED_GREEN : `OLED_RED;
+
+        // In the always @(*) block, after player drawing:
+        if (p1_stun_region) oled_data_single = `OLED_BROWN;
+        if (p2_stun_region) oled_data_single = `OLED_BROWN;
 
         // draw walls
         if (x < `MIN_PIX_X || x > `MAX_PIX_X || y < `MIN_PIX_Y || y > `MAX_PIX_Y) oled_data_single = WALL_COLOR;
@@ -1115,16 +1146,30 @@ module Top_Student (
     // POWER-UP DISPLAY
     // =========================================================
     
-    wire [1:0] disp_bomb_count = (pair_state == `PAIRED) ? ((player == `PLAYER_1) ? p1_bomb_count : rec_bomb_count) : p1_bomb_count;
-    wire [1:0] disp_bomb_radius = (pair_state == `PAIRED) ? ((player == `PLAYER_1) ? p1_bomb_radius : rec_bomb_radius) : p1_bomb_radius;
-    wire [1:0] disp_speed_incr = (pair_state == `PAIRED) ? ((player == `PLAYER_1) ? p1_speed_incr : rec_speed_incr) : p1_speed_incr;
-    powerup_oled pu_oled_inst (.pu_x(pu_x), .pu_y(pu_y),
-                               .disp_bomb_radius(disp_bomb_radius), .disp_bomb_count(disp_bomb_count), .disp_speed_incr(disp_speed_incr),
-                               .oled_data_powerup(oled_data_powerup));
-    
-    
-    
-    
+    // Split-screen power-up display:
+    //   Left half  (x < 48) always shows the LOCAL player's stats (P1 from this board's perspective)
+    //   Right half (x >= 48) always shows the OPPONENT's stats
+    //
+    // In single-player mode the opponent slot mirrors P1 (no opponent data available).
+    // In two-player (PAIRED) mode: if we are PLAYER_1 the opponent is rec_*; if PLAYER_2 it's rec_*.
+    // The local player is always "our" p1_* (the controller on this board).
+ 
+    // Left-half stats = always the local player's own power-ups
+    wire [1:0] left_bomb_count  = p1_bomb_count;
+    wire [1:0] left_bomb_radius = p1_bomb_radius;
+    wire [1:0] left_speed_incr  = p1_speed_incr;
+ 
+    // Right-half stats = opponent in paired mode, else mirror local
+    wire [1:0] right_bomb_count  = (pair_state == `PAIRED) ? rec_bomb_count  : p2_bomb_count;
+    wire [1:0] right_bomb_radius = (pair_state == `PAIRED) ? rec_bomb_radius : p2_bomb_radius;
+    wire [1:0] right_speed_incr  = (pair_state == `PAIRED) ? rec_speed_incr  : p2_speed_incr;
+ 
+    powerup_oled pu_oled_inst (
+        .pu_x(pu_x), .pu_y(pu_y),
+        .p1_bomb_radius(left_bomb_radius),  .p1_bomb_count(left_bomb_count),  .p1_speed_incr(left_speed_incr),
+        .p2_bomb_radius(right_bomb_radius), .p2_bomb_count(right_bomb_count), .p2_speed_incr(right_speed_incr),
+        .oled_data_powerup(oled_data_powerup)
+    );
     
     // =========================================================
     // MAIN LOOP
@@ -1145,7 +1190,34 @@ module Top_Student (
         endcase
     end
 
-
+    // =========================================================
+    // STUN CONTROLLER (Testing)
+    // =========================================================
+        // P1 tries to stun P2
+    stun_controller p1_stun_inst (
+        .clk(clk), .rst_game(rst_game), .game_ready(game_ready),
+        .trigger(p1_stun_trigger),
+        .facing(p1_facing),
+        .player_x(p1_x), .player_y(p1_y),
+        .stun_active(p1_stun_active),
+        .stun_x0(p1_stun_x0), .stun_x1(p1_stun_x1),
+        .stun_y0(p1_stun_y0), .stun_y1(p1_stun_y1),
+        .victim_x(p2_x), .victim_y(p2_y),
+        .victim_stunned(p2_stunned)
+    );
+    
+    // P2 tries to stun P1
+    stun_controller p2_stun_inst (
+        .clk(clk), .rst_game(rst_game), .game_ready(game_ready),
+        .trigger(p2_stun_trigger),
+        .facing(p2_facing),
+        .player_x(p2_x), .player_y(p2_y),
+        .stun_active(p2_stun_active),
+        .stun_x0(p2_stun_x0), .stun_x1(p2_stun_x1),
+        .stun_y0(p2_stun_y0), .stun_y1(p2_stun_y1),
+        .victim_x(p1_x), .victim_y(p1_y),
+        .victim_stunned(p1_stunned)
+    );
 
 
 

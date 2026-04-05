@@ -13,6 +13,7 @@ module movement_controller (input clk, rst_game, game_ready,// output reg [15:0]
                             output [3:0] pos_tx_out, pos_ty_out,
                             output reg [6:0] pos_x,
                             output reg [5:0] pos_y,
+                            output [1:0] facing,   // 0=right 1=left 2=down 3=up
                             
 //                            input force_baw, force_bmaw,
                              
@@ -23,7 +24,7 @@ module movement_controller (input clk, rst_game, game_ready,// output reg [15:0]
  
     reg [3:0] path_x [0:`MAX_PATH_LEN-1];
     reg [3:0] path_y [0:`MAX_PATH_LEN-1];
-    
+
     // synchronise path_valid
     reg path_valid_prev = 0;
     always @(posedge clk) begin
@@ -128,6 +129,7 @@ module movement_controller (input clk, rst_game, game_ready,// output reg [15:0]
     reg initialized = 0;
     reg new_path_pending = 0;
     reg [1:0] last_dir = 0;
+    assign facing = last_dir;
 
     always @(posedge clk) begin
         if (!initialized) begin

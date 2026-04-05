@@ -16,7 +16,9 @@ module p2_controller(input clk, rst_game, game_ready,
                      output reg [3:0] p2_tx, p2_ty,
                      output reg [6:0] p2_x,
                      output reg [5:0] p2_y,
+                     output [1:0] facing,   // 0=right 1=left 2=down 3=up
                      input p2_dead,
+                     input p2_stunned,
                      
                      output [`MAX_BOMBS-1:0] place_bomb_req, bomb_active, bomb_red, explosion_active,
                      output [`MAX_BOMBS*4-1:0] bomb_tx_flat, bomb_ty_flat,
@@ -227,9 +229,9 @@ module p2_controller(input clk, rst_game, game_ready,
         end
     end
     
-    movement_controller p2_move (.clk(clk), .map_changed(map_changed), .spawn_tx(14), .spawn_ty(8), .rst_game(rst_game), .game_ready(game_ready),
+    movement_controller p2_move (.clk(clk), .map_changed(map_changed), .spawn_tx(14), .spawn_ty(8), .rst_game(rst_game), .game_ready(game_ready & ~p2_stunned),
                                    .goal_tx(goal_tx), .goal_ty(goal_ty), .tile_map_flat(tile_map_flat), .speed(speed), .is_player(!single_player),
-                                   .next_is_block(next_is_block), .pos_tx_out(mc_p2_tx), .pos_ty_out(mc_p2_ty), .pos_x(mc_p2_x), .pos_y(mc_p2_y),
+                                   .next_is_block(next_is_block), .pos_tx_out(mc_p2_tx), .pos_ty_out(mc_p2_ty), .pos_x(mc_p2_x), .pos_y(mc_p2_y),.facing(facing),
                                    .as_update(update), .as_baw(blocks_as_walls), .path_flat_x(path_flat_x), .path_flat_y(path_flat_y),
                                    .path_valid(path_valid), .path_len(path_len));
 //                                   .force_baw(in_danger_latch), .force_bmaw(checking_player_path), .as_bmaw(bombs_as_walls));
@@ -237,7 +239,7 @@ module p2_controller(input clk, rst_game, game_ready,
     bomb_controller p2_bomb_inst (
         .clk(clk),
         .rst_game(rst_game),
-        .game_ready(game_ready),
+        .game_ready(game_ready & ~p2_stunned),
         .trigger(bomb_trigger),
         .player_tx(p2_tx),
         .player_ty(p2_ty),

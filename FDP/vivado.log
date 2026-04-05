@@ -2,39 +2,23 @@
 # Vivado v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Wed Apr  1 00:07:59 2026
-# Process ID: 13828
-# Current directory: C:/Users/ashlee/AppData/Roaming/Xilinx/Vivado
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent41424
-# Log file: C:/Users/ashlee/AppData/Roaming/Xilinx/Vivado/vivado.log
-# Journal file: C:/Users/ashlee/AppData/Roaming/Xilinx/Vivado\vivado.jou
+# Start of session at: Sun Apr  5 16:26:16 2026
+# Process ID: 7696
+# Current directory: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent17496 C:\Users\User\OneDrive\Desktop\EE2026_Codes\EE2026_FDP_Live\ee2026\FDP\FDP.xpr
+# Log file: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/vivado.log
+# Journal file: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project C:/VivadoProjects/ee2026/FDP/FDP.xpr
-INFO: [Project 1-313] Project file moved from 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP' since last save.
+open_project C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.xpr
+INFO: [Project 1-313] Project file moved from 'C:/VivadoProjects/ee2026/FDP' since last save.
 Scanning sources...
 Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.2/data/ip'.
-open_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 815.797 ; gain = 96.742
+open_project: Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 862.453 ; gain = 159.969
 open_hw
-reset_run synth_1
-reset_run blk_mem_gen_const_synth_1
-reset_run blk_mem_gen_img_synth_1
-launch_runs impl_1 -to_step write_bitstream -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'blk_mem_gen_const'...
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'blk_mem_gen_img'...
-[Wed Apr  1 00:09:49 2026] Launched blk_mem_gen_const_synth_1, blk_mem_gen_img_synth_1, synth_1...
-Run output will be captured here:
-blk_mem_gen_const_synth_1: C:/VivadoProjects/ee2026/FDP/FDP.runs/blk_mem_gen_const_synth_1/runme.log
-blk_mem_gen_img_synth_1: C:/VivadoProjects/ee2026/FDP/FDP.runs/blk_mem_gen_img_synth_1/runme.log
-synth_1: C:/VivadoProjects/ee2026/FDP/FDP.runs/synth_1/runme.log
-[Wed Apr  1 00:09:49 2026] Launched impl_1...
-Run output will be captured here: C:/VivadoProjects/ee2026/FDP/FDP.runs/impl_1/runme.log
-launch_runs: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 865.352 ; gain = 25.512
 connect_hw_server
 INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
 INFO: [Labtools 27-2222] Launching hw_server...
@@ -46,8 +30,8 @@ INFO: [Labtools 27-2221] Launch Output:
 
 
 open_hw_target
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183B9AF90A
-set_property PROGRAM.FILE {C:/VivadoProjects/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0]
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA
+set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0]
 current_hw_device [get_hw_devices xc7a35t_0]
 refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a35t_0] 0]
 INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
@@ -58,7 +42,7 @@ Resolution:
 For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
 set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
 set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
-set_property PROGRAM.FILE {C:/VivadoProjects/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0]
 program_hw_devices [get_hw_devices xc7a35t_0]
 INFO: [Labtools 27-3164] End of startup status: HIGH
 refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
@@ -68,28 +52,244 @@ Resolution:
 1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
 2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
 For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
-archive_project C:/Users/ashlee/Downloads/FDPbackup0104.xpr.zip -temp_dir C:/Users/ashlee/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-13828-ac-yt -force -include_local_ip_cache
-INFO: [Coretcl 2-137] starting archive...
-INFO: [Coretcl 2-1499] Saving project copy to temporary location 'C:/Users/ashlee/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-13828-ac-yt' for archiving project
-Scanning sources...
-Finished scanning sources
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.2/data/ip'.
-INFO: [Coretcl 2-1211] Creating project copy for archival...
-INFO: [Coretcl 2-1213] Including run results for 'synth_1'
-INFO: [Coretcl 2-1213] Including run results for 'blk_mem_gen_const_synth_1'
-INFO: [Coretcl 2-1213] Including run results for 'blk_mem_gen_img_synth_1'
-INFO: [Coretcl 2-1213] Including run results for 'impl_1'
-INFO: [Coretcl 2-133] re-setting run 'blk_mem_gen_const_impl_1'...
-INFO: [Coretcl 2-133] re-setting run 'blk_mem_gen_img_impl_1'...
-INFO: [Coretcl 2-1212] Importing remotely added design sources and verilog include files (if any)...
-INFO: [filemgmt 20-334] All file(s) are already imported in fileset: 'blk_mem_gen_const'
-INFO: [filemgmt 20-348] Importing the appropriate files for fileset: 'blk_mem_gen_const'
-INFO: [filemgmt 20-334] All file(s) are already imported in fileset: 'blk_mem_gen_img'
-INFO: [filemgmt 20-348] Importing the appropriate files for fileset: 'blk_mem_gen_img'
-INFO: [filemgmt 20-334] All file(s) are already imported in fileset: 'constrs_1'
-INFO: [filemgmt 20-348] Importing the appropriate files for fileset: 'constrs_1'
-INFO: [filemgmt 20-334] All file(s) are already imported in fileset: 'sim_1'
-INFO: [filemgmt 20-348] Importing the appropriate files for fileset: 'sim_1'
-INFO: [filemgmt 20-348] Importing the appropriate files for fileset: 'sources_1'
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run synth_1
+reset_run blk_mem_gen_const_synth_1
+reset_run blk_mem_gen_img_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 9
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'blk_mem_gen_const'...
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'blk_mem_gen_img'...
+[Sun Apr  5 17:03:28 2026] Launched blk_mem_gen_const_synth_1, blk_mem_gen_img_synth_1, synth_1...
+Run output will be captured here:
+blk_mem_gen_const_synth_1: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/blk_mem_gen_const_synth_1/runme.log
+blk_mem_gen_img_synth_1: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/blk_mem_gen_img_synth_1/runme.log
+synth_1: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log
+[Sun Apr  5 17:03:28 2026] Launched impl_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log
+launch_runs: Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 1624.777 ; gain = 0.000
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+close [ open C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/stun_controller.v w ]
+add_files C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/new/stun_controller.v
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 9
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date
+[Sun Apr  5 17:38:47 2026] Launched synth_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log
+[Sun Apr  5 17:38:47 2026] Launched impl_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. PID not specified
+
+launch_runs impl_1 -to_step write_bitstream -jobs 9
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date
+[Sun Apr  5 17:41:02 2026] Launched synth_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log
+[Sun Apr  5 17:41:02 2026] Launched impl_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 9
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date
+[Sun Apr  5 17:44:54 2026] Launched synth_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log
+[Sun Apr  5 17:44:54 2026] Launched impl_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 9
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date
+[Sun Apr  5 17:46:37 2026] Launched synth_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log
+[Sun Apr  5 17:46:37 2026] Launched impl_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 9
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date
+[Sun Apr  5 17:47:00 2026] Launched synth_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log
+[Sun Apr  5 17:47:00 2026] Launched impl_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 9
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date
+[Sun Apr  5 18:02:30 2026] Launched synth_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log
+[Sun Apr  5 18:02:30 2026] Launched impl_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 9
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date
+[Sun Apr  5 21:34:49 2026] Launched synth_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log
+[Sun Apr  5 21:34:49 2026] Launched impl_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1
+
+launch_runs impl_1 -jobs 9
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date
+[Sun Apr  5 21:40:15 2026] Launched synth_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log
+[Sun Apr  5 21:40:15 2026] Launched impl_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 9
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date
+[Sun Apr  5 21:50:02 2026] Launched impl_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183BCBC0BA
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1
+
+launch_runs impl_1 -to_step write_bitstream -jobs 9
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_inter/blk_mem_gen_inter.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.srcs/sources_1/ip/blk_mem_gen_0_1/blk_mem_gen_0.xci' is already up-to-date
+[Sun Apr  5 22:04:26 2026] Launched synth_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/synth_1/runme.log
+[Sun Apr  5 22:04:26 2026] Launched impl_1...
+Run output will be captured here: C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {C:/Users/User/OneDrive/Desktop/EE2026_Codes/EE2026_FDP_Live/ee2026/FDP/FDP.runs/impl_1/Top_Student.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+open_run impl_1
+INFO: [Netlist 29-17] Analyzing 2576 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2018.2
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2575.570 ; gain = 12.816
+Restored from archive | CPU: 2.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2575.570 ; gain = 12.816
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 2 instances were transformed.
+  IOBUF => IOBUF (IBUF, OBUFT): 2 instances
+
+open_run: Time (s): cpu = 00:00:26 ; elapsed = 00:00:25 . Memory (MB): peak = 2713.805 ; gain = 1063.305
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Apr  5 22:30:42 2026...

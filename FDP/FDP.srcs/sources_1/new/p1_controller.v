@@ -13,7 +13,9 @@ module p1_controller (input clk, rst_game, game_ready,
                       output reg [3:0] p1_tx, p1_ty,
                       output reg [6:0] p1_x,
                       output reg [5:0] p1_y,
+                      output [1:0] facing,   // 0=right 1=left 2=down 3=up
                       input p1_dead, 
+                      input p1_stunned,
                       
                       output [`MAX_BOMBS-1:0] place_bomb_req, bomb_active, bomb_red, explosion_active,
                       output [`MAX_BOMBS*4-1:0] bomb_tx_flat, bomb_ty_flat,
@@ -58,9 +60,9 @@ module p1_controller (input clk, rst_game, game_ready,
     
     wire next_is_block;
    
-    movement_controller player_move (.clk(clk), .map_changed(map_changed), .spawn_tx(0), .spawn_ty(0), .rst_game(rst_game), .game_ready(game_ready),
+    movement_controller player_move (.clk(clk), .map_changed(map_changed), .spawn_tx(0), .spawn_ty(0), .rst_game(rst_game), .game_ready(game_ready & ~p1_stunned),
                                      .goal_tx(goal_tx), .goal_ty(goal_ty), .tile_map_flat(tile_map_flat), .speed(speed), .is_player(1),
-                                     .next_is_block(next_is_block), .pos_tx_out(mc_p1_tx), .pos_ty_out(mc_p1_ty), .pos_x(mc_p1_x), .pos_y(mc_p1_y),
+                                     .next_is_block(next_is_block), .pos_tx_out(mc_p1_tx), .pos_ty_out(mc_p1_ty), .pos_x(mc_p1_x), .pos_y(mc_p1_y), .facing(facing),
                                      .as_update(update), .as_baw(blocks_as_walls), .path_flat_x(path_flat_x), .path_flat_y(path_flat_y),
                                      .path_valid(path_valid), .path_len(path_len));
 //                                     .force_baw(0), .force_bmaw(0), .as_bmaw(bombs_as_walls));
@@ -70,7 +72,7 @@ module p1_controller (input clk, rst_game, game_ready,
     bomb_controller p1_bomb_inst (
         .clk(clk),
         .rst_game(rst_game),
-        .game_ready(game_ready),
+        .game_ready(game_ready & ~p1_stunned),
         .trigger(bomb_trigger),
         .player_tx(p1_tx),
         .player_ty(p1_ty),
