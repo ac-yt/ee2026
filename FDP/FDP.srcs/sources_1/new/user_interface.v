@@ -14,7 +14,7 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                       input [6:0] x, input [5:0] y,
                       output reg rst_game=0, game_active=0, game_start=0, send_pair_req=0, send_unpair_req=0, //game_over=0,
                       output reg save_game=0, load_game=0,
-//                      output reg single_difficulty=0,
+                      output reg single_difficulty=0,
                       output reg [15:0] oled_data=0,
                       output reg [2:0] state = 0);
     
@@ -34,7 +34,7 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
     parameter BUTTON_MENU_BACK = 2'd0;
     parameter BUTTON_MENU_RESUME = 2'd1;
     parameter BUTTON_MENU_RESTART = 2'd2;
-//    parameter BUTTON_MENU_DIFFICULTY = 2'd3;
+    parameter BUTTON_MENU_DIFFICULTY = 2'd3;
     parameter BUTTON_PAIR_BACK = 2'd0;
     parameter BUTTON_PAIR_START = 2'd1;
     parameter BUTTON_PAIR_PAIR = 2'd2;
@@ -89,11 +89,11 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
             `SINGLE_HOME: begin // same shared nav for single and multi
                 if (pulse_btnU) begin
                     case (menu_cursor)
-//                        BUTTON_MENU_BACK: next_menu_cursor = BUTTON_MENU_DIFFICULTY;
-                        BUTTON_MENU_BACK: next_menu_cursor = (single_game_saved && !game_over_single) ? BUTTON_MENU_RESUME : BUTTON_MENU_BACK;
+                        BUTTON_MENU_BACK: next_menu_cursor = BUTTON_MENU_DIFFICULTY;
+//                        BUTTON_MENU_BACK: next_menu_cursor = (single_game_saved && !game_over_single) ? BUTTON_MENU_RESUME : BUTTON_MENU_BACK;
                         BUTTON_MENU_RESTART: next_menu_cursor = BUTTON_MENU_BACK;
                         BUTTON_MENU_RESUME: next_menu_cursor = BUTTON_MENU_RESTART;
-//                        BUTTON_MENU_DIFFICULTY: next_menu_cursor = (single_game_saved && !game_over_single) ? BUTTON_MENU_RESUME : BUTTON_MENU_RESTART;
+                        BUTTON_MENU_DIFFICULTY: next_menu_cursor = (single_game_saved && !game_over_single) ? BUTTON_MENU_RESUME : BUTTON_MENU_RESTART;
                         default: next_menu_cursor = BUTTON_MENU_BACK;
                     endcase
                 end
@@ -101,21 +101,33 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                 if (pulse_btnD) begin
                     case (menu_cursor)
                         BUTTON_MENU_BACK: next_menu_cursor = BUTTON_MENU_RESTART;
-//                        BUTTON_MENU_RESTART: next_menu_cursor = (single_game_saved && !game_over_single) ? BUTTON_MENU_RESUME : BUTTON_MENU_DIFFICULTY;
-                        BUTTON_MENU_RESTART: next_menu_cursor = (single_game_saved && !game_over_single) ? BUTTON_MENU_RESUME : BUTTON_MENU_BACK;
-//                        BUTTON_MENU_RESUME: next_menu_cursor = BUTTON_MENU_DIFFICULTY;
-                        BUTTON_MENU_RESUME: next_menu_cursor = BUTTON_MENU_BACK;
-//                        BUTTON_MENU_DIFFICULTY: next_menu_cursor = BUTTON_MENU_BACK;
+                        BUTTON_MENU_RESTART: next_menu_cursor = (single_game_saved && !game_over_single) ? BUTTON_MENU_RESUME : BUTTON_MENU_DIFFICULTY;
+//                        BUTTON_MENU_RESTART: next_menu_cursor = (single_game_saved && !game_over_single) ? BUTTON_MENU_RESUME : BUTTON_MENU_BACK;
+                        BUTTON_MENU_RESUME: next_menu_cursor = BUTTON_MENU_DIFFICULTY;
+//                        BUTTON_MENU_RESUME: next_menu_cursor = BUTTON_MENU_BACK;
+                        BUTTON_MENU_DIFFICULTY: next_menu_cursor = BUTTON_MENU_BACK;
                         default: next_menu_cursor = BUTTON_MENU_BACK;
                     endcase
                 end
  
                 if (pulse_btnC) begin
-                    next_menu_cursor = BUTTON_MENU_BACK;
                     case (menu_cursor)
-                        BUTTON_MENU_BACK: next_state = `HOME;
-                        BUTTON_MENU_RESUME: next_state = `SINGLE_GAME;
-                        BUTTON_MENU_RESTART: next_state = `SINGLE_GAME;
+                        BUTTON_MENU_BACK: begin
+                            next_menu_cursor = BUTTON_MENU_BACK;
+                            next_state = `HOME;
+                        end
+                        BUTTON_MENU_RESUME: begin
+                            next_menu_cursor = BUTTON_MENU_BACK;
+                            next_state = `SINGLE_GAME;
+                        end
+                        BUTTON_MENU_RESTART: begin
+                            next_menu_cursor = BUTTON_MENU_BACK;
+                            next_state = `SINGLE_GAME;
+                        end
+                        BUTTON_MENU_DIFFICULTY: begin
+                            next_menu_cursor = BUTTON_MENU_DIFFICULTY;
+                            next_state = state;
+                        end
                         default: next_state = `HOME;
                     endcase
                 end
@@ -260,8 +272,7 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                             // TODO: reset player_x, player_y to spawn corner
                             // TODO: clear active bombs and explosions
                         end
-//                        BUTTON_MENU_DIFFICULTY: begin
-//                            single_difficulty <= ~single_difficulty;
+                        BUTTON_MENU_DIFFICULTY: single_difficulty <= ~single_difficulty;
 //                        end
                         default: begin end
                     endcase
@@ -554,7 +565,62 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                 // RESTART rect top=43, h=13 | text y-center=49
                 // Gap between buttons = 6px
                 // ????????????????????????????????????????????????
-                `SINGLE_HOME, `MULTI_HOME: begin
+                `SINGLE_HOME: begin
+                    // ?? HOME button ??
+                    if (draw_rect(x, y, 23, 4, 50, 13))
+                        oled_data <= (menu_cursor == BUTTON_MENU_BACK) ? `OLED_YELLOW : `OLED_WHITE;
+                    if (draw_letter(x, y, 39, 10, "E") ||
+                        draw_letter(x, y, 45, 10, "X") ||
+                        draw_letter(x, y, 51, 10, "I") ||
+                        draw_letter(x, y, 57, 10, "T"))
+                        oled_data <= (menu_cursor == BUTTON_MENU_BACK) ? `OLED_YELLOW : `OLED_WHITE;
+     
+                    // ?? RESUME button ??
+                    if (single_game_saved && !game_over_single) begin 
+                        if (draw_rect(x, y, 23, 34, 50, 13))
+                            oled_data <= (menu_cursor == BUTTON_MENU_RESUME) ? `OLED_YELLOW : `OLED_WHITE;
+                        if (draw_letter(x, y, 33, 40, "R") ||
+                            draw_letter(x, y, 39, 40, "E") ||
+                            draw_letter(x, y, 45, 40, "S") ||
+                            draw_letter(x, y, 51, 40, "U") ||
+                            draw_letter(x, y, 57, 40, "M") ||
+                            draw_letter(x, y, 63, 40, "E"))
+                            oled_data <= (menu_cursor == BUTTON_MENU_RESUME) ? `OLED_YELLOW : `OLED_WHITE;
+                    end
+                    
+                    // ?? RESTART button ??
+                    if (draw_rect(x, y, 23, 19, 50, 13))
+                        oled_data <= (menu_cursor == BUTTON_MENU_RESTART) ? `OLED_YELLOW : `OLED_WHITE;
+                    if (draw_letter(x, y, 30, 25, "R") ||
+                        draw_letter(x, y, 36, 25, "E") ||
+                        draw_letter(x, y, 42, 25, "S") ||
+                        draw_letter(x, y, 48, 25, "T") ||
+                        draw_letter(x, y, 54, 25, "A") ||
+                        draw_letter(x, y, 60, 25, "R") ||
+                        draw_letter(x, y, 66, 25, "T"))
+                        oled_data <= (menu_cursor == BUTTON_MENU_RESTART) ? `OLED_YELLOW : `OLED_WHITE;
+
+                    if (!single_difficulty) begin
+                        if (draw_rect(x, y, 23, 49, 50, 13))
+                            oled_data <= (menu_cursor == BUTTON_MENU_DIFFICULTY) ? `OLED_YELLOW : `OLED_GREEN;
+                        if (draw_letter(x, y, 39, 55, "E") ||
+                            draw_letter(x, y, 45, 55, "A") ||
+                            draw_letter(x, y, 51, 55, "S") ||
+                            draw_letter(x, y, 57, 55, "Y"))
+                            oled_data <= (menu_cursor == BUTTON_MENU_DIFFICULTY) ? `OLED_YELLOW : `OLED_GREEN;
+                    end 
+                    else begin
+                        if (draw_rect(x, y, 23, 49, 50, 13))
+                            oled_data <= (menu_cursor == BUTTON_MENU_DIFFICULTY) ? `OLED_YELLOW : `OLED_RED;
+                        if (draw_letter(x, y, 39, 55, "H") ||
+                            draw_letter(x, y, 45, 55, "A") ||
+                            draw_letter(x, y, 51, 55, "R") ||
+                            draw_letter(x, y, 57, 55, "D"))
+                            oled_data <= (menu_cursor == BUTTON_MENU_DIFFICULTY) ? `OLED_YELLOW : `OLED_RED;
+                    end
+                    
+                end
+                `MULTI_HOME: begin
                     // ?? HOME button ??
                     if (draw_rect(x, y, 23, 7, 50, 13))
                         oled_data <= (menu_cursor == BUTTON_MENU_BACK) ? `OLED_YELLOW : `OLED_WHITE;
@@ -566,9 +632,7 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
      
                     // ?? RESUME button ??
                     if (player == `PLAYER_1) begin
-//                        if (((state == `SINGLE_HOME && single_game_saved) || (state == `MULTI_HOME && multi_game_saved)) && !game_over) begin
-                        if (((state == `SINGLE_HOME && single_game_saved && !game_over_single) || 
-                             (state == `MULTI_HOME && multi_game_saved)) && !game_over_multi) begin
+                        if (multi_game_saved && !game_over_multi) begin
                             if (draw_rect(x, y, 23, 43, 50, 13))
                                 oled_data <= (menu_cursor == BUTTON_MENU_RESUME) ? `OLED_YELLOW : `OLED_WHITE;
                             if (draw_letter(x, y, 33, 49, "R") ||

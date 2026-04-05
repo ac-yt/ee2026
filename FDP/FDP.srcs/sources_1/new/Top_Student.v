@@ -309,8 +309,8 @@ module Top_Student (
         .state(ui_state), 
         .rst_game(rst_game), 
         .game_active(game_active), 
-        .game_start(game_start)//,
-//        .single_difficulty(single_difficulty)
+        .game_start(game_start),
+        .single_difficulty(single_difficulty)
     );
     
 
