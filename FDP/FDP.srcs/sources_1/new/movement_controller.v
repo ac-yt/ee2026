@@ -3,8 +3,8 @@
 `include "constants.vh"
 
 module movement_controller (input clk, rst_game, game_ready,// output reg [15:0] led,
-                            input map_changed,
-                            input [3:0] spawn_tx, spawn_ty,
+                            input map_changed, load_game,
+                            input [3:0] spawn_tx, spawn_ty, sv_tx, sv_ty,
                             input [3:0] goal_tx, goal_ty, // player for computer, mouse for player 
                             input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
                             input [$clog2(`PLAYER_MAX_SPEED)-1:0] speed,
@@ -13,6 +13,7 @@ module movement_controller (input clk, rst_game, game_ready,// output reg [15:0]
                             output [3:0] pos_tx_out, pos_ty_out,
                             output reg [6:0] pos_x,
                             output reg [5:0] pos_y,
+                            output reg [1:0] last_dir,   // 0=right 1=left 2=down 3=up
                             
 //                            input force_baw, force_bmaw,
                              
@@ -115,7 +116,7 @@ module movement_controller (input clk, rst_game, game_ready,// output reg [15:0]
     reg update_pending = 0;
     always @ (posedge clk) begin
 //        if (goal_changed || baw_changed || map_changed) update_pending <= 1;
-        if (rst_game || goal_changed || baw_changed || map_changed) update_pending <= 1;
+        if (rst_game || load_game || goal_changed || baw_changed || map_changed) update_pending <= 1;
         
         if (update_pending && tile_aligned) begin // only update when when the 
             as_update <= 1;
@@ -127,7 +128,7 @@ module movement_controller (input clk, rst_game, game_ready,// output reg [15:0]
     // update target based on map
     reg initialized = 0;
     reg new_path_pending = 0;
-    reg [1:0] last_dir = 0;
+    // reg [1:0] last_dir = 0;
 
     always @(posedge clk) begin
         if (!initialized) begin
@@ -139,6 +140,13 @@ module movement_controller (input clk, rst_game, game_ready,// output reg [15:0]
             pos_x <= `MIN_PIX_X + spawn_tx * `TILE_SIZE + 1;
             pos_y <= `MIN_PIX_Y + spawn_ty * `TILE_SIZE + 1;
             // add clearing the path
+            
+            new_path_pending <= 0;
+            path_step <= 0;
+        end
+        else if (load_game) begin
+            pos_x <= `MIN_PIX_X + sv_tx * `TILE_SIZE + 1;
+            pos_y <= `MIN_PIX_Y + sv_ty * `TILE_SIZE + 1;
             
             new_path_pending <= 0;
             path_step <= 0;

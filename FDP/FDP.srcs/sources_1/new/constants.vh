@@ -8,9 +8,19 @@
 
 `define PLAYER_1                    0
 `define PLAYER_2                    1
+`define P1_SPAWN_TX                 0
+`define P1_SPAWN_TY                 0
+`define P2_SPAWN_TX                 14
+`define P2_SPAWN_TY                 8
 
 // power up
 `define POWER_UP_SPAWN_RATE         128 // 192 (3 quarter)
+
+// stun facing direction
+`define FACE_RIGHT                  0
+`define FACE_LEFT                   1
+`define FACE_DOWN                   2
+`define FACE_UP                     3
 
 // pairing states
 `define SINGLE                      3'b000
@@ -25,6 +35,7 @@
 `define RESET                       2'b00
 `define GENERATION                  2'b01
 `define GAMEPLAY                    2'b10
+`define LOADING                     2'b11
 
 // map parameters
 `define TILE_SIZE                   6 // size of each tile
@@ -87,31 +98,32 @@
 `define CHAR_HEIGHT_SMALL   7
 
 // colors
-`define OLED_RED          16'hF800
-`define OLED_DARK_RED     16'hA000
-`define OLED_LIGHT_RED    16'hFC10
-`define OLED_MAROON       16'h6000
-`define OLED_GREEN        16'h07E0
-`define OLED_DARK_GREEN   16'h03E0
-`define OLED_LIGHT_GREEN  16'h8FE0
-`define OLED_LIME         16'h07C0
-`define OLED_BLUE         16'h001F
-`define OLED_DARK_BLUE    16'h000F
-`define OLED_LIGHT_BLUE   16'h867F
-`define OLED_NAVY         16'h0010
-`define OLED_CYAN         16'h07FF
-`define OLED_DARK_CYAN    16'h03EF
-`define OLED_LIGHT_CYAN   16'h8FFF
-`define OLED_MAGENTA      16'hF81F
-`define OLED_DARK_MAGENTA 16'h8010
-`define OLED_PINK         16'hFC1F
-`define OLED_PURPLE       16'h601F
-`define OLED_YELLOW       16'hFFE0
-`define OLED_DARK_YELLOW  16'hFD20
-`define OLED_GOLD         16'hFD20
-`define OLED_DARK_ORANGE  16'hFB20
-`define OLED_ORANGE       16'hFC60
-`define OLED_WHITE        16'hFFFF
-`define OLED_LIGHT_GREY   16'hC618
-`define OLED_GREY         16'h8410
-`define OLED_BLACK        16'h0000
+`define OLED_RED            16'hF800
+`define OLED_DARK_RED       16'hA000
+`define OLED_LIGHT_RED      16'hFC10
+`define OLED_MAROON         16'h6000
+`define OLED_GREEN          16'h07E0
+`define OLED_DARK_GREEN     16'h03E0
+`define OLED_LIGHT_GREEN    16'h8FE0
+`define OLED_LIME           16'h07C0
+`define OLED_BLUE           16'h001F
+`define OLED_DARK_BLUE      16'h000F
+`define OLED_LIGHT_BLUE     16'h867F
+`define OLED_NAVY           16'h0010
+`define OLED_CYAN           16'h07FF
+`define OLED_DARK_CYAN      16'h03EF
+`define OLED_LIGHT_CYAN     16'h8FFF
+`define OLED_MAGENTA        16'hF81F
+`define OLED_DARK_MAGENTA   16'h8010
+`define OLED_PINK           16'hFC1F
+`define OLED_PURPLE         16'h601F
+`define OLED_YELLOW         16'hFFE0
+`define OLED_DARK_YELLOW    16'hFD20
+`define OLED_GOLD           16'hFD20
+`define OLED_DARK_ORANGE    16'hFB20
+`define OLED_ORANGE         16'hFC60
+`define OLED_WHITE          16'hFFFF
+`define OLED_LIGHT_GREY     16'hC618
+`define OLED_GREY           16'h8410
+`define OLED_BLACK          16'h0000
+`define OLED_BROWN          16'hA145

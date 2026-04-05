@@ -3,7 +3,7 @@
 `include "constants.vh"
 
 module bomb_controller (
-    input clk, rst_game, game_ready,
+    input clk, rst_game, game_ready, load_game,
     input [3:0] player_tx, player_ty,
     input trigger,
 //    input player_dead,
@@ -13,7 +13,12 @@ module bomb_controller (
     output [`MAX_BOMBS*2-1:0] explosion_stage_flat,
 
     input [1:0] bomb_count, // number of bombs that can be placed
-    input [1:0] bomb_radius
+    input [1:0] bomb_radius,
+    
+    input [`MAX_BOMBS-1:0] sv_bomb_active,
+    input [`MAX_BOMBS-1:0] sv_explosion_active,
+    input [`MAX_BOMBS*4-1:0] sv_bomb_tx_flat, sv_bomb_ty_flat,
+    input [`MAX_BOMBS*2-1:0] sv_explosion_stage_flat
 );
 
     parameter integer BOMB_COUNTDOWN_TIME = 2 * `CLOCK_SPEED;
@@ -72,6 +77,18 @@ module bomb_controller (
                 explode_counter[i]   <= 0;
                 bomb_red_r[i]        <= 0;
             end 
+            else if (load_game) begin
+                countdown_counter[i] <= 0;
+                explode_counter[i]   <= 0;
+                bomb_red_r[i]        <= 0;
+                bomb_tx_r[i]         <= sv_bomb_tx_flat[i*4 +: 4];
+                bomb_ty_r[i]         <= sv_bomb_ty_flat[i*4 +: 4];
+                stage_r[i]           <= sv_explosion_stage_flat[i*2 +: 2];
+                
+                if (sv_bomb_active[i]) state[i] <= ST_COUNTDOWN;
+                else if (sv_explosion_active[i]) state[i] <= ST_EXPLODE;
+                else state[i] <= ST_IDLE;
+            end
             else begin
                 case (state[i])
                     ST_IDLE: begin

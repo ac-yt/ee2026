@@ -54,6 +54,8 @@ read_verilog -library xil_defaultlib {
   C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/user_interface.v
   C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/powerup_oled.v
   C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/button_debounce.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/bot_escape.v
+  C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/new/stun_controller.v
 }
 read_vhdl -library xil_defaultlib {
   C:/VivadoProjects/ee2026/FDP/FDP.srcs/sources_1/imports/Desktop/Mouse_Control.vhd

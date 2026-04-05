@@ -3,8 +3,8 @@
 `include "constants.vh"
 
 module p2_controller(input clk, rst_game, game_ready,
-                     input single_player,
-                     input [3:0] p1_tx, p1_ty, p1_goal_tx, p1_goal_ty, mouse_tx, mouse_ty,  // done in top student
+                     input single_player, load_game,
+                     input [3:0] p1_tx, p1_ty, p1_goal_tx, p1_goal_ty, mouse_tx, mouse_ty, sv_tx, sv_ty, // done in top student
                      input mouse_left_pulse, mouse_right_pulse, mouse_middle_pulse,
                      input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
                      input [1:0] speed_multiplier,
@@ -27,12 +27,26 @@ module p2_controller(input clk, rst_game, game_ready,
                      
                      input [`MAX_BOMBS*4-1:0] p1_bomb_tx_flat, p1_bomb_ty_flat,
                      input [`MAX_BOMBS-1:0] p1_bomb_active, p1_explosion_active,
+                     
+                     input [`MAX_BOMBS-1:0] sv_bomb_active,
+                     input [`MAX_BOMBS-1:0] sv_explosion_active,
+                     input [`MAX_BOMBS*4-1:0] sv_bomb_tx_flat, sv_bomb_ty_flat,
+                     input [`MAX_BOMBS*2-1:0] sv_explosion_stage_flat,
                        
                      output update, blocks_as_walls, 
                      output reg bombs_as_walls,
                      input [4*`MAX_PATH_LEN-1:0] path_flat_x, path_flat_y,
                      input path_valid, 
-                     input [6:0] path_len);
+                     input [6:0] path_len,
+                     
+                     // stun
+                     input [6:0] p1_x,
+                     input [5:0] p1_y,
+                    
+                     output stun_active, p1_stunned,
+                     output [6:0] stun_x0, stun_x1,
+                     output [5:0] stun_y0, stun_y1
+);
                                                       
     wire [$clog2(`PLAYER_MAX_SPEED)-1:0] speed = single_player ? 
                                                  `BOT_DEFAULT_SPEED + speed_multiplier * `BOT_SPEED_INCREMENT : 
@@ -85,8 +99,15 @@ module p2_controller(input clk, rst_game, game_ready,
         
         if (rst_game) begin
             bot_state <= BOT_HUNT;
-            bot_goal_tx <= 14;
-            bot_goal_ty <= 8;
+            bot_goal_tx <= `P2_SPAWN_TX;
+            bot_goal_ty <= `P2_SPAWN_TY;
+            bomb_player <= 0;
+            bomb_number <= 0;
+        end
+        else if (load_game) begin
+            bot_state <= BOT_HUNT;
+            bot_goal_tx <= sv_tx;
+            bot_goal_ty <= sv_ty;
             bomb_player <= 0;
             bomb_number <= 0;
         end
@@ -125,7 +146,7 @@ module p2_controller(input clk, rst_game, game_ready,
                             bomb_player <= 1;
                             bomb_number <= 0;
                         end
-                        else if ((bomb_active[0] || explosion_active[0])) begin
+                        else if ((bomb_active[1] || explosion_active[1])) begin
                             bomb_player <= 1;
                             bomb_number <= 1;
                         end
@@ -196,8 +217,12 @@ module p2_controller(input clk, rst_game, game_ready,
         
     always @ (posedge clk) begin
         if (rst_game) begin
-            player_goal_tx <= 14;
-            player_goal_ty <= 8;
+            player_goal_tx <= `P2_SPAWN_TX;
+            player_goal_ty <= `P2_SPAWN_TY;
+        end
+        else if (load_game) begin
+            player_goal_tx <= sv_tx;
+            player_goal_ty <= sv_ty;
         end
         else if (game_ready) begin
             if (mouse_left_pulse) begin
@@ -227,17 +252,43 @@ module p2_controller(input clk, rst_game, game_ready,
         end
     end
     
-    movement_controller p2_move (.clk(clk), .map_changed(map_changed), .spawn_tx(14), .spawn_ty(8), .rst_game(rst_game), .game_ready(game_ready),
-                                   .goal_tx(goal_tx), .goal_ty(goal_ty), .tile_map_flat(tile_map_flat), .speed(speed), .is_player(!single_player),
-                                   .next_is_block(next_is_block), .pos_tx_out(mc_p2_tx), .pos_ty_out(mc_p2_ty), .pos_x(mc_p2_x), .pos_y(mc_p2_y),
-                                   .as_update(update), .as_baw(blocks_as_walls), .path_flat_x(path_flat_x), .path_flat_y(path_flat_y),
-                                   .path_valid(path_valid), .path_len(path_len));
+    wire [1:0] facing;
+    
+    movement_controller p2_move (
+        .clk(clk), 
+        .map_changed(map_changed), 
+        .spawn_tx(`P2_SPAWN_TX), 
+        .spawn_ty(`P2_SPAWN_TY), 
+        .load_game(load_game),
+        .sv_tx(sv_tx),
+        .sv_ty(sv_ty),
+        .rst_game(rst_game), 
+        .game_ready(game_ready),
+        .goal_tx(goal_tx), 
+        .goal_ty(goal_ty), 
+        .tile_map_flat(tile_map_flat), 
+        .speed(speed), 
+        .is_player(!single_player),
+        .next_is_block(next_is_block), 
+        .last_dir(facing),
+        .pos_tx_out(mc_p2_tx), 
+        .pos_ty_out(mc_p2_ty), 
+        .pos_x(mc_p2_x), 
+        .pos_y(mc_p2_y),
+        .as_update(update), 
+        .as_baw(blocks_as_walls), 
+        .path_flat_x(path_flat_x), 
+        .path_flat_y(path_flat_y),
+        .path_valid(path_valid), 
+        .path_len(path_len)
+    );
 //                                   .force_baw(in_danger_latch), .force_bmaw(checking_player_path), .as_bmaw(bombs_as_walls));
     
     bomb_controller p2_bomb_inst (
         .clk(clk),
         .rst_game(rst_game),
         .game_ready(game_ready),
+        .load_game(load_game),
         .trigger(bomb_trigger),
         .player_tx(p2_tx),
         .player_ty(p2_ty),
@@ -250,7 +301,27 @@ module p2_controller(input clk, rst_game, game_ready,
         .explosion_stage_flat(explosion_stage_flat),
         .place_bomb_req(place_bomb_req),
         .bomb_count(bomb_count),
-        .bomb_radius(bomb_radius)
+        .bomb_radius(bomb_radius),
+        .sv_bomb_active(sv_bomb_active),
+        .sv_explosion_active(sv_explosion_active),
+        .sv_bomb_tx_flat(sv_bomb_tx_flat), 
+        .sv_bomb_ty_flat(sv_bomb_ty_flat),
+        .sv_explosion_stage_flat(sv_explosion_stage_flat)
+    );
+        
+    wire [1:0] active_bombs = bomb_active[0] + bomb_active[1];
+    wire stun_trigger = !p2_dead && (active_bombs >= bomb_count) && mouse_right_pulse;
+    
+    stun_controller p2_stun (
+        .clk(clk), .rst_game(rst_game), .game_ready(game_ready),
+        .trigger(stun_trigger),
+        .facing(facing),
+        .player_x(p2_x), .player_y(p2_y),
+        .stun_active(stun_active),
+        .stun_x0(stun_x0), .stun_x1(stun_x1),
+        .stun_y0(stun_y0), .stun_y1(stun_y1),
+        .victim_x(p1_x), .victim_y(p1_y),
+        .victim_stunned(p1_stunned)
     );
     
     function [4:0] manhattan_dist;
@@ -261,147 +332,4 @@ module p2_controller(input clk, rst_game, game_ready,
         manhattan_dist = (x > goal_x ? x - goal_x : goal_x - x) + (y > goal_y ? y - goal_y : goal_y - y);
     end
     endfunction
-endmodule
-
-
-
-
-
-// bot escape
-module bot_escape(
-    input clk, rst,
-    input [3:0] bot_tx, bot_ty,
-    input [3*`TILE_MAP_SIZE-1:0] tile_map_flat,
-    output reg in_danger,
-    output reg [3:0] escape_tx, escape_ty
-);
-
-    reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
-    integer ux, uy; // unpack map
-    always @(*) begin
-        for (uy = 0; uy < `TILE_MAP_HEIGHT; uy = uy + 1)
-            for (ux = 0; ux < `TILE_MAP_WIDTH; ux = ux + 1)
-                tile_map[ux][uy] = tile_map_flat[(uy*`TILE_MAP_WIDTH + ux)*3 +: 3];
-    end
-    
-    parameter DIR_NONE  = 3'd0;
-    parameter DIR_UP    = 3'd1;
-    parameter DIR_DOWN  = 3'd2;
-    parameter DIR_LEFT  = 3'd3;
-    parameter DIR_RIGHT = 3'd4;
-
-    // =========================================================
-    // FUNCTIONS
-    // =========================================================
-    
-    function automatic in_bounds;
-        input [3:0] x;
-        input [3:0] y;
-        begin
-            in_bounds = (x < `TILE_MAP_WIDTH) && (y < `TILE_MAP_HEIGHT);
-        end
-    endfunction
-    
-    function automatic is_passable;
-        input [3:0] x;
-        input [3:0] y;
-        reg [2:0] t;
-        begin
-            if (!in_bounds(x, y)) is_passable = 1'b0;
-            else begin
-                t = tile_map[x][y];
-                is_passable = (t == `MAP_EMPTY) || (t == `MAP_BOMB) || (t == `MAP_POWERUP);
-//                is_passable = (t == `MAP_EMPTY) || (t == `MAP_POWERUP);
-            end
-        end
-    endfunction
-    
-    function automatic is_dangerous;
-        input [3:0] x;
-        input [3:0] y;
-        begin
-            if (!in_bounds(x, y)) is_dangerous = 1'b0;
-            else is_dangerous = (tile_map[x][y] == `MAP_BLAST || tile_map[x][y] == `MAP_BOMB);
-        end
-    endfunction
-    
-    // counts passable neighbours - penalises dead ends/corners
-    function automatic [2:0] exit_count;
-        input [3:0] x;
-        input [3:0] y;
-        begin
-            exit_count = is_passable(x, y-1) + is_passable(x, y+1) + is_passable(x-1, y) + is_passable(x+1, y);
-        end
-    endfunction
-    
-    function automatic signed [3:0] score_tile;
-        input [3:0] x;
-        input [3:0] y;
-        reg signed [3:0] s;
-        reg [2:0] exits;
-        begin
-            if (!in_bounds(x, y) || !is_passable(x, y)) score_tile = -4'sd8;
-            else begin
-                s = 4'sd0;
-    
-                if (is_dangerous(x, y)) s = s - 4'sd6;
-    
-                exits = exit_count(x, y);
-                if (exits == 0) s = s - 4'sd4;
-                else if (exits == 1) s = s - 4'sd2;
-                else if (exits >= 3) s = s + 4'sd1;
-    
-                score_tile = s;
-            end
-        end
-    endfunction
-    
-    // =========================================================
-    // COMBINATIONAL SCORING
-    // =========================================================
-    
-    wire signed [3:0] score_up    = score_tile(bot_tx, bot_ty - 1);
-    wire signed [3:0] score_down  = score_tile(bot_tx, bot_ty + 1);
-    wire signed [3:0] score_left  = score_tile(bot_tx - 1, bot_ty);
-    wire signed [3:0] score_right = score_tile(bot_tx + 1, bot_ty);
-    
-    // =========================================================
-    // REGISTERED OUTPUT
-    // =========================================================
-    
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
-            in_danger  <= 1'b0;
-            escape_tx <= bot_tx;
-            escape_ty <= bot_ty;
-        end 
-        else begin
-            in_danger <= is_dangerous(bot_tx, bot_ty) || is_dangerous(bot_tx-1, bot_ty) || is_dangerous(bot_tx+1, bot_ty) || is_dangerous(bot_tx, bot_ty-1) || is_dangerous(bot_tx, bot_ty+1);// ||
-//                         is_dangerous(bot_tx-2, bot_ty) || is_dangerous(bot_tx+2, bot_ty) || is_dangerous(bot_tx, bot_ty-2) || is_dangerous(bot_tx, bot_ty+2);
-            
-            escape_tx <= bot_tx;
-            escape_ty <= bot_ty;
-    
-            if (is_dangerous(bot_tx, bot_ty) || is_dangerous(bot_tx-1, bot_ty) || is_dangerous(bot_tx+1, bot_ty) || is_dangerous(bot_tx, bot_ty-1) || is_dangerous(bot_tx, bot_ty+1)) begin// ||
-//                is_dangerous(bot_tx-2, bot_ty) || is_dangerous(bot_tx+2, bot_ty) || is_dangerous(bot_tx, bot_ty-2) || is_dangerous(bot_tx, bot_ty+2)) begin
-                // normal path: pick best non-hard-blocked direction
-                if (score_up >= score_down && score_up >= score_left && score_up >= score_right && score_up > -4'sd8) escape_ty <= bot_ty - 1;
-                else if (score_down >= score_left && score_down >= score_right && score_down > -4'sd8) escape_ty <= bot_ty + 1;
-                else if (score_left >= score_right && score_left > -4'sd8) escape_tx <= bot_tx - 1;
-                else if (score_right > -4'sd8) escape_tx <= bot_tx + 1;
-    
-                else begin
-                    // fully surrounded fallback
-                    if (score_up >= score_down && score_up >= score_left && score_up >= score_right) escape_ty <= bot_ty - 1 ;
-                    else if (score_down >= score_left && score_down >= score_right) escape_ty <= bot_ty + 1;
-                    else if (score_left  >= score_right) escape_tx <= bot_tx - 1;
-                    else escape_tx <= bot_tx + 1;
-                end
-            end 
-            else begin
-                escape_tx <= bot_tx;
-                escape_ty <= bot_ty;
-            end
-        end
-    end
 endmodule
