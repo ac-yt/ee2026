@@ -87,15 +87,17 @@ module p2_controller(input clk, rst_game, game_ready,
     genvar bi;
     generate
         for (bi = 0; bi < `MAX_BOMBS; bi = bi + 1) begin : bomb_unpack
-            assign p1_bomb_dist[bi] = manhattan_dist(p2_tx, p2_ty, p1_bomb_tx_flat[bi*4 +: 4], p1_bomb_ty_flat[bi*4 +: 4]);
-            assign p2_bomb_dist[bi] = manhattan_dist(p2_tx, p2_ty, bomb_tx_flat[bi*4 +: 4], bomb_ty_flat[bi*4 +: 4]);
+            assign p1_bomb_dist[bi] = (p1_bomb_active[bi] || p1_explosion_active[bi]) ? 
+                                       manhattan_dist(p2_tx, p2_ty, p1_bomb_tx_flat[bi*4 +: 4], p1_bomb_ty_flat[bi*4 +: 4]) : 5'h1F;
+            assign p2_bomb_dist[bi] = (bomb_active[bi] || explosion_active[bi]) ? 
+                                       manhattan_dist(p2_tx, p2_ty, bomb_tx_flat[bi*4 +: 4], bomb_ty_flat[bi*4 +: 4]) : 5'h1F;
         end
     endgenerate
     
     always @ (posedge clk) begin
         bot_trigger <= 0;
         bombs_as_walls <= 0;
-        led <= bot_state;
+        led[0] <= bot_state[0];
         
         if (rst_game) begin
             bot_state <= BOT_HUNT;
@@ -158,22 +160,25 @@ module p2_controller(input clk, rst_game, game_ready,
                 BOT_ESCAPE: begin
                     // figure out which bomb is the danger
                     if ((p1_bomb_active[0] || p1_explosion_active[0]) && p1_bomb_dist[0] <= p1_bomb_dist[1] && p1_bomb_dist[0] <= p2_bomb_dist[0] && p1_bomb_dist[0] <= p2_bomb_dist[1]) begin
+                        led[1] <= 0;
                         bomb_player <= 0;
                         bomb_number <= 0;
                     end
                     else if ((p1_bomb_active[1] || p1_explosion_active[1]) && p1_bomb_dist[1] <= p2_bomb_dist[0] && p1_bomb_dist[1] <= p2_bomb_dist[1]) begin
+                        led[1] <= 0;
                         bomb_player <= 0;
                         bomb_number <= 1;
                     end
                     else if ((bomb_active[0] || explosion_active[0]) && p2_bomb_dist[0] <= p2_bomb_dist[1]) begin
+                        led[1] <= 0;
                         bomb_player <= 1;
                         bomb_number <= 0;
                     end
                     else if ((bomb_active[1] || explosion_active[1])) begin
+                        led[1] <= 0;
                         bomb_player <= 1;
                         bomb_number <= 1;
                     end
-                    else bot_state <= BOT_HUNT; // no bombs, shouldnt happen
                     
 //                    bot_goal_tx <= escape_tx;
 //                    bot_goal_ty <= escape_ty;
@@ -183,10 +188,8 @@ module p2_controller(input clk, rst_game, game_ready,
                         bot_goal_ty <= escape_ty;
                     end
                     
-                    if (!in_danger) begin // added this
-                        if (bomb_player == 0 && !p1_bomb_active[bomb_number] && !p1_explosion_active[bomb_number]) bot_state <= BOT_HUNT;
-                        else if (bomb_player == 1 && !bomb_active[bomb_number] && !explosion_active[bomb_number]) bot_state <= BOT_HUNT;
-                    end
+                    if (bomb_player == 0 && !p1_bomb_active[bomb_number] && !p1_explosion_active[bomb_number]) bot_state <= BOT_HUNT;
+                    else if (bomb_player == 1 && !bomb_active[bomb_number] && !explosion_active[bomb_number]) bot_state <= BOT_HUNT;
     //                if (at_escape) bot_state <= BOT_ESCAPE_HUNT;
                 end
                 BOT_ESCAPE_PATH: begin // see if there is empty path

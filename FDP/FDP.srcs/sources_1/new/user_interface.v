@@ -205,7 +205,10 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                     next_menu_cursor = BUTTON_MENU_RESUME;
                 end
                 
-                if ((p1_dead || p2_dead) && !game_over_single && prev_state == `SINGLE_GAME) next_state = `DEATH_PAUSE;
+                if ((p1_dead || p2_dead) && !game_over_single && prev_state == `SINGLE_GAME) begin
+                    next_state = `DEATH_PAUSE;
+                    next_menu_cursor = BUTTON_MENU_RESTART;
+                end
             end
             `MULTI_GAME: begin
                 if (pulse_btnC) begin
@@ -213,7 +216,10 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                     next_menu_cursor = BUTTON_MENU_RESUME;
                 end
 
-                if ((p1_dead || p2_dead) && !game_over_multi && prev_state == `MULTI_GAME) next_state = `DEATH_PAUSE;
+                if ((p1_dead || p2_dead) && !game_over_multi && prev_state == `MULTI_GAME) begin
+                    next_state = `DEATH_PAUSE;
+                    next_menu_cursor = BUTTON_MENU_RESTART;
+                end
                 
                 // return to wait for pair if connection lost
                 if (pair_state != `PAIRED) next_state = `MULTI_WAIT_PAIR; 
