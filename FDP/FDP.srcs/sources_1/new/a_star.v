@@ -347,7 +347,8 @@ module a_star (input clk, update, blocks_as_walls, bombs_as_walls,
                     nb_is_wall <= (tile_map[nb_x][nb_y] == `MAP_WALL);
                     nb_is_block <= (tile_map[nb_x][nb_y] == `MAP_BLOCK);
 //                    nb_is_bomb <= (tile_map[nb_x][nb_y] == `MAP_BLAST || tile_map[nb_x][nb_y] == `MAP_BOMB);
-                    nb_is_bomb <= (tile_map[nb_x][nb_y] == `MAP_BLAST) || (bombs_as_walls && tile_map[nb_x][nb_y] == `MAP_BOMB);
+//                    nb_is_bomb <= (tile_map[nb_x][nb_y] == `MAP_BLAST) || (bombs_as_walls && tile_map[nb_x][nb_y] == `MAP_BOMB);
+                    nb_is_bomb <= (tile_map[nb_x][nb_y] == `MAP_BLAST) || (bombs_as_walls && is_near_bomb(nb_x, nb_y)); // block tiles adjacent to bombs
 //                    nb_is_bomb <= (tile_map[nb_x][nb_y] == `MAP_BLAST);
                     tile_base_cost <= (tile_map[nb_x][nb_y] == `MAP_BLOCK) ? BLOCK_COST : EMPTY_COST;
                 end
@@ -442,5 +443,17 @@ module a_star (input clk, update, blocks_as_walls, bombs_as_walls,
         // use manhattan distance as a heuristic
         heuristic = (x > goal_x ? x - goal_x : goal_x - x) + (y > goal_y ? y - goal_y : goal_y - y);
     end
+    endfunction
+    
+    function is_near_bomb;
+        input [3:0] x;
+        input [3:0] y;
+        begin
+            is_near_bomb = (tile_map[x][y] == `MAP_BOMB || tile_map[x][y] == `MAP_BLAST) ||
+                           (x > 0 && (tile_map[x-1][y] == `MAP_BOMB || tile_map[x-1][y] == `MAP_BLAST)) ||
+                           (x < `TILE_MAP_WIDTH-1 && (tile_map[x+1][y] == `MAP_BOMB || tile_map[x+1][y] == `MAP_BLAST)) ||
+                           (y > 0 && (tile_map[x][y-1] == `MAP_BOMB || tile_map[x][y-1] == `MAP_BLAST)) ||
+                           (y < `TILE_MAP_HEIGHT-1 && (tile_map[x][y+1] == `MAP_BOMB || tile_map[x][y+1] == `MAP_BLAST));
+        end
     endfunction
 endmodule

@@ -10,8 +10,8 @@ module Top_Student (
     output [7:0] JA,
     output [7:0] JC,
     output UART_TX,
-    output [1:0] led2,
-    output reg [15:2] led,
+    output [2:0] led2,
+    output reg [15:3] led,
     output [7:0] seg,
     output [3:0] an
 );
@@ -514,11 +514,17 @@ module Top_Student (
         input [2:0] local_y;
     begin
         case (local_y)
-            3'd0: bomb_pixel = (local_x >= 1 && local_x <= 4); // top: 2 wide
+            /*3'd0: bomb_pixel = (local_x >= 1 && local_x <= 4); // top: 2 wide
             3'd1: bomb_pixel = (local_x >= 0 && local_x <= 5); // wider
             3'd2: bomb_pixel = (local_x >= 0 && local_x <= 5); // wider
             3'd3: bomb_pixel = (local_x >= 0 && local_x <= 5); // wider
-            3'd4: bomb_pixel = (local_x >= 1 && local_x <= 4); // bottom: 2 wide
+            3'd4: bomb_pixel = (local_x >= 1 && local_x <= 4); // bottom: 2 wide*/
+            3'd0: bomb_pixel = (local_x >= 2 && local_x <= 3); // wider
+            3'd1: bomb_pixel = (local_x >= 1 && local_x <= 4); // wider
+            3'd2: bomb_pixel = (local_x >= 0 && local_x <= 5); // wider
+            3'd3: bomb_pixel = (local_x >= 0 && local_x <= 5); // wider
+            3'd4: bomb_pixel = (local_x >= 0 && local_x <= 5); // bottom: 2 wide
+            3'd5: bomb_pixel = (local_x >= 1 && local_x <= 4); // bottom: 2 wide
             default: bomb_pixel = 0;
         endcase
     end
@@ -1279,8 +1285,8 @@ module Top_Student (
             if (bomb_pixel(local_x, local_y)) oled_data_single = b_bomb_red[1][1] ? `OLED_RED : `OLED_ORANGE;
 
         // player
-        if (p1_region) oled_data_single = p1_dead ? `OLED_CYAN : (p1_stunned ? `OLED_GREEN : `OLED_BLUE);
-        if (p2_region) oled_data_single = p2_dead ? `OLED_PINK : (p2_stunned ? `OLED_GREEN : `OLED_RED);
+        if (p1_region) oled_data_single = p1_dead ? `OLED_LIGHT_BLUE : (p1_stunned ? `OLED_GREEN : `OLED_BLUE);
+        if (p2_region) oled_data_single = p2_dead ? `OLED_LIGHT_RED : (p2_stunned ? `OLED_GREEN : `OLED_RED);
         
         // stun region
         if (p1_stun_region) oled_data_single = `OLED_NEON_GREEN;
@@ -1337,8 +1343,8 @@ module Top_Student (
     
     powerup_oled pu_oled_inst (
         .pu_x(pu_x), .pu_y(pu_y),
-        .single_player(single_player), .player(player),
-        .p1_bomb_radius(p1_bomb_radius),  .p1_bomb_count(p1_bomb_count),  .p1_speed_incr(p1_speed_incr),
+        .single_player(single_player), .player(player), .p1_stunned(p1_stunned), .p2_stunned(p2_stunned),
+        .p1_bomb_radius(p1_bomb_radius), .p1_bomb_count(p1_bomb_count), .p1_speed_incr(p1_speed_incr),
         .p2_bomb_radius(p2_bomb_radius), .p2_bomb_count(p2_bomb_count), .p2_speed_incr(p2_speed_incr),
         .oled_data_powerup(oled_data_powerup)
     );
@@ -1352,8 +1358,6 @@ module Top_Student (
     // =========================================================
     always @(posedge clk) begin
         data_tx <= {data_tx_game, data_tx_code};
-        
-        led[2] <= sp_saved;
         
         led[15:14] <= p1_bomb_radius;
         led[13:12] <= p1_bomb_count;

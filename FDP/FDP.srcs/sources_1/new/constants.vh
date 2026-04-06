@@ -17,7 +17,7 @@
 `define POWER_UP_SPAWN_RATE         128 // 192 (3 quarter)
 
 // fog of war
-`define FOG_RADIUS                  15
+`define FOG_RADIUS                  20
 
 // stun facing direction
 `define FACE_RIGHT                  0

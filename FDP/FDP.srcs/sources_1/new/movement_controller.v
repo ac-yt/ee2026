@@ -15,7 +15,7 @@ module movement_controller (input clk, rst_game, game_ready,// output reg [15:0]
                             output reg [5:0] pos_y,
                             output reg [1:0] last_dir,   // 0=right 1=left 2=down 3=up
                             
-//                            input force_baw, force_bmaw,
+                            input bot_force_baw, // only used for bot // force_bmaw, 
                              
                             output reg as_update=0, as_baw=1, //as_bmaw=0, // fast - check baw/goal change in movement control
                             input [4*`MAX_PATH_LEN-1:0] path_flat_x, path_flat_y,
@@ -102,7 +102,8 @@ module movement_controller (input clk, rst_game, game_ready,// output reg [15:0]
             else if (goal_changed || map_changed || force_baw) as_baw <= 1;
         end*/
         
-        if (!is_player) as_baw <= 0;
+//        if (!is_player) as_baw <= 0;
+        if (!is_player) as_baw <= bot_force_baw;
         else begin
             if (path_valid_pulse && path_len == 0 && as_baw) as_baw <= 0;
 //            else if ((goal_changed || map_changed) && !blocked) as_baw <= 1;

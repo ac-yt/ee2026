@@ -10,10 +10,10 @@ module p2_controller(input clk, rst_game, game_ready,
                      input [1:0] speed_multiplier,
                      input map_changed,
                      
-                     output reg [1:0] led,
+                     output reg [2:0] led,
                      
                      output [3:0] goal_tx, goal_ty,
-                     output reg [3:0] p2_tx, p2_ty,
+                     output reg [3:0] p2_tx, p2_ty, //mc_p2_x, mc_p2_y,
                      output reg [6:0] p2_x,
                      output reg [5:0] p2_y,
                      input p2_dead,
@@ -66,8 +66,9 @@ module p2_controller(input clk, rst_game, game_ready,
     
     wire [4:0] p1_bomb_dist [0:`MAX_BOMBS-1];
     wire [4:0] p2_bomb_dist [0:`MAX_BOMBS-1];
-    reg bomb_player = 0;
-    reg bomb_number = 0;
+    reg bomb_player = 0, hunt_bomb_player = 0;
+    reg bomb_number = 0, hunt_bomb_number = 0;
+//    reg p1_bait_escape = 0;
     
     parameter BOT_HUNT = 3'b000; // normal chase
     parameter BOT_ESCAPE = 3'b001; // escape if bomb
@@ -75,13 +76,19 @@ module p2_controller(input clk, rst_game, game_ready,
     parameter BOT_ESCAPE_HUNT = 3'b011;
     parameter BOT_BOMB = 3'b100;
     reg [2:0] bot_state = BOT_HUNT;
+//    reg [2:0] bot_state_after_bomb = BOT_HUNT;
     
     reg bot_trigger = 0;
     wire next_is_block;
     reg next_is_block_prev = 0;
     always @(posedge clk) next_is_block_prev <= next_is_block;
     
+    // chase bot while empty path to player
     wire at_escape = (p2_tx == escape_tx) && (p2_ty == escape_ty);
+    reg bot_force_baw = 0;
+    reg path_valid_prev = 0;
+    always @(posedge clk) path_valid_prev <= path_valid;
+    wire path_valid_pulse = path_valid & ~path_valid_prev;
     
     // dist from player to every bomb
     genvar bi;
@@ -97,7 +104,29 @@ module p2_controller(input clk, rst_game, game_ready,
     always @ (posedge clk) begin
         bot_trigger <= 0;
         bombs_as_walls <= 0;
-        led[0] <= bot_state[0];
+        bot_force_baw <= 0;
+        led[2:0] <= bot_state;
+//        led[2] <= p1_bait_escape;
+        
+        // track closest bomb to figure out which is the danger
+        if (game_ready) begin
+            if ((p1_bomb_active[0] || p1_explosion_active[0]) && p1_bomb_dist[0] <= p1_bomb_dist[1] && p1_bomb_dist[0] <= p2_bomb_dist[0] && p1_bomb_dist[0] <= p2_bomb_dist[1]) begin
+                bomb_player <= 0;
+                bomb_number <= 0;
+            end
+            else if ((p1_bomb_active[1] || p1_explosion_active[1]) && p1_bomb_dist[1] <= p2_bomb_dist[0] && p1_bomb_dist[1] <= p2_bomb_dist[1]) begin
+                bomb_player <= 0;
+                bomb_number <= 1;
+            end
+            else if ((bomb_active[0] || explosion_active[0]) && p2_bomb_dist[0] <= p2_bomb_dist[1]) begin
+                bomb_player <= 1;
+                bomb_number <= 0;
+            end
+            else if ((bomb_active[1] || explosion_active[1])) begin
+                bomb_player <= 1;
+                bomb_number <= 1;
+            end
+        end
         
         if (rst_game) begin
             bot_state <= BOT_HUNT;
@@ -105,6 +134,9 @@ module p2_controller(input clk, rst_game, game_ready,
             bot_goal_ty <= `P2_SPAWN_TY;
             bomb_player <= 0;
             bomb_number <= 0;
+            hunt_bomb_player = 0;
+            hunt_bomb_number = 0;
+//            p1_bait_escape <= 0;
         end
         else if (load_game) begin
             bot_state <= BOT_HUNT;
@@ -112,13 +144,16 @@ module p2_controller(input clk, rst_game, game_ready,
             bot_goal_ty <= sv_ty;
             bomb_player <= 0;
             bomb_number <= 0;
+            hunt_bomb_player = 0;
+            hunt_bomb_number = 0;
+//            p1_bait_escape <= 0;
         end
         else if (game_ready) begin
             case (bot_state)
                 BOT_HUNT: begin
+//                    p1_bait_escape <= 0;
+                    
                     // go to p1 goal if closer to it than p1, else chase p1
-    //                bot_goal_tx <= p1_tx;
-    //                bot_goal_ty <= p1_ty;
                     if (manhattan_dist(p1_tx, p1_ty, p1_goal_tx, p1_goal_ty) <= manhattan_dist(p2_tx, p2_ty, p1_goal_tx, p1_goal_ty)) begin // p1 closer
                         bot_goal_tx <= p1_tx;
                         bot_goal_ty <= p1_ty;
@@ -128,61 +163,20 @@ module p2_controller(input clk, rst_game, game_ready,
                         bot_goal_ty <= p1_goal_ty;
                     end
                     
-                    if (next_is_block & ~next_is_block_prev) bot_state <= BOT_BOMB; // place bomb if block on path
-                    if (p2_tx == p1_goal_tx && p2_ty == p1_goal_ty) bot_state <= BOT_BOMB; // at p1s goal
-                    if (manhattan_dist(p2_tx, p2_ty, p1_tx, p1_ty) <= bomb_radius && (p2_tx == p1_tx || p2_ty == p1_ty)) bot_state <= BOT_BOMB; // close to p1
+                    if ((next_is_block & ~next_is_block_prev) ||
+                        (p2_tx == p1_goal_tx && p2_ty == p1_goal_ty) ||
+                        (manhattan_dist(p2_tx, p2_ty, p1_tx, p1_ty) <= bomb_radius && (p2_tx == p1_tx || p2_ty == p1_ty))) begin
+//                        bot_state_after_bomb <= BOT_HUNT;
+                        bot_state <= BOT_BOMB; // close to p1
+                    end
                     
                     if (in_danger) begin
                         bot_state <= BOT_ESCAPE;
-                        
-                        // figure out which bomb is the danger on the first cycle
-                        if ((p1_bomb_active[0] || p1_explosion_active[0]) && p1_bomb_dist[0] <= p1_bomb_dist[1] && p1_bomb_dist[0] <= p2_bomb_dist[0] && p1_bomb_dist[0] <= p2_bomb_dist[1]) begin
-                            bomb_player <= 0;
-                            bomb_number <= 0;
-                        end
-                        else if ((p1_bomb_active[1] || p1_explosion_active[1]) && p1_bomb_dist[1] <= p2_bomb_dist[0] && p1_bomb_dist[1] <= p2_bomb_dist[1]) begin
-                            bomb_player <= 0;
-                            bomb_number <= 1;
-                        end
-                        else if ((bomb_active[0] || explosion_active[0]) && p2_bomb_dist[0] <= p2_bomb_dist[1]) begin
-                            bomb_player <= 1;
-                            bomb_number <= 0;
-                        end
-                        else if ((bomb_active[1] || explosion_active[1])) begin
-                            bomb_player <= 1;
-                            bomb_number <= 1;
-                        end
-                        
                         bot_goal_tx <= escape_tx;
                         bot_goal_ty <= escape_ty;
                     end
                 end
                 BOT_ESCAPE: begin
-                    // figure out which bomb is the danger
-                    if ((p1_bomb_active[0] || p1_explosion_active[0]) && p1_bomb_dist[0] <= p1_bomb_dist[1] && p1_bomb_dist[0] <= p2_bomb_dist[0] && p1_bomb_dist[0] <= p2_bomb_dist[1]) begin
-                        led[1] <= 0;
-                        bomb_player <= 0;
-                        bomb_number <= 0;
-                    end
-                    else if ((p1_bomb_active[1] || p1_explosion_active[1]) && p1_bomb_dist[1] <= p2_bomb_dist[0] && p1_bomb_dist[1] <= p2_bomb_dist[1]) begin
-                        led[1] <= 0;
-                        bomb_player <= 0;
-                        bomb_number <= 1;
-                    end
-                    else if ((bomb_active[0] || explosion_active[0]) && p2_bomb_dist[0] <= p2_bomb_dist[1]) begin
-                        led[1] <= 0;
-                        bomb_player <= 1;
-                        bomb_number <= 0;
-                    end
-                    else if ((bomb_active[1] || explosion_active[1])) begin
-                        led[1] <= 0;
-                        bomb_player <= 1;
-                        bomb_number <= 1;
-                    end
-                    
-//                    bot_goal_tx <= escape_tx;
-//                    bot_goal_ty <= escape_ty;
-                    
                     if (escape_tx != bot_goal_tx || escape_ty != bot_goal_ty) begin
                         bot_goal_tx <= escape_tx;
                         bot_goal_ty <= escape_ty;
@@ -190,26 +184,51 @@ module p2_controller(input clk, rst_game, game_ready,
                     
                     if (bomb_player == 0 && !p1_bomb_active[bomb_number] && !p1_explosion_active[bomb_number]) bot_state <= BOT_HUNT;
                     else if (bomb_player == 1 && !bomb_active[bomb_number] && !explosion_active[bomb_number]) bot_state <= BOT_HUNT;
-    //                if (at_escape) bot_state <= BOT_ESCAPE_HUNT;
+                    else if (at_escape) bot_state <= BOT_ESCAPE_PATH;
                 end
                 BOT_ESCAPE_PATH: begin // see if there is empty path
                     // take bombs as walls
                     bombs_as_walls <= 1;
-                    
-                    bot_goal_tx <= p1_tx; // update req will be sent when new goal is set
-                    bot_goal_ty <= p1_ty;
-                    
-                    if (path_valid) bot_state <= (path_len == 0) ? BOT_ESCAPE : BOT_ESCAPE_HUNT;
-                end
-                BOT_ESCAPE_HUNT: begin
-                    // take bombs as walls
-                    bombs_as_walls <= 1;
+                    bot_force_baw <= 1;
                     
                     bot_goal_tx <= p1_tx; // update req will be sent when new goal is set
                     bot_goal_ty <= p1_ty;
                     
                     if (bomb_player == 0 && !p1_bomb_active[bomb_number] && !p1_explosion_active[bomb_number]) bot_state <= BOT_HUNT;
+                    else if (bomb_player == 1 && !bomb_active[bomb_number] && !explosion_active[bomb_number]) bot_state <= BOT_HUNT;    
+//                    else if (p1_bait_escape) bot_state <= BOT_ESCAPE;                
+                    else if (path_valid_pulse) begin
+                        bot_state <= (path_len == 0) ? BOT_ESCAPE : BOT_ESCAPE_HUNT;
+                        hunt_bomb_player <= bomb_player;  // which bomb we planned around
+                        hunt_bomb_number <= bomb_number;
+                    end
+                end
+                BOT_ESCAPE_HUNT: begin
+                    // take bombs as walls
+                    bombs_as_walls <= 1;
+                    bot_force_baw <= 1;
+                    
+                    bot_goal_tx <= p1_tx; // update req will be sent when new goal is set
+                    bot_goal_ty <= p1_ty;
+                    
+                    // allow to place bombs
+                    /*if ((next_is_block & ~next_is_block_prev) ||
+                        (p2_tx == p1_goal_tx && p2_ty == p1_goal_ty) ||
+                        (manhattan_dist(p2_tx, p2_ty, p1_tx, p1_ty) <= bomb_radius && (p2_tx == p1_tx || p2_ty == p1_ty))) begin
+                        bot_state_after_bomb <= BOT_ESCAPE_HUNT;
+                        bot_state <= BOT_BOMB; // close to p1
+                    end*/
+                    
+                    if (bomb_player == 0 && !p1_bomb_active[bomb_number] && !p1_explosion_active[bomb_number]) bot_state <= BOT_HUNT;
                     else if (bomb_player == 1 && !bomb_active[bomb_number] && !explosion_active[bomb_number]) bot_state <= BOT_HUNT;
+                    else if (in_danger) begin
+                        if (bomb_player != hunt_bomb_player || bomb_number != hunt_bomb_number) bot_state <= BOT_ESCAPE; // escape if player placed a new bomb in the way
+                        else if (path_valid_pulse && path_len == 0) bot_state <= BOT_ESCAPE; // if player runs across bomb run away
+//                        else if (p2_tx == p1_tx && p2_ty == p1_ty) begin
+//                            bot_state <= BOT_ESCAPE; // run away if player tries to bait it
+//                            p1_bait_escape <= 1;
+//                        end
+                    end
                 end
                 BOT_BOMB: begin
                     bot_trigger <= game_ready; // prevent placement when not ready
@@ -284,7 +303,8 @@ module p2_controller(input clk, rst_game, game_ready,
         .path_flat_x(path_flat_x), 
         .path_flat_y(path_flat_y),
         .path_valid(path_valid), 
-        .path_len(path_len)
+        .path_len(path_len),
+        .bot_force_baw(bot_force_baw)
     );
 //                                   .force_baw(in_danger_latch), .force_bmaw(checking_player_path), .as_bmaw(bombs_as_walls));
     
@@ -314,7 +334,23 @@ module p2_controller(input clk, rst_game, game_ready,
     );
         
     wire [1:0] active_bombs = bomb_active[0] + bomb_active[1];
-    wire stun_trigger = !p2_dead && (active_bombs >= bomb_count) && mouse_right_pulse;
+//    wire player_stun_trigger = !p2_dead && (active_bombs >= bomb_count) && mouse_right_pulse;
+    
+    // which direction p1 is relative to p2
+    wire p1_is_right = (p1_tx > p2_tx) && (p2_ty == p1_ty);
+    wire p1_is_left = (p1_tx < p2_tx) && (p2_ty == p1_ty);
+    wire p1_is_down = (p1_ty > p2_ty) && (p2_tx == p1_tx);
+    wire p1_is_up = (p1_ty < p2_ty) && (p2_tx == p1_tx);
+    
+    wire facing_player = (facing == `FACE_RIGHT && p1_is_right) ||
+                         (facing == `FACE_LEFT && p1_is_left) ||
+                         (facing == `FACE_DOWN && p1_is_down) ||
+                         (facing == `FACE_UP && p1_is_up);
+    
+    wire bot_stun_trigger = (manhattan_dist(p2_tx, p2_ty, p1_tx, p1_ty) == 1) && facing_player; // next to player and facing player
+    wire player_stun_trigger = mouse_right_pulse;
+
+    wire stun_trigger = (!p2_dead && active_bombs >= bomb_count) ? (single_player ? bot_stun_trigger : player_stun_trigger) : 0;
     
     stun_controller p2_stun (
         .clk(clk), .rst_game(rst_game), .game_ready(game_ready),

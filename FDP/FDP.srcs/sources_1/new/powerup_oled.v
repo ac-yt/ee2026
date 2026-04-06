@@ -4,12 +4,14 @@
 
 module powerup_oled (input [6:0] pu_x, input [5:0] pu_y,
                      input single_player, player,
+                     input p1_stunned, p2_stunned,
                      // P1 stats
                      input [1:0] p1_bomb_radius, p1_bomb_count, p1_speed_incr,
                      // P2 stats
                      input [1:0] p2_bomb_radius, p2_bomb_count, p2_speed_incr,
                      output reg [15:0] oled_data_powerup);
 
+    `include "font.vh"
     // ----------------------------------------------------------------
     // LAYOUT  (96x64 px OLED, coordinates after 180-degree flip)
     //
@@ -317,5 +319,29 @@ module powerup_oled (input [6:0] pu_x, input [5:0] pu_y,
             oled_data_powerup = `OLED_WHITE;
         
         if (!single_player && player == `PLAYER_2) oled_data_powerup = `OLED_BLACK;
+        
+        // stunned
+        if (p1_stunned && in_left_half) begin
+            oled_data_powerup = `OLED_DARK_GREEN;
+            if (draw_letter(pu_x, pu_y, 24,  8, "S") ||
+                draw_letter(pu_x, pu_y, 24, 16, "T") ||
+                draw_letter(pu_x, pu_y, 24, 24, "U") ||
+                draw_letter(pu_x, pu_y, 24, 32, "N") ||
+                draw_letter(pu_x, pu_y, 24, 40, "N") ||
+                draw_letter(pu_x, pu_y, 24, 48, "E") ||
+                draw_letter(pu_x, pu_y, 24, 56, "D"))
+                oled_data_powerup = `OLED_WHITE;
+        end
+        if (p2_stunned && in_right_half) begin
+            oled_data_powerup = `OLED_DARK_GREEN;
+            if (draw_letter(pu_x, pu_y, 72,  8, "S") ||
+                draw_letter(pu_x, pu_y, 72, 16, "T") ||
+                draw_letter(pu_x, pu_y, 72, 24, "U") ||
+                draw_letter(pu_x, pu_y, 72, 32, "N") ||
+                draw_letter(pu_x, pu_y, 72, 40, "N") ||
+                draw_letter(pu_x, pu_y, 72, 48, "E") ||
+                draw_letter(pu_x, pu_y, 72, 56, "D"))
+                oled_data_powerup = `OLED_WHITE;
+        end
     end
 endmodule

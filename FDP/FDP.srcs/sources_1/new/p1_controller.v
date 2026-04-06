@@ -10,7 +10,7 @@ module p1_controller (input clk, rst_game, game_ready, load_game,
                       input map_changed,
                       
                       output reg [3:0] goal_tx, goal_ty,
-                      output reg [3:0] p1_tx, p1_ty,
+                      output reg [3:0] p1_tx, p1_ty, //mc_p1_x, mc_p1_y,
                       output reg [6:0] p1_x,
                       output reg [5:0] p1_y,
                       input p1_dead, 
@@ -103,7 +103,8 @@ module p1_controller (input clk, rst_game, game_ready, load_game,
         .path_flat_x(path_flat_x), 
         .path_flat_y(path_flat_y),
         .path_valid(path_valid), 
-        .path_len(path_len)
+        .path_len(path_len),
+        .bot_force_baw(0)
     );
 //                                     .force_baw(0), .force_bmaw(0), .as_bmaw(bombs_as_walls));
     
