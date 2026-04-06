@@ -16,6 +16,9 @@
 // power up
 `define POWER_UP_SPAWN_RATE         128 // 192 (3 quarter)
 
+// fog of war
+`define FOG_RADIUS                  15
+
 // stun facing direction
 `define FACE_RIGHT                  0
 `define FACE_LEFT                   1
@@ -102,10 +105,13 @@
 `define OLED_DARK_RED       16'hA000
 `define OLED_LIGHT_RED      16'hFC10
 `define OLED_MAROON         16'h6000
+`define OLED_BRICK_RED      16'hA040
+`define OLED_BRICK_LIGHT    16'hC060
 `define OLED_GREEN          16'h07E0
 `define OLED_DARK_GREEN     16'h03E0
 `define OLED_LIGHT_GREEN    16'h8FE0
 `define OLED_LIME           16'h07C0
+`define OLED_NEON_GREEN     16'hAFE0
 `define OLED_BLUE           16'h001F
 `define OLED_DARK_BLUE      16'h000F
 `define OLED_LIGHT_BLUE     16'h867F
@@ -124,6 +130,7 @@
 `define OLED_ORANGE         16'hFC60
 `define OLED_WHITE          16'hFFFF
 `define OLED_LIGHT_GREY     16'hC618
+`define OLED_DARK_GREY     16'h4A49          
 `define OLED_GREY           16'h8410
 `define OLED_BLACK          16'h0000
 `define OLED_BROWN          16'hA145

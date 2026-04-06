@@ -183,9 +183,10 @@ module p2_controller(input clk, rst_game, game_ready,
                         bot_goal_ty <= escape_ty;
                     end
                     
-                    if (bomb_player == 0 && !p1_bomb_active[bomb_number] && !p1_explosion_active[bomb_number]) bot_state <= BOT_HUNT;
-                    else if (bomb_player == 1 && !bomb_active[bomb_number] && !explosion_active[bomb_number]) bot_state <= BOT_HUNT;
-                    
+                    if (!in_danger) begin // added this
+                        if (bomb_player == 0 && !p1_bomb_active[bomb_number] && !p1_explosion_active[bomb_number]) bot_state <= BOT_HUNT;
+                        else if (bomb_player == 1 && !bomb_active[bomb_number] && !explosion_active[bomb_number]) bot_state <= BOT_HUNT;
+                    end
     //                if (at_escape) bot_state <= BOT_ESCAPE_HUNT;
                 end
                 BOT_ESCAPE_PATH: begin // see if there is empty path

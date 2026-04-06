@@ -448,11 +448,23 @@ module Top_Student (
     begin
         case (tile_type)
             `MAP_EMPTY:   expand_tile = `OLED_BLACK;
-            `MAP_WALL:    expand_tile = WALL_COLOR;
-            `MAP_BLOCK:   expand_tile = `OLED_GREY;
+            `MAP_WALL: begin
+                expand_tile = WALL_COLOR;
+            end
+            `MAP_BLOCK: begin
+                expand_tile = `OLED_DARK_GREY;
+                if (local_x == 0 || local_x == 5 || local_y == 0 || local_y == 5) expand_tile = `OLED_DARK_GREY;
+                else if (local_y == 3) expand_tile = `OLED_DARK_GREY;
+                else if (local_y <= 2 && local_x == 3) expand_tile = `OLED_DARK_GREY;
+                else if (local_y >= 4 && local_x == 2) expand_tile = `OLED_DARK_GREY;
+                else expand_tile = `OLED_LIGHT_GREY;
+            end
 //            `MAP_BOMB:    expand_tile = (local_x >= 2 && local_x <= 3 && local_y >= 2 && local_y <= 3) ? `OLED_ORANGE : `OLED_BLACK;
             `MAP_POWERUP: expand_tile = `OLED_MAGENTA;
-            `MAP_BLAST: expand_tile = `OLED_YELLOW;
+            `MAP_BLAST: begin
+                if (local_x == 0 || local_x == 5 || local_y == 0 || local_y == 5) expand_tile = `OLED_ORANGE;
+                else expand_tile = `OLED_YELLOW;
+            end
             default:      expand_tile = `OLED_BLACK;
         endcase
     end
@@ -495,6 +507,21 @@ module Top_Student (
                              cursor_region(x, px, y+1, py) == 1 ||
                              cursor_region(x, px, y-1, py) == 1));
         end
+    endfunction
+    
+    function bomb_pixel;
+        input [2:0] local_x;
+        input [2:0] local_y;
+    begin
+        case (local_y)
+            3'd0: bomb_pixel = (local_x >= 1 && local_x <= 4); // top: 2 wide
+            3'd1: bomb_pixel = (local_x >= 0 && local_x <= 5); // wider
+            3'd2: bomb_pixel = (local_x >= 0 && local_x <= 5); // wider
+            3'd3: bomb_pixel = (local_x >= 0 && local_x <= 5); // wider
+            3'd4: bomb_pixel = (local_x >= 1 && local_x <= 4); // bottom: 2 wide
+            default: bomb_pixel = 0;
+        endcase
+    end
     endfunction
     
     
@@ -1215,85 +1242,6 @@ module Top_Student (
         endcase
     end
     
-    
-    
-    
-    
-    // =========================================================
-    // POWERUP COLLECTION
-    // =========================================================   
-    /*parameter one_third = 85; 
-    parameter two_third = 170;
-    
-    always @ (posedge clk) begin
-        if (load_game) begin
-            p1_bomb_radius <= sv_p1_bomb_radius;
-            p1_bomb_count  <= sv_p1_bomb_count;
-            p1_speed_incr  <= sv_p1_speed_incr;
-            p2_bomb_radius <= sv_p2_bomb_radius;
-            p2_bomb_count  <= sv_p2_bomb_count;
-            p2_speed_incr  <= sv_p2_speed_incr;
-        end
-        else if (game_ready && gen_state == `GAMEPLAY) begin
-            led[15:14] <= p1_bomb_radius;
-            led[13:12] <= p1_bomb_count;
-            led[11:10] <= p1_speed_incr;
-            led[9:8] <= p2_bomb_radius;
-            led[7:6] <= p2_bomb_count;
-            led[5:4] <= p2_speed_incr;
-            
-            if (p1_collecting) begin
-                if (random_seed[7:0] < one_third) begin
-                    // preference - bomb_radius -> bomb_count -> player_speed
-                    if (p1_bomb_radius < `MAX_RADIUS) p1_bomb_radius <= p1_bomb_radius + 1;
-                    else if (p1_bomb_count < `MAX_BOMBS) p1_bomb_count <= p1_bomb_count + 1;
-                    else if (p1_speed_incr < `MAX_SPEED_INCR) p1_speed_incr <= p1_speed_incr + 1;
-                end
-                else if (random_seed[7:0] < two_third) begin
-                    // preference - bomb_count -> player_speed -> bomb_radius
-                    if (p1_bomb_count < `MAX_BOMBS) p1_bomb_count <= p1_bomb_count + 1;
-                    else if (p1_speed_incr < `MAX_SPEED_INCR) p1_speed_incr <= p1_speed_incr + 1;
-                    else if (p1_bomb_radius < `MAX_RADIUS) p1_bomb_radius <= p1_bomb_radius + 1;
-                end
-                else begin
-                    // preference -player_speed -> bomb_radius -> bomb_count             
-                    if (p1_speed_incr < `MAX_SPEED_INCR) p1_speed_incr <= p1_speed_incr + 1;
-                    else if (p1_bomb_radius < `MAX_RADIUS) p1_bomb_radius <= p1_bomb_radius + 1;   
-                    else if (p1_bomb_count < `MAX_BOMBS) p1_bomb_count <= p1_bomb_count + 1;             
-                end
-            end
-            if (p2_collecting) begin
-                if (random_seed[7:0] < one_third) begin
-                    // preference - bomb_radius -> bomb_count -> player_speed
-                    if (p2_bomb_radius < `MAX_RADIUS) p2_bomb_radius <= p2_bomb_radius + 1;
-                    else if (p2_bomb_count < `MAX_BOMBS) p2_bomb_count <= p2_bomb_count + 1;
-                    else if (p2_speed_incr < `MAX_SPEED_INCR) p2_speed_incr <= p2_speed_incr + 1;
-                end
-                else if (random_seed[7:0] < two_third) begin
-                    // preference - bomb_count -> player_speed -> bomb_radius
-                    if (p2_bomb_count < `MAX_BOMBS) p2_bomb_count <= p2_bomb_count + 1;
-                    else if (p2_speed_incr < `MAX_SPEED_INCR) p2_speed_incr <= p2_speed_incr + 1;
-                    else if (p2_bomb_radius < `MAX_RADIUS) p2_bomb_radius <= p2_bomb_radius+1;
-                end
-                else begin
-                    // preference -player_speed -> bomb_radius -> bomb_count             
-                    if (p2_speed_incr < `MAX_SPEED_INCR) p2_speed_incr <= p2_speed_incr + 1;
-                    else if (p2_bomb_radius < `MAX_RADIUS) p2_bomb_radius <= p2_bomb_radius + 1;   
-                    else if (p2_bomb_count < `MAX_BOMBS) p2_bomb_count <= p2_bomb_count + 1;             
-                end    
-            end
-        end
-        
-        if (rst_game) begin
-            p1_speed_incr <= 0;
-            p1_bomb_count <= 1;
-            p1_bomb_radius <= 1;
-            p2_speed_incr <= 0;
-            p2_bomb_count <= 1;
-            p2_bomb_radius <= 1;
-        end
-    end */
-    
    
 
 
@@ -1321,22 +1269,31 @@ module Top_Student (
         if (tile_x_of_pixel == 4'hF || tile_y_of_pixel == 4'hF) oled_data_single = `OLED_ORANGE;
         else oled_data_single = expand_tile(tile_map[tile_x_of_pixel][tile_y_of_pixel], local_x, local_y);
         
-        if (b_bomb_active[0][0] && tile_x_of_pixel == b_tx[0][0] && tile_y_of_pixel == b_ty[0][0]) oled_data_single = b_bomb_red[0][0] ? `OLED_RED : `OLED_ORANGE;
-        if (b_bomb_active[0][1] && tile_x_of_pixel == b_tx[0][1] && tile_y_of_pixel == b_ty[0][1]) oled_data_single = b_bomb_red[0][1] ? `OLED_RED : `OLED_ORANGE;
-        if (b_bomb_active[1][0] && tile_x_of_pixel == b_tx[1][0] && tile_y_of_pixel == b_ty[1][0]) oled_data_single = b_bomb_red[1][0] ? `OLED_RED : `OLED_ORANGE;
-        if (b_bomb_active[1][1] && tile_x_of_pixel == b_tx[1][1] && tile_y_of_pixel == b_ty[1][1]) oled_data_single = b_bomb_red[1][1] ? `OLED_RED : `OLED_ORANGE;
+        if (b_bomb_active[0][0] && tile_x_of_pixel == b_tx[0][0] && tile_y_of_pixel == b_ty[0][0]) 
+            if (bomb_pixel(local_x, local_y)) oled_data_single = b_bomb_red[0][0] ? `OLED_RED : `OLED_ORANGE;
+        if (b_bomb_active[0][1] && tile_x_of_pixel == b_tx[0][1] && tile_y_of_pixel == b_ty[0][1]) 
+            if (bomb_pixel(local_x, local_y)) oled_data_single = b_bomb_red[0][1] ? `OLED_RED : `OLED_ORANGE;
+        if (b_bomb_active[1][0] && tile_x_of_pixel == b_tx[1][0] && tile_y_of_pixel == b_ty[1][0]) 
+            if (bomb_pixel(local_x, local_y)) oled_data_single = b_bomb_red[1][0] ? `OLED_RED : `OLED_ORANGE;
+        if (b_bomb_active[1][1] && tile_x_of_pixel == b_tx[1][1] && tile_y_of_pixel == b_ty[1][1]) 
+            if (bomb_pixel(local_x, local_y)) oled_data_single = b_bomb_red[1][1] ? `OLED_RED : `OLED_ORANGE;
 
         // player
         if (p1_region) oled_data_single = p1_dead ? `OLED_CYAN : (p1_stunned ? `OLED_GREEN : `OLED_BLUE);
         if (p2_region) oled_data_single = p2_dead ? `OLED_PINK : (p2_stunned ? `OLED_GREEN : `OLED_RED);
         
         // stun region
-        if (p1_stun_region) oled_data_single = `OLED_BROWN;
-        if (p2_stun_region) oled_data_single = `OLED_BROWN;
+        if (p1_stun_region) oled_data_single = `OLED_NEON_GREEN;
+        if (p2_stun_region) oled_data_single = `OLED_NEON_GREEN;
 
         // draw walls
         if (x < `MIN_PIX_X || x > `MAX_PIX_X || y < `MIN_PIX_Y || y > `MAX_PIX_Y) oled_data_single = WALL_COLOR;
         
+        // hard mode single player (fog of war)
+        if (single_player && single_difficulty) begin
+            if ((x-p1_x-2)*(x-p1_x-2) + (y-p1_y-2)*(y-p1_y-2) >= `FOG_RADIUS*`FOG_RADIUS) oled_data_single = `OLED_BLACK;
+        end
+            
         // cursor
         if (p1_mouse_region) oled_data_single = `OLED_NAVY;
         if (p1_mouse_border) oled_data_single = `OLED_LIGHT_BLUE;
@@ -1380,6 +1337,7 @@ module Top_Student (
     
     powerup_oled pu_oled_inst (
         .pu_x(pu_x), .pu_y(pu_y),
+        .single_player(single_player), .player(player),
         .p1_bomb_radius(p1_bomb_radius),  .p1_bomb_count(p1_bomb_count),  .p1_speed_incr(p1_speed_incr),
         .p2_bomb_radius(p2_bomb_radius), .p2_bomb_count(p2_bomb_count), .p2_speed_incr(p2_speed_incr),
         .oled_data_powerup(oled_data_powerup)

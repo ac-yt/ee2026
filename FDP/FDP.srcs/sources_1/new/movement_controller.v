@@ -162,10 +162,10 @@ module movement_controller (input clk, rst_game, game_ready,// output reg [15:0]
                 else begin
                     if (move_tick) begin
                     case(last_dir)
-                        0: pos_x <= pos_x + 1; 
-                        1: pos_x <= pos_x - 1;
-                        2: pos_y <= pos_y + 1;
-                        3: pos_y <= pos_y - 1;
+                        `FACE_RIGHT: pos_x <= pos_x + 1; 
+                        `FACE_LEFT: pos_x <= pos_x - 1;
+                        `FACE_DOWN: pos_y <= pos_y + 1;
+                        `FACE_UP: pos_y <= pos_y - 1;
                     endcase
                     end
                 end
@@ -174,10 +174,10 @@ module movement_controller (input clk, rst_game, game_ready,// output reg [15:0]
                 // if next one is block, dont follow rest of path
                 if (next_is_block) path_step <= path_len_r;
                 else begin
-                    if      (pos_x < target_x) begin last_dir <= 0; pos_x <= pos_x + 1; end
-                    else if (pos_x > target_x) begin last_dir <= 1; pos_x <= pos_x - 1; end
-                    else if (pos_x == target_x && pos_y < target_y) begin last_dir <= 2; pos_y <= pos_y + 1; end
-                    else if (pos_x == target_x && pos_y > target_y) begin last_dir <= 3; pos_y <= pos_y - 1; end
+                    if      (pos_x < target_x) begin last_dir <= `FACE_RIGHT; pos_x <= pos_x + 1; end
+                    else if (pos_x > target_x) begin last_dir <= `FACE_LEFT; pos_x <= pos_x - 1; end
+                    else if (pos_x == target_x && pos_y < target_y) begin last_dir <= `FACE_DOWN; pos_y <= pos_y + 1; end
+                    else if (pos_x == target_x && pos_y > target_y) begin last_dir <= `FACE_UP; pos_y <= pos_y - 1; end
                   
                     if (pos_x == target_x && pos_y == target_y && path_step < path_len - 1) path_step <= path_step + 1;
                 end

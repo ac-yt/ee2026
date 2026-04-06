@@ -45,19 +45,19 @@ module stun_controller (
 
     always @(*) begin
         case (facing)
-            2'd0: begin // facing right -> rect to the right of player
+            `FACE_RIGHT: begin // facing right -> rect to the right of player
                 stun_x0_r = player_x + `PLAYER_WIDTH;
                 stun_x1_r = player_x + `PLAYER_WIDTH + HALF_TILE - 1;
                 stun_y0_r = player_y;
                 stun_y1_r = player_y + `PLAYER_WIDTH - 1;
             end
-            2'd1: begin // facing left -> rect to the left of player
+            `FACE_LEFT: begin // facing left -> rect to the left of player
                 stun_x0_r = player_x - HALF_TILE;
                 stun_x1_r = player_x - 1;
                 stun_y0_r = player_y;
                 stun_y1_r = player_y + `PLAYER_WIDTH - 1;
             end
-            2'd2: begin // facing down -> rect below player
+            `FACE_DOWN: begin // facing down -> rect below player
                 stun_x0_r = player_x;
                 stun_x1_r = player_x + `PLAYER_WIDTH - 1;
                 stun_y0_r = player_y + `PLAYER_WIDTH;

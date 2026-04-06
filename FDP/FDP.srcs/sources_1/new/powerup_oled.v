@@ -2,12 +2,13 @@
 
 `include "constants.vh"
 
-module powerup_oled(input [6:0] pu_x, input [5:0] pu_y,
-                    // P1 stats
-                    input [1:0] p1_bomb_radius, p1_bomb_count, p1_speed_incr,
-                    // P2 stats
-                    input [1:0] p2_bomb_radius, p2_bomb_count, p2_speed_incr,
-                    output reg [15:0] oled_data_powerup);
+module powerup_oled (input [6:0] pu_x, input [5:0] pu_y,
+                     input single_player, player,
+                     // P1 stats
+                     input [1:0] p1_bomb_radius, p1_bomb_count, p1_speed_incr,
+                     // P2 stats
+                     input [1:0] p2_bomb_radius, p2_bomb_count, p2_speed_incr,
+                     output reg [15:0] oled_data_powerup);
 
     // ----------------------------------------------------------------
     // LAYOUT  (96x64 px OLED, coordinates after 180-degree flip)
@@ -314,5 +315,7 @@ module powerup_oled(input [6:0] pu_x, input [5:0] pu_y,
         if (in_digit_col && (in_dig_row0 || in_dig_row1 || in_dig_row2)
                 && digit_pixel(dig_val, dig_lx, dig_ly[2:0]))
             oled_data_powerup = `OLED_WHITE;
+        
+        if (!single_player && player == `PLAYER_2) oled_data_powerup = `OLED_BLACK;
     end
 endmodule

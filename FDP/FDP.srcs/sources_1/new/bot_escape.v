@@ -84,6 +84,8 @@ module bot_escape(
                 if (exits == 0) s = s - 4'sd4;
                 else if (exits == 1) s = s - 4'sd2;
                 else if (exits >= 3) s = s + 4'sd1;
+                
+                if (tile_map[x][y] == `MAP_POWERUP) s = s + 4'sd2;
     
                 score_tile = s;
             end
