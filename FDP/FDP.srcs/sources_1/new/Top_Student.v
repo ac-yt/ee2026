@@ -1296,7 +1296,7 @@ module Top_Student (
         if (x < `MIN_PIX_X || x > `MAX_PIX_X || y < `MIN_PIX_Y || y > `MAX_PIX_Y) oled_data_single = WALL_COLOR;
         
         // hard mode single player (fog of war)
-        if (single_player && single_difficulty) begin
+        if (single_player && single_difficulty && ui_state != `DEATH_PAUSE) begin
             if ((x-p1_x-2)*(x-p1_x-2) + (y-p1_y-2)*(y-p1_y-2) >= `FOG_RADIUS*`FOG_RADIUS) oled_data_single = `OLED_BLACK;
         end
             
@@ -1307,7 +1307,7 @@ module Top_Student (
         if (!single_player && p2_mouse_border) oled_data_single = `OLED_LIGHT_RED;
         
         // overlay game countdown
-        if (!go_showing) begin
+        if (!go_showing && ui_state != `DEATH_PAUSE) begin
             case (countdown)
                 2'd3: begin
                     if (y >= 31-10 && y <= 31+10) oled_data_single = `OLED_RED;

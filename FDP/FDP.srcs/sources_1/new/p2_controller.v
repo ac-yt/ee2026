@@ -47,6 +47,14 @@ module p2_controller(input clk, rst_game, game_ready,
                      output [6:0] stun_x0, stun_x1,
                      output [5:0] stun_y0, stun_y1
 );
+    
+    reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
+    integer ux, uy; // unpack map
+    always @(*) begin
+        for (uy = 0; uy < `TILE_MAP_HEIGHT; uy = uy + 1)
+            for (ux = 0; ux < `TILE_MAP_WIDTH; ux = ux + 1)
+                tile_map[ux][uy] = tile_map_flat[(uy*`TILE_MAP_WIDTH + ux)*3 +: 3];
+    end
                                                       
     wire [$clog2(`PLAYER_MAX_SPEED)-1:0] speed = single_player ? 
                                                  `BOT_DEFAULT_SPEED + speed_multiplier * `BOT_SPEED_INCREMENT : 
@@ -75,8 +83,9 @@ module p2_controller(input clk, rst_game, game_ready,
     parameter BOT_ESCAPE_PATH = 3'b010;
     parameter BOT_ESCAPE_HUNT = 3'b011;
     parameter BOT_BOMB = 3'b100;
+    parameter BOT_POWERUP = 3'b101;
     reg [2:0] bot_state = BOT_HUNT;
-//    reg [2:0] bot_state_after_bomb = BOT_HUNT;
+    reg [2:0] bot_state_after_bomb = BOT_HUNT;
     
     reg bot_trigger = 0;
     wire next_is_block;
@@ -100,6 +109,11 @@ module p2_controller(input clk, rst_game, game_ready,
                                        manhattan_dist(p2_tx, p2_ty, bomb_tx_flat[bi*4 +: 4], bomb_ty_flat[bi*4 +: 4]) : 5'h1F;
         end
     endgenerate
+    
+    wire powerup_left = (p2_tx > 0 && tile_map[p2_tx-1][p2_ty] == `MAP_POWERUP);
+    wire powerup_right = (p2_tx < 14 && tile_map[p2_tx+1][p2_ty] == `MAP_POWERUP);
+    wire powerup_up = (p2_ty > 0 && tile_map[p2_tx][p2_ty-1] == `MAP_POWERUP);
+    wire powerup_down = (p2_ty < 8 && tile_map[p2_tx][p2_ty+1] == `MAP_POWERUP);
     
     always @ (posedge clk) begin
         bot_trigger <= 0;
@@ -163,10 +177,22 @@ module p2_controller(input clk, rst_game, game_ready,
                         bot_goal_ty <= p1_goal_ty;
                     end
                     
+                    if (powerup_left || powerup_right || powerup_up || powerup_down) begin
+                        bot_state <= BOT_POWERUP;
+                        
+                        bot_goal_tx <= p2_tx;
+                        bot_goal_ty <= p2_ty;
+                        
+                        if (powerup_left) bot_goal_tx <= p2_tx - 1;
+                        else if (powerup_right) bot_goal_tx <= p2_tx + 1;
+                        else if (powerup_up) bot_goal_ty <= p2_ty - 1;
+                        else if (powerup_down) bot_goal_ty <= p2_ty + 1;
+                    end
+                    
                     if ((next_is_block & ~next_is_block_prev) ||
                         (p2_tx == p1_goal_tx && p2_ty == p1_goal_ty) ||
                         (manhattan_dist(p2_tx, p2_ty, p1_tx, p1_ty) <= bomb_radius && (p2_tx == p1_tx || p2_ty == p1_ty))) begin
-//                        bot_state_after_bomb <= BOT_HUNT;
+                        bot_state_after_bomb <= BOT_HUNT;
                         bot_state <= BOT_BOMB; // close to p1
                     end
                     
@@ -212,12 +238,12 @@ module p2_controller(input clk, rst_game, game_ready,
                     bot_goal_ty <= p1_ty;
                     
                     // allow to place bombs
-                    /*if ((next_is_block & ~next_is_block_prev) ||
+                    if ((next_is_block & ~next_is_block_prev) ||
                         (p2_tx == p1_goal_tx && p2_ty == p1_goal_ty) ||
                         (manhattan_dist(p2_tx, p2_ty, p1_tx, p1_ty) <= bomb_radius && (p2_tx == p1_tx || p2_ty == p1_ty))) begin
                         bot_state_after_bomb <= BOT_ESCAPE_HUNT;
                         bot_state <= BOT_BOMB; // close to p1
-                    end*/
+                    end
                     
                     if (bomb_player == 0 && !p1_bomb_active[bomb_number] && !p1_explosion_active[bomb_number]) bot_state <= BOT_HUNT;
                     else if (bomb_player == 1 && !bomb_active[bomb_number] && !explosion_active[bomb_number]) bot_state <= BOT_HUNT;
@@ -232,7 +258,11 @@ module p2_controller(input clk, rst_game, game_ready,
                 end
                 BOT_BOMB: begin
                     bot_trigger <= game_ready; // prevent placement when not ready
-                    bot_state <= BOT_HUNT;
+                    bot_state <= bot_state_after_bomb; //BOT_HUNT;
+                end
+                BOT_POWERUP: begin
+                    if (bot_goal_tx == p2_tx && bot_goal_ty == p2_ty) bot_state <= BOT_HUNT;
+                    else if (in_danger) bot_state <= BOT_ESCAPE;
                 end
             endcase
         end
