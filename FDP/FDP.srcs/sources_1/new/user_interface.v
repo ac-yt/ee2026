@@ -12,6 +12,8 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                       input [2:0] pair_state,
                       input player, p1_dead, p2_dead,
                       input [6:0] x, input [5:0] y,
+                      input other_ready,
+                      output reg ready=0,
                       output reg rst_game=0, game_active=0, game_start=0, send_pair_req=0, send_unpair_req=0, //game_over=0,
                       output reg save_game=0, load_game=0,
                       output reg single_difficulty=0,
@@ -157,6 +159,7 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                 
                 if (pulse_btnC) begin
                     next_wait_pair_cursor = BUTTON_PAIR_BACK;
+                    next_menu_cursor = BUTTON_MENU_BACK;
                     if (wait_pair_cursor == BUTTON_PAIR_BACK) next_state = `HOME;
                     else if (wait_pair_cursor == BUTTON_PAIR_START && pair_state == `PAIRED) next_state = `MULTI_HOME;
                 end
@@ -165,7 +168,8 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                 if (player == `PLAYER_1) begin
                     if (pulse_btnU) begin
                         case (menu_cursor)
-                            BUTTON_MENU_BACK: next_menu_cursor = (multi_game_saved && !game_over_multi) ? BUTTON_MENU_RESUME : BUTTON_MENU_RESTART;
+                            BUTTON_MENU_BACK: next_menu_cursor = (multi_game_saved && !game_over_multi) ? BUTTON_MENU_RESUME :
+                                                                 (other_ready ? BUTTON_MENU_RESTART : BUTTON_MENU_BACK);
                             BUTTON_MENU_RESTART: next_menu_cursor = BUTTON_MENU_BACK;
                             BUTTON_MENU_RESUME: next_menu_cursor = BUTTON_MENU_RESTART;
                             default: next_menu_cursor = BUTTON_MENU_BACK;
@@ -174,7 +178,7 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
      
                     if (pulse_btnD) begin
                         case (menu_cursor)
-                            BUTTON_MENU_BACK: next_menu_cursor = BUTTON_MENU_RESTART;
+                            BUTTON_MENU_BACK: next_menu_cursor = other_ready ? BUTTON_MENU_RESTART : BUTTON_MENU_BACK;
                             BUTTON_MENU_RESTART: next_menu_cursor = (multi_game_saved && !game_over_multi) ? BUTTON_MENU_RESUME : BUTTON_MENU_BACK;
                             BUTTON_MENU_RESUME: next_menu_cursor = BUTTON_MENU_BACK;
                             default: next_menu_cursor = BUTTON_MENU_BACK;
@@ -251,6 +255,8 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
         home_cursor <= next_home_cursor;
         menu_cursor <= next_menu_cursor;
         wait_pair_cursor <= next_wait_pair_cursor;
+        
+        ready <= 0;
  
         case (state)
             `HOME: begin
@@ -296,6 +302,7 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                 end
             end
             `MULTI_HOME: begin
+                ready <= 1;
                 if (pulse_btnC) begin
                     case (menu_cursor)
                         BUTTON_MENU_RESUME: begin
@@ -645,17 +652,67 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                                 oled_data <= (menu_cursor == BUTTON_MENU_RESUME) ? `OLED_YELLOW : `OLED_WHITE;
                         end
                         
-                        // ?? RESTART button ??
-                        if (draw_rect(x, y, 23, 25, 50, 13))
-                            oled_data <= (menu_cursor == BUTTON_MENU_RESTART) ? `OLED_YELLOW : `OLED_WHITE;
-                        if (draw_letter(x, y, 30, 31, "R") ||
-                            draw_letter(x, y, 36, 31, "E") ||
-                            draw_letter(x, y, 42, 31, "S") ||
-                            draw_letter(x, y, 48, 31, "T") ||
-                            draw_letter(x, y, 54, 31, "A") ||
-                            draw_letter(x, y, 60, 31, "R") ||
-                            draw_letter(x, y, 66, 31, "T"))
-                            oled_data <= (menu_cursor == BUTTON_MENU_RESTART) ? `OLED_YELLOW : `OLED_WHITE;
+                        if (other_ready) begin
+                            if (draw_rect(x, y, 23, 25, 50, 13))
+                                oled_data <= (menu_cursor == BUTTON_MENU_RESTART) ? `OLED_YELLOW : `OLED_WHITE;
+                            if (draw_letter(x, y, 30, 31, "R") ||
+                                draw_letter(x, y, 36, 31, "E") ||
+                                draw_letter(x, y, 42, 31, "S") ||
+                                draw_letter(x, y, 48, 31, "T") ||
+                                draw_letter(x, y, 54, 31, "A") ||
+                                draw_letter(x, y, 60, 31, "R") ||
+                                draw_letter(x, y, 66, 31, "T"))
+                                oled_data <= (menu_cursor == BUTTON_MENU_RESTART) ? `OLED_YELLOW : `OLED_WHITE;
+                        end
+                        else begin
+                            if (draw_letter(x, y,  9, 49, "W") ||
+                                draw_letter(x, y, 15, 49, "A") ||
+                                draw_letter(x, y, 21, 49, "I") ||
+                                draw_letter(x, y, 27, 49, "T") ||
+                                draw_letter(x, y, 33, 49, "I") ||
+                                draw_letter(x, y, 39, 49, "N") ||
+                                draw_letter(x, y, 45, 49, "G") ||
+                                draw_letter(x, y, 51, 49, " ") ||
+                                draw_letter(x, y, 57, 49, "F") ||
+                                draw_letter(x, y, 63, 49, "O") ||
+                                draw_letter(x, y, 69, 49, "R") ||
+                                draw_letter(x, y, 75, 49, " ") ||
+                                draw_letter(x, y, 81, 49, "P") ||
+                                draw_letter(x, y, 87, 49, "2")) oled_data <= `OLED_RED;
+                        end
+                    end
+                    else begin
+                        if (other_ready) begin
+                            if (draw_letter(x, y, 12, 49, "R") ||
+                                draw_letter(x, y, 18, 49, "U") ||
+                                draw_letter(x, y, 24, 49, "N") ||
+                                draw_letter(x, y, 30, 49, "N") ||
+                                draw_letter(x, y, 36, 49, "I") ||
+                                draw_letter(x, y, 42, 49, "N") ||
+                                draw_letter(x, y, 48, 49, "G") ||
+                                draw_letter(x, y, 54, 49, " ") ||
+                                draw_letter(x, y, 60, 49, "O") ||
+                                draw_letter(x, y, 66, 49, "N") ||
+                                draw_letter(x, y, 72, 49, " ") ||
+                                draw_letter(x, y, 78, 49, "P") ||
+                                draw_letter(x, y, 84, 49, "1")) oled_data <= `OLED_GREEN;
+                        end
+                        else begin
+                            if (draw_letter(x, y,  9, 49, "W") ||
+                                draw_letter(x, y, 15, 49, "A") ||
+                                draw_letter(x, y, 21, 49, "I") ||
+                                draw_letter(x, y, 27, 49, "T") ||
+                                draw_letter(x, y, 33, 49, "I") ||
+                                draw_letter(x, y, 39, 49, "N") ||
+                                draw_letter(x, y, 45, 49, "G") ||
+                                draw_letter(x, y, 51, 49, " ") ||
+                                draw_letter(x, y, 57, 49, "F") ||
+                                draw_letter(x, y, 63, 49, "O") ||
+                                draw_letter(x, y, 69, 49, "R") ||
+                                draw_letter(x, y, 75, 49, " ") ||
+                                draw_letter(x, y, 81, 49, "P") ||
+                                draw_letter(x, y, 87, 49, "1")) oled_data <= `OLED_RED;
+                        end
                     end
                 end
                 `GAME_OVER: begin

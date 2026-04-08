@@ -118,6 +118,8 @@ module Top_Student (
         .player(player)
     );
     
+    wire ready, rec_ready;
+    
     package_game_data game_inst (
         .clk(clk), 
         .mouse_cx(mouse_cx), 
@@ -125,6 +127,7 @@ module Top_Student (
         .mouse_left(mouse_left), 
         .mouse_middle(mouse_middle), 
         .mouse_right(mouse_right),
+        .ready(ready),
         .tx_en(tx_en_game), 
         .player(player), 
         .data_tx_game(data_tx_game)
@@ -136,7 +139,7 @@ module Top_Student (
     wire rec_mouse_left, rec_mouse_middle, rec_mouse_right;
     wire [1:0] rec_bomb_count, rec_bomb_radius, rec_speed_incr;
     
-    assign {rec_mouse_cx, rec_mouse_cy, rec_mouse_left, rec_mouse_middle, rec_mouse_right} = data_rx_game;
+    assign {rec_mouse_cx, rec_mouse_cy, rec_mouse_left, rec_mouse_middle, rec_mouse_right, rec_ready} = data_rx_game;
         
     wire [3:0] rec_mouse_tx = (rec_mouse_cx >= `MIN_PIX_X && rec_mouse_cx <= `MAX_PIX_X) ? ((rec_mouse_cx - `MIN_PIX_X) * 7'd43) >> 8 : 4'hF;
     wire [3:0] rec_mouse_ty = (rec_mouse_cy >= `MIN_PIX_Y && rec_mouse_cy <= `MAX_PIX_Y) ? ((rec_mouse_cy - `MIN_PIX_Y) * 7'd43) >> 8 : 4'hF;
@@ -310,7 +313,9 @@ module Top_Student (
         .rst_game(rst_game), 
         .game_active(game_active), 
         .game_start(game_start),
-        .single_difficulty(single_difficulty)
+        .single_difficulty(single_difficulty),
+        .ready(ready),
+        .other_ready(rec_ready)
     );
     
 
