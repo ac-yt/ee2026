@@ -59,6 +59,7 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
     reg [$clog2(DEATH_PAUSE_TIME)-1:0] death_counter = 0;
     
     reg [1:0] winner = 0; // 0 player 1, 1 player 2, 2 draw
+    reg came_from_single = 0;
  
     // -------------------------------------------------------
     // BUTTON
@@ -209,7 +210,7 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                     next_menu_cursor = BUTTON_MENU_RESUME;
                 end
                 
-                if ((p1_dead || p2_dead) && !game_over_single && prev_state == `SINGLE_GAME) begin
+                if ((p1_dead || p2_dead) && prev_state == `SINGLE_GAME) begin
                     next_state = `DEATH_PAUSE;
                     next_menu_cursor = BUTTON_MENU_RESTART;
                 end
@@ -220,7 +221,7 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                     next_menu_cursor = BUTTON_MENU_RESUME;
                 end
 
-                if ((p1_dead || p2_dead) && !game_over_multi && prev_state == `MULTI_GAME) begin
+                if ((p1_dead || p2_dead) && prev_state == `MULTI_GAME) begin
                     next_state = `DEATH_PAUSE;
                     next_menu_cursor = BUTTON_MENU_RESTART;
                 end
@@ -233,8 +234,11 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
             end
             `GAME_OVER: begin
                 if (pulse_btnC) begin
-                    next_state = game_over_single ? `SINGLE_HOME : `MULTI_HOME;
+                    next_state = came_from_single ? `SINGLE_HOME : `MULTI_HOME;
                 end
+                
+                // return to wait for pair if connection lost
+                if (!came_from_single && pair_state != `PAIRED) next_state = `MULTI_WAIT_PAIR;
             end
         endcase
     end
@@ -303,6 +307,7 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
             end
             `MULTI_HOME: begin
                 ready <= 1;
+                    
                 if (pulse_btnC) begin
                     case (menu_cursor)
                         BUTTON_MENU_RESUME: begin
@@ -326,10 +331,12 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
             `SINGLE_GAME: begin
                 game_active <= 1;
                 single_game_saved <= 1;
+                came_from_single <= 1;
                 
                 if (p1_dead || p2_dead) begin
                     winner <= (!p1_dead && p2_dead) ? 0 : ((p1_dead && !p2_dead) ? 1 : 2);
                     death_counter <= 0;
+                    game_over_single <= 1;
                 end
                 
                 // save state
@@ -339,18 +346,20 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                 ready <= 1;
                 game_active <= 1;
                 multi_game_saved <= 1;
+                came_from_single <= 0;
                 
                 if (p1_dead || p2_dead) begin
                     winner <= (!p1_dead && p2_dead) ? 0 : ((p1_dead && !p2_dead) ? 1 : 2);
                     death_counter <= 0;
+                    game_over_multi <= 1;
                 end
             end
             `DEATH_PAUSE: begin
                 ready <= 1;
                 death_counter <= death_counter + 1;
                 
-                if (prev_state == `SINGLE_GAME) game_over_single <= 1;
-                else if (prev_state == `MULTI_GAME) game_over_multi <= 1;
+                // if (prev_state == `SINGLE_GAME) game_over_single <= 1;
+                // else if (prev_state == `MULTI_GAME) game_over_multi <= 1;
             end
             `GAME_OVER: begin
                 ready <= 1;
