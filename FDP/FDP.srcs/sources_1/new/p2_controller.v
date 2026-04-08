@@ -122,7 +122,7 @@ module p2_controller(input clk, rst_game, game_ready_in,
         bot_trigger <= 0;
         bombs_as_walls <= 0;
         bot_force_baw <= 0;
-        led[2:0] <= bot_state;
+//        led[2:0] <= bot_state;
 //        led[2] <= p1_bait_escape;
         
         // track closest bomb to figure out which is the danger

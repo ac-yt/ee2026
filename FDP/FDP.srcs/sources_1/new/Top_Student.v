@@ -622,7 +622,7 @@ module Top_Student (
         .p1_x(p1_x),
         .p1_y(p1_y),
         .p1_dead(p1_dead),
-        .p1_stunned(p2_stunned),        
+        .p1_stunned(p1_stunned),        
         
         .place_bomb_req(p1_place_bomb_req),
         .bomb_active(p1_bomb_active),
@@ -1366,12 +1366,12 @@ module Top_Student (
     always @(posedge clk) begin
         data_tx <= {data_tx_game, data_tx_code};
         
-        led[15:14] <= p1_bomb_radius;
-        led[13:12] <= p1_bomb_count;
-        led[11:10] <= p1_speed_incr;
-        led[9:8] <= p2_bomb_radius;
-        led[7:6] <= p2_bomb_count;
-        led[5:4] <= p2_speed_incr;
+//        led[15:14] <= p1_bomb_radius;
+//        led[13:12] <= p1_bomb_count;
+//        led[11:10] <= p1_speed_incr;
+//        led[9:8] <= p2_bomb_radius;
+//        led[7:6] <= p2_bomb_count;
+//        led[5:4] <= p2_speed_incr;
         
         case (player)
             `PLAYER_1: begin
