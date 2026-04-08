@@ -2,7 +2,7 @@
 
 `include "constants.vh"
 
-module p1_controller (input clk, rst_game, game_ready, load_game,
+module p1_controller (input clk, rst_game, game_ready_in, load_game,
                       input [3:0] mouse_tx, mouse_ty, sv_tx, sv_ty,//goal_tx, goal_ty,
                       input mouse_left_pulse, mouse_right_pulse, mouse_middle_pulse,
                       input [(`TILE_MAP_SIZE*3)-1:0] tile_map_flat,
@@ -35,11 +35,14 @@ module p1_controller (input clk, rst_game, game_ready, load_game,
                       // stun
                       input [6:0] p2_x,
                       input [5:0] p2_y,
+                      input p1_stunned,
                       
                       output stun_active, p2_stunned,
                       output [6:0] stun_x0, stun_x1,
                       output [5:0] stun_y0, stun_y1
 );
+    
+    wire game_ready = game_ready_in && !p1_stunned;
       
     always @ (posedge clk) begin
         if (rst_game) begin
@@ -139,7 +142,7 @@ module p1_controller (input clk, rst_game, game_ready, load_game,
     wire stun_trigger = !p1_dead && (active_bombs >= bomb_count) && mouse_right_pulse;
     
     stun_controller p1_stun (
-        .clk(clk), .rst_game(rst_game), .game_ready(game_ready),
+        .clk(clk), .rst_game(rst_game), .game_ready(game_ready_in),
         .trigger(stun_trigger),
         .facing(facing),
         .player_x(p1_x), .player_y(p1_y),

@@ -2,7 +2,7 @@
 
 `include "constants.vh"
 
-module p2_controller(input clk, rst_game, game_ready,
+module p2_controller(input clk, rst_game, game_ready_in,
                      input single_player, load_game,
                      input [3:0] p1_tx, p1_ty, p1_goal_tx, p1_goal_ty, mouse_tx, mouse_ty, sv_tx, sv_ty, // done in top student
                      input mouse_left_pulse, mouse_right_pulse, mouse_middle_pulse,
@@ -42,11 +42,14 @@ module p2_controller(input clk, rst_game, game_ready,
                      // stun
                      input [6:0] p1_x,
                      input [5:0] p1_y,
+                     input p2_stunned,
                     
                      output stun_active, p1_stunned,
                      output [6:0] stun_x0, stun_x1,
                      output [5:0] stun_y0, stun_y1
 );
+
+    wire game_ready = game_ready_in && !p2_stunned;
     
     reg [2:0] tile_map [0:`TILE_MAP_WIDTH-1][0:`TILE_MAP_HEIGHT-1];
     integer ux, uy; // unpack map
@@ -383,7 +386,7 @@ module p2_controller(input clk, rst_game, game_ready,
     wire stun_trigger = (!p2_dead && active_bombs >= bomb_count) ? (single_player ? bot_stun_trigger : player_stun_trigger) : 0;
     
     stun_controller p2_stun (
-        .clk(clk), .rst_game(rst_game), .game_ready(game_ready),
+        .clk(clk), .rst_game(rst_game), .game_ready(game_ready_in),
         .trigger(stun_trigger),
         .facing(facing),
         .player_x(p2_x), .player_y(p2_y),

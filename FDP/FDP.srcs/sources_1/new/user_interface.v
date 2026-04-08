@@ -336,6 +336,7 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                 if (pulse_btnC) save_game <= 1;
             end
             `MULTI_GAME: begin
+                ready <= 1;
                 game_active <= 1;
                 multi_game_saved <= 1;
                 
@@ -345,12 +346,14 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                 end
             end
             `DEATH_PAUSE: begin
+                ready <= 1;
                 death_counter <= death_counter + 1;
                 
                 if (prev_state == `SINGLE_GAME) game_over_single <= 1;
                 else if (prev_state == `MULTI_GAME) game_over_multi <= 1;
             end
             `GAME_OVER: begin
+                ready <= 1;
                 death_counter <= 0;
             end
             default: begin end
@@ -361,13 +364,11 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
     always @ (posedge clk) begin
             oled_data <= `OLED_BLACK;
             case (state)
-                // ????????????????????????????????????????????????
                 // HOME SCREEN
                 // OLED: 96x64px
                 // Title BOMBERMAN: big font, y=15
                 // SINGLE: rect left=3,  top=37, w=43, h=19 | text y=46
                 // MULTI:  rect left=51, top=37, w=43, h=19 | text y=46
-                // ????????????????????????????????????????????????
                 `HOME: begin
                     //extra stuff for astetics
                     big_row = y - (15 - (`CHAR_HEIGHT_BIG-1)/2);  // 15 is your yc

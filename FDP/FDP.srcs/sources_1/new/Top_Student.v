@@ -602,7 +602,7 @@ module Top_Student (
     p1_controller p1_ctrl_inst (
         .clk(clk),
         .rst_game(rst_game),
-        .game_ready(game_ready & !p1_stunned),
+        .game_ready_in(game_ready),// & !p1_stunned),
         .goal_tx(p1_goal_tx),
         .goal_ty(p1_goal_ty),
         .load_game(load_game),
@@ -621,7 +621,8 @@ module Top_Student (
         .p1_ty(p1_ty),
         .p1_x(p1_x),
         .p1_y(p1_y),
-        .p1_dead(p1_dead),        
+        .p1_dead(p1_dead),
+        .p1_stunned(p2_stunned),        
         
         .place_bomb_req(p1_place_bomb_req),
         .bomb_active(p1_bomb_active),
@@ -665,7 +666,7 @@ module Top_Student (
         .led(led2),
         .clk(clk),
         .rst_game(rst_game),
-        .game_ready(game_ready & !p2_stunned),
+        .game_ready_in(game_ready),// & !p2_stunned),
         .single_player(single_player),
         .load_game(load_game),
         .sv_tx(sv_p2_tx),
@@ -690,6 +691,7 @@ module Top_Student (
         .p2_x(p2_x),
         .p2_y(p2_y),
         .p2_dead(p2_dead),
+        .p2_stunned(p2_stunned),
 
         .place_bomb_req(p2_place_bomb_req),
         .bomb_active(p2_bomb_active),
