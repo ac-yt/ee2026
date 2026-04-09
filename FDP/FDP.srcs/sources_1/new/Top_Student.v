@@ -1142,7 +1142,8 @@ module Top_Student (
                                 curr_left_len <= left_len[0][0];
                                 curr_right_len <= right_len[0][0];
                                 curr_stage <= b_stage[0][0];
-                                curr_mode <= place_pending[0][0] ? 2'd0 : (blast_stage_pending[0][0] ? 2'd1 : 2'd2);
+//                                curr_mode <= place_pending[0][0] ? 2'd0 : (blast_stage_pending[0][0] ? 2'd1 : 2'd2);
+                                curr_mode <= place_pending[0][0] ? 2'd0 : (end_pending[0][0] ? 2'd2 : 2'd1);
                                
                                 bomb_state <= UPDATE;
                             end
@@ -1156,7 +1157,8 @@ module Top_Student (
                                 curr_left_len <= left_len[0][1];
                                 curr_right_len <= right_len[0][1];
                                 curr_stage <= b_stage[0][1];
-                                curr_mode <= place_pending[0][1] ? 2'd0 : (blast_stage_pending[0][1] ? 2'd1 : 2'd2);
+//                                curr_mode <= place_pending[0][1] ? 2'd0 : (blast_stage_pending[0][1] ? 2'd1 : 2'd2);
+                                curr_mode <= place_pending[0][1] ? 2'd0 : (end_pending[0][1] ? 2'd2 : 2'd1);
                                 
                                 bomb_state <= UPDATE;
                             end
@@ -1170,7 +1172,8 @@ module Top_Student (
                                 curr_left_len <= left_len[1][0];
                                 curr_right_len <= right_len[1][0];
                                 curr_stage <= b_stage[1][0];
-                                curr_mode <= place_pending[1][0] ? 2'd0 : (blast_stage_pending[1][0] ? 2'd1 : 2'd2);
+//                                curr_mode <= place_pending[1][0] ? 2'd0 : (blast_stage_pending[1][0] ? 2'd1 : 2'd2);
+                                curr_mode <= place_pending[1][0] ? 2'd0 : (end_pending[1][0] ? 2'd2 : 2'd1);
                                 
                                 bomb_state <= UPDATE;
                             end
@@ -1184,7 +1187,8 @@ module Top_Student (
                                 curr_left_len <= left_len[1][1];
                                 curr_right_len <= right_len[1][1];
                                 curr_stage <= b_stage[1][1];
-                                curr_mode <= place_pending[1][1] ? 2'd0 : (blast_stage_pending[1][1] ? 2'd1 : 2'd2);
+//                                curr_mode <= place_pending[1][1] ? 2'd0 : (blast_stage_pending[1][1] ? 2'd1 : 2'd2);
+                                curr_mode <= place_pending[1][1] ? 2'd0 : (end_pending[1][1] ? 2'd2 : 2'd1);
                                 
                                 bomb_state <= UPDATE;
                             end
@@ -1207,10 +1211,14 @@ module Top_Student (
                                     if (curr_right_len >= 1) tile_map[curr_tx+1][curr_ty] <= `MAP_BLAST;
                                     
                                     // check bomb destroy
-                                    destroy_up[curr_pi][curr_bi] <= (tile_map[curr_tx][curr_ty-curr_up_len] == `MAP_BLOCK);
-                                    destroy_down[curr_pi][curr_bi] <= (tile_map[curr_tx][curr_ty+curr_down_len] == `MAP_BLOCK);
-                                    destroy_left[curr_pi][curr_bi] <= (tile_map[curr_tx-curr_left_len][curr_ty] == `MAP_BLOCK);
-                                    destroy_right[curr_pi][curr_bi] <= (tile_map[curr_tx+curr_right_len][curr_ty] == `MAP_BLOCK);
+                                    destroy_up[curr_pi][curr_bi] <= (tile_map[curr_tx][curr_ty-curr_up_len] == `MAP_BLOCK) &&
+                                                                    (tile_map[curr_tx][curr_ty-curr_up_len] != `MAP_WALL);
+                                    destroy_down[curr_pi][curr_bi] <= (tile_map[curr_tx][curr_ty+curr_down_len] == `MAP_BLOCK) &&
+                                                                      (tile_map[curr_tx][curr_ty+curr_down_len] != `MAP_WALL);
+                                    destroy_left[curr_pi][curr_bi] <= (tile_map[curr_tx-curr_left_len][curr_ty] == `MAP_BLOCK) &&
+                                                                      (tile_map[curr_tx-curr_left_len][curr_ty] != `MAP_WALL);
+                                    destroy_right[curr_pi][curr_bi] <= (tile_map[curr_tx+curr_right_len][curr_ty] == `MAP_BLOCK) &&
+                                                                       (tile_map[curr_tx+curr_right_len][curr_ty] != `MAP_WALL);
                                 end
                                 
                                 if (curr_stage >= 2) begin
@@ -1225,7 +1233,7 @@ module Top_Student (
                             else begin // ending
                                 // clear current bomb tiles
                                 tile_map[curr_tx][curr_ty] <= `MAP_EMPTY;
-                                if (curr_up_len >= 1) tile_map[curr_tx][curr_ty-1] <= `MAP_EMPTY; 
+                                if (curr_up_len >= 1 ) tile_map[curr_tx][curr_ty-1] <= `MAP_EMPTY; 
                                 if (curr_up_len >= 2) tile_map[curr_tx][curr_ty-2] <= `MAP_EMPTY; 
                                 if (curr_down_len >= 1) tile_map[curr_tx][curr_ty+1] <= `MAP_EMPTY; 
                                 if (curr_down_len >= 2) tile_map[curr_tx][curr_ty+2] <= `MAP_EMPTY; 
@@ -1241,10 +1249,10 @@ module Top_Student (
                                 
                                 // check other bombs to make sure their blast didnt get overwritten
                                 // re-queue other active bombs to restore their blast tiles
-                                if (b_explosion_active[0][0] && !(curr_pi == 0 && curr_bi == 0)) blast_stage_pending[0][0] <= 1;
-                                if (b_explosion_active[0][1] && !(curr_pi == 0 && curr_bi == 1)) blast_stage_pending[0][1] <= 1;
-                                if (b_explosion_active[1][0] && !(curr_pi == 1 && curr_bi == 0)) blast_stage_pending[1][0] <= 1;
-                                if (b_explosion_active[1][1] && !(curr_pi == 1 && curr_bi == 1)) blast_stage_pending[1][1] <= 1;
+                                if (b_explosion_active[0][0] && !end_pending[0][0] && !(curr_pi == 0 && curr_bi == 0)) blast_stage_pending[0][0] <= 1;
+                                if (b_explosion_active[0][1] && !end_pending[0][1] && !(curr_pi == 0 && curr_bi == 1)) blast_stage_pending[0][1] <= 1;
+                                if (b_explosion_active[1][0] && !end_pending[1][0] && !(curr_pi == 1 && curr_bi == 0)) blast_stage_pending[1][0] <= 1;
+                                if (b_explosion_active[1][1] && !end_pending[1][1] && !(curr_pi == 1 && curr_bi == 1)) blast_stage_pending[1][1] <= 1;
                                 
                                 end_pending[curr_pi][curr_bi] <= 0;
                             end            

@@ -231,6 +231,8 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
             end
             `DEATH_PAUSE: begin
                 if (death_counter == DEATH_PAUSE_TIME-1) next_state = `GAME_OVER;
+                
+                if (!came_from_single && pair_state != `PAIRED) next_state = `MULTI_WAIT_PAIR;
             end
             `GAME_OVER: begin
                 if (pulse_btnC) begin
@@ -332,11 +334,12 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                 game_active <= 1;
                 single_game_saved <= 1;
                 came_from_single <= 1;
+//                game_over_single <= 0;
                 
                 if (p1_dead || p2_dead) begin
                     winner <= (!p1_dead && p2_dead) ? 0 : ((p1_dead && !p2_dead) ? 1 : 2);
                     death_counter <= 0;
-                    game_over_single <= 1;
+//                    game_over_single <= 1;
                 end
                 
                 // save state
@@ -347,19 +350,20 @@ module interface_fsm (input clk, btnL, btnR, btnC, btnU, btnD,
                 game_active <= 1;
                 multi_game_saved <= 1;
                 came_from_single <= 0;
+//                game_over_multi <= 0;
                 
                 if (p1_dead || p2_dead) begin
                     winner <= (!p1_dead && p2_dead) ? 0 : ((p1_dead && !p2_dead) ? 1 : 2);
                     death_counter <= 0;
-                    game_over_multi <= 1;
+//                    game_over_multi <= 1;
                 end
             end
             `DEATH_PAUSE: begin
                 ready <= 1;
                 death_counter <= death_counter + 1;
                 
-                // if (prev_state == `SINGLE_GAME) game_over_single <= 1;
-                // else if (prev_state == `MULTI_GAME) game_over_multi <= 1;
+                 if (prev_state == `SINGLE_GAME) game_over_single <= 1;
+                 else if (prev_state == `MULTI_GAME) game_over_multi <= 1;
             end
             `GAME_OVER: begin
                 ready <= 1;
