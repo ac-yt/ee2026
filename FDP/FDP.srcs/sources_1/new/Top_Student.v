@@ -508,9 +508,9 @@ module Top_Student (
         begin
             cursor_border = (cursor_region(x, px, y, py) == 0 && // not inside cursor
                             (cursor_region(x+1, px, y, py) == 1 || // and neighbor is inside the cursor
-                             cursor_region(x-1, px, y, py) == 1 ||
+                             (x > 0 && cursor_region(x-1, px, y, py) == 1) ||
                              cursor_region(x, px, y+1, py) == 1 ||
-                             cursor_region(x, px, y-1, py) == 1));
+                             (y > 0 && cursor_region(x, px, y-1, py) == 1)));
         end
     endfunction
     
